@@ -1,6 +1,6 @@
 function themeSwitch() {
 	let duration = 0.4;
-	//let isDay = window.matchMedia('(prefers-color-scheme: light)').matches;
+	// let isDay = window.matchMedia('(prefers-color-scheme: light)').matches;
 	let isDay = true;
 
 	let back = document.getElementById("back");
@@ -74,7 +74,15 @@ function themeSwitch() {
 			".overlay",
 			{
 				opacity: 0.5,
-				duration: duration * 2,
+				duration: duration * 2
+			},
+			0
+		)
+		.to(
+			"#menu",
+			{
+				background: "#000",
+				duration: duration * 2
 			},
 			0
 		)
@@ -89,8 +97,8 @@ function themeSwitch() {
 		.to(
 			"#vcard",
 			{ 
-				boxShadow: "20px 20px 60px #323232",
-				duration: duration * 2
+				// boxShadow: "20px 20px 60px #323232",
+				// duration: duration * 2
 			},
 			0
 		)
@@ -117,7 +125,16 @@ function themeSwitch() {
 				duration: duration * 2
 			},
 			0
-		);
+		)
+		.to(
+			".burger-line",
+			{
+				background: "#fff",
+				duration: duration * 2
+			},
+			0
+		)
+		;
 
 	let stars = Array.from(document.getElementsByClassName("star"));
 	stars.map(star =>
@@ -155,6 +172,79 @@ function themeSwitch() {
 	};
 }
 
+function menuActivation() {
+	let isActive = false;
+	let duration = .25
+	let toActivateMenuAnimation = gsap.timeline();
+
+	toActivateMenuAnimation
+		.to(
+			".burger-line:nth-child(2)",
+			{
+				opacity: 0,
+				ease: Power2.easeInOut,
+				duration: duration
+			}
+		)
+		.to(
+			".burger-line:nth-child(1)",
+			{
+				rotation: -45,
+				duration: duration
+			}
+		)
+		.to(
+			".burger-line:nth-child(3)",
+			{
+				rotation: 45,
+				duration: duration
+			}
+		)
+		.fromTo(
+			"#menu",
+			{
+				height: "0"
+			},
+			{
+				height: "100%"
+			},
+			"-=.25"
+		)
+		.fromTo(
+			"#menu li",
+			{
+				opacity: 0,
+				scale: 2
+			},
+			{
+				opacity: 1,
+				scale: 1,
+				stagger: .1
+			}
+		);
+	
+	toActivateMenuAnimation.pause();
+
+	if (isActive) {
+		toActivateMenuAnimation.play();
+	} else {
+		toActivateMenuAnimation.reverse();
+	}
+
+	let switchToggle = document.getElementById("burger");
+	switchToggle.addEventListener("click", () => toggle());
+
+	let toggle = () => {
+		if (!isActive) {
+			isActive = true;
+			toActivateMenuAnimation.play();
+		} else if (isActive) {
+			isActive = false;
+			toActivateMenuAnimation.reverse();
+		}
+	};
+}
+
 function typeWriter() {
 	let words = new TypeIt(".typewriter", {
 		loop: true,
@@ -165,34 +255,28 @@ function typeWriter() {
 	}).go();
 };
 
-function scrollAnim() {
-	// hide menu
-	window.addEventListener('scroll', () => {
-		const viewHeight = window.innerHeight;
-		if (window.pageYOffset > viewHeight*.5) {
-			document.getElementById('menu').classList.add('hidden');
-		}
-		else {
-			document.getElementById('menu').classList.remove('hidden');
-		}
-	});
+// function scrollAnim() {
+// 	// hide menu
+// 	window.addEventListener('scroll', () => {
+// 		const viewHeight = window.innerHeight;
+// 		if (window.pageYOffset < viewHeight*.5) {
+// 			document.getElementById('menu').classList.add('hidden');
+// 		}
+// 		else {
+// 			document.getElementById('menu').classList.remove('hidden');
+// 		}
+// 	});
+// }
 
-	// rotates gears
-	window.addEventListener('scroll', () => {
-		document.getElementById('blade').style.transform = "rotate("+window.pageYOffset*.2+"deg)";
-	});
-	
-}
-
-function scrollInit() {
-	const viewHeight = window.innerHeight;
-		if (window.pageYOffset > viewHeight*.5) {
-			document.getElementById('menu').classList.add('hidden');
-		}
-		else {
-			document.getElementById('menu').classList.remove('hidden');
-		}
-}
+// function scrollInit() {
+// 	const viewHeight = window.innerHeight;
+// 		if (window.pageYOffset < viewHeight*.5) {
+// 			document.getElementById('menu').classList.add('hidden');
+// 		}
+// 		else {
+// 			document.getElementById('menu').classList.remove('hidden');
+// 		}
+// }
 
 lax.addPreset('fadeExit', () => {
 	return { 
@@ -211,15 +295,13 @@ window.addEventListener('load', () => {
 	}
 
 	window.requestAnimationFrame(updateLax);
-
 	themeSwitch();
 	typeWriter();
-	scrollAnim();
+	menuActivation();
 });
 
 window.addEventListener('resize', () => {
 	lax.updateElements();
 });
-
 
 

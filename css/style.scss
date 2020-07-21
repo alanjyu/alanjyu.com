@@ -2,6 +2,30 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans");
 @import url("https://fonts.googleapis.com/css?family=Lato");
 
+
+// mixin
+
+$breakpoints: (
+  'small':  ( min-width:  767px ),
+  'medium': ( min-width:  992px ),
+  'large':  ( min-width: 1200px )
+) !default;
+
+@mixin respond-to($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media #{inspect(map-get($breakpoints, $breakpoint))} {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+            + "Available breakpoints are: #{map-keys($breakpoints)}.";
+    }
+}
+
+// initialize
+
 * {
     box-sizing: border-box;
 }
@@ -37,17 +61,21 @@ svg {
     display: none;
 }
 
+// content
+
 #menu {
-    max-width: 100px;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0 0 0 10%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
     font-family: 'Lato', sans-serif;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 22px;
     letter-spacing: .15em;
     display: flex;
+    justify-content: center;
     flex-direction: column;
+    background: #b1b1b1;
     
     ul {
         align-items: center;
@@ -67,13 +95,44 @@ svg {
             text-transform: uppercase;            
         }
     }
+}
 
+#burger {
+    position: fixed;
+    z-index: 101;
+    width: 2em;
+    height: 1.5em;
+    display: flex;
+    background: transparent;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 1em;
+    cursor: pointer;
+
+    @include respond-to('small') {
+        top: 50%;
+        left: 20px;
+        margin: 0;
+    };
+
+    .burger-line {
+        width: 100%;
+        height: 3px;
+        background: #000;
+        border-radius: 2px;
+        transform-origin: right;
+    }
 }
 
 .switch {
-    bottom: 0;
+    top: 0;
     right: 0;
-    margin: 0 1em 5em 0;
+    position: fixed;
+    z-index: 101;
+    margin: 1em;
     width: 50px;
     box-pack: center;
     box-align: center;
@@ -96,31 +155,6 @@ svg {
     #night-content {
         opacity: 0.5;
     }
-}
-
-#turbo {
-    bottom: 0;
-    right: 0;
-    margin: 0 1em 1em 0;
-    width: 50px;
-}
-
-#blade {
-    bottom: 0;
-    right: 0;
-    margin: 0 2em 1.5em 0;
-    width: 25px;
-}
-
-.interface {
-    position: fixed;
-    z-index: 99;
-}
-
-.hidden {
-    position: absolute !important;
-    top: -9999px !important;
-    left: -9999px !important;
 }
 
 .slide {
@@ -171,11 +205,14 @@ svg {
     text-align: center;
     padding: 2.5em;
     border-radius: 3%;
-    backdrop-filter: blur(8px) contrast(1.2);
-    box-shadow:  20px 20px 60px #f0f0f0;
 
+    @include respond-to('large') {
+        backdrop-filter: blur(8px) contrast(1.2);
+        box-shadow:  20px 20px 60px #f0f0f0;
+    }
+    
     #avatar {
-        max-width: 250px;
+        max-width: 200px;
         border-radius: 50%;
     }
 
