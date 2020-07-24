@@ -1,0 +1,41 @@
+{
+  "name": "alanjyu.com",
+  "version": "0.1.1",
+  "description": "Modules for my personal website.",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "produce": "parcel build src/index.html -d ./",
+    "publish": "parcel build src/index.html --public-url https://alanjyu.com -d ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alanjyu/alanjyu.com.git"
+  },
+  "author": "Alan J. Yu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alanjyu/alanjyu.com/issues"
+  },
+  "homepage": "https://github.com/alanjyu/alanjyu.com#readme",
+  "dependencies": {
+    "bounds.js": "^1.0.4",
+    "gsap": "^3.4.2",
+    "lax.js": "^1.2.5",
+    "npm": "^6.14.7",
+    "ty": "0.0.1",
+    "typ": "^0.6.3",
+    "typeface-playfair-display": "^1.1.4",
+    "typeface-poppins": "0.0.72",
+    "typeface-public-sans": "^1.1.4",
+    "typeit": "^7.0.4"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.10"
+  }
+}

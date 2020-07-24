@@ -1,0 +1,33 @@
+.switch {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 50px;
+  opacity: 0;
+  box-pack: center;
+  box-align: center;
+
+  @include respond-to('small') {
+    width: 70px;
+  }
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.inner-shadow {
+  stroke-opacity: 0.1;
+  stroke-width: 5;
+  stroke: #000000;
+  fill: none;
+}
+
+#night-content {
+  opacity: 0.5;
+}

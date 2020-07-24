@@ -1,0 +1,29 @@
+// mouse tracker
+.mouse-tracker {
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 5vmin;
+	height: 5vmin;
+	background: #ffffff33;
+	border-radius: 50%;
+	border: solid 2px #000;
+	opacity: 0.8;
+	transform: translate(-50%, -50%) translate(var(--mouse-x), var(--mouse-y));
+	pointer-events: none;
+	display: none;
+}
+
+@media (pointer: fine) {
+	/* Rules for devices with mouse here */
+
+	// * {
+	//     // temporary solution
+	//     cursor: none !important;
+	// }
+
+	// .mouse-tracker {
+	//     display: block;
+	// }
+}

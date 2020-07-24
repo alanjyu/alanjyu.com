@@ -1,0 +1,78 @@
+@keyframes kenBurns {
+  0% {
+    transform: scale(1.0);
+  }
+
+  50% {
+    transform: scale(1.34);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+:root {
+  --mouse-x: calc(50vw + 1px);
+  --mouse-y: calc(50vh + 1px);
+  --duration: 1s;
+  --easing: cubic-bezier(.2, 0, .3, 1);
+}
+
+.carousel {
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  > .photo {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    margin: 0;
+    background: #fff;
+    -webkit-mask-image: radial-gradient(#000 70%, transparent 70.1%);
+    mask-image: radial-gradient(#000 70%, transparent 70.1%);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center center;
+    mask-position: center center;
+    -webkit-mask-position: calc(var(--mouse-x) - 50vw + 50%) calc(var(--mouse-y) - 50vh + 50%);
+    mask-position: calc(var(--mouse-x) - 50vw + 50%) calc(var(--mouse-y) - 50vh + 50%);
+    -webkit-mask-size: 0vmax 0vmax;
+    mask-size: 0vmax 0vmax;
+    transition: -webkit-mask-size var(--duration) var(--easing);
+    transition: mask-size var(--duration) var(--easing);
+    transition: mask-size var(--duration) var(--easing), -webkit-mask-size var(--duration) var(--easing);
+    transition-delay: 0.2s;
+
+    img {
+      -webkit-filter: contrast(0.8);
+              filter: contrast(0.8);
+      display: block;
+      -o-object-fit: cover;
+         object-fit: cover;
+      width: 100%;
+      height: 100%;
+      -webkit-animation: kenBurns 40s ease infinite;
+              animation: kenBurns 40s ease infinite;
+    }
+  }
+}
+
+.canvas[data-active] {
+  >.photo {
+    -webkit-mask-size: 300vmax 300vmax;
+    mask-size: 300vmax 300vmax;
+    transition-delay: 0s;
+  }
+}
