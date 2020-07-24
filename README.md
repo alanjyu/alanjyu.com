@@ -1,13 +1,14 @@
 # [alanjyu.com](https://alanjyu.com)
 
-After learning and developing locally using Visual Studio Code for a while, I've decided to move all local work to GitHub for convenience. There are several external javascripts used; hopefully I will be able to replace them by writing my own scripts.
+## Getting Started
+After learning and developing locally using Visual Studio Code for a while, I've decided to move all my local work to GitHub for convenience. The commits might look messy as I'm still learning to use git.
 
 ## Compatibility
-The website works in all evergreen browsers (tested on Firefox, Chrome, Safari and Edge). If there is any compatibility issues, feel free to comment the issues.
+The website is tested with Chrome 80+, and should work in all evergreen browsers. However, I have not focused much on mobile optimization.
 
 ## Dependencies
-I am using [Parcel](https://parceljs.org/) to bundle all my source to a dist folder. All the other dependencies are listed in package.json file.
+I am using [Parcel](https://parceljs.org/) to bundle all my source to the docs/ folder. All the other dependencies are listed in [package.json](https://github.com/alanjyu/alanjyu.com/blob/master/package.json).
 
 ## License
 
-The entire website and its codes are under the MIT License. You're more than welcome to fork and modify my work, as long as it is credited properly.
+The entire website is under the [MIT License](https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE). You're more than welcome to fork and modify my work.
