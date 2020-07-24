@@ -21,8 +21,8 @@ window.mobileCheck = function() {
 document.addEventListener('DOMContentLoaded', () => {
     toggleMenu();
     toggleTheme(); 
-    switchCanvas();
     typeWriter();
+    switchCanvas();
 });
 
 window.addEventListener('load', () => {
