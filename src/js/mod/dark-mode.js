@@ -53,14 +53,14 @@ function toggleTheme() {
 			},
 			duration
 		)
-		.to(
-			'.overlay', {
-				duration: duration * 0.5,
-				opacity: 0.5,
-				background: '#1a1a1a'
-			},
-			duration * 1.5
-		)
+		// .to(
+		// 	'.overlay', {
+		// 		duration: duration * 0.5,
+		// 		opacity: 0.5,
+		// 		background: '#1a1a1a'
+		// 	},
+		// 	duration * 1.5
+		// )
 		.to(
 			'.slide', {
 				color: '#fff',
@@ -109,12 +109,13 @@ function toggleTheme() {
 			},
 			0
 		)
-		.to(
-			'.mouse-tracker', {
-				border: 'solid 2px #fff'
-			},
-			0
-		);
+		// .to(
+		// 	'.mouse-tracker', {
+		// 		border: 'solid 2px #fff'
+		// 	},
+		// 	0
+		// )
+		;
 
 	let stars = Array.from(document.getElementsByClassName('star'));
 	stars.map(star =>

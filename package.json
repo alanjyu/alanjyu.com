@@ -9,8 +9,8 @@
   "scripts": {
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "produce": "parcel build src/index.html -d ./",
-    "publish": "parcel build src/index.html --public-url https://alanjyu.com -d ./"
+    "produce": "parcel build src/index.html",
+    "publish": "parcel build src/index.html --public-url https://alanjyu.com"
   },
   "repository": {
     "type": "git",

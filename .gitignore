@@ -1,4 +1,3 @@
 web_dev.code-workspace
 node_modules/
-dist/
 .cache/
