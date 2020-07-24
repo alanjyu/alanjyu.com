@@ -10,7 +10,7 @@
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "produce": "parcel build src/index.html",
-    "publish": "parcel build src/index.html --public-url https://alanjyu.com"
+    "publish": "parcel build src/index.html --public-url https://alanjyu.com -d docs/"
   },
   "repository": {
     "type": "git",
