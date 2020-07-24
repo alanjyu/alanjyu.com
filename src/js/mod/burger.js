@@ -49,13 +49,6 @@ function toggleMenu() {
 				stagger: .1
 			},
 			'-=.5'
-		)
-		.to(
-			'.switch',
-			{
-				opacity: '1'
-			},
-			'-=.5'
 		);
 	
 	toActivateMenu.pause();

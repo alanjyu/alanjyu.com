@@ -100,14 +100,7 @@ function toggleTheme() {
 				duration: duration * 2
 			},
 			0
-		)
-		// .to(
-		// 	'.mouse-tracker', {
-		// 		border: 'solid 2px #fff'
-		// 	},
-		// 	0
-		// )
-		;
+		);
 
 	let stars = Array.from(document.getElementsByClassName('star'));
 	stars.map(star =>
