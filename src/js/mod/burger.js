@@ -31,23 +31,14 @@ function toggleMenu() {
 			0
 		)
 		.to(
-			'#nav',
+			'.nav',
 			{
-				display: 'block',
-				width: '100%'
-			},
-			0
-		)
-		.to(
-			'.menu',
-			{
-				display: 'flex',
-				opacity: '1'
+				translateX: '0'
 			},
 			0
 		)
 		.fromTo(
-			'.menu li',
+			'.menu > ul > a > li',
 			{
 				opacity: 0,
 				scale: 2
@@ -57,17 +48,14 @@ function toggleMenu() {
 				scale: 1,
 				stagger: .1
 			},
-			'-=.75'
+			'-=.5'
 		)
-		.fromTo(
+		.to(
 			'.switch',
-			{
-				opacity: '0'
-			},
 			{
 				opacity: '1'
 			},
-			'-=.1'
+			'-=.5'
 		);
 	
 	toActivateMenu.pause();

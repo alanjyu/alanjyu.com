@@ -53,14 +53,6 @@ function toggleTheme() {
 			},
 			duration
 		)
-		// .to(
-		// 	'.overlay', {
-		// 		duration: duration * 0.5,
-		// 		opacity: 0.5,
-		// 		background: '#1a1a1a'
-		// 	},
-		// 	duration * 1.5
-		// )
 		.to(
 			'.slide', {
 				color: '#fff',
@@ -69,7 +61,7 @@ function toggleTheme() {
 			0
 		)
 		.to(
-			'#nav', {
+			'.nav', {
 				background: '#000',
 				duration: duration * 2
 			},

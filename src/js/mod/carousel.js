@@ -7,7 +7,7 @@ function switchCanvas() {
   carousel.dataset.int = int + 1;
   carousel.dataset.intCount = canvases.length;
 
-  carousel.addEventListener('click', () => {
+  carousel.addEventListener('click', (evt) => {
     delete canvases[int].dataset.active;
     int = (int + 1) % canvases.length;
     carousel.dataset.int = int + 1;
