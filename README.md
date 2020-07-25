@@ -10,4 +10,4 @@ The website is tested with Chrome 80+, and should work in all evergreen browsers
 I am using [Parcel](https://parceljs.org/) to bundle all my source to the docs/ folder. All the other dependencies are listed in [package.json](https://github.com/alanjyu/alanjyu.com/blob/master/package.json).
 
 ## License
-The entire website is under the [MIT License](https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE). You're more than welcome to fork and modify my work.
+This project is licensed under the terms of the [MIT License](https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE). You're more than welcome to fork and modify my work.
