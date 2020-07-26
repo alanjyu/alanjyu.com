@@ -24,6 +24,8 @@
   "dependencies": {
     "gsap": "^3.4.2",
     "npm": "^6.14.7",
+    "typeface-dm-sans": "^1.1.3",
+    "typeface-dm-serif-display": "^1.1.3",
     "typeface-playfair-display": "^1.1.4",
     "typeface-public-sans": "^1.1.4",
     "typeit": "^7.0.4"

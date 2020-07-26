@@ -11,9 +11,10 @@
 	}
 
 	h1 {
-		font-family: 'Playfair Display', serif;
-		font-weight: 500;
+		font-family: 'DM Serif Display', serif;
+		font-weight: 400;
 		font-size: 22px;
+		margin: .4em 0 0 .4em;
 
 		@include respond-to('small') {
 			font-size: 36px;
@@ -40,9 +41,10 @@
 }
 
 .social-media {
+	margin: .6em 0 0 0;
   background: #2e2e2e2c;
   border-radius: 5px;
-  box-shadow: 20px 20px 60px #f0f0f0;
+	box-shadow: 20px 20px 60px #f0f0f0;
 
   ul {
     display: inline-flex;

@@ -2,3 +2,4 @@ web_dev.code-workspace
 node_modules/
 .cache/
 dist/
+docs/CNAME

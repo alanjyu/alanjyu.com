@@ -1,14 +1,30 @@
 import '../css/main.scss';
-import 'typeface-public-sans';
-import 'typeface-playfair-display';
+import 'typeface-dm-sans';
+import 'typeface-dm-serif-display';
 
-import {toggleTheme} from './mod/dark-mode';
-import {toggleMenu} from './mod/burger';
-import {typeWriter} from './mod/type-writer';
-import {switchCanvas} from './mod/carousel';
-import {trackMouse} from './mod/mouse-track';
+// import ThemeToggler from './components/dark-mode';
+import {toggleTheme} from './components/dark-mode';
+import {toggleMenu} from './components/burger';
+import {typeWriter} from './components/type-writer';
+import {switchCanvas} from './components/carousel';
+import {trackMouse} from './components/mouse-track';
 
 console.clear();
+
+// const components = [
+//     {
+//         class: ThemeToggler,
+//         selector: '.js-theme-switch'
+//     },    
+// ]
+
+// components.forEach(component => {
+//     if (document.querySelector(component.selector) !== null) {
+//         document.querySelectorAll(components.selector).forEarch(
+//             element => new component.class(ele, compoment.options)
+//         );
+//     };
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
     toggleMenu();

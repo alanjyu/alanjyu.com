@@ -1,5 +1,4 @@
 @-webkit-keyframes mouse-scroll {
-
 	0%,
 	20% {
 		transform: translateY(0) scaleY(1);
@@ -25,34 +24,42 @@
 
 }
 
-.scroll-link {
+.mouse-scroll {
 	position: absolute;
-	bottom: 1rem;
+	bottom: 2rem;
 	left: 50%;
 	transform: translateX(-50%);
-}
 
-.mouse {
-	max-width: 30px;
-	width: 100%;
-	height: auto;
-	display: none;
+	&__mouse {
+		max-width: 30px;
+		width: 100%;
+		height: auto;
+		display: none;
+	
+		@include respond-to('small') {
+			display: block;
+		}
+	}
 
-	@include respond-to('small') {
-		display: block;
+	&__icon {
+		stroke: #000;
+		stroke-width: 4px;
+	}
+
+	&__scroll {
+		-webkit-animation-name: mouse-scroll;
+		animation-name: mouse-scroll;
+		-webkit-animation-duration: 1.5s;
+		animation-duration: 1.5s;
+		-webkit-animation-timing-function: cubic-bezier(0.650, -0.550, 0.250, 1.500);
+		animation-timing-function: cubic-bezier(0.650, -0.550, 0.250, 1.500);
+		-webkit-animation-iteration-count: infinite;
+		animation-iteration-count: infinite;
+		transform-origin: 50% 20.5px;
+		will-change: transform, opacity;
+		opacity: 1;
 	}
 }
 
-.scroll {
-	-webkit-animation-name: mouse-scroll;
-	animation-name: mouse-scroll;
-	-webkit-animation-duration: 1.5s;
-	animation-duration: 1.5s;
-	-webkit-animation-timing-function: cubic-bezier(0.650, -0.550, 0.250, 1.500);
-	animation-timing-function: cubic-bezier(0.650, -0.550, 0.250, 1.500);
-	-webkit-animation-iteration-count: infinite;
-	animation-iteration-count: infinite;
-	transform-origin: 50% 20.5px;
-	will-change: transform, opacity;
-	opacity: 1;
-}
+
+
