@@ -1,13 +1,17 @@
 import TypeIt from 'typeit';
+export default class TypeWriter {
+	constructor(element) {
+		this._strings = [
+			'Environmental physics specialist.',
+			'Front-end developer.',
+			];
 
-function typeWriter() {
-	let words = new TypeIt('.typewriter', {
-		loop: true,
-		nextStringDelay: [3500, 500],
-		lifeLike: true,
-		breakLines: false,
-		strings: ['A pianist.', 'A drummer.', 'A petrolhead.', 'A struggling guitarist.', 'A procrastinator.', 'A physics student.'],
-	}).go();
+		new TypeIt(element, {
+			loop: true,
+			nextStringDelay: [3500, 500],
+			lifeLike: true,
+			breakLines: false,
+			strings: this._strings,
+		}).go();
+	}
 };
-
-export {typeWriter};

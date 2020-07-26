@@ -1,4 +1,5 @@
-// mouse tracker
+/* mouse tracker */
+
 .mouse-tracker {
 	z-index: 9999;
 	position: fixed;
@@ -13,17 +14,4 @@
 	transform: translate(-50%, -50%) translate(var(--mouse-x), var(--mouse-y));
 	pointer-events: none;
 	display: none;
-}
-
-@media (pointer: fine) {
-	/* Rules for devices with mouse here */
-
-	// * {
-	//     // temporary solution
-	//     cursor: none !important;
-	// }
-
-	// .mouse-tracker {
-	//     display: block;
-	// }
 }

@@ -15,7 +15,7 @@
 	@include respond-to('small') {
 		margin: 0 2em;
 		transform: translateY(var(--mouse-y));
-		transform-origin: bottom;
+		transform-origin: center;
 		transition: transform .5s ease;
 		cursor: pointer;
 	};

@@ -2,41 +2,51 @@ import '../css/main.scss';
 import 'typeface-dm-sans';
 import 'typeface-dm-serif-display';
 
-// import ThemeToggler from './components/dark-mode';
-import {toggleTheme} from './components/dark-mode';
-import {toggleMenu} from './components/burger';
-import {typeWriter} from './components/type-writer';
-import {switchCanvas} from './components/carousel';
-import {trackMouse} from './components/mouse-track';
+import ThemeToggler from './components/theme-switch';
+import Burger from './components/burger';
+import TypeWriter from './components/type-writer';
+import Carousel from './components/carousel';
+import MouseTracker from './components/mouse-tracker';
 
-console.clear();
-
-// const components = [
-//     {
-//         class: ThemeToggler,
-//         selector: '.js-theme-switch'
-//     },    
-// ]
-
-// components.forEach(component => {
-//     if (document.querySelector(component.selector) !== null) {
-//         document.querySelectorAll(components.selector).forEarch(
-//             element => new component.class(ele, compoment.options)
-//         );
-//     };
-// });
+const components = [
+    {
+        class: TypeWriter,
+        selector: '.js-type-writer'
+    },
+    {
+        class: Carousel,
+        selector: '.js-carousel'
+    },
+    {
+        class: Burger,
+        selector: '.js-burger'
+    },
+    {
+        class: ThemeToggler,
+        selector: '.js-theme-switch'
+    },
+    {
+        class: MouseTracker,
+        selector: '.js-mouse-tracker'
+    }
+];
 
 document.addEventListener('DOMContentLoaded', () => {
-    toggleMenu();
-    toggleTheme(); 
-    typeWriter();
-    trackMouse();
-    switchCanvas();
+    components.forEach(component => {
+        console.log(document.querySelector(component.selector));
+        if (document.querySelector(component.selector) !== null) {
+            document.querySelectorAll(component.selector).forEach(
+                element => new component.class(element, component.options)
+            );
+        };
+    });
 });
 
-window.addEventListener('load', () => {
-    
-});
 
-window.addEventListener('resize', () => {
-});
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     toggleMenu();
+// //    typeWriter();
+//     trackMouse();
+//     switchCanvas();
+// });
