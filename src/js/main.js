@@ -7,6 +7,7 @@ import Burger from './components/burger';
 import TypeWriter from './components/type-writer';
 import Carousel from './components/carousel';
 import MouseTracker from './components/mouse-tracker';
+import Boundary from './components/bounds';
 
 const components = [
     {
@@ -28,6 +29,9 @@ const components = [
     {
         class: MouseTracker,
         selector: '.js-mouse-tracker'
+    },
+    {   class: Boundary,
+        selector: '[data-src]'
     }
 ];
 

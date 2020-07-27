@@ -1,4 +1,5 @@
-web_dev.code-workspace
+*.code-workspace
+*.DS_store
 node_modules/
 .cache/
 dist/
