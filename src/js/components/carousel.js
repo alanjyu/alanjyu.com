@@ -15,7 +15,7 @@ export default class Carousel {
 
   switchCanvas() {
     delete this._canvases[this._int].dataset.active;
-    this._int = ( this._int + 1) % this._canvases.length;
+    this._int = (this._int + 1) % this._canvases.length;
     this._carousel.dataset.int = this._int + 1;
     this._canvases[this._int].dataset.active = true;
   }

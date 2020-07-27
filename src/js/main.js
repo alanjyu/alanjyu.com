@@ -6,7 +6,7 @@ import ThemeToggler from './components/theme-switch';
 import Burger from './components/burger';
 import TypeWriter from './components/type-writer';
 import Carousel from './components/carousel';
-import MouseTracker from './components/mouse-tracker';
+import Tracker from './components/tracker';
 import Boundary from './components/bounds';
 
 const components = [
@@ -27,8 +27,8 @@ const components = [
         selector: '.js-theme-switch'
     },
     {
-        class: MouseTracker,
-        selector: '.js-mouse-tracker'
+        class: Tracker,
+        selector: '.js-tracker'
     },
     {   class: Boundary,
         selector: '[data-src]'

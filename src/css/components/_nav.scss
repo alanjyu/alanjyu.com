@@ -72,6 +72,8 @@
 		font-size: 22px;
 		display: flex;
 		flex-direction: column;
+		text-transform: uppercase;
+		letter-spacing: .1em;
 		align-items: center;
 		text-align: center;
 
@@ -85,7 +87,6 @@
 
 			&__link {
 				color: #000;
-				text-transform: uppercase;
 
 				&::before {
 					content: '';
@@ -104,6 +105,30 @@
 					animation: strike-in .2s cubic-bezier(1, 0, 0.58, 0.97) 1 both;
 				}
 			}
+		}
+	}
+}
+
+.tab {
+	position: absolute;
+	display: flex;
+	flex-flow: column nowrap;
+	font-family: 'DM Sans', sans-serif;
+	font-weight: 500;
+	font-size: 22px;
+	padding: .8em 1em;
+	z-index: 1;
+
+
+	&__item {
+		writing-mode: vertical-lr;
+		transform: rotate(180deg);
+		transform-origin: center center;
+		padding: 1em .7em;
+
+		&__link {
+			display: block;
+			color: #fff;
 		}
 	}
 }
