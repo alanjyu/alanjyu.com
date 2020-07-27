@@ -1,6 +1,4 @@
 :root {
-  --mouse-x: calc(50vw + 1px);
-  --mouse-y: calc(50vh + 1px);
   --duration: 1s;
   --easing: cubic-bezier(.2, 0, .3, 1);
 }
@@ -43,7 +41,7 @@
       transition: mask-size var(--duration) var(--easing), -webkit-mask-size var(--duration) var(--easing);
       transition-delay: 0.2s;
 
-      img {
+      > img {
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
         display: block;

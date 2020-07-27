@@ -4,10 +4,13 @@ import {
 
 export default class ThemeToggler {
 	constructor(element) {
-		this._day_mode_is_active = true;
+		this._day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
 		this._duration = .25;
 		this._scale = 30;
 
+		/* toggle attributes for the front and back 
+		so that day content and night content will switch places when toggled*/
+	
 		this._switch_back = document.querySelector('.theme-switch--back');
 		this._switch_front = document.querySelector('.theme-switch--front');
 
@@ -113,21 +116,42 @@ export default class ThemeToggler {
 			)
 			.to(
 				'.nav__menu__item__link', {
-					color: '#ffffff',
+					color: '#fff',
 					duration: this._duration * 2
 				},
 				0
 			)
 			.to(
-				'.social-media', {
-					boxShadow: 'inset 20px 20px 60px #323232',
+				'.social-media__item__link', {
+					fill: '#fff',
 					duration: this._duration * 2
 				},
 				0
 			)
 			.to(
-				'.social-media li', {
-					fill: '#ffffff',
+				'.mouse-scroll__icon', {
+					stroke: '#fff',
+					duration: this._duration * 2
+				},
+				0
+			)
+			.to(
+				'.ti-cursor', {
+					color: '#ffff00',
+					duration: this._duration * 2
+				},
+				0
+			)
+			.to(
+				'.carousel__canvas__photo > img', {
+					filter: 'brightness(.6)',
+					duration: this._duration * 2
+				},
+				0
+			)
+			.to(
+				'.highlight', {
+					color: '#fff',
 					duration: this._duration * 2
 				},
 				0
@@ -135,13 +159,6 @@ export default class ThemeToggler {
 			.to(
 				'body', {
 					background: '#000',
-				},
-				0
-			)
-			.to(
-				'.burger-line', {
-					background: '#fff',
-					duration: this._duration * 2
 				},
 				0
 			);

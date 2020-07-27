@@ -32,8 +32,11 @@ const components = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    /* Checks if the selector is loaded.
+    If so, then excecute the corresponding scripts and options */
+
     components.forEach(component => {
-        console.log(document.querySelector(component.selector));
         if (document.querySelector(component.selector) !== null) {
             document.querySelectorAll(component.selector).forEach(
                 element => new component.class(element, component.options)
@@ -41,12 +44,3 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 });
-
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     toggleMenu();
-// //    typeWriter();
-//     trackMouse();
-//     switchCanvas();
-// });

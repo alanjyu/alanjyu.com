@@ -1,4 +1,5 @@
 @-webkit-keyframes mouse-scroll {
+
 	0%,
 	20% {
 		transform: translateY(0) scaleY(1);
@@ -12,6 +13,7 @@
 }
 
 @keyframes mouse-scroll {
+
 	0%,
 	20% {
 		transform: translateY(0) scaleY(1);
@@ -31,11 +33,10 @@
 	transform: translateX(-50%);
 
 	&__mouse {
-		max-width: 30px;
+		max-width: 35px;
 		width: 100%;
-		height: auto;
 		display: none;
-	
+
 		@include respond-to('small') {
 			display: block;
 		}
@@ -60,6 +61,3 @@
 		opacity: 1;
 	}
 }
-
-
-

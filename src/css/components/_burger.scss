@@ -1,6 +1,6 @@
 .burger {
 	position: fixed;
-	z-index: 100;
+	z-index: 1;
 	width: 2em;
 	height: 1.5em;
 	display: flex;
@@ -18,7 +18,7 @@
 		transform-origin: center;
 		transition: transform .5s ease;
 		cursor: pointer;
-	};
+	}
 }
 
 .burger__line {
