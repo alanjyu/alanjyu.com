@@ -5,6 +5,7 @@ import {
 export default class Burger {
 	constructor(element) {
 		this._menu_is_active = false;
+		this._burger_is_active = false;
 		this._duration = .25; // transition duration
 
 		/* Activate menu animation */
@@ -71,6 +72,16 @@ export default class Burger {
 		} else if (this._menu_is_active) {
 			this._menu_is_active = false;
 			this._toActivateMenu.reverse();
+		}
+	}
+
+	toggleBurger() {
+		if (!this._burger_is_active) {
+			this._burger_is_active = true;
+			this._toActivateBurger.play();
+		} else if (this._burger_is_active) {
+			this._burger_is_active = false;
+			this._toActivateBurger.reverse();
 		}
 	}
 }
