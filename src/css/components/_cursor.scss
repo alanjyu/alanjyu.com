@@ -1,0 +1,10 @@
+.cursor {
+	position: absolute;
+	width: 7vmin;
+	height: 7vmin;
+	z-index: 2;
+	border-radius: 50%;
+	border: solid 2px #000;
+	transform: translate(var(--mouse-x), var(--page-y));
+	pointer-events: none;
+}

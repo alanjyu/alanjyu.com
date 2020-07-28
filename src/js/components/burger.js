@@ -2,34 +2,35 @@ import {
 	gsap
 } from 'gsap';
 
+import Tracker from './tracker';
 export default class Burger {
 	constructor(element) {
-		this._menu_is_active = false;
-		this._burger_is_active = false;
-		this._duration = .25; // transition duration
+		this.menu_is_active = false;
+		this.burger_is_active = false;
+		this.duration = .25; // transition duration
 
 		/* Activate menu animation */
 
-		this._toActivateMenu = gsap.timeline();
-		this._toActivateMenu
+		this.toActivateMenu = gsap.timeline();
+		this.toActivateMenu
 			.to(
 				'.burger__line:nth-child(2)', {
 					opacity: 0,
-					duration: this._duration
+					duration: this.duration
 				},
 				0
 			)
 			.to(
 				'.burger__line:nth-child(1)', {
 					rotation: -45,
-					duration: this._duration
+					duration: this.duration
 				},
 				0
 			)
 			.to(
 				'.burger__line:nth-child(3)', {
 					rotation: 45,
-					duration: this._duration
+					duration: this.duration
 				},
 				0
 			)
@@ -51,37 +52,72 @@ export default class Burger {
 				'-=.5'
 			);
 
-		if (this._menu_is_active) {
-			this._toActivateMenu.play();
-		} else if (!this._menu_is_active) {
-			this._toActivateMenu.reverse();
+		if (this.menu_is_active) {
+			this.toActivateMenu.play();
+		} else if (!this.menu_is_active) {
+			this.toActivateMenu.reverse();
 		}
 
-		this._toActivateMenu.pause();
+		this.toActivateMenu.pause();
 
-		this._switchToggle = document.querySelector('.js-burger');
-		this._switchToggle.addEventListener('click', () => {
+		this.switchToggle = document.querySelector('.js-burger');
+		this.switchToggle.addEventListener('click', () => {
 			this.toggleMenu();
+		});
+
+		this.toActivateBurger = gsap.timeline();
+		this.toActivateBurger
+			.to(
+				'.burger', {
+					display: 'flex',
+					opacity: 1
+				},
+				0
+			);
+		
+		this.toActivateBurger.pause();
+
+		/* tracks the absolute y-postion of mouse and
+		hides the burger menu if it is less than 100% view height */
+
+		let tracker = new Tracker();
+		const burger = document.querySelector('.js-burger');
+		const carouselHeight = document.querySelector('.js-carousel').offsetHeight;
+
+		document.addEventListener('mousemove', () => {
+			if (tracker.pageY > carouselHeight) {
+				this.burger_is_active = true;
+			} else {
+				this.burger_is_active = false;
+			}
+			this.displayBurger();
+		})
+
+		document.addEventListener('scroll', () => {
+			if (tracker.pageY > carouselHeight) {
+				this.burger_is_active = true;
+			} else {
+				this.burger_is_active = false;
+			}
+			this.displayBurger();
 		});
 	};
 
 	toggleMenu() {
-		if (!this._menu_is_active) {
-			this._menu_is_active = true;
-			this._toActivateMenu.play();
-		} else if (this._menu_is_active) {
-			this._menu_is_active = false;
-			this._toActivateMenu.reverse();
+		if (!this.menu_is_active) {
+			this.menu_is_active = true;
+			this.toActivateMenu.play();
+		} else if (this.menu_is_active) {
+			this.menu_is_active = false;
+			this.toActivateMenu.reverse();
 		}
 	}
 
-	toggleBurger() {
-		if (!this._burger_is_active) {
-			this._burger_is_active = true;
-			this._toActivateBurger.play();
-		} else if (this._burger_is_active) {
-			this._burger_is_active = false;
-			this._toActivateBurger.reverse();
+	displayBurger() {
+		if (this.burger_is_active) {
+			this.toActivateBurger.play();
+		} else {
+			this.toActivateBurger.reverse();
 		}
 	}
 }

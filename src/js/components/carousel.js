@@ -1,22 +1,22 @@
 export default class Carousel {
-  constructor(element) {
-    this._carousel = document.querySelector('.carousel');
-    this._canvases = document.querySelectorAll('.carousel__canvas');
-    this._int = 0;
+  constructor() {
+    this.carousel = document.querySelector('.carousel');
+    this.canvases = document.querySelectorAll('.carousel__canvas');
+    this.int = 0;
 
-    this._canvases[this._int].dataset.active = true;
-    this._carousel.dataset.int = this._int + 1;
-    this._carousel.dataset.intCount = this._canvases.length;
+    this.canvases[this.int].dataset.active = true;
+    this.carousel.dataset.int = this.int + 1;
+    this.carousel.dataset.intCount = this.canvases.length;
 
-    this._carousel.addEventListener('click', () => {
+    this.carousel.addEventListener('click', () => {
       this.switchCanvas();
     });
   }
 
   switchCanvas() {
-    delete this._canvases[this._int].dataset.active;
-    this._int = (this._int + 1) % this._canvases.length;
-    this._carousel.dataset.int = this._int + 1;
-    this._canvases[this._int].dataset.active = true;
+    delete this.canvases[this.int].dataset.active;
+    this.int = (this.int + 1) % this.canvases.length;
+    this.carousel.dataset.int = this.int + 1;
+    this.canvases[this.int].dataset.active = true;
   }
 };

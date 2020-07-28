@@ -1,23 +1,34 @@
 .biography {
-  max-height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(12, 1fr);
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  
+  @include respond-to('medium') {
+    max-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);}
+  
 
   &__content {
     font-family: 'DM Sans', sans-serif;
     font-size: 22px;
     text-align: left;
-    grid-column: 3 / 6;
-    grid-row: 6 / 7;
+    padding: 2em;
+
+    @include respond-to('medium') {
+      grid-column: 3 / 6;
+      grid-row: 6 / 7;
+    }
   }
 
   &__hero {
-    grid-column: 7 / span 4;
-    grid-row: 1 / -1;
+    @include respond-to('medium') {
+      grid-column: 7 / span 4;
+      grid-row: 1 / -1;
+    }
 
     >img {
       -o-object-fit: cover;

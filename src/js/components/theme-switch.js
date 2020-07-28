@@ -4,26 +4,26 @@ import {
 
 export default class ThemeToggler {
 	constructor() {
-		this._day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
-		this._duration = .25;
-		this._scale = 30;
+		this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
+		this.duration = .25;
+		this.scale = 30;
 
 		/* toggle attributes for the front and back 
 		so that day content and night content will switch places when toggled*/
 	
-		this._switch_back = document.querySelector('.theme-switch--back');
-		this._switch_front = document.querySelector('.theme-switch--front');
+		this.switch_back = document.querySelector('.theme-switch--back');
+		this.switch_front = document.querySelector('.theme-switch--front');
 
-		this._switchTime = () => {
-			this._switch_back.setAttribute('href', '#' + (this._day_mode_is_active ? 'theme-switch--day' : 'theme-switch--night'));
-			this._switch_front.setAttribute('href', '#' + (this._day_mode_is_active ? 'theme-switch--night' : 'theme-switch--day'));
+		this.switchTime = () => {
+			this.switch_back.setAttribute('href', '#' + (this.day_mode_is_active ? 'theme-switch--day' : 'theme-switch--night'));
+			this.switch_front.setAttribute('href', '#' + (this.day_mode_is_active ? 'theme-switch--night' : 'theme-switch--day'));
 		};
 
 		/* moving clouds and shining stars
 		when .js-theme-switch is detected */
 
-		this._stars = Array.from(document.querySelectorAll('.star'));
-		this._stars.map(star =>
+		this.stars = Array.from(document.querySelectorAll('.star'));
+		this.stars.map(star =>
 			gsap.to(star, {
 				duration: 'random(0.4, 1.5)',
 				repeat: -1,
@@ -55,11 +55,11 @@ export default class ThemeToggler {
 
 		/* switch theme if day mode is active */
 
-		this._toNight = gsap.timeline();
-		this._toNight
+		this.toNight = gsap.timeline();
+		this.toNight
 			.to(
 				'.theme-switch--night__content', {
-					duration: this._duration * 0.5,
+					duration: this.duration * 0.5,
 					opacity: 1,
 					ease: 'power2.inOut',
 					x: 0
@@ -67,10 +67,10 @@ export default class ThemeToggler {
 			)
 			.to(
 				'.theme-switch__circle', {
-					duration: this._duration,
+					duration: this.duration,
 					ease: 'power4.in',
-					scaleX: this._scale,
-					scaleY: this._scale,
+					scaleX: this.scale,
+					scaleY: this.scale,
 					x: 1,
 					transformOrigin: '100% 50%'
 				},
@@ -78,81 +78,88 @@ export default class ThemeToggler {
 			)
 			.set(
 				'.theme-switch__circle', {
-					scaleX: -this._scale,
-					onUpdate: () => this._switchTime()
+					scaleX: -this.scale,
+					onUpdate: () => this.switchTime()
 				},
-				this._duration
+				this.duration
 			)
 			.to(
 				'.theme-switch__circle', {
-					duration: this._duration,
+					duration: this.duration,
 					ease: 'power4.out',
 					scaleX: -1,
 					scaleY: 1,
 					x: 2
 				},
-				this._duration
+				this.duration
 			)
 			.to(
 				'.slide', {
 					color: '#fff',
-					duration: this._duration * 2
+					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
 				'.burger__line', {
 					background: '#fff',
-					duration: this._duration * 2
+					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
 				'.nav', {
 					background: '#000',
-					duration: this._duration * 2
+					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
 				'.nav__menu__item__link', {
 					color: '#fff',
-					duration: this._duration * 2
+					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
 				'.social-media__item__link', {
 					fill: '#fff',
-					duration: this._duration * 2
+					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
 				'.mouse-scroll__icon', {
 					stroke: '#fff',
-					duration: this._duration * 2
+					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
 				'.ti-cursor', {
 					color: '#ffff00',
-					duration: this._duration * 2
+					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
 				'.carousel__canvas__photo > img', {
 					filter: 'brightness(.6)',
-					duration: this._duration * 2
+					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
 				'.highlight', {
 					color: '#fff',
-					duration: this._duration * 2
+					duration: this.duration * 2
+				},
+				0
+			)
+			.to(
+				'.cursor', {
+					border: 'solid 2px #fff',
+					duration: this.duration * 2
 				},
 				0
 			)
@@ -163,26 +170,26 @@ export default class ThemeToggler {
 				0
 			);
 
-		if (this._day_mode_is_active) {
-			this._toNight.reverse();
-		} else if (!this._day_mode_is_active) {
-			this._toNight.play();
+		if (this.day_mode_is_active) {
+			this.toNight.reverse();
+		} else if (!this.day_mode_is_active) {
+			this.toNight.play();
 		};
 
-		this._switchToggle = document.querySelector('.js-theme-switch__input');
-		this._switchToggle.addEventListener('change', () => {
+		this.switchToggle = document.querySelector('.js-theme-switch__input');
+		this.switchToggle.addEventListener('change', () => {
 			this.toggleTheme();
 		});
 	};
 
 	toggleTheme() {
-		if (this._day_mode_is_active) {
-			this._toNight.play();
-			this._day_mode_is_active = false;
+		if (this.day_mode_is_active) {
+			this.toNight.play();
+			this.day_mode_is_active = false;
 		} 
-		else if (!this._day_mode_is_active) {
-			this._toNight.reverse();
-			this._day_mode_is_active = true;
+		else if (!this.day_mode_is_active) {
+			this.toNight.reverse();
+			this.day_mode_is_active = true;
 		};
 	};
 };
