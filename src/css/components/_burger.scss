@@ -11,8 +11,11 @@
 
 	@include respond-to('xlarge') {
 		margin: 0 2em;
+		will-change: transform;
 		transform: translateY(var(--burger-y));
 		transition: transform .25s ease;
+		transform-origin: center center;
+  	overflow: hidden;
 		cursor: pointer;
 	}
 

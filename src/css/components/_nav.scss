@@ -59,6 +59,7 @@
 	width: 100%;
 	height: 100%;
 	z-index: 1;
+	will-change: transform;
 	transform: translateX(-100%);
 	background: #b1b1b1;
 
@@ -66,14 +67,17 @@
 		position: absolute;
 		top: 50%;
 		left: 50%;
+
+		will-change: transform;
 		transform: translate(-50%, -50%);
 		font-family: 'DM Sans', sans-serif;
 		font-weight: 700;
 		font-size: 22px;
+		letter-spacing: .1em;
+
 		display: flex;
 		flex-direction: column;
 		text-transform: uppercase;
-		letter-spacing: .1em;
 		align-items: center;
 		text-align: center;
 
@@ -90,6 +94,7 @@
 
 				&::before {
 					content: '';
+					will-change: transform;
 					transition: transform .2s ease-in;
 					position: absolute;
 					width: 100%;
@@ -111,14 +116,15 @@
 
 .tab {
 	position: absolute;
-	display: flex;
-	flex-flow: column nowrap;
+	z-index: 1;
+
 	font-family: 'DM Sans', sans-serif;
 	font-weight: 500;
 	font-size: 22px;
 	padding: .8em 1em;
-	z-index: 1;
 
+	display: flex;
+	flex-flow: column nowrap;
 
 	&__item {
 		writing-mode: vertical-lr;

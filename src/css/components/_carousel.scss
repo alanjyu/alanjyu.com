@@ -29,6 +29,8 @@
       grid-row: 1 / -1;
       margin: 0;
       background: #fff;
+      will-change: mask;
+      backface-visibility: hidden;
       -webkit-mask-image: radial-gradient(#000 70%, transparent 70.1%);
       mask-image: radial-gradient(#000 70%, transparent 70.1%);
       -webkit-mask-repeat: no-repeat;
@@ -37,12 +39,10 @@
       mask-position: calc(var(--mouse-x) - 50vw + 50%) calc(var(--mouse-y) - 50vh + 50%);
       -webkit-mask-size: 0vmax 0vmax;
       mask-size: 0vmax 0vmax;
-      transition: mask-size .75s ease, -webkit-mask-size .75s ease;
+      transition: mask-size .5s ease, -webkit-mask-size .5s ease;
       transition-delay: .15s;
 
       >img {
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
         display: block;
         -o-object-fit: cover;
         object-fit: cover;

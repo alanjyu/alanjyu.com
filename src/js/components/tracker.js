@@ -11,17 +11,20 @@ export default class Tracker {
     this.offsetX = window.pageXOffset;
     this.offsetY = window.pageYOffset;
 
+    this.viewPortWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    this.viewPortHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
     document.addEventListener('mousemove', (e) => {
       this.mouseX = e.clientX;
       this.mouseY = e.clientY;
 
       root.style.setProperty('--mouse-x', this.mouseX + 'px');
-      // root.style.setProperty('--mouse-y', this.mouseY + 'px');
+      root.style.setProperty('--mouse-y', this.mouseY + 'px');
 
       this.pageX = e.pageX;
       this.pageY = e.pageY;
 
-      // root.style.setProperty('--page-x', this.pageX + 'px');
+      root.style.setProperty('--page-x', this.pageX + 'px');
       root.style.setProperty('--page-y', this.pageY + 'px');
 
       /** for the damn burger
@@ -52,12 +55,18 @@ export default class Tracker {
       root.style.setProperty('--offset-x', this.offsetX);
       root.style.setProperty('--offset-y', this.offsetY);
 
-      this.pageX = this.offsetX + this.mouseX || this.offsetX;
-      this.pageY = this.offsetY + this.mouseY || this.offsetY;
+      this.pageX = this.offsetX + this.mouseX;
+      this.pageY = this.offsetY + this.mouseY;
 
       root.style.setProperty('--page-x', this.pageX + 'px');
       root.style.setProperty('--page-y', this.pageY + 'px');
       root.style.setProperty('--burger-y', this.pageY-document.querySelector('.js-burger').offsetHeight*.5 + 'px');
+
+      this.viewPortWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      this.viewPortHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+      root.style.setProperty('--viewport-x', this.viewPortWidth + 'px');
+      root.style.setProperty('--viewport-y', this.viewPortWidth + 'px');
     });
   }
 
@@ -71,5 +80,9 @@ export default class Tracker {
 
   get offsetPos() {
     return [this.offsetX, this.offsetY];
+  }
+
+  get viewPortDim() {
+    return [this.viewPortWidth, this.viewPortHeight];
   }
 }
