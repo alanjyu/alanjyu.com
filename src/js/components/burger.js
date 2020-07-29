@@ -67,8 +67,12 @@ export default class Burger {
 
 		this.toActivateBurger = gsap.timeline();
 		this.toActivateBurger
-			.to(
+			.fromTo(
 				'.burger', {
+					display: 'none',
+					opacity: 0
+				},
+				{
 					display: 'flex',
 					opacity: 1
 				},

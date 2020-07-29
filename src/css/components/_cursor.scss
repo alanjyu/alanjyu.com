@@ -1,20 +1,19 @@
 .cursor {
 	position: absolute;
-	--base-w: 7vmin;
-  --base-h: 7vmin;
-  --w: var(--base-w);
-  --h: var(--base-h);
-  height: calc(var(--base-h) * 1px);
-  width: calc(var(--base-w) * 1px);
-  transform: translate(calc(1px * var(--x)), calc(1px * var(--y))) translate(-50%, -50%);
+	--base-width: calc(min(var(--viewport-x), var(--viewport-y)) * .07);
+  --base-height: calc(min(var(--viewport-x), var(--viewport-y)) * .07);
+  --width: var(--base-width);
+  --height: var(--base-height);
+  width: calc(var(--base-width) * 1px);
+  height: calc(var(--base-height) * 1px);
+
+  will-change: transform;
+  transform: translate(calc(var(--mouse-x) * 1px), calc(var(--page-y) * 1px)) translate(-50%, -50%);
+  transform-origin: center center;
 	z-index: 2;
 	opacity: .9;
 	border-radius: 50%;
 	border: solid 2px #000;
-	will-change: transform opacity;
-	transform: translate(-50%, -50%) translate(var(--mouse-x), var(--page-y));
-	transform-origin: center center;
-	will-change: transform opacity;
 	overflow: hidden;
 	pointer-events: none;
 
@@ -26,8 +25,8 @@
     --dh: calc(var(--base-h) / var(--h));
 
     opacity: 0.2;
-    border-radius: calc(var(--base-w) * var(--dw) * 1px) /
-      calc(var(--base-h) * var(--dh) * 1px);
+    border-radius: calc(var(--base-width) * var(--dw) * 1px) /
+      calc(var(--base-height) * var(--dh) * 1px);
 
     transform: translate(calc(1px * var(--hover-x)), calc(1px * var(--hover-y)))
       translate(calc(150% * var(--px)), calc(150% * var(--py)))

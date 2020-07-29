@@ -12,7 +12,7 @@
 	@include respond-to('xlarge') {
 		margin: 0 2em;
 		will-change: transform;
-		transform: translateY(var(--burger-y));
+		transform: translateY(calc(var(--burger-y) * 1px));
 		transition: transform .25s ease;
 		transform-origin: center center;
   	overflow: hidden;
