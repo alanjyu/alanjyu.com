@@ -2,10 +2,10 @@ import '../css/main.scss';
 import 'typeface-dm-sans';
 import 'typeface-dm-serif-display';
 
-import ThemeToggler from './components/theme-switch';
 import Burger from './components/burger';
 import TypeWriter from './components/type-writer';
 import Carousel from './components/carousel';
+import ThemeToggler from './components/theme-switch';
 import Tracker from './components/tracker';
 import Boundary from './components/bounds';
 
