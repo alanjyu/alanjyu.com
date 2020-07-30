@@ -36,7 +36,7 @@
     height: calc(var(--hover-height) * 1px);
 
     border-radius: calc(var(--base-width) * 1px) / calc(var(--base-height) * 1px);
-    border-color: #ffff00e8;
+    border-color: #ffff00e8 !important;
 
     transform: translate(calc(1px * var(--pos-x)), calc(1px * var(--pos-y))) translate(calc(1px * var(--hover-x)), calc(1px * var(--hover-y))) translate(-50%, -50%);
   }

@@ -130,6 +130,13 @@ export default class ThemeToggler {
 				0
 			)
 			.to(
+				'.tab__item__link', {
+					color: '#fff',
+					duration: this.duration * 2
+				},
+				0
+			)
+			.to(
 				'.mouse-scroll__icon', {
 					stroke: '#fff',
 					duration: this.duration * 2
@@ -144,7 +151,7 @@ export default class ThemeToggler {
 				0
 			)
 			.to(
-				'.carousel__canvas__photo > img', {
+				'.carousel', {
 					filter: 'brightness(.6)',
 					duration: this.duration * 2
 				},
