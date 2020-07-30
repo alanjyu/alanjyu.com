@@ -45,17 +45,16 @@
 	margin-top: 1em;
 	background: #2e2e2e2c;
 	border-radius: 5%;
-	display: inline-flex;
-	list-style: none;
+	display: flex;
 
 	&__item {
+		display: inline-block;
 		margin: .6em;
 		width: 40px;
 		fill: #000000;
-		transition: transform .2s ease-in-out;
 
-		&:hover {
-			transform: scale(1.1);
+		&__link {
+			display: block;
 		}
 	}
 }

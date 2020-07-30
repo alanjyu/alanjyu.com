@@ -4,7 +4,8 @@ import {
 
 export default class ThemeToggler {
 	constructor() {
-		this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
+		this.day_mode_is_active = true;
+		// this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
 		this.duration = .25;
 		this.scale = 30;
 
@@ -158,7 +159,7 @@ export default class ThemeToggler {
 			)
 			.to(
 				'.cursor', {
-					border: 'solid 2px #fff',
+					borderColor: '#fff',
 					duration: this.duration * 2
 				},
 				0

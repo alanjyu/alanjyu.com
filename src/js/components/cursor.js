@@ -9,18 +9,20 @@ export default class Cursor {
       target.addEventListener('mouseenter', (e) => {
         let rect = target.getBoundingClientRect();
         this.cursor.dataset.hover = true;
-        this.cursor.style.setProperty('--hover-x', rect.left);
-        this.cursor.style.setProperty('--hover-y', rect.top);
-        this.cursor.style.setProperty('--width', rect.width);
-        this.cursor.style.setProperty('--height', rect.height);
+        
+        /* finds the center point of the objects */
+        this.cursor.style.setProperty('--hover-x', (rect.left + rect.right) * .5);
+        this.cursor.style.setProperty('--hover-y', (rect.top + rect.bottom) * .5);
+        this.cursor.style.setProperty('--hover-width', rect.width * 1.5);
+        this.cursor.style.setProperty('--hover-height', rect.height * 1.5);
       });
 
       target.addEventListener('mouseleave', (e) => {
         delete this.cursor.dataset.hover;
         this.cursor.style.removeProperty('--hover-x');
         this.cursor.style.removeProperty('--hover-y');
-        this.cursor.style.removeProperty('--width');
-        this.cursor.style.removeProperty('--height');
+        this.cursor.style.removeProperty('--hover-width');
+        this.cursor.style.removeProperty('--hover-height');
       });
     });
   }

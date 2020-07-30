@@ -1,0 +1,23 @@
+.tab {
+	position: absolute;
+	z-index: 1;
+	font-family: 'DM Sans', sans-serif;
+	font-weight: 500;
+	font-size: 22px;
+	padding: .8em 1em;
+	display: flex;
+	flex-flow: column nowrap;
+
+	&__item {
+		writing-mode: vertical-lr;
+		transform: rotate(180deg);
+		transform-origin: center center;
+		padding: 1em .7em;
+
+		&__link {
+			display: block;
+			color: #000;
+			line-height: 1.6;
+		}
+	}
+}
