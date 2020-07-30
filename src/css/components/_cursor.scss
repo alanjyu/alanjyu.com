@@ -1,3 +1,6 @@
+/* thanks to keyframers
+  https://codepen.io/team/keyframers/pen/8af927f6a473d69bd082c7765189ad9e */
+
 .cursor {
 	position: absolute;
 	--base-width: calc(min(var(--viewport-x), var(--viewport-y)) * .07);
@@ -6,30 +9,60 @@
   --height: var(--base-height);
   width: calc(var(--base-width) * 1px);
   height: calc(var(--base-height) * 1px);
-
-  will-change: transform;
+  border-radius: calc(var(--base-width) * 1px);
+  border: solid 2px #000;
+  will-change: transform opacity;
   transform: translate(calc(var(--mouse-x) * 1px), calc(var(--page-y) * 1px)) translate(-50%, -50%);
   transform-origin: center center;
 	z-index: 2;
-	opacity: .9;
-	border-radius: 50%;
-	border: solid 2px #000;
+	opacity: 1;
+	
 	overflow: hidden;
 	pointer-events: none;
 
 	&[data-hover] {
-    --px: calc(((var(--x) - var(--hover-x)) / var(--w)) - 0.5);
-    --py: calc(((var(--y) - var(--hover-y)) / var(--h)) - 0.5);
+    --pos-x: calc(((var(--mouse-x) - var(--hover-x)) / var(--width)) - .5);
+    --pos-y: calc(((var(--page-y) - var(--hover-y)) / var(--height)) - .5);
 
-    --dw: calc(var(--base-w) / var(--w));
-    --dh: calc(var(--base-h) / var(--h));
+    --dw: calc(var(--base-width) / var(--width));
+    --dh: calc(var(--base-height) / var(--height));
 
-    opacity: 0.2;
+    opacity: 0.8;
     border-radius: calc(var(--base-width) * var(--dw) * 1px) /
       calc(var(--base-height) * var(--dh) * 1px);
 
     transform: translate(calc(1px * var(--hover-x)), calc(1px * var(--hover-y)))
-      translate(calc(150% * var(--px)), calc(150% * var(--py)))
+      translate(calc(150% * var(--pos-x)), calc(150% * var(--pos-y)))
       scale(calc(1 / var(--dw)), calc(1 / var(--dh))) translate(50%, 50%);
+  }
+
+  &__background {
+    width: 100%;
+    height: 100%;
+    border-radius: calc(var(--width) * 1px);
+    border-radius: 0;
+    opacity: 1;
+    background: #c7c7c7;
+    z-index: -1;
+  }
+
+  &__backlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 100%;
+    background: red;
+    background: radial-gradient(circle at 50%, #fff 5%, transparent 50%);
+    z-index: 1;
+    transform-origin: center center;
+    transform: translate(calc(100% * var(--px)), calc(100% * var(--py)))
+      scale(calc(20 * var(--dw)), calc(20 * var(--dh)));
+    opacity: 0;
+  
+    [data-hover] & {
+      opacity: 1;
+      transition: opacity .25s;
+    }
   }
 }

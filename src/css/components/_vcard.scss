@@ -3,7 +3,10 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	text-align: center;
+	flex-direction: column;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	&__title {
 		font-family: 'DM Serif Display', serif;
@@ -12,6 +15,7 @@
 
 		@include respond-to('small') {
 			font-size: 40px;
+			margin-top: .6em;
 		}
 	}
 
@@ -31,6 +35,7 @@
 	white-space: nowrap;
 
 	@include respond-to('small') {
+		margin-top: .6em;
 		font-size: 20px;
 	}
 }

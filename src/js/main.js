@@ -8,6 +8,7 @@ import Carousel from './components/carousel';
 import ThemeToggler from './components/theme-switch';
 import Tracker from './components/tracker';
 import Boundary from './components/bounds';
+import Cursor from './components/cursor';
 
 const components = [{
 		class: TypeWriter,
@@ -32,6 +33,10 @@ const components = [{
 	{
 		class: Boundary,
 		selector: '[data-src]'
+	},
+	{
+		class: Cursor,
+		selector: '[data-hover-target]'
 	}
 ];
 
