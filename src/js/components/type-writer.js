@@ -4,6 +4,9 @@ export default class TypeWriter {
 		this.strings = [
 			'Environmental physics specialist.',
 			'Front-end developer.',
+			'Petrolhead.',
+			'Musician.',
+			'Aspiring DJ.'
 			] || [] ;
 
 		new TypeIt(element, {

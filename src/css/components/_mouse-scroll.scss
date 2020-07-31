@@ -37,7 +37,7 @@
 		width: 100%;
 		display: none;
 
-		@include respond-to('small') {
+		@include respond-to('xlarge') {
 			display: block;
 		}
 	}

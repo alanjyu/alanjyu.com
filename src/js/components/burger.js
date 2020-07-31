@@ -2,11 +2,11 @@ import {
 	gsap
 } from 'gsap';
 
-import Tracker from './tracker';
+// import Tracker from './tracker';
 export default class Burger {
 	constructor(element) {
 		this.menu_is_active = false;
-		this.burger_is_active = false;
+		this.burger_is_locked = true;
 		this.duration = .25; // transition duration
 
 		/* Activate menu animation */
@@ -14,34 +14,13 @@ export default class Burger {
 		this.toActivateMenu = gsap.timeline();
 		this.toActivateMenu
 			.to(
-				'.burger__line:nth-child(2)', {
-					opacity: 0,
-					duration: this.duration
-				},
-				0
-			)
-			.to(
-				'.burger__line:nth-child(1)', {
-					rotation: -45,
-					duration: this.duration
-				},
-				0
-			)
-			.to(
-				'.burger__line:nth-child(3)', {
-					rotation: 45,
-					duration: this.duration
-				},
-				0
-			)
-			.to(
 				'.nav', {
 					translateX: '0'
 				},
 				0
 			)
 			.fromTo(
-				'.nav__menu > a > li', {
+				'.nav__menu__item__link', {
 					opacity: 0,
 					scale: 2
 				}, {
@@ -65,41 +44,42 @@ export default class Burger {
 			this.toggleMenu();
 		});
 
-		this.toActivateBurger = gsap.timeline();
-		this.toActivateBurger
-			.to(
-				'.burger', {
-					transform: 'translateY(calc(var(--burger-y) * 1px))'
-				},
-				0
-			);
+		// this.toLockBurger = gsap.timeline();
+		// this.toLockBurger
+		// 	.to(
+		// 		'.burger', {
+		// 			transform: 'translateY(90vh)'
+		// 		},
+		// 		0
+		// 	);
 		
-		this.toActivateBurger.pause();
+		// this.toLockBurger.pause();
 
-		/* tracks the absolute y-postion of mouse and
-		hides the burger menu if it is less than 100% view height */
+		// /* tracks the absolute y-postion of mouse and
+		// hides the burger menu if it is less than 100% view height */
 
-		let tracker = new Tracker();
-		const burger = document.querySelector('.js-burger');
-		const carouselHeight = document.querySelector('.js-carousel').offsetHeight;
+		// let tracker = new Tracker();
+		// const burger = document.querySelector('.js-burger');
+		// const carouselHeight = document.querySelector('.js-carousel').offsetHeight;
 
-		document.addEventListener('mousemove', () => {
-			if (tracker.pageY > carouselHeight) {
-				this.burger_is_active = true;
-			} else {
-				this.burger_is_active = false;
-			}
-			this.displayBurger();
-		})
+		// document.addEventListener('mousemove', () => {
+		
+		// 	if (tracker.pageY > carouselHeight) {
+		// 		this.burger_is_locked = false;
+		// 	} else {
+		// 		this.burger_is_locked = true;
+		// 	}
+		// 	this.lockBurger();
+		// })
 
-		document.addEventListener('scroll', () => {
-			if (tracker.pageY > carouselHeight) {
-				this.burger_is_active = true;
-			} else {
-				this.burger_is_active = false;
-			}
-			this.displayBurger();
-		});
+		// document.addEventListener('scroll', () => {
+		// 	if (tracker.pageY > carouselHeight) {
+		// 		this.burger_is_locked = false;
+		// 	} else {
+		// 		this.burger_is_locked = true;
+		// 	}
+		// 	this.lockBurger();
+		// });
 	};
 
 	toggleMenu() {
@@ -112,11 +92,11 @@ export default class Burger {
 		}
 	}
 
-	displayBurger() {
-		if (this.burger_is_active) {
-			this.toActivateBurger.play();
-		} else {
-			this.toActivateBurger.reverse();
-		}
-	}
+	// lockBurger() {
+	// 	if (this.burger_is_locked) {
+	// 		this.toLockBurger.play();
+	// 	} else {
+	// 		this.toLockBurger.reverse();
+	// 	}
+	// }
 }

@@ -13,8 +13,8 @@ export default class Cursor {
         /* finds the center point of the objects */
         this.cursor.style.setProperty('--hover-x', (rect.left + rect.right) * .5);
         this.cursor.style.setProperty('--hover-y', (rect.top + rect.bottom) * .5);
-        this.cursor.style.setProperty('--hover-width', rect.width * 1.5);
-        this.cursor.style.setProperty('--hover-height', rect.height * 1.5);
+        this.cursor.style.setProperty('--hover-width', rect.width * 2);
+        this.cursor.style.setProperty('--hover-height', rect.height * 2);
       });
 
       target.addEventListener('mouseleave', (e) => {

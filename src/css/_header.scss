@@ -1,0 +1,15 @@
+header {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+@import 'components/a';
+@import 'components/burger';
+
+@import 'components/tab';
+@import 'components/cursor';
+@import 'components/mouse-scroll';
+@import 'components/theme-switch';

@@ -1,0 +1,10 @@
+.type-writer {
+	font-family: 'DM Sans', sans-serif;
+	font-size: 18px;
+	white-space: nowrap;
+
+	@include respond-to('small') {
+		margin-top: .6em;
+		font-size: 20px;
+	}
+}

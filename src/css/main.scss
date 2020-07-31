@@ -3,21 +3,19 @@
 @import 'mixins/normalize';
 
 /* components */
-@import 'components/nav';
-@import 'components/tab';
-@import 'components/burger';
-@import 'components/cursor';
-@import 'components/theme-switch';
-@import 'components/mouse-scroll';
-@import 'components/scrollbar';
+
+@import 'header';
+@import 'landing';
+@import 'nav';
+
 @import 'components/biography';
-@import 'components/vcard';
+
 @import 'components/highlight';
-@import 'components/carousel';
 @import 'components/vaporsun';
 
-.landing {
-	height: 100vh;
+.slide {
+	width: 100%;
+	overflow-x: hidden;
 }
 
 #outro {
@@ -45,8 +43,4 @@
 	}
 }
 
-.slide {
-	width: 100%;
-	overflow-x: hidden;
-}
 

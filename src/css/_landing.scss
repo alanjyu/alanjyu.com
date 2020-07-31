@@ -1,0 +1,12 @@
+.landing {
+	position: relative;
+	height: 600px;
+	
+	@include respond-to('xlarge') {
+		height: 100vh;
+  }
+}
+
+@import 'components/vcard';
+@import 'components/social-media';
+@import 'components/typewriter';
