@@ -3,7 +3,11 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	margin: 4em;
+  margin: 2em;
+  
+  @include respond-to('xlarge') {
+    margin: 4em;
+  }
 
 	&__line {
 		width: 40px;

@@ -1,18 +1,5 @@
 .biography {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
   
-  @include respond-to('medium') {
-    max-height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(12, 1fr);}
-  
-
   &__content {
     font-family: 'DM Serif Display', serif;
     font-size: 22px;

@@ -7,13 +7,9 @@
 		position: relative;
 		display: inline-block;
 		margin: .8em;
+		height: 40px;
 		width: 40px;
-		height: auto;
 		fill: #000000;
-		
-		@include respond-to('xlarge') {
-			width: 40px;
-		}
 
 		&__link {
 			position: relative;

@@ -1,0 +1,20 @@
+footer {
+  position: relative;
+  height: 60px;
+}
+
+.footer {
+  background: #181818;
+  height: 100%;
+	padding: 1em 2em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	h2 {
+		margin: 0;
+		font-family: 'DM Sans', sans-serif;
+		font-size: 16px;
+		color: #d0d0d0;
+	}
+}

@@ -1,10 +1,8 @@
 export default class Cursor {
-  constructor(element) {
+  constructor() {
     this.targets = document.querySelectorAll('[data-hover-target]');
     this.cursor = document.querySelector('.js-cursor');
-    this.duration = 1000;
 
-    this.cursor.style.setProperty('--duration', this.duration);
     this.targets.forEach(target => {
       target.addEventListener('mouseenter', (e) => {
         let rect = target.getBoundingClientRect();

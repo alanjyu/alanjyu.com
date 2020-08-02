@@ -3,7 +3,7 @@ import {
 } from 'gsap';
 
 export default class ThemeToggler {
-	constructor() {
+	constructor(element) {
 		this.day_mode_is_active = true;
 		// this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
 		this.duration = .25;

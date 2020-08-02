@@ -6,7 +6,6 @@ import {
 export default class Burger {
 	constructor(element) {
 		this.menu_is_active = false;
-		this.burger_is_locked = true;
 		this.duration = .25; // transition duration
 
 		/* Activate menu animation */
@@ -43,43 +42,6 @@ export default class Burger {
 		this.switchToggle.addEventListener('click', () => {
 			this.toggleMenu();
 		});
-
-		// this.toLockBurger = gsap.timeline();
-		// this.toLockBurger
-		// 	.to(
-		// 		'.burger', {
-		// 			transform: 'translateY(90vh)'
-		// 		},
-		// 		0
-		// 	);
-		
-		// this.toLockBurger.pause();
-
-		// /* tracks the absolute y-postion of mouse and
-		// hides the burger menu if it is less than 100% view height */
-
-		// let tracker = new Tracker();
-		// const burger = document.querySelector('.js-burger');
-		// const carouselHeight = document.querySelector('.js-carousel').offsetHeight;
-
-		// document.addEventListener('mousemove', () => {
-		
-		// 	if (tracker.pageY > carouselHeight) {
-		// 		this.burger_is_locked = false;
-		// 	} else {
-		// 		this.burger_is_locked = true;
-		// 	}
-		// 	this.lockBurger();
-		// })
-
-		// document.addEventListener('scroll', () => {
-		// 	if (tracker.pageY > carouselHeight) {
-		// 		this.burger_is_locked = false;
-		// 	} else {
-		// 		this.burger_is_locked = true;
-		// 	}
-		// 	this.lockBurger();
-		// });
 	};
 
 	toggleMenu() {
@@ -91,12 +53,4 @@ export default class Burger {
 			this.toActivateMenu.reverse();
 		}
 	}
-
-	// lockBurger() {
-	// 	if (this.burger_is_locked) {
-	// 		this.toLockBurger.play();
-	// 	} else {
-	// 		this.toLockBurger.reverse();
-	// 	}
-	// }
 }

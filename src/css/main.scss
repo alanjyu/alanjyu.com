@@ -1,21 +1,41 @@
-/* mixins */
 @import 'mixins/breakpoint';
 @import 'mixins/normalize';
-
-/* components */
 
 @import 'header';
 @import 'landing';
 @import 'nav';
+@import 'footer';
 
 @import 'components/biography';
 
 @import 'components/highlight';
 @import 'components/vaporsun';
 
+* {
+	cursor: none;
+}
+
+main {
+	position: relative;
+}
+
 .slide {
+	position: relative;
 	width: 100%;
+	max-height: 100vh;
 	overflow-x: hidden;
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  @include respond-to('medium') {
+    max-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+  }
 }
 
 #outro {
@@ -25,22 +45,6 @@
 	align-items: center;
 	overflow: hidden;
 	background: #000;
-}
-
-#footer {
-	height: 60px;
-	background: #181818;
-	padding: 1em 2em;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	h2 {
-		margin: 0;
-		font-family: 'DM Sans', sans-serif;
-		font-size: 16px;
-		color: #d0d0d0;
-	}
 }
 
 

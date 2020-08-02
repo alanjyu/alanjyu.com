@@ -1,15 +1,40 @@
 header {
-  position: fixed;
+  position: absolute;
+  top: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   z-index: 1;
 }
 
-@import 'components/a';
-@import 'components/burger';
+.a {
+  position: relative;
+  max-height: 100%;
+  width: auto;
+  margin: 2em;
+  
+  @include respond-to('xlarge') {
+    margin: 4em;
+  }
+}
 
-@import 'components/tab';
+.burger {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+  margin: 2em;
+  
+  @include respond-to('xlarge') {
+    margin: 4em;
+  }
+
+	&__line {
+		width: 40px;
+		height: 3px;
+		background: #000;
+		transform-origin: center;
+	}
+}
+
 @import 'components/cursor';
-@import 'components/mouse-scroll';
-@import 'components/theme-switch';

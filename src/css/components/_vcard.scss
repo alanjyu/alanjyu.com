@@ -16,12 +16,7 @@
 	&__title {
 		position: relative;
 		font-size: 40px;
-		margin: .4em;
 		white-space: nowrap;
-
-		@include respond-to('xlarge') {
-			font-size: 40px;
-		}
 	}
 
 	&__avatar {
@@ -29,7 +24,7 @@
 		max-width: 200px;
 		border-radius: 50%;
 
-		@include respond-to('small') {
+		@include respond-to('xlarge') {
 			max-width: 250px;
 		}
 	}

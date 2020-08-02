@@ -1,7 +1,7 @@
 {
   "name": "alanjyu.com",
-  "version": "0.1.4",
-  "description": "Modules for my personal website.",
+  "version": "0.1.5",
+  "description": "Personal/portfolio website.",
   "main": "main.js",
   "directories": {
     "lib": "lib"
@@ -26,5 +26,7 @@
     "gsap": "^3.4.2",
     "typeit": "^7.0.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sass": "^1.26.10"
+  }
 }
