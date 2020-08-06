@@ -9,32 +9,72 @@ header {
 
 .a {
   position: relative;
-  max-height: 100%;
-  width: auto;
-  margin: 2em;
-  
-  @include respond-to('xlarge') {
-    margin: 4em;
+  margin: 5%;
+
+  &__svg {
+    width: 60px;
+    height: 60px;
   }
 }
 
 .burger {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-  margin: 2em;
-  
-  @include respond-to('xlarge') {
-    margin: 4em;
-  }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 60px;
+  height: 60px;
+  margin: 5%;
 
-	&__line {
-		width: 40px;
-		height: 3px;
-		background: #000;
-		transform-origin: center;
-	}
+  &__line {
+    width: 100%;
+    height: 5px;
+    background: #000;
+  }
 }
 
-@import 'components/cursor';
+/* thanks to keyframers
+  https://codepen.io/team/keyframers/pen/8af927f6a473d69bd082c7765189ad9e */
+
+.cursor {
+  display: none;
+
+  @include respond-to('large') {
+    display: block;
+    position: fixed;
+    --base-width: calc(min(var(--viewport-x), var(--viewport-y)) * .1);
+    --base-height: calc(min(var(--viewport-x), var(--viewport-y)) * .1);
+    --width: var(--base-width);
+    --height: var(--base-height);
+    width: calc(var(--width) * 1px);
+    height: calc(var(--height) * 1px);
+    border-radius: 50%;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #000;
+    will-change: transform opacity;
+    transform: translate(calc(var(--mouse-x) * 1px), calc(var(--mouse-y) * 1px)) translate(-50%, -50%);
+    transform-origin: center center;
+    z-index: 2;
+    opacity: 1;
+    overflow: hidden;
+    pointer-events: none;
+    transition-property: width, height;
+    transition-duration: .25s;
+    transition-timing-function: ease;
+  }
+
+  &[data-hover] {
+    --wobble-scale: 12;
+    --pos-x: calc(((var(--mouse-x) - var(--hover-x)) / var(--width)) * var(--wobble-scale));
+    --pos-y: calc(((var(--mouse-y) - var(--hover-y)) / var(--height)) * var(--wobble-scale));
+
+    --dw: calc(var(--base-width) / var(--width));
+    --dh: calc(var(--base-height) / var(--height));
+
+    width: calc(var(--hover-width) * 1px);
+    height: calc(var(--hover-height) * 1px);
+    border-radius: calc(var(--base-width) * var(--dw) * .5px) calc(var(--base-height) * var(--dh) * .5px);
+    transform: translate(calc(1px * var(--pos-x)), calc(1px * var(--pos-y))) translate(calc(1px * var(--hover-x)), calc(1px * var(--hover-y))) translate(-50%, -50%);
+  }
+}

@@ -11,12 +11,13 @@
 @import 'components/highlight';
 @import 'components/vaporsun';
 
-* {
-	cursor: none;
-}
+// * {
+// 	cursor: none;
+// }
 
 main {
-	position: relative;
+  position: relative;
+  background-color: #f5f8ff;
 }
 
 .slide {
@@ -24,27 +25,26 @@ main {
 	width: 100%;
 	max-height: 100vh;
 	overflow-x: hidden;
-	display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-
-  @include respond-to('medium') {
-    max-height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(12, 1fr);
-  }
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 1rem;
+  padding: 5%;
 }
 
-#outro {
-	height: 400px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-	background: #000;
+
+.gallery {
+	position: relative;
+	width: 100%;
+	max-height: 100vh;
+	overflow-x: hidden;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 1rem;
+  grid-auto-flow: dense;
+  align-items: center;
+  justify-content: center;
 }
 
 

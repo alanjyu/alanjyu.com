@@ -5,18 +5,9 @@
     font-size: 22px;
     text-align: left;
 
-    @include respond-to('medium') {
-      grid-column: 3 / 6;
-      grid-row: 6 / 7;
-      line-height: 1.4;
-    }
   }
 
   &__hero {
-    @include respond-to('medium') {
-      grid-column: 7 / span 4;
-      grid-row: 1 / -1;
-    }
 
     >img {
       -o-object-fit: cover;

@@ -1,60 +1,56 @@
 .landing {
 	position: relative;
-	height: 600px;
-
-	@include respond-to('xlarge') {
-		height: 100vh;
-	}
+	height: 800px;
 }
 
 .vcard {
-	position: absolute;
-	top: 50%;
-	left: 50%;
+	position: relative;
+	grid-row: 2;
+	grid-column: 2 / 6;
+	height: 100%;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	transform: translate(-50%, -50%);
+}
 
-	@include respond-to('xlarge') {
-		transform: 
-			translate(calc((var(--mouse-x)/var(--viewport-x)-.5) * 20px), calc((var(--mouse-y)/var(--viewport-y)-.5) * 20px)) 
-			translate(-50%, -50%);
+.title {
+	position: relative;
+	font-family: sans-serif;
+	font-size: calc(2rem + 6vw);
+	font-weight: 700;
+	margin: .4em 0;
+	transition: transform .2s;
+	transform: translate(calc((var(--mouse-x)/var(--viewport-x)-.5) * 5px), calc((var(--mouse-y)/var(--viewport-y)-.5) * 5px));
+}
+
+.profile {
+	position: relative;
+	grid-column: 3 / span 4;
+	grid-row: 1 / -1;
+	padding: 5%;
+	transition: transform .2s;
+	transform: translate(calc((var(--mouse-x)/var(--viewport-x)-.5) * 10px), calc((var(--mouse-y)/var(--viewport-y)-.5) * 10px));
+	
+	&__picture {
+		object-fit: cover;
+		height: 100%;
+		width: 100%;
 	}
-
-	&__title {
-		position: relative;
-		font-size: 40px;
-		white-space: nowrap;
-
-		@include respond-to('xlarge') {
-			font-size: 40px;
-		}
-	}
-
-	&__avatar {
-		position: relative;
-		max-width: 200px;
-		border-radius: 50%;
-
-		@include respond-to('xlarge') {
-			max-width: 250px;
-		}
-	}
+	
 }
 
 .social-media {
 	position: relative;
+	margin: 5% 0;
 	display: flex;
 	flex-direction: row;
 
 	&__item {
 		position: relative;
 		display: inline-block;
-		margin: .8em;
-		height: 40px;
-		width: 40px;
+		margin: 1vw;
+		height: calc(1rem + 3vw);
+		width: calc(1rem + 3vw);
 		fill: #000000;
 
 		&__link {
@@ -67,39 +63,40 @@
 }
 
 .type-writer {
-	font-family: 'DM Sans', sans-serif;
-	font-size: 18px;
-	white-space: nowrap;
+	font-family: sans-serif;
+	font-size: calc(1rem + 1vw);
+}
+
+.ti-cursor {
+	font-size: calc(1.5rem + 1vw) !important;
 }
 
 
 .tab {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	margin: 2em;
-
-	@include respond-to('xlarge') {
-		margin: 4em;
-	}
+	position: relative;
+	grid-row: 2;
+	grid-column: 1;
+	display: flex;
+	align-self: center;
+	justify-self: center;
 
 	&__menu {
 		position: relative;
 		font-family: sans-serif;
-		font-size: 22px;
+		font-size: calc(1rem + 1vw);
 		display: flex;
 		flex-flow: column nowrap;
+		align-items: center;
+		justify-content: center;
 
 		&__item {
 			writing-mode: vertical-lr;
+			margin: 5vh;
 			transform: rotate(180deg);
 			transform-origin: center center;
-			margin: 1.2em 0;
 
 			&__link {
-				display: block;
 				color: #000;
-				line-height: 1.6;
 			}
 		}
 	}
@@ -123,8 +120,7 @@
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	height: 225px;
-	margin: 4em;
+	margin: 5%;
 	display: flex;
 	flex-direction: column;
 
@@ -133,16 +129,7 @@
 		width: 4px;
 		height: 4px;
 		background: #000;
-		animation: scroll 3s cubic-bezier(0.77, 0, 0.175, 1) infinite;
-	}
-
-	&__text {
-		position: relative;
-		font-family: sans-serif;
-		line-height: .3;
-		white-space: nowrap;
-		writing-mode: vertical-lr;
-		margin: 1em 0;
+		animation: scroll 3s cubic-bezier(.77, 0, .175, 1) infinite;
 	}
 }
 
