@@ -20,7 +20,7 @@ export default class Burger {
 				0
 			)
 			.fromTo(
-				'.nav__menu__item__link', {
+				'.nav__menu__item', {
 					opacity: 0,
 					scale: 2
 				}, {

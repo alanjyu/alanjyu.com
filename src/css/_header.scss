@@ -13,8 +13,8 @@ header {
   margin: 5%;
 
   &__svg {
-    width: 60px;
-    height: 60px;
+    width: calc(3rem + 1vw);
+    height: calc(3rem + 1vw);
   }
 }
 
@@ -23,8 +23,8 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 60px;
-  height: 60px;
+  width: calc(3rem + 1vw);
+  height: calc(3rem + 1vw);
   margin: 5%;
 
   &__line {

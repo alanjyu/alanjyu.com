@@ -5,8 +5,7 @@ export default class TypeWriter {
 			'Environmental physics specialist.',
 			'Front-end developer.',
 			'Petrolhead.',
-			'Musician.',
-			'Aspiring DJ.'
+			'Musician & Aspiring DJ.'
 			] || [] ;
 
 		new TypeIt(element, {
