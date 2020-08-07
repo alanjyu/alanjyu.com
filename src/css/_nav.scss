@@ -1,7 +1,3 @@
-nav {
-  position: fixed;
-}
-
 @-webkit-keyframes strike-in {
 	0% {
 		width: 0;
@@ -58,33 +54,46 @@ nav {
 	}
 }
 
+nav {
+	position: fixed;
+}
+
+
 .nav {
 	width: 100%;
 	height: 100%;
 	top: 0;
 	left: 0;
-	will-change: transform;
-	transform: translateX(-100%);
-	background: #ffffff;
+	display: none;
+	opacity: 0;
+
+	&__background {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background: #fff;
+
+		&__svg {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
 
 	&__menu {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		font-family: 'DM Sans', sans-serif;
+		font-family: sans-serif;
 		font-weight: bold;
-		font-size: 36px;
+		font-size: calc(1rem + 2vw);
 		letter-spacing: .1em;
 		text-transform: uppercase;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
-
-		@include respond-to('small') {
-			font-size: 36px;
-		}
 
 		&__item {
 			position: relative;
@@ -99,7 +108,7 @@ nav {
 
 .theme-switch {
   position: absolute;
-  width: 100px;
+  width: calc(2rem + 7vw);
   bottom: 0;
   left: 50%;
   transform: translate(-50%, -50%);

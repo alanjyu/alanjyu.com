@@ -14,7 +14,8 @@ export default class Burger {
 		this.toActivateMenu
 			.to(
 				'.nav', {
-					translateX: '0'
+					display: 'block',
+					opacity: 1
 				},
 				0
 			)
@@ -27,7 +28,7 @@ export default class Burger {
 					scale: 1,
 					stagger: .1
 				},
-				'-=.5'
+				'-=.25'
 			);
 
 		if (this.menu_is_active) {

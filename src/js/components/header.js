@@ -5,7 +5,7 @@ export default class Header {
     this.header_is_hidden = false;
 
     var pageYOffset = window.pageYOffset;
-    var landingHeight = document.querySelector('.landing').offsetHeight;
+    var landingHeight = document.querySelector('.hero').offsetHeight;
 
     if (pageYOffset > landingHeight) {
       this.header_is_fixed = true;
@@ -21,30 +21,26 @@ export default class Header {
 
     document.addEventListener('scroll', () => {
       pageYOffset = window.pageYOffset;
-      landingHeight = document.querySelector('.landing').offsetHeight;
+      landingHeight = document.querySelector('.hero').offsetHeight;
   
       if (pageYOffset > landingHeight) {
         this.header_is_fixed = true;
-        console.log(pageYOffset, landingHeight);
         this.header.style.position = 'fixed';
       } else {
         this.header_is_fixed = false;
-        console.log(pageYOffset, landingHeight);
         this.header.style.position = 'absolute';
       }
     });
 
     document.addEventListener('resize', () => {
       pageYOffset = window.pageYOffset;
-      landingHeight = document.querySelector('.landing').offsetHeight;
+      landingHeight = document.querySelector('.hero').offsetHeight;
   
       if (pageYOffset > viewPortHeight) {
         this.header_is_fixed = true;
-        console.log(pageYOffset, viewPortHeight);
         this.header.style.position = 'fixed';
       } else {
         this.header_is_fixed = false;
-        console.log(pageYOffset, viewPortHeight);
         this.header.style.position = 'absolute';
       }
     });

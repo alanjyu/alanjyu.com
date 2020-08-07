@@ -1,6 +1,7 @@
 header {
   position: absolute;
   top: 0;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -32,9 +33,6 @@ header {
     background: #000;
   }
 }
-
-/* thanks to keyframers
-  https://codepen.io/team/keyframers/pen/8af927f6a473d69bd082c7765189ad9e */
 
 .cursor {
   display: none;

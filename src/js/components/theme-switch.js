@@ -4,8 +4,7 @@ import {
 
 export default class ThemeToggler {
 	constructor(element) {
-		this.day_mode_is_active = true;
-		// this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
+		this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
 		this.duration = .25;
 		this.scale = 30;
 
@@ -95,50 +94,43 @@ export default class ThemeToggler {
 				this.duration
 			)
 			.to(
-				'.slide', {
-					color: '#fff',
+				'[data-theme-background-dark]', {
+					background: '#222831',
 					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
-				'.burger__line', {
+				'[data-theme-color-white]', {
+					color: '#fff',
+					duration: this.duration * 2
+				},
+				0	
+			)
+			.to(
+				'[data-theme-stroke]', {
+					strokeColor: '#fff',
+					duration: this.duration * 2
+				},
+				0	
+			)
+			.to(
+				'[data-theme-background-light]', {
 					background: '#fff',
 					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
-				'.nav', {
-					background: '#000',
-					duration: this.duration * 2
-				},
-				0
-			)
-			.to(
-				'.nav__menu__item__link', {
-					color: '#fff',
-					duration: this.duration * 2
-				},
-				0
-			)
-			.to(
-				'.social-media__item__link', {
+				'[data-theme-fill]', {
 					fill: '#fff',
 					duration: this.duration * 2
 				},
 				0
 			)
 			.to(
-				'.tab__item__link', {
-					color: '#fff',
-					duration: this.duration * 2
-				},
-				0
-			)
-			.to(
-				'.mouse-scroll__icon', {
-					stroke: '#fff',
+				'[data-theme-border]', {
+					borderColor: '#fff',
 					duration: this.duration * 2
 				},
 				0
@@ -147,33 +139,6 @@ export default class ThemeToggler {
 				'.ti-cursor', {
 					color: '#ffff00',
 					duration: this.duration * 2
-				},
-				0
-			)
-			.to(
-				'.carousel', {
-					filter: 'brightness(.6)',
-					duration: this.duration * 2
-				},
-				0
-			)
-			.to(
-				'.highlight', {
-					color: '#fff',
-					duration: this.duration * 2
-				},
-				0
-			)
-			.to(
-				'.cursor', {
-					borderColor: '#fff',
-					duration: this.duration * 2
-				},
-				0
-			)
-			.to(
-				'body', {
-					background: '#000',
 				},
 				0
 			);

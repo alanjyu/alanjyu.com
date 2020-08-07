@@ -1,6 +1,11 @@
-.landing {
-	position: relative;
-	height: 800px;
+.hero {
+	height: 700px;
+
+	&__title {
+		position: relative;
+		transition: transform .2s;
+		transform: translate(calc((var(--mouse-x)/var(--viewport-x)-.5) * 5px), calc((var(--mouse-y)/var(--viewport-y)-.5) * 5px));
+	}
 }
 
 .vcard {
@@ -13,21 +18,11 @@
 	flex-direction: column;
 }
 
-.title {
-	position: relative;
-	font-family: sans-serif;
-	font-size: calc(2rem + 6vw);
-	font-weight: 700;
-	margin: .4em 0;
-	transition: transform .2s;
-	transform: translate(calc((var(--mouse-x)/var(--viewport-x)-.5) * 5px), calc((var(--mouse-y)/var(--viewport-y)-.5) * 5px));
-}
-
 .profile {
 	position: relative;
 	grid-column: 3 / span 4;
 	grid-row: 1 / -1;
-	padding: 5%;
+	padding: 10%;
 	transition: transform .2s;
 	transform: translate(calc((var(--mouse-x)/var(--viewport-x)-.5) * 10px), calc((var(--mouse-y)/var(--viewport-y)-.5) * 10px));
 	
@@ -41,7 +36,7 @@
 
 .social-media {
 	position: relative;
-	margin: 5% 0;
+	margin-top: 5%;
 	display: flex;
 	flex-direction: row;
 
@@ -49,8 +44,8 @@
 		position: relative;
 		display: inline-block;
 		margin: 1vw;
-		height: calc(1rem + 3vw);
-		width: calc(1rem + 3vw);
+		height: calc(1rem + 2vw);
+		width: calc(1rem + 2vw);
 		fill: #000000;
 
 		&__link {
@@ -68,12 +63,11 @@
 }
 
 .ti-cursor {
+	margin-left: .1em !important;
 	font-size: calc(1.5rem + 1vw) !important;
 }
 
-
 .tab {
-	position: relative;
 	grid-row: 2;
 	grid-column: 1;
 	display: flex;
@@ -83,7 +77,7 @@
 	&__menu {
 		position: relative;
 		font-family: sans-serif;
-		font-size: calc(1rem + 1vw);
+		font-size: calc(1rem + .8vw);
 		display: flex;
 		flex-flow: column nowrap;
 		align-items: center;
@@ -91,7 +85,7 @@
 
 		&__item {
 			writing-mode: vertical-lr;
-			margin: 5vh;
+			margin: 3vh;
 			transform: rotate(180deg);
 			transform-origin: center center;
 
@@ -113,23 +107,6 @@
 
 	100% {
 		opacity: 0;
-	}
-}
-
-.scroll {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	margin: 5%;
-	display: flex;
-	flex-direction: column;
-
-	&__line {
-		position: relative;
-		width: 4px;
-		height: 4px;
-		background: #000;
-		animation: scroll 3s cubic-bezier(.77, 0, .175, 1) infinite;
 	}
 }
 
@@ -167,5 +144,22 @@
 	100% {
 		transform: translateY(15px);
 		opacity: 0;
+	}
+}
+
+.scroll {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin: 5%;
+	display: flex;
+	flex-direction: column;
+
+	&__line {
+		position: relative;
+		width: 4px;
+		height: 4px;
+		background: #000;
+		animation: scroll 3s cubic-bezier(.77, 0, .175, 1) infinite;
 	}
 }
