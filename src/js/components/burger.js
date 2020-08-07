@@ -12,21 +12,43 @@ export default class Burger {
 
 		this.toActivateMenu = gsap.timeline();
 		this.toActivateMenu
-			.to(
+			.fromTo(
 				'.nav', {
+					opacity: 0,
+					zIndex: 'var(--z-below)'
+				}, {
+					opacity: 1,
+					zIndex: 'var(--z-above)'
+				},
+				0
+			)
+			.fromTo(
+				'.nav__background', {
+					display: 'none',
+					opacity: 0
+				}, {
+					
 					display: 'block',
 					opacity: 1
 				},
 				0
 			)
 			.fromTo(
-				'.nav__menu__item', {
+				'.menu__item', {
 					opacity: 0,
 					scale: 2
 				}, {
 					opacity: 1,
 					scale: 1,
 					stagger: .1
+				},
+				'-=.25'
+			)
+			.fromTo(
+				'.theme-switch', {
+					opacity: 0
+				}, {
+					opacity: 1
 				},
 				'-=.25'
 			);
@@ -39,19 +61,20 @@ export default class Burger {
 
 		this.toActivateMenu.pause();
 
-		this.switchToggle = document.querySelector('.js-burger');
-		this.switchToggle.addEventListener('click', () => {
-			this.toggleMenu();
+		this.burgerToggle = document.querySelector('.js-burger');
+		this.burgerToggle.addEventListener('click', () => {
+			if (!this.menu_is_active) {
+				this.menu_is_active = true;
+				this.toActivateMenu.play();
+			};
+		});
+
+		this.navToggle = document.querySelector('.js-nav');
+		this.navToggle.addEventListener('click', () => {
+			if (this.menu_is_active) {
+				this.menu_is_active = false;
+				this.toActivateMenu.reverse();
+			}
 		});
 	};
-
-	toggleMenu() {
-		if (!this.menu_is_active) {
-			this.menu_is_active = true;
-			this.toActivateMenu.play();
-		} else if (this.menu_is_active) {
-			this.menu_is_active = false;
-			this.toActivateMenu.reverse();
-		}
-	}
 }

@@ -54,21 +54,17 @@
 	}
 }
 
-nav {
-	position: fixed;
-}
-
-
 .nav {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	width: 100%;
 	height: 100%;
-	top: 0;
-	left: 0;
-	display: none;
-	opacity: 0;
 
 	&__background {
-		position: relative;
+		position: absolute;
 		width: 100%;
 		height: 100%;
 		background: #fff;
@@ -79,66 +75,97 @@ nav {
 			object-fit: cover;
 		}
 	}
+}
 
-	&__menu {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-family: sans-serif;
-		font-weight: bold;
-		font-size: calc(1rem + 2vw);
-		letter-spacing: .1em;
-		text-transform: uppercase;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
+.menu {
+	position: relative;
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: calc(1rem + 2vw);
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
 
-		&__item {
-			position: relative;
-			margin: .6em;
+	&__item {
+		position: relative;
+		margin: .6em;
 
-			&__link {
-				color: #000;
-			}
+		&__link {
+			color: #000;
 		}
 	}
 }
 
+
 .theme-switch {
-  position: absolute;
-  width: calc(2rem + 7vw);
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-pack: center;
-  box-align: center;
+	position: relative;
+	width: calc(2rem + 7vw);
+	box-pack: center;
+	box-align: center;
 
-  &__container>input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
+	&__container>input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+		height: 0;
+		width: 0;
+	}
 
-  &--night {
-    &__content {
-      opacity: 0.5;
-    }
-  }
+	&--night {
+		&__content {
+			opacity: 0.5;
+		}
+	}
 
-  &__inner-shadow {
-    stroke-opacity: 0.1;
-    stroke-width: 5;
-    stroke: #000000;
-    fill: none;
-  }
+	&__inner-shadow {
+		stroke-opacity: 0.1;
+		stroke-width: 5;
+		stroke: #000000;
+		fill: none;
+	}
 
-  &__rect {
-    width: 100%;
-    height: 100%;
-  }
+	&__rect {
+		width: 100%;
+		height: 100%;
+	}
 }
 
+.cursor {
+	display: block;
+	position: fixed;
+	z-index: var(--z-top);
+	--base-width: calc(min(var(--viewport-x), var(--viewport-y)) * .1);
+	--base-height: calc(min(var(--viewport-x), var(--viewport-y)) * .1);
+	--width: var(--base-width);
+	--height: var(--base-height);
+	width: calc(var(--width) * 1px);
+	height: calc(var(--height) * 1px);
+	border-radius: 50%;
+	border-width: 3px;
+	border-style: solid;
+	border-color: #000;
+	will-change: transform opacity;
+	transform: translate(calc(var(--mouse-x) * 1px), calc(var(--mouse-y) * 1px)) translate(-50%, -50%);
+	transform-origin: center center;
+	overflow: hidden;
+	pointer-events: none;
+	transition-property: width, height;
+	transition-duration: .25s;
+
+	&[data-hover] {
+		--wobble-scale: 12;
+		--pos-x: calc(((var(--mouse-x) - var(--hover-x)) / var(--width)) * var(--wobble-scale));
+		--pos-y: calc(((var(--mouse-y) - var(--hover-y)) / var(--height)) * var(--wobble-scale));
+
+		--dw: calc(var(--base-width) / var(--width));
+		--dh: calc(var(--base-height) / var(--height));
+
+		width: calc(var(--hover-width) * 1px);
+		height: calc(var(--hover-height) * 1px);
+		border-radius: calc(var(--base-width) * var(--dw) * .5px) calc(var(--base-height) * var(--dh) * .5px);
+		transform: translate(calc(1px * var(--pos-x)), calc(1px * var(--pos-y))) translate(calc(1px * var(--hover-x)), calc(1px * var(--hover-y))) translate(-50%, -50%);
+	}
+}

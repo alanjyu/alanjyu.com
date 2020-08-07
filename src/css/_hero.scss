@@ -10,11 +10,11 @@
 
 .profile {
 	position: relative;
-	margin: 10%; 
+	margin: 10%;
 	grid-column: 3 / span 4;
 	grid-row: 1 / -1;
 	overflow: hidden;
-	
+
 	&__picture {
 		position: absolute;
 		top: -12.5%;
@@ -66,31 +66,26 @@
 }
 
 .tab {
+	position: relative;
 	grid-row: 2 / -1;
 	grid-column: 1;
 	display: flex;
-	align-self: center;
-	justify-self: center;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
 
-	&__menu {
-		position: relative;
-		display: flex;
-		flex-flow: column nowrap;
-		align-items: center;
-		justify-content: center;
+	&__item {
+		writing-mode: vertical-lr;
+		font-family: sans-serif;
+		font-size: calc(1rem + 1vw);
+		line-height: 1.6;
+		transform: rotate(180deg);
+		transform-origin: center center;
 
-		&__item {
-			writing-mode: vertical-lr;
-			font-family: sans-serif;
-			font-size: calc(1rem + 1vw);
-			line-height: 1.6;
-			transform: rotate(180deg);
-			transform-origin: center center;
-
-			&__link {
-				color: #000;
-			}
+		&__link {
+			color: #000;
 		}
+
 	}
 }
 

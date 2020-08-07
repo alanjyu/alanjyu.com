@@ -21,10 +21,6 @@ const components = [{
 		selector: '.js-theme-switch'
 	},
 	{
-		class: Tracker,
-		selector: '.js-tracker'
-	},
-	{
 		class: Boundary,
 		selector: '[data-src]'
 	},
@@ -50,5 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			);
 		};
 	});
+
+	new Tracker();
 });
 
