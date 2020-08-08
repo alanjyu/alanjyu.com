@@ -10,17 +10,13 @@
 
 
 @media (pointer: fine) {
-  .cursor {
+	.cursor {
 		display: block;
 	}
 }
 
-main, footer {
-	position: relative;
-}
-
 main {
-	background-color: #f5f8ff;
+	background-color: #fafafa;
 }
 
 section,
@@ -95,6 +91,6 @@ div {
 	&--stroke {
 		-webkit-text-stroke: calc(.1rem + .2vw);
 		-webkit-text-stroke-color: #fff;
-    color: transparent;
+		color: transparent;
 	}
 }

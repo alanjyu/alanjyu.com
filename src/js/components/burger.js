@@ -12,42 +12,41 @@ export default class Burger {
 
 		this.toActivateMenu = gsap.timeline();
 		this.toActivateMenu
-			.fromTo(
+			.to(
 				'.nav', {
-					opacity: 0,
-					zIndex: 'var(--z-below)'
-				}, {
 					opacity: 1,
 					zIndex: 'var(--z-above)'
 				},
 				0
 			)
-			.fromTo(
+			.to(
 				'.nav__background', {
-					display: 'none',
-					opacity: 0
-				}, {
-					
 					display: 'block',
 					opacity: 1
 				},
 				0
 			)
-			.fromTo(
+			.to(
 				'.menu__item', {
-					opacity: 0,
-					scale: 2
-				}, {
+					display: 'block'
+				},
+				0
+			)
+			.to(
+				'.menu__item', {
 					opacity: 1,
-					scale: 1,
 					stagger: .1
 				},
 				'-=.25'
 			)
-			.fromTo(
+			.to(
 				'.theme-switch', {
-					opacity: 0
-				}, {
+					display: 'block',
+				},
+				0
+			)
+			.to(
+				'.theme-switch', {
 					opacity: 1
 				},
 				'-=.25'
@@ -69,7 +68,7 @@ export default class Burger {
 			};
 		});
 
-		this.navToggle = document.querySelector('.js-nav');
+		this.navToggle = document.querySelector('.js-nav__background');
 		this.navToggle.addEventListener('click', () => {
 			if (this.menu_is_active) {
 				this.menu_is_active = false;
