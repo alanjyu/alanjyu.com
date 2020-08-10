@@ -33,6 +33,7 @@
     "typeit": "^7.0.4"
   },
   "devDependencies": {
+    "cssnano": "^4.1.10",
     "sass": "^1.26.10"
   }
 }
