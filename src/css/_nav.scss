@@ -146,7 +146,6 @@
 	&__container>input {
 		position: absolute;
 		opacity: 0;
-		cursor: pointer;
 		height: 0;
 		width: 0;
 	}
@@ -171,7 +170,7 @@
 }
 
 .cursor {
-	display: block;
+	display: none;
 	position: fixed;
 	z-index: var(--z-top);
 	--base-width: calc(min(var(--viewport-x), var(--viewport-y)) * .1);

@@ -10,7 +10,7 @@
 @import 'footer';
 
 
-@media (pointer: fine) {
+@media (pointer: fine) and (min-width: 768px) {
 	.cursor {
 		display: block;
 	}

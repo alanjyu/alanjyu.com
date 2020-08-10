@@ -4,8 +4,7 @@ import {
 
 export default class ThemeToggler {
 	constructor(element) {
-		// this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
-		this.day_mode_is_active = true;
+		this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
 		this.duration = .25;
 		this.scale = 30;
 
