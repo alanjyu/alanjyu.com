@@ -1,4 +1,6 @@
 import '../css/main.scss';
+import 'typeface-ibm-plex-mono';
+import 'typeface-rokkitt';
 
 import Burger from './components/burger';
 import TypeWriter from './components/type-writer';

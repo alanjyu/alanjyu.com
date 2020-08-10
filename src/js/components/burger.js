@@ -28,22 +28,10 @@ export default class Burger {
 			)
 			.to(
 				'.menu__item', {
-					display: 'block'
-				},
-				0
-			)
-			.to(
-				'.menu__item', {
 					opacity: 1,
 					stagger: .1
 				},
 				'-=.25'
-			)
-			.to(
-				'.theme-switch', {
-					display: 'block',
-				},
-				0
 			)
 			.to(
 				'.theme-switch', {

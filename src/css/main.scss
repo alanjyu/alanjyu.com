@@ -5,6 +5,7 @@
 @import 'header';
 @import 'hero';
 @import 'biography';
+@import 'contact';
 @import 'nav';
 @import 'footer';
 
@@ -16,7 +17,7 @@
 }
 
 main {
-	background-color: #fafafa;
+	background: #fafafa;
 }
 
 section,
@@ -25,9 +26,9 @@ div {
 }
 
 .title {
-	font-family: sans-serif;
-	font-size: calc(4rem + 4vw);
-	font-weight: 700;
+	font-family: 'rokkitt', sans-serif;
+	font-size: calc(1rem + 7vw);
+	font-weight: 500;
 }
 
 .slide {
@@ -36,11 +37,17 @@ div {
 	max-height: 100vh;
 	overflow: hidden;
 	display: grid;
-	grid-template-rows: repeat(3, 1fr);
+	grid-template-rows: repeat(6, minmax(0, 1fr));
 	grid-template-columns: repeat(6, minmax(0, 1fr));
-	grid-gap: 1rem;
 	min-height: 0;
 	min-width: 0;
+}
+
+.content {
+	font-family: 'ibm plex mono', sans-serif;
+	font-size: calc(1rem + 1vw);
+	line-height: 1.6;
+	text-align: left;
 }
 
 .gallery {
@@ -76,21 +83,11 @@ div {
 	}
 
 	&:hover {
-		color: #fff;
+		color: #ffff00;
 
 		&::after {
 			height: 120%;
 			width: 105%;
 		}
-	}
-}
-
-.parallax-text {
-	position: absolute;
-
-	&--stroke {
-		-webkit-text-stroke: calc(.1rem + .2vw);
-		-webkit-text-stroke-color: #fff;
-		color: transparent;
 	}
 }

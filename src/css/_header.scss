@@ -9,8 +9,8 @@ header {
   margin: 5%;
 
   &__svg {
-    width: calc(3rem + 1vw);
-    height: calc(3rem + 1vw);
+    width: calc(2rem + 2vw);
+    height: calc(2rem + 2vw);
   }
 }
 
@@ -19,8 +19,8 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: calc(3rem + 1vw);
-  height: calc(3rem + 1vw);
+  width: calc(2rem + 2vw);
+  height: calc(2rem + 2vw);
   margin: 5%;
 
   &__line {

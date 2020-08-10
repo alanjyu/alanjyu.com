@@ -1,20 +1,16 @@
 footer {
-  position: relative;
-  height: 60px;
-}
-
-.footer {
-  background: #181818;
-  height: 100%;
-	padding: 1em 2em;
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 60px;
+}
 
+.footer {
 	h2 {
 		margin: 0;
-		font-family: 'DM Sans', sans-serif;
+		font-family: 'ibm plex mono', sans-serif;
 		font-size: 16px;
-		color: #d0d0d0;
+		color: #9c9c9c;
 	}
 }

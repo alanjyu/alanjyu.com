@@ -64,7 +64,8 @@ export default class ThemeToggler {
 					opacity: 1,
 					ease: 'power2.inOut',
 					x: 0
-				}
+				},
+				0
 			)
 			.to(
 				'.theme-switch__circle', {
@@ -102,15 +103,15 @@ export default class ThemeToggler {
 				0
 			)
 			.to(
-				'[data-theme-color-white]', {
-					color: '#fff',
+				'[data-theme-text-stroke-white]', {
+					webkitTextStrokeColor: '#fff',
 					duration: this.duration * 2
 				},
-				0	
+				0
 			)
 			.to(
-				'[data-theme-stroke]', {
-					strokeColor: '#fff',
+				'[data-theme-color-white]', {
+					color: '#fff',
 					duration: this.duration * 2
 				},
 				0	

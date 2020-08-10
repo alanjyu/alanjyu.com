@@ -2,7 +2,7 @@ import TypeIt from 'typeit';
 export default class TypeWriter {
 	constructor(element) {
 		this.strings = [
-			'Environmental physics specialist.',
+			'Env. physics specialist.',
 			'Front-end developer.',
 			'Petrolhead.',
 			'Musician & Aspiring DJ.'
