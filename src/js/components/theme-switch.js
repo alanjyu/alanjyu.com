@@ -102,13 +102,6 @@ export default class ThemeToggler {
 				0
 			)
 			.to(
-				'[data-theme-text-stroke-white]', {
-					webkitTextStrokeColor: '#fff',
-					duration: this.duration * 2
-				},
-				0
-			)
-			.to(
 				'[data-theme-color-white]', {
 					color: '#fff',
 					duration: this.duration * 2
