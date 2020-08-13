@@ -1,0 +1,29 @@
+@font-face {
+	font-family: 'Coolvetica';
+	src: local('Coolvetica'),
+		url('../Coolvetica.woff2') format('woff2'),
+		url('../Coolvetica.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Young';
+	src: local('Young Italic'), local('Young-Italic'),
+		url('../Young-Italic.woff2') format('woff2'),
+		url('../Young-Italic.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Young';
+	src: local('Young'),
+		url('../Young.woff2') format('woff2'),
+		url('../Young.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}

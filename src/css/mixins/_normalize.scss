@@ -102,8 +102,6 @@ html {
     text-rendering: optimizelegibility;
     -webkit-font-smoothing: antialiased;
     line-height: 1;
-
-    scrollbar-width: none;
 }
 
 footer,
@@ -124,10 +122,6 @@ a {
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-::-webkit-scrollbar {
-    display: none;
+    border-collapse: collapse;
+    border-spacing: 0;
 }

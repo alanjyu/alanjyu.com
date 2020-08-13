@@ -17,6 +17,7 @@
 	&__content {
 		grid-row: 6;
 		grid-column: 2 / 6;
+		width: 100%;
 		align-self: start;
 		justify-self: start;
 
@@ -33,12 +34,12 @@
 .profile {
 	position: relative;
 	grid-column: 2 / 6;
-	grid-row: 1 / 5;
+	grid-row: 2 / 5;
 	overflow: hidden;
 
 	@include respond-to('medium') {
-		grid-column: 4 / -1;
-		grid-row: 1 / -1;
+		grid-column: 4 / 6;
+		grid-row: 2 / 6;
 	}
 
 	&__picture {
@@ -50,13 +51,14 @@
 		-o-object-fit: cover;
 		object-fit: cover;
 		transition: transform .1s;
-		transform: translate(calc((var(--mouse-x)/var(--viewport-x)-.5) * 10px), calc((var(--mouse-y)/var(--viewport-y)-.5) * 10px));
+		transform: translate(calc((var(--mouse-x)/var(--window-w)-.5) * 10px), calc((var(--mouse-y)/var(--window-h)-.5) * 10px));
 	}
 }
 
 .type-writer {
-	font-family: 'ibm plex mono', sans-serif;
-	font-size: calc(1rem + 1vw);
+	font-size: calc(1rem + .7vw);
+	justify-self: center;
+	justify-self: center;
 	white-space: nowrap;
 
 	@include respond-to('medium') {
@@ -94,88 +96,5 @@
 			color: #000;
 		}
 
-	}
-}
-
-@-webkit-keyframes scroll {
-	0% {
-		opacity: 0;
-	}
-
-	50% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-	}
-}
-
-@keyframes scroll {
-	0% {
-		opacity: 0;
-	}
-
-	50% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-	}
-}
-
-@keyframes scroll {
-	0% {
-		transform: translateY(0);
-		opacity: 0;
-	}
-
-	10% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-
-	30% {
-		transform: translateY(0);
-		height: 4px;
-	}
-
-	50% {
-		transform: translateY(0);
-		height: 60px;
-	}
-
-	80% {
-		transform: translateY(60px);
-		height: 4px;
-		opacity: 1;
-	}
-
-	90% {
-		opacity: 0;
-	}
-
-	100% {
-		transform: translateY(15px);
-		opacity: 0;
-	}
-}
-
-.scroll {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	margin: 5%;
-	display: flex;
-	flex-direction: column;
-
-	&__line {
-		position: relative;
-		width: 4px;
-		height: 4px;
-		background: #000;
-		-webkit-animation: scroll 3s cubic-bezier(.77, 0, .175, 1) infinite;
-		animation: scroll 3s cubic-bezier(.77, 0, .175, 1) infinite;
 	}
 }

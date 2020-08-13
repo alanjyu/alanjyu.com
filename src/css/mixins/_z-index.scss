@@ -6,15 +6,19 @@
   --z-bottom: -9;
 }
 
-.header {
+header {
   z-index: var(--z-default);
+}
+
+footer {
+  z-index: var(--z-below);
+}
+
+nav{
+  z-index: var(--z-below);
 }
 
 .cursor {
   z-index: var(--z-top);
-}
-
-.nav{
-  z-index: var(--z-below);
 }
 

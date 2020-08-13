@@ -3,10 +3,9 @@ export default class TypeWriter {
 	constructor(element) {
 		this.strings = [
 			'Env. physics specialist.',
-			'Front-end developer.',
-			'Petrolhead.',
-			'Musician & Aspiring DJ.'
-			] || [] ;
+			'Based in Saskatoon.',
+			'Welcome!'
+			];
 
 		new TypeIt(element, {
 			loop: true,

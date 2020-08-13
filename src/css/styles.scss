@@ -1,11 +1,13 @@
 @import 'mixins/breakpoint';
 @import 'mixins/normalize';
 @import 'mixins/z-index';
+@import 'mixins/fonts';
 
+@import 'body';
 @import 'header';
 @import 'hero';
 @import 'biography';
-@import 'contact';
+@import 'main/contact';
 @import 'nav';
 @import 'footer';
 
@@ -16,23 +18,18 @@
 	}
 }
 
-main {
+main,
+footer {
 	background: #fafafa;
 }
 
 section,
-div {
+div,
+ul {
 	position: relative;
-}
-
-.title {
-	font-family: 'rokkitt', sans-serif;
-	font-size: calc(1rem + 7vw);
-	font-weight: 500;
 }
 
 .slide {
-	position: relative;
 	width: 100%;
 	max-height: 100vh;
 	overflow: hidden;
@@ -43,9 +40,15 @@ div {
 	min-width: 0;
 }
 
+.title {
+	font-family: 'Coolvetica', sans-serif;
+	font-size: calc(1rem + 6vw);
+}
+
 .content {
-	font-family: 'ibm plex mono', sans-serif;
+	font-family: 'coolvetica', sans-serif;
 	font-size: calc(1rem + 1vw);
+	font-weight: 400;
 	line-height: 1.6;
 	text-align: left;
 }
@@ -68,6 +71,7 @@ div {
 	transition: color .25s;
 	position: relative;
 	z-index: 1;
+	white-space: nowrap;
 
 	&::after {
 		position: absolute;
@@ -90,4 +94,8 @@ div {
 			width: 105%;
 		}
 	}
+}
+
+.content {
+	font-family: 'Young', sans-serif;
 }

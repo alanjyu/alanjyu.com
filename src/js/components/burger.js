@@ -27,15 +27,9 @@ export default class Burger {
 				0
 			)
 			.to(
-				'.menu__item', {
+				'.menu__item__link', {
 					opacity: 1,
 					stagger: .1
-				},
-				'-=.25'
-			)
-			.to(
-				'.theme-switch', {
-					opacity: 1
 				},
 				'-=.25'
 			);

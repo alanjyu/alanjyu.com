@@ -6,11 +6,11 @@ header {
 
 .a {
   position: relative;
-  margin: 5%;
+  margin: 3% 5%;
 
   &__svg {
-    width: calc(2rem + 2vw);
-    height: calc(2rem + 2vw);
+    width: calc(2rem + 1vw);
+    height: calc(2rem + 1vw);
   }
 }
 
@@ -19,9 +19,9 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: calc(2rem + 2vw);
-  height: calc(2rem + 2vw);
-  margin: 5%;
+  width: calc(2rem + 1vw);
+  height: calc(2rem + 1vw);
+  margin: 3% 5%;
 
   &__line {
     width: 100%;
