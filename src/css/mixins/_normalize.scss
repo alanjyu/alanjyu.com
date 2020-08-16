@@ -88,7 +88,6 @@ video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
     font: inherit;
     vertical-align: baseline;
 }
@@ -98,7 +97,6 @@ html {
     box-sizing: border-box;
     min-width: 100%;
     min-height: 100%;
-    font-size: 100%;
     text-rendering: optimizelegibility;
     -webkit-font-smoothing: antialiased;
     line-height: 1;
@@ -121,7 +119,17 @@ a {
     text-decoration: none;
 }
 
+a {
+    color: inherit;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+section,
+div,
+ul {
+	position: relative;
 }

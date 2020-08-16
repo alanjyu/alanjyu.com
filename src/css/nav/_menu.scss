@@ -1,0 +1,48 @@
+.menu {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: space-between;
+	padding: 15%;
+
+	&:hover &__item {
+		opacity: .4;
+
+		&:hover {
+			opacity: 1;
+			transform: scale(1.5);
+		}
+	}
+
+	&__item {
+		position: relative;
+		font-family: 'Young', sans-serif;
+		font-weight: 700;
+		font-size: calc(1rem + 4vw);
+		transform: scale(1);
+		transform-origin: left center;
+		transition: transform .25s ease-in-out, opacity .3s ease-in-out;
+		letter-spacing: .2rem;
+		opacity: 1;
+
+		&__link {
+			opacity: 0;
+			display: block;
+			will-change: opacity;
+			color: #000;
+		}
+
+		&:nth-child(2) {
+			filter: hue-rotate(45deg);
+		}
+
+		&:nth-child(3) {
+			filter: hue-rotate(135deg);
+		}
+
+		&:nth-child(4) {
+			filter: hue-rotate(215deg);
+		}
+	}
+}

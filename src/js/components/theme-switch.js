@@ -103,7 +103,7 @@ export default class ThemeToggler {
 				0
 			)
 			.to(
-				'[data-theme-color-white]', {
+				['[data-theme-color-white]', '.title', '.description'], {
 					color: '#fff',
 					duration: this.duration * 2
 				},

@@ -1,0 +1,46 @@
+.cursor {
+	display: none;
+	position: fixed;
+	z-index: var(--z-top);
+	--base-width: calc(min(var(--window-w), var(--window-h)) * .1);
+	--base-height: calc(min(var(--window-w), var(--window-h)) * .1);
+	--width: var(--base-width);
+	--height: var(--base-height);
+	width: calc(var(--width) * 1px);
+	height: calc(var(--height) * 1px);
+	border-radius: 50%;
+	border-width: 3px;
+	border-style: solid;
+	border-color: #000;
+	will-change: transform opacity;
+	transform: translate(calc(var(--mouse-x) * 1px), calc(var(--mouse-y) * 1px)) translate(-50%, -50%);
+	transform-origin: center center;
+	overflow: hidden;
+	pointer-events: none;
+	transition-property: width, height;
+	transition-duration: .25s;
+
+	&[data-hover] {
+		--wobble-scale: 12;
+		--pos-x: calc(((var(--mouse-x) - var(--hover-x)) / var(--width)) * var(--wobble-scale));
+		--pos-y: calc(((var(--mouse-y) - var(--hover-y)) / var(--height)) * var(--wobble-scale));
+
+		--dw: calc(var(--base-width) / var(--width));
+		--dh: calc(var(--base-height) / var(--height));
+
+		width: calc(var(--hover-width) * 1px);
+		height: calc(var(--hover-height) * 1px);
+		border-radius: calc(var(--base-width) * var(--dw) * .5px) calc(var(--base-height) * var(--dh) * .5px);
+		transform: translate(calc(1px * var(--pos-x)), calc(1px * var(--pos-y))) translate(calc(1px * var(--hover-x)), calc(1px * var(--hover-y))) translate(-50%, -50%);
+	}
+}
+
+@media (pointer: fine) and (min-width: 768px) {
+	* {
+		cursor: none !important;
+	}
+
+	.cursor {
+		display: block;
+	}
+}

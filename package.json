@@ -22,12 +22,14 @@
   },
   "homepage": "https://github.com/alanjyu/alanjyu.com#readme",
   "dependencies": {
+    "body-scroll-lock": "^3.0.3",
     "bounds.js": "^1.0.4",
     "gsap": "^3.4.2",
     "typeit": "^7.0.4"
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
+    "parcel-plugin-imagemin": "^4.0.1",
     "sass": "^1.26.10"
   }
 }

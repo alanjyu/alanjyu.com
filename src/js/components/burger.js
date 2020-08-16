@@ -2,16 +2,22 @@ import {
 	gsap
 } from 'gsap';
 
+import {
+	disableBodyScroll,
+	enableBodyScroll,
+	clearAllBodyScrollLocks
+} from 'body-scroll-lock';
+
 // import Tracker from './tracker';
 export default class Burger {
 	constructor(element) {
-		this.menu_is_active = false;
-		this.duration = .25; // transition duration
+		var menuIsActive = false;
+		var scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
 
 		/* Activate menu animation */
 
-		this.toActivateMenu = gsap.timeline();
-		this.toActivateMenu
+		const toActivateMenu = gsap.timeline();
+		toActivateMenu
 			.to(
 				'.nav', {
 					opacity: 1,
@@ -34,28 +40,27 @@ export default class Burger {
 				'-=.25'
 			);
 
-		if (this.menu_is_active) {
-			this.toActivateMenu.play();
-		} else if (!this.menu_is_active) {
-			this.toActivateMenu.reverse();
-		}
+		toActivateMenu.pause();
 
-		this.toActivateMenu.pause();
-
-		this.burgerToggle = document.querySelector('.js-burger');
-		this.burgerToggle.addEventListener('click', () => {
-			if (!this.menu_is_active) {
-				this.menu_is_active = true;
-				this.toActivateMenu.play();
+		const burgerToggle = document.querySelector('.js-burger');
+		burgerToggle.addEventListener('click', () => {
+			if (!menuIsActive) {
+				scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+				menuIsActive = true;
+				disableBodyScroll(document.body);
+				toActivateMenu.play();
 			};
 		});
 
-		this.navToggle = document.querySelector('.js-nav__background');
-		this.navToggle.addEventListener('click', () => {
-			if (this.menu_is_active) {
-				this.menu_is_active = false;
-				this.toActivateMenu.reverse();
+		const navToggle = document.querySelector('.js-nav__background');
+		navToggle.addEventListener('click', () => {
+			if (menuIsActive) {
+				menuIsActive = false;
+				window.scrollTo(0, scrollY);
+				enableBodyScroll(document.body);
+				toActivateMenu.reverse();
 			}
 		});
+
 	};
 }

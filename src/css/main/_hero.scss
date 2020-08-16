@@ -6,6 +6,7 @@
 		grid-column: 2 / 6;
 		align-self: center;
 		justify-self: center;
+		font-size: calc(1rem + 6vw);
 
 		@include respond-to('medium') {
 			grid-row: 2 / 5;
@@ -14,17 +15,18 @@
 		}
 	}
 
-	&__content {
+	&__description {
 		grid-row: 6;
 		grid-column: 2 / 6;
 		width: 100%;
 		align-self: start;
 		justify-self: start;
+		font-size: calc(1rem + 1vw);
 
 		@include respond-to('medium') {
 			grid-row: 5;
 			grid-column: 2 / 4;
-			align-self: start;
+			align-self: center;
 			justify-self: start;
 			white-space: normal;
 		}
@@ -36,6 +38,7 @@
 	grid-column: 2 / 6;
 	grid-row: 2 / 5;
 	overflow: hidden;
+	// box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
 
 	@include respond-to('medium') {
 		grid-column: 4 / 6;
@@ -52,49 +55,5 @@
 		object-fit: cover;
 		transition: transform .1s;
 		transform: translate(calc((var(--mouse-x)/var(--window-w)-.5) * 10px), calc((var(--mouse-y)/var(--window-h)-.5) * 10px));
-	}
-}
-
-.type-writer {
-	font-size: calc(1rem + .7vw);
-	justify-self: center;
-	justify-self: center;
-	white-space: nowrap;
-
-	@include respond-to('medium') {
-		align-self: start;
-		justify-self: start;
-		white-space: normal;
-	}
-}
-
-.ti-cursor {
-	margin-left: .1em !important;
-	font-size: calc(1.5rem + 1vw) !important;
-}
-
-.tab {
-	position: relative;
-	grid-row: 2 / -1;
-	grid-column: 1;
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	justify-content: center;
-
-	&__item {
-		-webkit-writing-mode: vertical-lr;
-		-ms-writing-mode: tb-lr;
-		writing-mode: vertical-lr;
-		font-family: 'ibm plex mono', sans-serif;
-		font-size: calc(1rem + 1vw);
-		line-height: 1.6;
-		transform: rotate(180deg);
-		transform-origin: center center;
-
-		&__link {
-			color: #000;
-		}
-
 	}
 }

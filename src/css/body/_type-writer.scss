@@ -1,0 +1,17 @@
+.type-writer {
+	font-size: calc(1rem + .7vw);
+	justify-self: center;
+	justify-self: center;
+	white-space: nowrap;
+
+	@include respond-to('medium') {
+		align-self: start;
+		justify-self: start;
+		white-space: normal;
+	}
+}
+
+.ti-cursor {
+	margin-left: .1rem !important;
+	font-size: calc(1.5rem + 1vw) !important;
+}

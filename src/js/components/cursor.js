@@ -1,6 +1,6 @@
 export default class Cursor {
   constructor() {
-    this.targets = document.querySelectorAll('[data-hover-target]');
+    this.targets = document.querySelectorAll('a');
     this.cursor = document.querySelector('.js-cursor');
 
     this.targets.forEach(target => {

@@ -8,7 +8,7 @@ export default class Tracker {
     root.style.setProperty('--mouse-y', this.mouseY);
 
     this.scrollX = window.pageXOffset;
-    this.scrolly = window.pageYOffset;
+    this.scrollY = window.pageYOffset || document.documentElement.scrollTop;
     root.style.setProperty('--scroll-x', this.scrollX);
     root.style.setProperty('--scroll-y', this.scrollY);
 
@@ -35,7 +35,7 @@ export default class Tracker {
       root.style.setProperty('--scroll-x', this.scrollX);
       root.style.setProperty('--scroll-y', this.scrollY);
     })
-    
+
     window.addEventListener('resize', () => {
       this.scrollX = window.pageXOffset;
       this.scrollY = window.pageYOffset;

@@ -26,7 +26,7 @@ const components = [{
 	},
 	{
 		class: Cursor,
-		selector: '[data-hover-target]'
+		selector: 'a'
 	},
 	{
 		class: Header,
@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	/* Checks if the selector is loaded.
 	If so, then excecute the corresponding scripts and options */
+	new Tracker();
 
 	components.forEach(component => {
 		if (document.querySelector(component.selector) !== null) {
@@ -45,8 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				element => new component.class(element, component.options)
 			);
 		};
-	});
-
-	new Tracker();
+	});	
 });
 
