@@ -16,10 +16,7 @@ body {
   width: 5px;
   height: 100%;
   background: #000;
-  transition: transform .15s ease, background .25s ease;
-  will-change: transform;
-
-  // using scale due to better hardware acceleration
+  transition: transform .15s ease;
   transform: scaleY(calc((var(--scroll-y)) / (var(--document-h) - var(--window-h))));
   transform-origin: top;
 }

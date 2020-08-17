@@ -7,7 +7,6 @@
 /* global elements */
 @import 'body/type-writer';
 @import 'body/scrollbar';
-@import 'body/theme-switch';
 @import 'body/cursor';
 
 /* navigation elements */
@@ -25,6 +24,7 @@
 @import 'main/journey';
 @import 'main/highlight';
 
+@import 'footer/theme';
 @import 'header';
 @import 'footer';
 
@@ -33,9 +33,6 @@ footer {
 	background: #fafafa;
 }
 
-main {
-	box-shadow: 0 2vmin 3vmin rgba(#cecece, .5);
-}
 
 .gallery {
 	position: relative;

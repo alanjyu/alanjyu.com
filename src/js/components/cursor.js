@@ -1,26 +1,26 @@
 export default class Cursor {
   constructor() {
-    this.targets = document.querySelectorAll('a');
-    this.cursor = document.querySelector('.js-cursor');
+    const targets = document.querySelectorAll('a');
+    const cursor = document.querySelector('.js-cursor');
 
-    this.targets.forEach(target => {
+    targets.forEach(target => {
       target.addEventListener('mouseenter', (e) => {
         let rect = target.getBoundingClientRect();
-        this.cursor.dataset.hover = true;
+        cursor.dataset.hover = true;
         
         /* finds the center point of the objects */
-        this.cursor.style.setProperty('--hover-x', (rect.left + rect.right) * .5);
-        this.cursor.style.setProperty('--hover-y', (rect.top + rect.bottom) * .5);
-        this.cursor.style.setProperty('--hover-width', rect.width * 2);
-        this.cursor.style.setProperty('--hover-height', rect.height * 2);
+        cursor.style.setProperty('--hover-x', (rect.left + rect.right) * .5);
+        cursor.style.setProperty('--hover-y', (rect.top + rect.bottom) * .5);
+        cursor.style.setProperty('--hover-width', rect.width);
+        cursor.style.setProperty('--hover-height', rect.height);
       });
 
       target.addEventListener('mouseleave', (e) => {
-        delete this.cursor.dataset.hover;
-        this.cursor.style.removeProperty('--hover-x');
-        this.cursor.style.removeProperty('--hover-y');
-        this.cursor.style.removeProperty('--hover-width');
-        this.cursor.style.removeProperty('--hover-height');
+        delete cursor.dataset.hover;
+        cursor.style.removeProperty('--hover-x');
+        cursor.style.removeProperty('--hover-y');
+        cursor.style.removeProperty('--hover-width');
+        cursor.style.removeProperty('--hover-height');
       });
     });
   }

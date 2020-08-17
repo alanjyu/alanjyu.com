@@ -1,7 +1,7 @@
 import TypeIt from 'typeit';
 export default class TypeWriter {
 	constructor(element) {
-		this.strings = [
+		var strings = [
 			'Physics and environment.',
 			'Career program trained.',
 			'Based in Saskatoon.',
@@ -13,7 +13,7 @@ export default class TypeWriter {
 			nextStringDelay: [3500, 500],
 			lifeLike: true,
 			breakLines: false,
-			strings: this.strings,
+			strings: strings,
 		}).go();
 	}
 };

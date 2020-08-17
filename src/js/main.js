@@ -2,7 +2,7 @@ import '../css/styles.scss';
 
 import Burger from './components/burger';
 import TypeWriter from './components/type-writer';
-import ThemeToggler from './components/theme-switch';
+import ThemeToggler from './components/theme';
 import Tracker from './components/tracker';
 import Boundary from './components/bounds';
 import Cursor from './components/cursor';
@@ -18,11 +18,11 @@ const components = [{
 	},
 	{
 		class: ThemeToggler,
-		selector: '.js-theme-switch'
+		selector: '.js-theme'
 	},
 	{
 		class: Boundary,
-		selector: '[data-src]'
+		selector: 'img'
 	},
 	{
 		class: Cursor,

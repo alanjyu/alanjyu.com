@@ -5,14 +5,12 @@ import {
 import {
 	disableBodyScroll,
 	enableBodyScroll,
-	clearAllBodyScrollLocks
 } from 'body-scroll-lock';
 
 // import Tracker from './tracker';
 export default class Burger {
 	constructor(element) {
 		var menuIsActive = false;
-		var scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
 
 		/* Activate menu animation */
 
@@ -45,7 +43,6 @@ export default class Burger {
 		const burgerToggle = document.querySelector('.js-burger');
 		burgerToggle.addEventListener('click', () => {
 			if (!menuIsActive) {
-				scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
 				menuIsActive = true;
 				disableBodyScroll(document.body);
 				toActivateMenu.play();
@@ -56,7 +53,6 @@ export default class Burger {
 		navToggle.addEventListener('click', () => {
 			if (menuIsActive) {
 				menuIsActive = false;
-				window.scrollTo(0, scrollY);
 				enableBodyScroll(document.body);
 				toActivateMenu.reverse();
 			}

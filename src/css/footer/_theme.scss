@@ -1,0 +1,36 @@
+.theme {
+	width: calc(3rem + 1vw);
+	height: calc(3rem + 1vw);
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	overflow: hidden;
+
+	&::after {
+		position: absolute;
+		box-shadow: 0px 0px 16px #68686840;
+		content: '';
+		width: calc(3rem + 1vw);
+		height: calc(3rem + 1vw);
+		opacity: 0;
+		border-radius: 10px;
+		transition: opacity .25s ease;
+	}
+
+	&:hover::after {
+		opacity: 1;
+	}
+
+	&__conveyor {
+		position: relative;
+		height: calc(6rem + 2vw);
+		width: 100%;
+		padding: 10px;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__icon {
+		width: 100%;
+	}
+}
