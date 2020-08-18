@@ -38,7 +38,6 @@
 	grid-column: 2 / 6;
 	grid-row: 2 / 5;
 	overflow: hidden;
-	// box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
 
 	@include respond-to('medium') {
 		grid-column: 4 / 6;

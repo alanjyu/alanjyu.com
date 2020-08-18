@@ -10,11 +10,12 @@ export default class Header {
     toHideMenu
       .to(
         '.js-header', {
-          transform: 'translateY(-110%)'
+          opacity: 0
         }
       );
 
     toHideMenu.pause();
+
     window.addEventListener('scroll', () => {
       var scrollY = document.documentElement.scrollTop || window.pageYOffset;
       if (scrollY <= prevScrollY) {
