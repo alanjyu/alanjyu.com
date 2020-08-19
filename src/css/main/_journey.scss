@@ -8,7 +8,7 @@
   }
 
   &__description {
-    margin-top: 20px;
+    margin-top: 10%;
     font-size: calc(1rem + 1vw);
     text-align: center;
   }
@@ -18,12 +18,15 @@
 	display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  padding: 5% 0;
 
   &__line {
     position: absolute;
     background: #000;
-    width: 2px;
-    height: 100%;
+    top: 10%;
+    left: 5%;
+    width: .5vw;
+    height: 80%;
     transform: translateX(-50%);
     background: #000;
 
@@ -34,12 +37,12 @@
 
 	&__item {
     display: flex;
-    padding: 10%;
+    padding: 5% 10%;
     align-self: flex-end;
 
     @include respond-to('medium') { 
       max-width: 45%;
-      padding: 0 5%;
+      padding: 2% 5%;
       align-self: baseline;
 
       &:nth-of-type(odd) {
@@ -55,11 +58,13 @@
       color:#000;
       font-size: calc(1rem + 3vw);
       text-align: left;
+      margin: 5%;
     }
 
     &__description {
       color: #000;
       font-size: calc(1rem + .5vw);
+      line-height: 1.4;
     }
   }
 

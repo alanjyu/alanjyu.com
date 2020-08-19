@@ -1,15 +1,9 @@
-.about-me {
+.inspiration {
   padding: 5% 15%;
-  
+
   &__title {
     font-size: calc(1rem + 6vw);
     line-height: 1.6;
     text-align: center;
-  }
-
-  &__description {
-    font-size: calc(1rem + 1vw);
-    padding: 10%;
-    line-height: 1.2;
   }
 }

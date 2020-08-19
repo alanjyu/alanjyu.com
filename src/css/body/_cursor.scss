@@ -10,33 +10,26 @@
 	.cursor {
 		display: block;
 		position: fixed;
-		--base-width: calc(min(var(--window-w), var(--window-h)) * .07);
-		--base-height: calc(min(var(--window-w), var(--window-h)) * .07);
-		--width: var(--base-width);
-		--height: var(--base-height);
+		--width: calc(min(var(--window-w), var(--window-h)) * .07);
+		--height: calc(min(var(--window-w), var(--window-h)) * .07);
 		width: calc(var(--width) * 1px);
 		height: calc(var(--height) * 1px);
 		overflow: hidden;
 		border-radius: 50%;
 		pointer-events: none;
-		transition: height .3s ease-in-out, width .3s ease-in-out, border-radius .3s ease-in-out, background .3s ease;
+		transition: height .35s ease-in-out, width .35s ease-in-out, border-radius .3s ease-in-out, background .3s ease;
 		mix-blend-mode: exclusion;
-		background-color: #fff;
+		background: #fff;
 		transform: translate(calc(var(--mouse-x) * 1px), calc(var(--mouse-y) * 1px)) translate(-50%, -50%);
 		transform-origin: center center;
 
 		&[data-hover] {
-			--wobble-scale: 12;
+			--wobble-scale: 10;
 			--pos-x: calc(((var(--mouse-x) - var(--hover-x)) / var(--width)) * var(--wobble-scale));
 			--pos-y: calc(((var(--mouse-y) - var(--hover-y)) / var(--height)) * var(--wobble-scale));
 			width: calc(var(--hover-width) * 1px + 25px);
 			height: calc(var(--hover-height) * 1px + 25px);
-			border-radius: 15px;
-			border-width: 3px;
-			border-style: solid;
-			border-color: #000;
-			mix-blend-mode: normal;
-			background: none;
+			border-radius: 10px;
 			transform: translate(calc((var(--pos-x) + var(--hover-x)) * 1px), calc((var(--pos-y) + var(--hover-y)) * 1px)) translate(-50%, -50%);
 		}
 	}

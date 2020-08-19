@@ -1,4 +1,4 @@
-import '../css/styles.scss';
+import '../css/style.scss';
 
 import Burger from './components/burger';
 import TypeWriter from './components/type-writer';

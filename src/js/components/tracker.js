@@ -2,8 +2,8 @@ export default class Tracker {
   constructor(element) {
     const root = document.documentElement;
 
-    this.mouseX = 0;
-    this.mouseY = 0;
+    this.mouseX = -99;
+    this.mouseY = -99;
     root.style.setProperty('--mouse-x', this.mouseX);
     root.style.setProperty('--mouse-y', this.mouseY);
 

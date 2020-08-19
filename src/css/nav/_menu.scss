@@ -4,7 +4,8 @@
 	flex-direction: column;
 	align-items: stretch;
 	justify-content: space-between;
-	padding: 15%;
+	margin: 10%;
+	padding: 5%;
 
 	&:hover &__item {
 		opacity: .4;
@@ -18,7 +19,7 @@
 		position: relative;
 		font-family: 'Young', sans-serif;
 		font-weight: 700;
-		font-size: calc(1rem + 4vw);
+		font-size: calc(2rem + 4vw);
 		transition: opacity .3s ease-in-out;
 		letter-spacing: .2rem;
 		opacity: 1;

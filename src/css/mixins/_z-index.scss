@@ -1,23 +1,11 @@
-:root {
-  --z-top: 9;
-  --z-above: 2;
-  --z-default: 1;
-  --z-below: -1;
-  --z-bottom: -9;
-}
-
 header {
-  z-index: var(--z-default);
-}
-
-nav{
-  z-index: var(--z-below);
+  z-index: 1;
 }
 
 .cursor {
-  z-index: var(--z-top);
+  z-index: 9;
 }
 
 .scrollbar {
-  z-index: var(--z-default);
+  z-index: 1;
 }

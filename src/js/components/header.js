@@ -6,7 +6,7 @@ export default class Header {
   constructor(element) {
     var prevScrollY = document.documentElement.scrollTop || window.pageYOffset;
 
-    const toHideMenu = gsap.timeline();
+    var toHideMenu = gsap.timeline();
     toHideMenu
       .to(
         '.js-header', {

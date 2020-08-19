@@ -1,5 +1,9 @@
 .hero {
-	height: 100vh;
+	height: 600px;
+
+	@include respond-to('medium') {
+		height: 100vh;
+	}
 
 	&__title {
 		grid-row: 5;
@@ -38,6 +42,7 @@
 	grid-column: 2 / 6;
 	grid-row: 2 / 5;
 	overflow: hidden;
+	border-radius: 10px;
 
 	@include respond-to('medium') {
 		grid-column: 4 / 6;
@@ -55,4 +60,21 @@
 		transition: transform .1s;
 		transform: translate(calc((var(--mouse-x)/var(--window-w)-.5) * 10px), calc((var(--mouse-y)/var(--window-h)-.5) * 10px));
 	}
+}
+
+.type-writer {
+	font-size: calc(1rem + .7vw);
+	justify-self: center;
+	justify-self: center;
+
+	@include respond-to('medium') {
+		align-self: start;
+		justify-self: start;
+		white-space: normal;
+	}
+}
+
+.ti-cursor {
+	margin-left: .1rem !important;
+	font-size: calc(1.5rem + 1vw) !important;
 }

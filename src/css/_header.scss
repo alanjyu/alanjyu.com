@@ -5,12 +5,3 @@ header {
   justify-content: space-between;
 }
 
-.a {
-  position: relative;
-  margin: 3% 5%;
-
-  &__svg {
-    width: calc(2rem + 1vw);
-    height: calc(2rem + 1vw);
-  }
-}

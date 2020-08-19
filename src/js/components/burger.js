@@ -7,9 +7,8 @@ import {
 	enableBodyScroll,
 } from 'body-scroll-lock';
 
-// import Tracker from './tracker';
 export default class Burger {
-	constructor(element) {
+	constructor() {
 		var menuIsActive = false;
 
 		/* Activate menu animation */
@@ -17,15 +16,8 @@ export default class Burger {
 		const toActivateMenu = gsap.timeline();
 		toActivateMenu
 			.to(
-				'.nav', {
-					opacity: 1,
-					zIndex: 'var(--z-above)'
-				},
-				0
-			)
-			.to(
-				'.nav__background', {
-					display: 'block',
+				'nav', {
+					visibility: 'visible',
 					opacity: 1
 				},
 				0

@@ -1,0 +1,9 @@
+.logo {
+  position: relative;
+  margin: 3% 5%;
+
+  &__svg {
+    width: calc(2rem + 1vw);
+    height: calc(2rem + 1vw);
+  }
+}

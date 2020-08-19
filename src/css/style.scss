@@ -5,7 +5,6 @@
 @import 'mixins/fonts';
 
 /* global elements */
-@import 'body/type-writer';
 @import 'body/scrollbar';
 @import 'body/cursor';
 
@@ -14,25 +13,31 @@
 @import 'nav/menu';
 
 /* header elements */
+@import 'header';
 @import 'header/burger';
+@import 'header/logo';
 
 /* main elements */
-@import 'main/contact';
-@import 'main/social-media';
-@import 'main/about-me';
 @import 'main/hero';
+@import 'main/about-me';
 @import 'main/journey';
+@import 'main/inspiration';
+@import 'main/contact';
 @import 'main/highlight';
 
-@import 'footer/theme';
-@import 'header';
+/* footer elements*/
 @import 'footer';
+@import 'footer/theme';
 
 main,
 footer {
 	background: #fafafa;
 }
 
+.neu-box {
+	border-radius: 10px;
+	box-shadow: 8px 8px 16px #cccccc, -8px -8px 16px #ffffff;
+}
 
 .gallery {
 	position: relative;
@@ -55,7 +60,7 @@ footer {
 
 .title {
 	font-family: 'Coolvetica', sans-serif;
-	font-weight: 700;
+	font-weight: 400;
 	letter-spacing: .1rem;
 }
 
@@ -73,11 +78,4 @@ footer {
 		display: flex;
 		flex-direction: column;
 	}
-}
-
-.slide {
-	width: 100%;
-	overflow: hidden;
-	min-height: 0;
-	min-width: 0;
 }

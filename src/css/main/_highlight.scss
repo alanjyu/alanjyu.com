@@ -7,23 +7,22 @@
 	&::after {
 		position: absolute;
 		bottom: -10%;
-		border-radius: 10px;
 		z-index: -1;
 		left: 50%;
 		transform: translateX(-50%);
 		content: '';
 		width: 100%;
 		height: 3px;
-		background: #2392ad;
+		background: #00ebfc;
 		transition: all .25s ease;
 	}
 
 	&:hover {
-		color: #ffff00;
+		color: #f7f7f7;
 
 		&::after {
 			height: 120%;
-			width: 105%;
+			width: 103%;
 		}
 	}
 }

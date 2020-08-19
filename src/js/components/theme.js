@@ -7,7 +7,7 @@ export default class ThemeToggler {
 		// this.day_mode_is_active = window.matchMedia('prefers-color-scheme: light').matches;
 		var isLight = true;
 
-		const toNight = gsap.timeline();
+		var toNight = gsap.timeline();
 		toNight
 			.to(
 				'.theme__conveyor', {
@@ -16,16 +16,16 @@ export default class ThemeToggler {
 			)
 			.to(
 				['nav', 'main', 'footer'], {
-					background: '#222831',
+					background: '#222831'
 				}, 0
 			)
 			.to(
-				['[data-theme-color-white]', '.title', '.description'], {
+				['[data-theme="light color"]', '.title', '.description'], {
 					color: '#fff',
 				}, 0
 			)
 			.to(
-				'[data-theme-background-light]', {
+				'[data-theme="light background"]', {
 					background: '#fff',
 				}, 0
 			)
@@ -38,6 +38,12 @@ export default class ThemeToggler {
 				'.cursor', {
 					borderColor: '#fff',
 				}, 0
+			)
+			.to(
+				'.neu-box', {
+					boxShadow: '5px 5px 10px #1b2027, -5px -5px 10px #29303b',
+				},
+				0
 			)
 			.to(
 				'.ti-cursor', {
