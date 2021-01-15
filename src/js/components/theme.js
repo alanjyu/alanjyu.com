@@ -14,8 +14,8 @@ export default class ThemeToggler {
 				}, 0
 			)
 			.to(
-				['nav', 'main', 'footer'], {
-					background: '#222831'
+				['nav', 'body', 'main', 'footer'], {
+					background: '#15191e'
 				}, 0
 			)
 			.to(
@@ -40,7 +40,7 @@ export default class ThemeToggler {
 			)
 			.to(
 				'.neu-box', {
-					boxShadow: '5px 5px 10px #1b2027, -5px -5px 10px #29303b',
+					boxShadow: '5px 5px 10px #12151a, -5px -5px 10px #181d23',
 				},
 				0
 			)
