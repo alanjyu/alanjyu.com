@@ -55,13 +55,23 @@ footer {
 
 .description {
 	font-family: 'Young', sans-serif;
-	font-weight: 400;
+	font-size: calc(1rem + .5vw);
+}
+
+.content {
+	padding: 20px 15%;
 }
 
 .title {
 	font-family: 'Coolvetica', sans-serif;
-	font-weight: 400;
 	letter-spacing: .1rem;
+	font-size: calc(1rem + 4vw);
+}
+
+.subtitle {
+	font-family: 'Coolvetica', sans-serif;
+	letter-spacing: .1rem;
+	font-size: calc(1rem + 2vw);
 }
 
 .grid {
@@ -69,6 +79,7 @@ footer {
 	grid-template-rows: repeat(6, minmax(0, 1fr));
 	grid-template-columns: repeat(6, minmax(0, 1fr));
 }
+
 
 .flex {
 	display: flex;

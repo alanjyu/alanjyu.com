@@ -1,6 +1,4 @@
 .journey {
-  padding: 5% 15%;
-
   &__title {
     font-size: calc(1rem + 6vw);
     line-height: 1.6;
@@ -8,7 +6,6 @@
   }
 
   &__description {
-    margin-top: 10%;
     font-size: calc(1rem + 1vw);
     text-align: center;
   }
@@ -18,15 +15,19 @@
 	display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  padding: 5% 0;
+  padding: 2% 15%;
+
+  @include respond-to('medium') {
+    padding: 2% 5%;
+  }
 
   &__line {
     position: absolute;
     background: #000;
-    top: 10%;
-    left: 5%;
-    width: .5vw;
-    height: 80%;
+    top: 60px;
+    left: 10%;
+    width: 4px;
+    height: 75%;
     transform: translateX(-50%);
     background: #000;
 
@@ -37,12 +38,10 @@
 
 	&__item {
     display: flex;
-    padding: 5% 10%;
-    align-self: flex-end;
+    padding: 2%;
 
     @include respond-to('medium') { 
-      max-width: 45%;
-      padding: 2% 5%;
+      max-width: 47.5%;
       align-self: baseline;
 
       &:nth-of-type(odd) {
@@ -52,18 +51,14 @@
   }
   
   &__content {
-    width: 100%;
-
     &__title {
+      margin-bottom: 12px;
       color:#000;
       font-size: calc(1rem + 3vw);
-      text-align: left;
-      margin: 5%;
     }
 
     &__description {
       color: #000;
-      font-size: calc(1rem + .5vw);
       line-height: 1.4;
     }
   }

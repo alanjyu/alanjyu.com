@@ -8,7 +8,7 @@ Tested on Edge 80+, Chrome 80+, Samsung Browser 79+ and Safari 13+. No IE suppor
 
 ## Dependencies
 
-- [Node.js (v12+)](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/)
 - [Sass](https://www.npmjs.com/package/sass)
 - All modules listed in [package.json](https://github.com/alanjyu/alanjyu.com/blob/master/package.json) (will install automatically)
 - [Parcel](https://parceljs.org/) (bundling from [src/](https://github.com/alanjyu/alanjyu.com/tree/master/src) to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs)). 

@@ -21,17 +21,12 @@
 
 	&__description {
 		grid-row: 6;
-		grid-column: 2 / 6;
-		width: 100%;
-		align-self: start;
-		justify-self: start;
-		font-size: calc(1rem + 1vw);
+		grid-column: 3 / 5;
+		align-self: center;
 
 		@include respond-to('medium') {
 			grid-row: 5;
 			grid-column: 2 / 4;
-			align-self: center;
-			justify-self: start;
 			white-space: normal;
 		}
 	}
@@ -63,12 +58,8 @@
 }
 
 .type-writer {
-	font-size: calc(1rem + .7vw);
-	justify-self: center;
-	justify-self: center;
-
 	@include respond-to('medium') {
-		align-self: start;
+		align-self: center;
 		justify-self: start;
 		white-space: normal;
 	}

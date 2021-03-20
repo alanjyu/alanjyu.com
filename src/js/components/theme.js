@@ -5,6 +5,7 @@ import {
 export default class ThemeToggler {
 	constructor(element) {
 		var isLight = window.matchMedia('prefers-color-scheme: light').matches;
+		var isLight = true;
 
 		var toNight = gsap.timeline();
 		toNight

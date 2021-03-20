@@ -35,7 +35,6 @@ const components = [{
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-
 	/* Checks if the selector is loaded.
 	If so, then excecute the corresponding scripts and options */
 	new Tracker();

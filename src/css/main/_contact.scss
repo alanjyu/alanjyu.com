@@ -1,8 +1,5 @@
 .contact {
-  padding: 5% 15%;
-
   &__title {
-    font-size: calc(1rem + 5vw);
     text-align: center;
     line-height: 1.6;
   }
@@ -20,10 +17,10 @@
 	&__item {
 		position: relative;
 		display: inline-block;
-		height: calc(2rem + 2vw);
-		width: calc(2rem + 2vw);
+		height: calc(2rem + 1vw);
+		width: calc(2rem + 1vw);
     fill: #000;
-    margin: 2vw;
+    margin: 1.5vw;
 
 		&__link {
 			position: relative;
