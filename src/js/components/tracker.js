@@ -2,11 +2,6 @@ export default class Tracker {
   constructor(element) {
     const root = document.documentElement;
 
-    this.mouseX = -99;
-    this.mouseY = -99;
-    root.style.setProperty('--mouse-x', this.mouseX);
-    root.style.setProperty('--mouse-y', this.mouseY);
-
     this.scrollX = window.pageXOffset;
     this.scrollY = window.pageYOffset || document.documentElement.scrollTop;
     root.style.setProperty('--scroll-x', this.scrollX);

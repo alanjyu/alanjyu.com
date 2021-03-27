@@ -1,82 +1,63 @@
-/* mixins */
-@import 'mixins/breakpoint';
-@import 'mixins/normalize';
-@import 'mixins/z-index';
-@import 'mixins/fonts';
+:root{
+	--default-border: 20px;
+	--medium: calc(1rem + .5vw);
+	--large: calc(1rem + 1.5vw);
+	--huge: calc(1rem + 3vw);
+	--content-padding-half: 7.5%;
+	--content-padding: 15%;
+	--icon-margin: 10%;
+	--animation-time: .2s;
+}
 
-/* global elements */
-@import 'body/scrollbar';
-@import 'body/cursor';
-
-/* navigation elements */
-@import 'nav/nav';
-@import 'nav/menu';
-
-/* header elements */
+@import 'mixins/breakpoint','mixins/normalize','mixins/z-index';
+@import 'body/scrollbar','body/cursor';
+@import 'nav/nav','nav/menu';
 @import 'header';
-@import 'header/burger';
-@import 'header/logo';
-
-/* main elements */
-@import 'main/hero';
-@import 'main/about-me';
-@import 'main/journey';
-@import 'main/inspiration';
-@import 'main/contact';
-@import 'main/highlight';
-
-/* footer elements*/
-@import 'footer';
-@import 'footer/theme';
+@import 'main/hero','main/journey','main/inspiration','main/contact','main/highlight';
+@import 'footer','footer/theme';
 
 body, main,
 footer {
 	background: #fafafa;
+	font-family: 'source-sans-pro', sans-serif;
+}
+
+.full {
+	height: 100%;
+	width: 100%;
 }
 
 .neu-box {
-	border-radius: 10px;
+	border-radius: var(--default-border);
 	box-shadow: 8px 8px 16px #cccccc, -8px -8px 16px #ffffff;
 }
 
-.gallery {
-	position: relative;
-	width: 100%;
-	max-height: 100vh;
-	overflow: hidden;
-	display: grid;
-	grid-template-rows: repeat(auto-fit, minmax(320px, 1fr));
-	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-	grid-gap: 1rem;
-	grid-auto-flow: dense;
-	align-items: center;
-	justify-content: center;
-}
-
 .description {
-	font-family: 'Young', sans-serif;
-	font-size: calc(1rem + .5vw);
+	line-height: 1.2;
+	font-size: var(--medium);
 }
 
 .content {
-	padding: 20px 15%;
+	padding: var(--content-padding-half) var(--content-padding);
+
+	&__inner {
+		padding: var(--content-padding-half) var(--content-padding);
+	}
 }
 
 .title {
-	font-family: 'Coolvetica', sans-serif;
-	letter-spacing: .1rem;
-	font-size: calc(1rem + 4vw);
+	line-height: 1.6;
+	font-size: var(--huge);
+	text-align: center;
 }
 
 .subtitle {
-	font-family: 'Coolvetica', sans-serif;
-	letter-spacing: .1rem;
-	font-size: calc(1rem + 2vw);
+	font-size: var(--large);
 }
 
 .grid {
 	display: grid;
-	grid-template-rows: repeat(6, minmax(0, 1fr));
+	grid-template-rows: repeat(4, minmax(0, 1fr));
 	grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
@@ -89,4 +70,12 @@ footer {
 		display: flex;
 		flex-direction: column;
 	}
+}
+
+.about-me {  
+  &__description {    
+    @include respond-to('medium') {
+      text-align: justify;
+    }
+  }
 }

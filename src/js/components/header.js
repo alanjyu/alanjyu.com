@@ -10,7 +10,9 @@ export default class Header {
     toHideMenu
       .to(
         '.js-header', {
-          opacity: 0
+          // opacity: 0,
+          transformY: '-200%',
+          backgroundColor: '#000'
         }
       );
 

@@ -2,26 +2,26 @@
 	display: none;
 }
 
+object{
+	pointer-events: none;
+}
+
 @media (pointer: fine) and (min-width: 768px) {
-	* {
-		cursor: none !important;
-	}
+	// * {
+	// 	cursor: none !important;
+	// }
 
 	.cursor {
 		display: block;
 		position: fixed;
-		--width: calc(min(var(--window-w), var(--window-h)) * .07);
-		--height: calc(min(var(--window-w), var(--window-h)) * .07);
-		width: calc(var(--width) * 1px);
-		height: calc(var(--height) * 1px);
+		width: 50px;
+		height: 50px;
 		overflow: hidden;
 		border-radius: 50%;
 		pointer-events: none;
-		transition: height .35s ease-in-out, width .35s ease-in-out, border-radius .3s ease-in-out, background .3s ease;
+		transition: height var(--animation-time) ease-in-out, width var(--animation-time) ease-in-out, border-radius var(--animation-time) ease-in-out, background var(--animation-time) ease;
 		mix-blend-mode: exclusion;
 		background: #fff;
-		transform: translate(calc(var(--mouse-x) * 1px), calc(var(--mouse-y) * 1px)) translate(-50%, -50%);
-		transform-origin: center center;
 
 		&[data-hover] {
 			--wobble-scale: 10;
@@ -29,7 +29,7 @@
 			--pos-y: calc(((var(--mouse-y) - var(--hover-y)) / var(--height)) * var(--wobble-scale));
 			width: calc(var(--hover-width) * 1px + 25px);
 			height: calc(var(--hover-height) * 1px + 25px);
-			border-radius: 10px;
+			border-radius: var(--default-border);
 			transform: translate(calc((var(--pos-x) + var(--hover-x)) * 1px), calc((var(--pos-y) + var(--hover-y)) * 1px)) translate(-50%, -50%);
 		}
 	}
