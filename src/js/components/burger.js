@@ -10,7 +10,7 @@ export default class Burger {
 		const toActivateMenu = gsap.timeline();
 		toActivateMenu
 			.to(
-				'nav', {
+				'.header', {
 					visibility: 'visible',
 					opacity: 1
 				},

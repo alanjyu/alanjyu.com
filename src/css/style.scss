@@ -1,8 +1,8 @@
 :root{
 	--default-border: 20px;
 	--medium: calc(1rem + .5vw);
-	--large: calc(1rem + 1.5vw);
-	--huge: calc(1rem + 3vw);
+	--large: calc(1rem + 1vw);
+	--huge: calc(1rem + 2vw);
 	--content-padding-half: 7.5%;
 	--content-padding: 15%;
 	--item-margin: 5%;
@@ -78,23 +78,4 @@ object{
       text-align: justify;
     }
   }
-}
-
-.theme {
-	width: val(--large);
-	height: val(--large);
-	display: flex;
-	justify-content: center;
-	align-items: start;
-	overflow: hidden;
-
-	&__conveyor {
-		position: relative;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	&__icon {
-		width: 100%;
-	}
 }

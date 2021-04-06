@@ -18,7 +18,6 @@ export default class Cursor {
       // update mouse position
       cx = e.clientX - cursor.offsetWidth * .5;
       cy = e.clientY - cursor.offsetHeight * .5;
-
       cursor.style.width = cw + 'px';
       cursor.style.height = ch + 'px';
 
@@ -36,7 +35,6 @@ export default class Cursor {
           rect = target.getBoundingClientRect();
           hx = (rect.left + rect.right) * .5; // hover center x
           hy = (rect.top + rect.bottom) * .5; // hover center y
-  
           cw = rect.width + 25;
           ch = rect.height + 25;
           cursor.style.width = cw + 'px';
@@ -46,8 +44,8 @@ export default class Cursor {
         target.addEventListener('mouseleave', (e) => {
           isHovering = false;
           rect = 0;
-          cw = window.innerWidth * .025;
-          ch = window.innerWidth * .025;
+          cw = 24;
+          ch = 24;
           cursor.style.width = cw + 'px';
           cursor.style.height = ch + 'px';
   

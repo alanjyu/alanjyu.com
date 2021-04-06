@@ -5,17 +5,16 @@ import {
 export default class ThemeToggler {
 	constructor(e) {
 		var isLight = window.matchMedia('prefers-color-scheme: light').matches;
-		var isLight = true;
 
 		var toNight = gsap.timeline();
 		toNight
 			.to(
-				['.nav', 'body', 'main', 'footer'], {
+				['body'], {
 					background: '#15191e'
 				}, 0
 			)
 			.to(
-				['[data-theme="light color"]', '.title', '.description'], {
+				['[data-theme="light color"]'], {
 					color: '#fff',
 				}, 0
 			)

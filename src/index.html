@@ -21,17 +21,19 @@
 <body class="background-fade">
 	<div class="cursor"></div>
 	<!-- <div class="scrollbar" data-theme="light background"></div> -->
+	<a class="flex-col burger">
+		<div class="burger__line" data-theme="light background"></div>
+		<div class="burger__line" data-theme="light background"></div>
+		<div class="burger__line" data-theme="light background"></div>
+	</a>
 	<header class="header">
-		<a class="flex-col burger">
-			<div class="burger__line" data-theme="light background"></div>
-			<div class="burger__line" data-theme="light background"></div>
-			<div class="burger__line" data-theme="light background"></div>
-		</a>
 		<nav class="flex-col neu-box nav">
-			<ul class="content flex quick-menu">
+			<ul class="flex content quick-menu">
 				<a href="/" class="logo" data-theme-fill>
 				<object data="logo.svg" class="full"></object></a>
-				<a class="theme-switch"></a>
+				<a class="theme-switch">
+					<div class="theme-switch__inner"></div>
+				</a>
 				<a class="burger-inner"></a>
 			</ul>
 			<ul class="content flex-col menu">

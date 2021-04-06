@@ -3,7 +3,7 @@ import {
 } from 'gsap';
 
 export default class Header {
-  constructor(element) {
+  constructor(e) {
     var prevScrollY = document.documentElement.scrollTop || window.pageYOffset;
 
     var toHideMenu = gsap.timeline();
