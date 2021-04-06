@@ -5,21 +5,25 @@
 	--huge: calc(1rem + 3vw);
 	--content-padding-half: 7.5%;
 	--content-padding: 15%;
+	--item-margin: 5%;
 	--icon-margin: 10%;
 	--animation-time: .2s;
 }
 
 @import 'mixins/breakpoint','mixins/normalize','mixins/z-index';
 @import 'body/scrollbar','body/cursor';
-@import 'nav/nav','nav/menu';
 @import 'header';
-@import 'main/hero','main/journey','main/inspiration','main/contact','main/highlight';
-@import 'footer','footer/theme';
+@import 'main';
+@import 'footer';
 
 body, main,
 footer {
 	background: #fafafa;
 	font-family: 'source-sans-pro', sans-serif;
+}
+
+object{
+	pointer-events: none;
 }
 
 .full {
@@ -39,10 +43,6 @@ footer {
 
 .content {
 	padding: var(--content-padding-half) var(--content-padding);
-
-	&__inner {
-		padding: var(--content-padding-half) var(--content-padding);
-	}
 }
 
 .title {
@@ -78,4 +78,23 @@ footer {
       text-align: justify;
     }
   }
+}
+
+.theme {
+	width: val(--large);
+	height: val(--large);
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	overflow: hidden;
+
+	&__conveyor {
+		position: relative;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__icon {
+		width: 100%;
+	}
 }

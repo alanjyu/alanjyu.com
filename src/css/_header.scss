@@ -1,18 +1,19 @@
-header {
-  width: 100%;
+.header {
   position: fixed;
-  display: flex;
-  justify-content: space-between;
-  padding: 3%;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  justify-content: center;
+  padding: var(--item-margin) var(--item-margin) 0 0;
 }
 
 .burger {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+	position: fixed;
+	top: 0;
+	right: 0;
   justify-content: space-evenly;
-  width: var(--huge);
-  height: var(--huge);
+  width: var(--large);
+  height: var(--large);
 
   &__line {
     width: 100%;
@@ -22,7 +23,39 @@ header {
 }
 
 .logo {
-  position: relative;
-  width: var(--huge);
-  height: var(--huge);
+  width: var(--large);
+  height: var(--large);
+}
+
+.nav {
+	visibility: hidden;
+	opacity: 0;
+}
+
+.menu {
+	text-align: center;
+	background: #fafafa;
+
+	&:hover &__item {
+		opacity: .4;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	&__item {
+		position: relative;
+		font-family: 'ballad', sans-serif;
+		font-size: var(--large);
+		transition: opacity var(--animation-time) ease-in-out;
+		opacity: 1;
+		margin: var(--item-margin);
+
+		&__link {
+			opacity: 0;
+			display: block;
+			color: #000;
+		}
+	}
 }

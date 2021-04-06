@@ -3,22 +3,22 @@ import '../css/style.scss';
 import Burger from './components/burger';
 import TypeWriter from './components/type-writer';
 import ThemeToggler from './components/theme';
-import Tracker from './components/tracker';
 import Boundary from './components/bounds';
 import Cursor from './components/cursor';
+import Scrollbar from './components/scrollbar';
 import Header from './components/header';
 
 const components = [{
 		class: TypeWriter,
-		selector: '.js-type-writer'
+		selector: '.type-writer'
 	},
 	{
 		class: Burger,
-		selector: '.js-burger'
+		selector: '.burger'
 	},
 	{
 		class: ThemeToggler,
-		selector: '.js-theme'
+		selector: '.theme'
 	},
 	{
 		class: Boundary,
@@ -26,18 +26,21 @@ const components = [{
 	},
 	{
 		class: Cursor,
-		selector: 'a'
+		selector: '.cursor'
 	},
 	{
 		class: Header,
-		selector: '.js-header'
+		selector: '.header'
+	},
+	{
+		class: Scrollbar,
+		selector: '.scrollbar'
 	}
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
 	/* Checks if the selector is loaded.
 	If so, then excecute the corresponding scripts and options */
-	new Tracker();
 
 	components.forEach(component => {
 		if (document.querySelector(component.selector) !== null) {
@@ -48,3 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	});	
 });
 
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-176120194-1');

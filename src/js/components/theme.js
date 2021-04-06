@@ -3,19 +3,14 @@ import {
 } from 'gsap';
 
 export default class ThemeToggler {
-	constructor(element) {
+	constructor(e) {
 		var isLight = window.matchMedia('prefers-color-scheme: light').matches;
 		var isLight = true;
 
 		var toNight = gsap.timeline();
 		toNight
 			.to(
-				'.theme__conveyor', {
-					transform: 'translateY(-50%)'
-				}, 0
-			)
-			.to(
-				['nav', 'body', 'main', 'footer'], {
+				['.nav', 'body', 'main', 'footer'], {
 					background: '#15191e'
 				}, 0
 			)
@@ -57,7 +52,7 @@ export default class ThemeToggler {
 			toNight.play();
 		};
 
-		const switchToggle = document.querySelector('.js-theme');
+		const switchToggle = document.querySelector('.theme-switch');
 		switchToggle.addEventListener('click', () => {
 			if (isLight) {
 				toNight.play();

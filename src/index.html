@@ -14,37 +14,32 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 	<link rel="manifest" href="/site.webmanifest" />
 	<link rel="stylesheet" href="https://use.typekit.net/ftq3ric.css" />
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176120194-1"></script>
 	<script src="js/main.js" charset="utf-8"></script>
 </head>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176120194-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-176120194-1');
-</script>
-
-<body>
+<body class="background-fade">
 	<div class="cursor"></div>
-	<div class="scrollbar js-scrollbar" data-theme="light background"></div>
-	<nav class="nav js-nav">
-		<div class="nav__background js-nav__background"></div>
-		<ul class="menu neu-box">
-			<li class="menu__item"><a class="menu__item__link" href="resume.pdf" data-theme="light color">Resume</a></li>
-			<li class="menu__item"><a class="menu__item__link" href="mailto:alanjhyu@gmail.com?subject=Hello!" data-theme="light color">Contact</a></li>
-			<li class="menu__item"><a class="menu__item__link" href="https://www.youtube.com/channel/UCskT76VRoicl2J4W4Cm79KQ?view_as=subscriber" data-theme="light color">Music</a></li>
-		</ul>
-	</nav>
-	<header class="header js-header">
-		<a href="/" class="logo" data-theme-fill>
-			<object data="logo.svg" class="full"></object>
-		</a>
-		<a class="burger js-burger">
+	<!-- <div class="scrollbar" data-theme="light background"></div> -->
+	<header class="header">
+		<a class="flex-col burger">
+			<div class="burger__line" data-theme="light background"></div>
 			<div class="burger__line" data-theme="light background"></div>
 			<div class="burger__line" data-theme="light background"></div>
 		</a>
+		<nav class="flex-col neu-box nav">
+			<ul class="content flex quick-menu">
+				<a href="/" class="logo" data-theme-fill>
+				<object data="logo.svg" class="full"></object></a>
+				<a class="theme-switch"></a>
+				<a class="burger-inner"></a>
+			</ul>
+			<ul class="content flex-col menu">
+				<li class="menu__item"><a class="menu__item__link" href="resume.pdf" data-theme="light color">Resume</a></li>
+				<li class="menu__item"><a class="menu__item__link" href="mailto:alanjhyu@gmail.com?subject=Hello!" data-theme="light color">Contact</a></li>
+				<li class="menu__item"><a class="menu__item__link" href="https://www.youtube.com/channel/UCskT76VRoicl2J4W4Cm79KQ?view_as=subscriber" data-theme="light color">Music</a></li>
+			</ul>
+		</nav>
 	</header>
 	<main>
 		<section class="grid hero">
@@ -52,48 +47,42 @@
 				<img class="profile__picture" src="profile.jpg" alt="Alan&rsquo;s profile picture">
 			</figure>
 			<h1 class="title hero__title">Hey, name&rsquo;s Alan.</h1>
-			<div class="description hero__description"><p class="type-writer js-type-writer"></p></div>
-			
+			<div class="description hero__description"><p class="type-writer"></p></div>
 		</section>
-
 		<section class="content flex-col about-me">
 			<h1 class="title about-me__title">About me</h1>
-			<div class="neu-box full content__inner">
+			<div class="neu-box full content">
 				<p class="description about-me__description">
 					I am a sophomore student in the specialist program of Enviromnetal Physics <a href="https://utsc.calendar.utoronto.ca/specialist-program-environmental-physics-science"><object data="external-link.svg" height="12px" width="12px"></object></a> at the University of Toronto. My research interest includes a borad range of planetary physics and currently towards glacier dynamics. I love working on my car and producing music, and occasionally DJ as a hobby.
 				</p>
 			</div>
 		</section>
-
 		<section class="content flex-col journey">
 			<h1 class="title journey__title">Journey</h1>
-			<div class="neu-box full content__inner">
+			<div class="flex-col neu-box full content">
 				<div class="flex-col timeline">
 					<div class="timeline__line" data-theme="light background"></div>
-				<div class="timeline__item">
-					<div class="timeline__content">
-						<h2 class="timeline__content__title subtitle">2018</h2>
-						<p class="timeline__content__description description">Front-end Developer at Way-Way <a href="https://wayway.ca" data-hover-target><object data="external-link.svg" height="12px" width="12px"></object></a>.</p>
+					<div class="timeline__item">
+						<div class="timeline__content">
+							<h2 class="timeline__content__title subtitle">2018</h2>
+							<p class="timeline__content__description description">Front-end Developer at Way-Way <a href="https://wayway.ca" data-hover-target><object data="external-link.svg" height="12px" width="12px"></object></a>.</p>
+						</div>
 					</div>
-				</div>
-				<div class="timeline__item">
-					<div class="timeline__content">
-						<h2 class="timeline__content__title subtitle">2018</h2>
-						<p class="timeline__content__description description">Specialist program in Environmental Physics at the University of Toronto</p>
+					<div class="timeline__item">
+						<div class="timeline__content">
+							<h2 class="timeline__content__title subtitle">2018</h2>
+							<p class="timeline__content__description description">Specialist program in Environmental Physics at the University of Toronto</p>
+						</div>
 					</div>
-				</div>
-				<div class="timeline__item">
-					<div class="timeline__content">
-						<h2 class="subtitle timeline__content__title">2021</h2>
-						<p class="description timeline__content__description">Admission Student Mentor at the University of Toronto</p>
+					<div class="timeline__item">
+						<div class="timeline__content">
+							<h2 class="subtitle timeline__content__title">2021</h2>
+							<p class="description timeline__content__description">Admission Student Mentor at the University of Toronto</p>
+						</div>
 					</div>
 				</div>
 			</div>
-				<p class="description journey__description"><a href="resume.pdf"><span class="highlight">Resume</span></a></p>
-			</div>
-		
 		</section>
-
 		<section class="content flex-col contact">
 			<h1 class="title contact__title">Say Hi</h1>
 			<div class="neu-box content full contact__content">
@@ -130,26 +119,6 @@
 	<footer>
 		<p class="copyright description"><a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE">&copy;</a>
 			Made with ❤️ by Alan.</p>
-		<a class="theme js-theme neu-box">
-			<div class="theme__conveyor flex-col">
-				<svg class="theme__icon" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="#000"
-					stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<circle cx="12" cy="12" r="5"></circle>
-					<line x1="12" y1="1" x2="12" y2="3"></line>
-					<line x1="12" y1="21" x2="12" y2="23"></line>
-					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-					<line x1="1" y1="12" x2="3" y2="12"></line>
-					<line x1="21" y1="12" x2="23" y2="12"></line>
-					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-				</svg>
-				<svg class="theme__icon" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill='#fff'
-					stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-				</svg>
-			</div>
-		</a>
 	</footer>
 </body>
 

@@ -18,7 +18,7 @@ body {
   width: .5vw;
   height: 100%;
   background: #000;
-  transition: transform .15s ease;
+  transition: transform var(--animation-time) ease;
   transform: scaleY(calc((var(--scroll-y)) / (var(--document-h) - var(--window-h))));
   transform-origin: top;
 }

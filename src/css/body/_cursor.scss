@@ -1,11 +1,3 @@
-.cursor {
-	display: none;
-}
-
-object{
-	pointer-events: none;
-}
-
 @media (pointer: fine) and (min-width: 768px) {
 	// * {
 	// 	cursor: none !important;
@@ -14,23 +6,12 @@ object{
 	.cursor {
 		display: block;
 		position: fixed;
-		width: 50px;
-		height: 50px;
 		overflow: hidden;
-		border-radius: 50%;
+		opacity: 1;
+		border-radius: 20px;
 		pointer-events: none;
-		transition: height var(--animation-time) ease-in-out, width var(--animation-time) ease-in-out, border-radius var(--animation-time) ease-in-out, background var(--animation-time) ease;
+		transition: transform .1s linear, height var(--animation-time) ease-in-out, width var(--animation-time) ease-in-out, border-radius var(--animation-time) ease-in-out;
 		mix-blend-mode: exclusion;
 		background: #fff;
-
-		&[data-hover] {
-			--wobble-scale: 10;
-			--pos-x: calc(((var(--mouse-x) - var(--hover-x)) / var(--width)) * var(--wobble-scale));
-			--pos-y: calc(((var(--mouse-y) - var(--hover-y)) / var(--height)) * var(--wobble-scale));
-			width: calc(var(--hover-width) * 1px + 25px);
-			height: calc(var(--hover-height) * 1px + 25px);
-			border-radius: var(--default-border);
-			transform: translate(calc((var(--pos-x) + var(--hover-x)) * 1px), calc((var(--pos-y) + var(--hover-y)) * 1px)) translate(-50%, -50%);
-		}
 	}
 }

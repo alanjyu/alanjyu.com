@@ -9,10 +9,8 @@ export default class Header {
     var toHideMenu = gsap.timeline();
     toHideMenu
       .to(
-        '.js-header', {
-          // opacity: 0,
-          transformY: '-200%',
-          backgroundColor: '#000'
+        '.header', {
+          opacity: 0,
         }
       );
 

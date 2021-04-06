@@ -2,17 +2,11 @@ import {
 	gsap
 } from 'gsap';
 
-import {
-	disableBodyScroll,
-	enableBodyScroll,
-} from 'body-scroll-lock';
-
 export default class Burger {
 	constructor() {
 		var menuIsActive = false;
 
-		/* Activate menu animation */
-
+		// activate menu animation
 		const toActivateMenu = gsap.timeline();
 		toActivateMenu
 			.to(
@@ -27,28 +21,17 @@ export default class Burger {
 					opacity: 1,
 					stagger: .1
 				},
-				'-=.25'
+				'-=.15'
 			);
 
 		toActivateMenu.pause();
 
-		const burgerToggle = document.querySelector('.js-burger');
+		const burgerToggle = document.querySelector('.burger');
 		burgerToggle.addEventListener('click', () => {
 			if (!menuIsActive) {
-				menuIsActive = true;
-				disableBodyScroll(document.body);
+				menuIsActive;
 				toActivateMenu.play();
 			};
 		});
-
-		const navToggle = document.querySelector('.js-nav__background');
-		navToggle.addEventListener('click', () => {
-			if (menuIsActive) {
-				menuIsActive = false;
-				enableBodyScroll(document.body);
-				toActivateMenu.reverse();
-			}
-		});
-
 	};
 }

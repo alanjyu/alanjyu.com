@@ -2,10 +2,18 @@ header {
   z-index: 1;
 }
 
-.cursor {
-  z-index: 9;
+.nav {
+  z-index: 1;
+}
+
+.burger {
+  z-index: 2;
 }
 
 .scrollbar {
   z-index: 1;
+}
+
+.cursor {
+  z-index: 9;
 }
