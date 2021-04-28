@@ -1,10 +1,10 @@
 # [Portfolio](https://alanjyu.com)
 
-The source codes are in [src/](https://github.com/alanjyu/alanjyu.com/tree/master/src) and the compiled codes are in [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs).
+The source code is in [src/](https://github.com/alanjyu/alanjyu.com/tree/master/src) and the compiled code is in [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs).
 
 ## Compatibility
 
-Tested on Edge 80+, Chrome 80+, Samsung Browser 79+ and Safari 13+. No IE support yet.
+Tested on Edge 80+, Chrome 80+, Samsung Browser 79+ and Safari 13+.
 
 ## Dependencies
 
