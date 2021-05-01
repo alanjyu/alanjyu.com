@@ -17,6 +17,11 @@ export default class ThemeToggler {
 				}, 0
 			)
 			.to(
+				['.subsubtitle'], {
+					color: '#dde26a'
+				}, 0
+			)
+			.to(
 				['.content__inner'], {
 					background: '#121212'
 				}, 0

@@ -1,5 +1,6 @@
 :root{
 	--default-border: 20px;
+	--small: calc(1rem + .25vw);
 	--medium: calc(1rem + .5vw);
 	--large: calc(1rem + 1.5vw);
 	--huge: calc(1rem + 3vw);
@@ -16,10 +17,6 @@
 @import 'breakpoint','normalize';
 @import 'body/scrollbar','body/cursor';
 @import 'header','main','footer';
-
-* {
-	font-family: 'source-sans-pro', sans-serif !important;
-}
 
 object{
 	pointer-events: none;
@@ -46,9 +43,35 @@ header {
 	border-radius: var(--default-border);
 }
 
+p {
+	font-family: 'source-sans-pro', sans-serif;
+}
+
+h1, h2, h4, h5, h6 {
+	font-family: 'lora', serif;
+}
+
+.title {
+	margin-bottom: var(--content-margin);
+	font-size: var(--huge);
+	font-weight: 500;
+}
+
+.subtitle {
+	margin-bottom: var(--content-margin);
+	font-size: var(--large);
+}
+
+.subsubtitle {
+	margin-bottom: var(--content-margin-half);
+	font-size: var(--medium);
+	font-style: italic;
+	color: #60006d;
+}
+
 .description {
 	line-height: 1.2;
-	font-size: var(--medium);
+	font-size: var(--small);
 }
 
 .content {
@@ -73,15 +96,6 @@ header {
 .centeritem {
 	align-items: center;
 	justify-content: center;
-}
-
-.title {
-	margin-bottom: var(--content-margin);
-	font-size: var(--huge);
-}
-
-.subtitle {
-	font-size: var(--large);
 }
 
 .flex {

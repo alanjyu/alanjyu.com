@@ -1,14 +1,10 @@
 import '../css/style.scss';
 
 import Burger from './components/burger';
-import TypeWriter from './components/type-writer';
 import ThemeToggler from './components/theme';
 import Cursor from './components/cursor';
 
-const components = [{
-		class: TypeWriter,
-		selector: '.type-writer'
-	},
+const components = [
 	{
 		class: Burger,
 		selector: '.burger'
