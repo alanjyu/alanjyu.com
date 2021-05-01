@@ -3,64 +3,47 @@ import {
 } from 'gsap';
 
 export default class ThemeToggler {
-	constructor(e) {
-		var isLight = window.matchMedia('prefers-color-scheme: light').matches;
-
+	constructor() {
 		var toNight = gsap.timeline();
 		toNight
 			.to(
-				['body'], {
-					background: '#15191e'
+				['body','.content','.content__tight'], {
+					background: '#000'
 				}, 0
 			)
 			.to(
-				['[data-theme="light color"]'], {
-					color: '#fff',
+				['h1','h2','h3','h4','h5','h6','p'], {
+					color: '#fff'
 				}, 0
 			)
 			.to(
-				'[data-theme="light background"]', {
+				['.content__inner'], {
+					background: '#121212'
+				}, 0
+			)
+			.to(
+				['.burger__line', '.timeline__line'], {
 					background: '#fff',
 				}, 0
 			)
 			.to(
-				'[data-theme-fill]', {
-					fill: '#fff',
+				['object'], {
+					filter: 'invert(1)',
 				}, 0
 			)
 			.to(
 				'.cursor', {
 					borderColor: '#fff',
 				}, 0
-			)
-			.to(
-				'.neu-box', {
-					boxShadow: '5px 5px 10px #12151a, -5px -5px 10px #181d23',
-				},
-				0
-			)
-			.to(
-				'.ti-cursor', {
-					color: '#ffff00',
-				}, 0
 			);
+		
+		toNight.pause();
+		var isLight = window.matchMedia('prefers-color-scheme: light').matches;
+		isLight ? toNight.reverse() : toNight.play();
 
-		if (isLight) {
-			toNight.reverse();
-		} else {
-			toNight.play();
-		};
-
-		const switchToggle = document.querySelector('.theme-switch');
+		const switchToggle = document.querySelector('.themeswitch');
 		switchToggle.addEventListener('click', () => {
-			if (isLight) {
-				toNight.play();
-				isLight = false;
-			} 
-			else {
-				toNight.reverse();
-				isLight = true;
-			};
+			isLight ? (isLight = false, toNight.play()) : (isLight = true,	toNight.reverse());
 		});
 	};
 };

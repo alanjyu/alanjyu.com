@@ -4,34 +4,37 @@ import {
 
 export default class Burger {
 	constructor() {
-		var menuIsActive = false;
-
 		// activate menu animation
-		const toActivateMenu = gsap.timeline();
+		var toActivateMenu = gsap.timeline();
 		toActivateMenu
 			.to(
 				'.header', {
 					visibility: 'visible',
 					opacity: 1
-				},
-				0
+				}, 0
+			)
+			.to(
+				'.burger', {
+					opacity: 0
+				}, 0
 			)
 			.to(
 				'.menu__item__link', {
 					opacity: 1,
-					stagger: .1
-				},
-				'-=.15'
+					stagger: .05
+				}, '-=.1'
 			);
 
-		toActivateMenu.pause();
+		toActivateMenu.reversed(true);
 
-		const burgerToggle = document.querySelector('.burger');
+		var burgerToggle = document.querySelector('.burger');
 		burgerToggle.addEventListener('click', () => {
-			if (!menuIsActive) {
-				menuIsActive;
-				toActivateMenu.play();
-			};
+			toActivateMenu.reversed() ? toActivateMenu.play() : toActivateMenu.reverse();
+		});
+
+		var body = document.querySelector('main');
+		body.addEventListener('click', () => {
+			toActivateMenu.play() ? toActivateMenu.reverse() : toActivateMenu.play();
 		});
 	};
 }

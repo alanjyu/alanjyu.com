@@ -14,109 +14,103 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 	<link rel="manifest" href="/site.webmanifest" />
 	<link rel="stylesheet" href="https://use.typekit.net/ftq3ric.css" />
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-176120194-1"></script>
+	<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176120194-1"></script> -->
 	<script src="js/main.js" charset="utf-8"></script>
 </head>
 
-<body class="background-fade">
+<body>
 	<div class="cursor"></div>
-	<!-- <div class="scrollbar" data-theme="light background"></div> -->
-	<!-- <a class="flex-col burger">
-		<div class="burger__line" data-theme="light background"></div>
-		<div class="burger__line" data-theme="light background"></div>
-		<div class="burger__line" data-theme="light background"></div>
-	</a> -->
+	<a class="flex-col burger">
+		<div class="burger__line"></div>
+		<div class="burger__line"></div>
+		<div class="burger__line"></div>
+	</a>
 	<header class="header">
-		<nav class="flex-col neu-box nav">
-			<ul class="flex content quick-menu">
-				<a href="/" class="logo" data-theme-fill>
+		<nav class="flex-col content neubox nav">
+			<ul class="flex content__inner neubox quickmenu">
+				<a href="/" class="logo">
 				<object data="logo.svg" class="full"></object></a>
-				<a class="theme-switch">
-					<div class="theme-switch__inner"></div>
+				<a class="themeswitch">
+					<div class="themeswitch__inner"></div>
 				</a>
-				<a class="burger-inner"></a>
 			</ul>
-			<ul class="content flex-col menu">
-				<li class="menu__item"><a class="menu__item__link" href="resume.pdf" data-theme="light color">Resume</a></li>
-				<li class="menu__item"><a class="menu__item__link" href="mailto:alanjhyu@gmail.com?subject=Hello!" data-theme="light color">Contact</a></li>
-				<li class="menu__item"><a class="menu__item__link" href="https://www.youtube.com/channel/UCskT76VRoicl2J4W4Cm79KQ?view_as=subscriber" data-theme="light color">Music</a></li>
+			<ul class="flex-col menu">
+				<li class="menu__item"><a class="menu__item__link" href="resume.pdf"><p>Resume</p></a></li>
+				<li class="menu__item"><a class="menu__item__link" href="https://www.youtube.com/channel/UCskT76VRoicl2J4W4Cm79KQ?view_as=subscriber""><p>Music</p></a></li>
 			</ul>
 		</nav>
 	</header>
-	<main>
-		<section class="grid hero">
-			<figure class="neu-box full profile">
-				<img class="profile__picture" src="profile.jpg" alt="Alan&rsquo;s profile picture">
-			</figure>
-			<h1 class="title hero__title">Hey, name&rsquo;s Alan.</h1>
-			<div class="description hero__description"><p class="type-writer"></p></div>
-		</section>
-		<section class="content flex-col about-me">
-			<h1 class="title about-me__title">About me</h1>
-			<div class="neu-box full content">
-				<p class="description about-me__description">
-					I am a sophomore student in the specialist program of Enviromnetal Physics <a href="https://utsc.calendar.utoronto.ca/specialist-program-environmental-physics-science"><object data="external-link.svg" height="12px" width="12px"></object></a> at the University of Toronto. My research interest includes a borad range of planetary physics and currently towards glacier dynamics. I love working on my car and producing music, and occasionally DJ as a hobby.
+	<main >
+		<section class="content hero">
+			<div class="full">
+				<figure class="full profile">
+					<img class="full neubox profile__picture" src="profile.jpg" alt="Alan&rsquo;s profile picture">
+				</figure>
+			</div>
+			<div class="flex-col full centeritem content__tight">
+				<h1 class="title">Hey, name&rsquo;s Alan.</h1>
+				<p class="description">I am a Enviromnetal Physics specialist candidate <a href="https://utsc.calendar.utoronto.ca/specialist-program-environmental-physics-science"><object data="external-link.svg" height="12px" width="12px"></object></a> at the University of Toronto. My research interest includes a borad range of planetary physics. I love working on my car and producing music, and occasionally DJ as a hobby.
 				</p>
 			</div>
 		</section>
 		<section class="content flex-col journey">
-			<h1 class="title journey__title">Journey</h1>
-			<div class="flex-col neu-box full content">
+			<h1 class="centertext title">My journey so far...</h1>
+			<div class="flex-col full neubox content__inner">
 				<div class="flex-col timeline">
-					<div class="timeline__line" data-theme="light background"></div>
+					<div class="timeline__line"></div>
 					<div class="timeline__item">
 						<div class="timeline__content">
-							<h2 class="timeline__content__title subtitle">July, 2018</h2>
-							<p class="timeline__content__description description">Front-end Developer at Way-Way <a href="https://wayway.ca" data-hover-target><object data="external-link.svg" height="12px" width="12px"></object></a>.</p>
+							<h2 class="subtitle">July, 2018</h2>
+							<p class="description">Front-end Developer at Way-Way.</p>
 						</div>
 					</div>
 					<div class="timeline__item">
 						<div class="timeline__content">
-							<h2 class="timeline__content__title subtitle">Sept, 2018</h2>
-							<p class="timeline__content__description description">Specialist program in Environmental Physics at the University of Toronto</p>
+							<h2 class="subtitle">Sept, 2018</h2>
+							<p class="description">Specialist in Environmental Physics at the University of Toronto.</p>
 						</div>
 					</div>
 					<div class="timeline__item">
 						<div class="timeline__content">
-							<h2 class="subtitle timeline__content__title">Feb, 2021</h2>
-							<p class="description timeline__content__description">Admission Student Mentor at the University of Toronto</p>
+							<h2 class="subtitle">Feb, 2021</h2>
+							<p class="description">Admission Student Mentor at the University of Toronto</p>
 						</div>
 					</div>
 					<div class="timeline__item">
 						<div class="timeline__content">
-							<h2 class="subtitle timeline__content__title">May, 2021</h2>
-							<p class="description timeline__content__description">Research Assistant at the University of Toronto. Position involves training for advanced high resolution LiDAR digital data processing and imaging of geological structures.</p>
+							<h2 class="subtitle">May, 2021</h2>
+							<p class="description">Research Assistant at the University of Toronto. Position involves training for advanced high resolution LiDAR digital data processing and imaging of geological structures.</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 		<section class="content flex-col contact">
-			<h1 class="title contact__title">Say Hi</h1>
-			<div class="neu-box content full contact__content">
-				<ul class="social-media">
-					<li class="social-media__item">
-						<a href="mailto:aj.yu@mail.utoronto.ca?subject=Hello!" class="social-media__item__link" data-theme-fill >
+			<h1 class="centertext title contact__title">Say hi!</h1>
+			<div class="content__inner full neubox contact__content">
+				<ul class="socialmedia">
+					<li class="socialmedia__item">
+						<a href="mailto:aj.yu@mail.utoronto.ca?subject=Hello!" class="socialmedia__item__link">
 							<object data="email.svg" class="full"></object>
 						</a>
 					</li>
-					<li class="social-media__item">
-						<a href="https://www.instagram.com/alanjyu/" class="social-media__item__link" data-theme-fill>
+					<li class="socialmedia__item">
+						<a href="https://www.instagram.com/alanjyu/" class="socialmedia__item__link">
 							<object data="instagram.svg" class="full"></object>
 						</a>
 					</li>
-					<li class="social-media__item">
-						<a data-theme-fill href="https://www.linkedin.com/in/ajyu/" class="social-media__item__link">
+					<li class="socialmedia__item">
+						<a href="https://www.linkedin.com/in/ajyu/" class="socialmedia__item__link">
 							<object data="linkedin.svg" class="full"></object>
 						</a>
 					</li>
-					<li class="social-media__item">
-						<a data-theme-fill href="https://github.com/alanjyu/" class="social-media__item__link">
+					<li class="socialmedia__item">
+						<a href="https://github.com/alanjyu/" class="socialmedia__item__link">
 							<object data="github.svg" class="full"></object>
 						</a>
 					</li>
-					<li class="social-media__item">
-						<a data-theme-fill href="https://open.spotify.com/user/misteraln?si=YlS2qKOFSRafDDQq2Hu5CA" class="social-media__item__link">
+					<li class="socialmedia__item">
+						<a href="https://open.spotify.com/user/misteraln?si=YlS2qKOFSRafDDQq2Hu5CA" class="socialmedia__item__link">
 							<object data="spotify.svg" class="full"></object>
 						</a>
 					</li>
@@ -124,10 +118,6 @@
 			</div>
 		</section>
 	</main>
-	<footer>
-		<p class="copyright description"><a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE">&copy;</a>
-			Made with ❤️ by Alan.</p>
-	</footer>
 </body>
 
 </html>

@@ -3,9 +3,9 @@
   top: 0;
   right: 0;
   margin: var(--item-margin);
-	background: #fafafa;
 	visibility: hidden;
 	opacity: 0;
+	width: 20%;
 }
 
 .burger {
@@ -13,19 +13,18 @@
 	top: 0;
 	right: 0;
   justify-content: space-evenly;
-	margin: calc(var(--item-margin) + 24px);
+	margin: calc(var(--item-margin) );
   width: var(--large);
   height: var(--large);
 
   &__line {
     width: 100%;
-    height: 3px;
+    height: 4px;
     background: #000;
   }
 }
 
-.quick-menu {
-	width: 100%;
+.quickmenu {
 	justify-content: space-around;
 }
 
@@ -34,7 +33,7 @@
   height: var(--large);
 }
 
-.theme-switch {
+.themeswitch {
 	display: flex;
   align-items: center;
   justify-content: center;
@@ -80,7 +79,6 @@
 }
 
 .menu {
-	width: 250px;
 	text-align: center;
 
 	&:hover &__item {
@@ -93,7 +91,6 @@
 
 	&__item {
 		position: relative;
-		font-family: 'ballad', sans-serif;
 		font-size: var(--large);
 		transition: opacity var(--animation-time) ease-in-out;
 		opacity: 1;

@@ -3,10 +3,7 @@ import '../css/style.scss';
 import Burger from './components/burger';
 import TypeWriter from './components/type-writer';
 import ThemeToggler from './components/theme';
-import Boundary from './components/bounds';
 import Cursor from './components/cursor';
-import Scrollbar from './components/scrollbar';
-import Header from './components/header';
 
 const components = [{
 		class: TypeWriter,
@@ -18,23 +15,11 @@ const components = [{
 	},
 	{
 		class: ThemeToggler,
-		selector: '.theme'
-	},
-	{
-		class: Boundary,
-		selector: 'img'
+		selector: '.themeswitch'
 	},
 	{
 		class: Cursor,
 		selector: '.cursor'
-	},
-	{
-		class: Header,
-		selector: '.header'
-	},
-	{
-		class: Scrollbar,
-		selector: '.scrollbar'
 	}
 ];
 

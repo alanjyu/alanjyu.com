@@ -1,7 +1,7 @@
 {
   "name": "alanjyu.com",
-  "version": "1.0.0",
-  "description": "Personal/portfolio website.",
+  "version": "1.0.1",
+  "description": "Personal website.",
   "main": "main.js",
   "directories": {
     "lib": "lib"

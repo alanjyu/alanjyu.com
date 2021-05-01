@@ -1,29 +1,40 @@
 :root{
 	--default-border: 20px;
 	--medium: calc(1rem + .5vw);
-	--large: calc(1rem + 1vw);
-	--huge: calc(1rem + 2vw);
+	--large: calc(1rem + 1.5vw);
+	--huge: calc(1rem + 3vw);
+	--content-margin-half: 3%;
+	--content-margin: 6%;
+	--content-padding-quarter: 3.75%;
 	--content-padding-half: 7.5%;
 	--content-padding: 15%;
-	--item-margin: 5%;
-	--icon-margin: 10%;
+	--item-margin: 2.5%;
+	--icon-margin: 5%;
 	--animation-time: .2s;
 }
 
-@import 'mixins/breakpoint','mixins/normalize','mixins/z-index';
+@import 'breakpoint','normalize';
 @import 'body/scrollbar','body/cursor';
-@import 'header';
-@import 'main';
-@import 'footer';
+@import 'header','main','footer';
 
-body, main,
-footer {
-	background: #fafafa;
-	font-family: 'source-sans-pro', sans-serif;
+* {
+	font-family: 'source-sans-pro', sans-serif !important;
 }
 
 object{
 	pointer-events: none;
+}
+
+header {
+  z-index: 1;
+}
+
+.burger {
+  z-index: 1;
+}
+
+.cursor {
+  z-index: 9;
 }
 
 .full {
@@ -31,9 +42,8 @@ object{
 	width: 100%;
 }
 
-.neu-box {
+.neubox {
 	border-radius: var(--default-border);
-	box-shadow: 8px 8px 16px #cccccc, -8px -8px 16px #ffffff;
 }
 
 .description {
@@ -42,25 +52,37 @@ object{
 }
 
 .content {
-	padding: var(--content-padding-half) var(--content-padding);
+	background: #f5f5f5;
+	padding: var(--content-padding-quarter) var(--content-padding);
+
+	&__inner {
+		padding: var(--content-padding-half) var(--content-padding);
+		background: #fff;
+	}
+
+	&__tight {
+		padding: var(--content-padding-quarter) var(--content-padding-quarter);
+		background: #f5f5f5;
+	}
+}
+
+.centertext {
+	text-align: center;
+}
+
+.centeritem {
+	align-items: center;
+	justify-content: center;
 }
 
 .title {
-	line-height: 1.6;
+	margin-bottom: var(--content-margin);
 	font-size: var(--huge);
-	text-align: center;
 }
 
 .subtitle {
 	font-size: var(--large);
 }
-
-.grid {
-	display: grid;
-	grid-template-rows: repeat(4, minmax(0, 1fr));
-	grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
 
 .flex {
 	display: flex;
@@ -70,12 +92,4 @@ object{
 		display: flex;
 		flex-direction: column;
 	}
-}
-
-.about-me {  
-  &__description {    
-    @include respond-to('medium') {
-      text-align: justify;
-    }
-  }
 }
