@@ -1,5 +1,6 @@
 :root{
 	--default-border: 20px;
+	--tiny: calc(.5rem + .15vw);
 	--small: calc(1rem + .25vw);
 	--medium: calc(1rem + .5vw);
 	--large: calc(1rem + 1.5vw);
@@ -16,7 +17,7 @@
 
 @import 'breakpoint','normalize';
 @import 'body/scrollbar','body/cursor';
-@import 'header','main','footer';
+@import 'header','main';
 
 object{
 	pointer-events: none;
@@ -72,6 +73,11 @@ h1, h2, h4, h5, h6 {
 .description {
 	line-height: 1.2;
 	font-size: var(--small);
+}
+
+.suppliment {
+	font-size: var(--tiny);
+	color: #333333;
 }
 
 .content {

@@ -18,7 +18,7 @@ export default class ThemeToggler {
 			)
 			.to(
 				['.subsubtitle'], {
-					color: '#dde26a'
+					color: '#ffe600'
 				}, 0
 			)
 			.to(

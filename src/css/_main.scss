@@ -1,8 +1,3 @@
-main {
-	position: absolute;
-	top: 0;
-}
-
 .hero {
 	height: 600px;
   display: flex;
@@ -28,7 +23,6 @@ main {
 
   &__line {
     position: absolute;
-    background: #000;
     width: 2px;
     height: 100%;
     transform: translateX(-50%);
@@ -41,17 +35,36 @@ main {
 
 	&__item {
     display: flex;
-    padding: 16px;
+    padding: var(--content-padding-quarter);
+
+    &::before{
+      content: '';
+      position: absolute;
+      left: 0;
+      transform: translateX(-50%);
+      width: var(--tiny);
+      height: var(--tiny);
+      border-radius: 50%;
+      background: #ffe600;
+    }
 
     @include respond-to('medium') { 
       width: 50%;
-      align-self: baseline;
 
+      &:nth-of-type(even) {
+        align-self: baseline;
+
+        &::before {
+          left: 100%;
+        }
+      }
+      
       &:nth-of-type(odd) {
         align-self: flex-end;
       }
     }
   }
+
   &__hero {
     width: 100%;
     overflow: hidden;
@@ -62,13 +75,6 @@ main {
       left: 0;
       object-fit: contain;
     }
-  }
-}
-
-.contact {
-  &__content {
-    align-items: center;
-    justify-content: center;
   }
 }
 
