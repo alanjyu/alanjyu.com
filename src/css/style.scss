@@ -1,5 +1,6 @@
 :root{
 	--default-border: 20px;
+	--tiny: calc(.5rem + .2vw);
 	--small: calc(1rem + .25vw);
 	--medium: calc(1rem + .5vw);
 	--large: calc(1rem + 1.5vw);
@@ -9,29 +10,45 @@
 	--content-padding-quarter: 3.75%;
 	--content-padding-half: 7.5%;
 	--content-padding: 15%;
-	--item-margin: 2.5%;
+	--item-margin-half: 2.5%;
+	--item-margin: 5%;
 	--icon-margin: 5%;
 	--animation-time: .2s;
 }
 
 @import 'breakpoint','normalize';
-@import 'body/scrollbar','body/cursor';
-@import 'header','main','footer';
+@import 'body/scrollbar';
+@import 'header','main';
 
-object{
+.cursor {
+	display: none;
+	position: fixed;
+	overflow: hidden;
+	opacity: 1;
+	border-radius: 20px;
+	pointer-events: none;
+	transition: height var(--animation-time) ease-in-out, width var(--animation-time) ease-in-out, border-radius var(--animation-time) ease-in-out;
+	mix-blend-mode: exclusion;
+	background: #fff;
+	z-index: 9;
+}
+
+@media (pointer: fine) and (min-width: 768px) {
+	* {
+		cursor: none !important;
+	}
+
+	.cursor {
+		display: block;
+	}
+}
+
+object {
 	pointer-events: none;
 }
 
-header {
-  z-index: 1;
-}
-
-.burger {
-  z-index: 1;
-}
-
-.cursor {
-  z-index: 9;
+.navheader {
+	z-index: 1;
 }
 
 .full {
@@ -43,7 +60,7 @@ header {
 	border-radius: var(--default-border);
 }
 
-p {
+p, a {
 	font-family: 'source-sans-pro', sans-serif;
 }
 
@@ -74,13 +91,23 @@ h1, h2, h4, h5, h6 {
 	font-size: var(--small);
 }
 
+.suppliment {
+	font-size: var(--tiny);
+	color: #333333;
+}
+
 .content {
 	background: #f5f5f5;
-	padding: var(--content-padding-quarter) var(--content-padding);
+	padding: var(--content-padding-half) var(--content-padding);
 
 	&__inner {
 		padding: var(--content-padding-half) var(--content-padding);
 		background: #fff;
+
+		&__tight {
+			padding: var(--content-padding-quarter) var(--content-padding-quarter);
+			background: #fff;
+		}
 	}
 
 	&__tight {

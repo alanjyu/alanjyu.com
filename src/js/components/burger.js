@@ -8,7 +8,7 @@ export default class Burger {
 		var toActivateMenu = gsap.timeline();
 		toActivateMenu
 			.to(
-				'.header', {
+				'.nav', {
 					visibility: 'visible',
 					opacity: 1
 				}, 0
@@ -22,19 +22,18 @@ export default class Burger {
 				'.menu__item__link', {
 					opacity: 1,
 					stagger: .05
-				}, '-=.1'
+				}, '-=.3'
 			);
 
-		toActivateMenu.reversed(true);
+		toActivateMenu.pause();
+
+		var isActive = false;
 
 		var burgerToggle = document.querySelector('.burger');
 		burgerToggle.addEventListener('click', () => {
-			toActivateMenu.reversed() ? toActivateMenu.play() : toActivateMenu.reverse();
+			isActive ? (isActive = false, toActivateMenu.reverse()) : (isActive = true, toActivateMenu.play());
 		});
 
-		var body = document.querySelector('main');
-		body.addEventListener('click', () => {
-			toActivateMenu.play() ? toActivateMenu.reverse() : toActivateMenu.play();
-		});
+		var navheader = document.querySelector('.navheader')
 	};
 }

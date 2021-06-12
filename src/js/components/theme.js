@@ -12,17 +12,17 @@ export default class ThemeToggler {
 				}, 0
 			)
 			.to(
-				['h1','h2','h3','h4','h5','h6','p'], {
+				['h1','h2','h3','h4','h5','h6','p','a'], {
 					color: '#fff'
 				}, 0
 			)
 			.to(
 				['.subsubtitle'], {
-					color: '#dde26a'
+					color: '#ffe600'
 				}, 0
 			)
 			.to(
-				['.content__inner'], {
+				['.content__inner', '.content__inner__tight'], {
 					background: '#121212'
 				}, 0
 			)

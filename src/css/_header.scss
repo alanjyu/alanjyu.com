@@ -1,30 +1,10 @@
-.header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin: var(--item-margin);
+.nav {
+	position: fixed;
 	visibility: hidden;
 	opacity: 0;
-	width: 20%;
 }
 
-.burger {
-	position: fixed;
-	top: 0;
-	right: 0;
-  justify-content: space-evenly;
-	margin: calc(var(--item-margin) );
-  width: var(--large);
-  height: var(--large);
-
-  &__line {
-    width: 100%;
-    height: 2px;
-    background: #000;
-  }
-}
-
-.quickmenu {
+.bar {
 	justify-content: space-around;
 }
 
