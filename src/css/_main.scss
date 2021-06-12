@@ -1,5 +1,6 @@
 .hero {
 	height: 600px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 
@@ -95,4 +96,37 @@
 			display: block;
 		}
 	}
+}
+
+.burger {
+	position: absolute;
+  justify-content: space-evenly;
+  width: var(--large);
+  height: var(--large);
+
+  &__line {
+    width: 100%;
+    height: 2px;
+    background: #000;
+  }
+}
+
+.music {
+  padding: var(--content-padding-half) 0;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include respond-to('medium') {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+    }
+  }
+
+  &__item {
+    margin: var(--item-margin-half);
+    height: 300px;
+  }
 }
