@@ -1,4 +1,4 @@
-import '/css/style.scss';
+import '../css/style.scss';
 
 import Burger from './components/burger';
 import ThemeToggler from './components/theme';
