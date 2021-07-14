@@ -1,4 +1,4 @@
-:root{
+:root {
 	--default-border: 20px;
 	--tiny: calc(.5rem + .2vw);
 	--small: calc(1rem + .25vw);
@@ -14,6 +14,7 @@
 	--item-margin: 5%;
 	--icon-margin: 5%;
 	--animation-time: .2s;
+	--animation-time-extra-long: .8s;
 }
 
 @import 'breakpoint','normalize';
@@ -60,11 +61,11 @@ object {
 	border-radius: var(--default-border);
 }
 
-p, a {
+p, a, h4, h5, h6 {
 	font-family: 'source-sans-pro', sans-serif;
 }
 
-h1, h2, h4, h5, h6 {
+h1, h2 {
 	font-family: 'lora', serif;
 }
 
@@ -84,6 +85,11 @@ h1, h2, h4, h5, h6 {
 	font-size: var(--medium);
 	font-style: italic;
 	color: #60006d;
+}
+
+.subject {
+	line-height: 1.2;
+	font-size: var(--small);
 }
 
 .description {

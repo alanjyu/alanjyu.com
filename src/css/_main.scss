@@ -112,21 +112,64 @@
 }
 
 .music {
-  padding: var(--content-padding-half) 0;
+display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  &__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-    @include respond-to('medium') {
-      display: grid;
-      grid-template-columns: repeat(3, auto);
-    }
+  @include respond-to('medium') {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
   }
 
   &__item {
     margin: var(--item-margin-half);
     height: 300px;
+  }
+}
+
+.note {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  &__item {
+    flex: 1;
+    height: 350px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: none;
+    transition: all var(--animation-time-extra-long) ease;
+    overflow: hidden;
+
+    &:hover {
+      flex: 7;
+      transform: translate3d(0, 0, 100px);
+      box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+      filter: saturate(2) contrast(120%);
+
+      .note__title {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__title {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    opacity: 0;
+    transition: opacity var(--animation-time) ease;
+  }
+
+  &__figure {
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }

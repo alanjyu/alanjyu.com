@@ -3,6 +3,7 @@ import '../css/style.scss';
 import Burger from './components/burger';
 import ThemeToggler from './components/theme';
 import Cursor from './components/cursor';
+import Slider from './components/swiper';
 
 const components = [
 	{
@@ -16,7 +17,7 @@ const components = [
 	{
 		class: Cursor,
 		selector: '.cursor'
-	}
+	},
 ];
 
 document.addEventListener('DOMContentLoaded', () => {

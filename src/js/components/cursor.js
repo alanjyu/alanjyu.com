@@ -2,7 +2,7 @@ import { gsap } from 'gsap';
 
 export default class Cursor {
   constructor() {
-    const targets = document.querySelectorAll('a, [data-hover-target]');
+    const targets = document.querySelectorAll('[data-target]');
     const cursor = document.querySelector('.cursor');
 
     var isHovering = false;
