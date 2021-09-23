@@ -1,83 +1,55 @@
-import { gsap } from 'gsap';
-
 export default class Cursor {
   constructor() {
     const targets = document.querySelectorAll('[data-target]');
     const cursor = document.querySelector('.cursor');
 
-    var isHovering = false;
+    var targetHover = false;
     var rect = 0;
-    var cx, cy, cw, ch, hx, hy, ax, ay;
-    var cw = 24;
-    var ch = 24;
+    var cx = 0, cy = 0;
+    var hx = 0, hy = 0;
+    var ax = 0, ay = 0;
+    var bw = 20, bh = 20; // base width and height
+    var cw = bw, ch = bw;
     const wobble = 20;
-
-    cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
 
     document.addEventListener('mousemove', (e) => {
       // update mouse position
-      cx = e.clientX - cursor.offsetWidth * .5;
-      cy = e.clientY - cursor.offsetHeight * .5;
       cursor.style.width = cw + 'px';
       cursor.style.height = ch + 'px';
 
-      if (isHovering) {
-        // update mouse position based on hovered box position
-        ax = (e.clientX - hx) / cursor.offsetWidth * wobble; // adjustment on width
-        ay = (e.clientY - hy) / cursor.offsetHeight * wobble; // adjustment on height
-        cx = hx + ax - cursor.offsetWidth * .5;
-        cy = hy + ay - cursor.offsetHeight * .5;
+      if (targetHover) {
+        cx = hx + ax - cw * .5;
+        cy = hy + ay - ch * .5;
+      } else {
+        cx = e.clientX - cw * .5;
+        cy = e.clientY - ch * .5;
       }
-
-      targets.forEach(target => {
-        target.addEventListener('mouseenter', () => {
-          isHovering = true;
-          rect = target.getBoundingClientRect();
-          hx = (rect.left + rect.right) * .5; // hover center x
-          hy = (rect.top + rect.bottom) * .5; // hover center y
-          cw = rect.width + 25;
-          ch = rect.height + 25;
-          cursor.style.width = cw + 'px';
-          cursor.style.height = ch + 'px';
-        });
-  
-        target.addEventListener('mouseleave', (e) => {
-          isHovering = false;
-          rect = 0;
-          cw = 24;
-          ch = 24;
-          cursor.style.width = cw + 'px';
-          cursor.style.height = ch + 'px';
-  
-          cx = e.clientX - cursor.style.width * .5;
-          cy = e.clientY - cursor.style.height * .5;
-        });
-      });
-
+      
       cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
     });
 
-    var toHideMouse = gsap.timeline();
-    toHideMouse.fromTo(
-      '.cursor', {
-        opacity: .85
-      },
-      {
-        opacity: 0,
-        duration: .15
-      },
-      0
-    );
-    toHideMouse.pause();
+    targets.forEach(target => {
+      target.addEventListener('mousemove', (e) => {
+        targetHover = true;
+        rect = target.getBoundingClientRect();
+        cw = rect.width + 25;
+        ch = rect.height + 25;
+        hx = (rect.left + rect.right) * .5; // hover center x
+        hy = (rect.top + rect.bottom) * .5; // hover center y
+        ax = (e.clientX - hx) / cw * wobble; // adjustment on width
+        ay = (e.clientY - hy) / ch * wobble; // adjustment on height
+      });
 
-    document.addEventListener('mouseleave', (e) => {
-      if (e.clientY == 0 || e.clientX == 0 || (e.clientX >= window.innerWidth || e.clientY >= window.innerHeight)) {
-        toHideMouse.play();
-      }
-    });
-
-    document.addEventListener('mouseenter', () => {
-      toHideMouse.reverse();
+      target.addEventListener('mouseleave', (e) => {
+        targetHover = false;
+        rect = 0;
+        cw = bw;
+        ch = bh;
+        hx = 0;
+        hy = 0;
+        ax = 0;
+        ay = 0;
+      });
     });
   }
 }
