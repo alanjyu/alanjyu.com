@@ -1,10 +1,10 @@
 :root {
-	--default-border: 20px;
+	--default-border: 10px;
 	--tiny: calc(.5rem + .2vw);
-	--small: calc(1rem + .25vw);
-	--medium: calc(1rem + .5vw);
-	--large: calc(1rem + 1.5vw);
-	--huge: calc(1rem + 3vw);
+	--small: calc(.8rem + .5vw);
+	--medium: calc(1rem + .75vw);
+	--large: calc(1rem + 1.25vw);
+	--huge: calc(1.5rem + 3vw);
 	--content-margin-half: 3%;
 	--content-margin: 6%;
 	--content-padding-quarter: 3.75%;
@@ -68,12 +68,16 @@ object {
 	border-radius: var(--default-border);
 }
 
-p, a, h4, h5, h6 {
-	font-family: 'source-sans-pro', sans-serif;
+p, a, h3, h4, h5, h6 {
+	font-family: source-sans-pro, sans-serif;
 }
 
-h1, h2 {
-	font-family: 'lora', serif;
+h1 {
+	font-family: satisfy, sans-serif;
+}
+
+h2 {
+	font-family: lora, serif;
 }
 
 .title {
@@ -89,7 +93,7 @@ h1, h2 {
 
 .subsubtitle {
 	margin-bottom: var(--content-margin-half);
-	font-size: var(--medium);
+	font-size: var(--small);
 	font-style: italic;
 }
 

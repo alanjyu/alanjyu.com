@@ -86,8 +86,8 @@
 	&__item {
 		position: relative;
 		display: inline-block;
-		height: var(--large);
-		width: var(--large);
+		height: var(--huge);
+		width: var(--huge);
     fill: #000;
 
 		&__link {
@@ -111,16 +111,14 @@
 }
 
 .musicbox {
-  align-items: center;
-
-  @include respond-to('medium') {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-  }
 
   &__item {
+    width: 100%;
+    max-width: 700px;
+    height: 100%;
+    min-height: 100px;
     margin: var(--item-margin-half);
-    height: 300px;
+    border-radius: var(--default-border);
 
     // &__caption {
 
