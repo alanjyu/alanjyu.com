@@ -28,17 +28,18 @@
 	opacity: 1;
 	border-radius: 20px;
 	pointer-events: none;
-	transition: transform .12s linear, height var(--animation-time) ease-in-out, width var(--animation-time) ease-in-out, border-radius var(--animation-time) ease-in-out;
+	transition: transform .12s linear, height var(--animation-time) ease-in-out, width var(--animation-time) ease-in-out, border-radius var(--animation-time) ease-in-out, background-color var(--animation-time) ease-in-out;
 	transform-origin: center center;
 	mix-blend-mode: exclusion;
-	background: #fff;
+	background: transparent;
+	outline: 2px solid #fff;
 	z-index: 9;
 }
 
 @media (pointer: fine) and (min-width: 768px) {
-	// * {
-	// 	cursor: none !important;
-	// }
+	* {
+		cursor: none !important;
+	}
 
 	.cursor {
 		display: block;
