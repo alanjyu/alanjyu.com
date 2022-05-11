@@ -1,15 +1,15 @@
 {
   "name": "alanjyu.com",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "default": "src/js/main.js",
   "description": "Personal website.",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "dev": "parcel serve ./src/index.html",
-    "build": "parcel build ./src/index.html --dist-dir docs/",
-    "publish": "parcel build ./src/index.html --public-url https://alanjyu.com --dist-dir docs/"
+    "dev": "parcel serve ./src/index.html ./src/me/index.html",
+    "build": "parcel build ./src/index.html ./src/me/index.html --dist-dir docs/",
+    "publish": "parcel build ./src/index.html ./src/me/index.html --public-url https://alanjyu.com --dist-dir docs/"
   },
   "repository": {
     "type": "git",
