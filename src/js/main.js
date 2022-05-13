@@ -1,5 +1,3 @@
-import '../css/style.scss';
-
 import Theme from './components/theme';
 import Cursor from './components/cursor';
 

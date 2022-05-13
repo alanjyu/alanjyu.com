@@ -57,29 +57,3 @@
 		}
 	}
 }
-
-.menu {
-	text-align: center;
-
-	&:hover &__item {
-		opacity: .4;
-
-		&:hover {
-			opacity: 1;
-		}
-	}
-
-	&__item {
-		position: relative;
-		font-size: var(--large);
-		transition: opacity var(--animation-time) ease-in-out;
-		opacity: 1;
-		margin: var(--item-margin);
-
-		&__link {
-			opacity: 0;
-			display: block;
-			color: #000;
-		}
-	}
-}
