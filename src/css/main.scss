@@ -35,7 +35,7 @@ html * {
 	transform-origin: center center;
 	mix-blend-mode: exclusion;
 	background: transparent;
-	outline: 2px solid #fff;
+	outline: 2px solid #f5f5f5;
 	z-index: 9;
 }
 
@@ -65,6 +65,18 @@ object {
 
 body {
 	background: #f5f5f5;
+  color: #0f0f0f;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #0f0f0f;
+    color: #f5f5f5;
+  }
+
+  img {
+    opacity: .8;
+  }
 }
 
 .nav {
@@ -166,7 +178,7 @@ body {
   &::before {
     content: '“';
     font-size: var(--huge);
-    color: #333333;
+    color: #6d6d6d;
   }
 
   &::after {
@@ -175,7 +187,7 @@ body {
 		display: block;
 		width: var(--huge);
 		height: 2px;
-		background: #333333;
+		background: #6d6d6d;
 	}
 }
 
@@ -280,7 +292,6 @@ body {
 .notebook {
 	display: flex;
 	flex-direction: column;
-  padding: 0 var(--content-padding-half) var(--content-padding-half) var(--content-padding-half);
 
 	@include respond-to('medium') {
 		display: grid;
@@ -293,31 +304,35 @@ body {
 
 		&:nth-of-type(n) {
 			.notebook__title {
-				background: #c2f0cc;
+				background: #569964;
 			}
 		}
 
 		&:nth-of-type(2n) {
 			.notebook__title {
-				background: #ebcbe4;
+				background: #aa679c;
 			}
 		}
 
 		&:nth-of-type(3n) {
 			.notebook__title {
-				background: #b5dbd6;
+				background: #5c9189;
 			}
 		}
 
 		&:nth-of-type(4n) {
 			.notebook__title {
-				background: #dbb5b5;
+				background: #a77171;
 			}
 		}
   }
 
 	&__figure {
-		height: 240px;
+		height: 140px;
+
+    @include respond-to('medium') {
+      height: 240px;
+    }
 	}
 
 	&__title {
@@ -328,6 +343,38 @@ body {
 		padding: var(--item-fixed);
 		pointer-events: none;
 	}
+}
+
+.bookshelf {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include respond-to('medium') {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  &__item {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin:var(--item-margin);
+
+    @include respond-to('medium') {
+      height: 300px;
+    }
+  }
+
+
+  &__image {
+    height: 150px;
+    border: 2px solid #f5f5f51a;
+    box-shadow: 0px 2px 10px #22233a33;
+
+    @include respond-to('medium') {
+      height: 250px;
+    }
+  }
 }
 
 .postcard {
@@ -494,33 +541,4 @@ body {
     background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
     background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
   }
-}
-
-.bookshelf {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-
-  &__item {
-    height: 220px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin:var(--item-margin);
-  }
-
-
-  &__image {
-    height: 150px;
-    border: 2px solid #f5f5f51a;
-    box-shadow: 0px 2px 10px #22233a33;
-  }
-}
-
-.gr_grid_book_container {
-  /* customize book cover container div here */
-  float: left;
-  width: 39px;
-  height: 60px;
-  padding: 0px 0px;
-  overflow: hidden;
 }

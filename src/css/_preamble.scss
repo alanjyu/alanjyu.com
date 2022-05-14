@@ -34,10 +34,10 @@
 }
 
 .content {
-	padding: var(--content-padding-half) var(--content-padding-half);
+	padding: var(--content-padding-quarter) var(--content-padding-half);
 
 	@include respond-to('medium') {
-		padding: var(--content-padding-half) var(--content-padding);
+		padding: var(--content-padding-quarter) var(--content-padding);
 	}
 
 	&-tight {
