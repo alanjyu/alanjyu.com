@@ -45,11 +45,6 @@ html * {
 	}
 }
 
-main {
-	// for the transition of body background color controlled by theme.js
-	transition: background-color var(--animation-time-long) ease;
-}
-
 h1 {
 	font-family: satisfy, sans-serif;
 }
@@ -57,7 +52,6 @@ h1 {
 h2 {
 	font-family: lora, serif;
 }
-
 
 object {
 	pointer-events: none;
@@ -76,6 +70,20 @@ body {
 
   img {
     opacity: .8;
+  }
+
+  svg {
+    fill: #f5f5f5;
+  }
+
+  .hover-shadow {
+    @include respond-to('medium') {
+      transition: box-shadow var(--animation-time) ease-in-out;
+  
+      &:hover {
+        box-shadow: 0px 8px 20px #d4d4d433;
+      }
+    }
   }
 }
 
@@ -230,7 +238,7 @@ body {
         flex-direction: row-reverse;
         text-align: right;
   
-        .timeline__date {
+        .timeline__fill {
           text-align: left;
         }
 
@@ -250,7 +258,7 @@ body {
         flex-direction: row;
         text-align: left;
 
-        .timeline__date {
+        .timeline__fill {
           text-align: right;
         }
 
@@ -268,15 +276,15 @@ body {
     }
   }
 
-  &__date {
+  &__fill {
     width: 50%;
     padding: var(--content-padding-quarter);
+  }
 
-    > span {
-      padding: var(--item-margin-half);
-      background: #313131;
-      color: #fff;
-    }
+  &__date {
+    padding: var(--item-margin-half);
+    background: #202020;
+    color: #f5f5f5;
   }
 
   &__content {
@@ -394,30 +402,30 @@ body {
 
       &:nth-of-type(n) {
         flex-direction: row-reverse;
-        background-image: linear-gradient(80deg, #0076bd1a, transparent 50%);
+        background: linear-gradient(80deg, #0076bd1a, transparent 50%);
       }
   
       &:nth-of-type(2n) {
         flex-direction: row;
-        background-image: linear-gradient(-80deg, #bd49491a, transparent 50%);
+        background: linear-gradient(-80deg, #bd49491a, transparent 50%);
       }
   
       &:nth-of-type(3n) {
         flex-direction: row-reverse;
-        background-image: linear-gradient(110deg, #a4bd491a, transparent 50%);
+        background: linear-gradient(110deg, #a4bd491a, transparent 50%);
       }
     }
 
     &:nth-of-type(n) {
-      background-image: linear-gradient(80deg, #0076bd1a, transparent 50%);
+      background: linear-gradient(80deg, #0076bd1a, transparent 50%);
     }
 
     &:nth-of-type(2n) {
-      background-image: linear-gradient(-80deg, #bd49491a, transparent 50%);
+      background: linear-gradient(-80deg, #bd49491a, transparent 50%);
     }
 
     &:nth-of-type(3n) {
-      background-image: linear-gradient(110deg, #a4bd491a, transparent 50%);
+      background: linear-gradient(110deg, #a4bd491a, transparent 50%);
     }
   }
 
@@ -490,12 +498,13 @@ body {
 	}
 
   &__link {
-    position: relative;
     display: block;
-    filter: brightness(0) invert(1);
+    
+    svg {
+      fill: #f5f5f5;
+    }
   }
 }
-
 
 .back-to-top {
   position: absolute;
@@ -505,6 +514,8 @@ body {
   margin: var(--content-padding-quarter);
 
   &__arrow {
+    fill: transparent; 
+
     &:hover {
       fill: #f5f5f5;
     }
@@ -518,27 +529,27 @@ body {
   background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
   background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
   background-repeat: no-repeat;
-  animation: var(--animation-time-extra-long) movement linear infinite;  
-}
+  animation: var(--animation-time-extra-long) movement linear infinite;
 
-@keyframes movement {
-  0%, 100% {
-    background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
-    background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
-  }
-
-  25% {
-    background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
-    background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
-  }
-
-  50% {
-    background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
-    background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
-  }
-
-  75% {
-    background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
-    background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+  @keyframes movement {
+    0%, 100% {
+      background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+      background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    }
+  
+    25% {
+      background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+      background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
+    }
+  
+    50% {
+      background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+      background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+    }
+  
+    75% {
+      background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+      background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+    }
   }
 }
