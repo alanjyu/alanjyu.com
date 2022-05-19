@@ -1,3 +1,16 @@
+.script {
+  font-family: 'Apple Garamond', serif;
+}
+
+.autograph {
+	font-family: 'Autography', sans-serif;
+}
+
+.serif {
+	font-family: 'Perpetua', serif;
+}
+
+
 .fill {
 	height: 100%;
 	width: 100%;
@@ -8,7 +21,7 @@
 }
 
 .title {
-	line-height: 1.25;
+	line-height: 1.2;
 	font-size: var(--huge);
 	font-weight: 500;
 }

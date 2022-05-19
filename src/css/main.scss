@@ -2,15 +2,15 @@
 	--default-border: 10px;
   --default-white: #f5f5f5;
   --default-black: #0f0f0f;
-	--tiny: calc(.6rem + .5vw);
-	--small: calc(.8rem + .5vw);
+	--tiny: calc(.4rem + .5vw);
+	--small: calc(.7rem + .5vw);
 	--medium: calc(1rem + .75vw);
 	--large: calc(1.25rem + 1.5vw);
-	--huge: calc(1.5rem + 2.5vw);
-	--padding-quarter: 3.75%;
+	--huge: calc(1.5rem + 2vw);
+	--padding-quarter: 3.5%;
 	--padding-half: 7.5%;
-	--padding: 15%;
-  --margin-quarter: 1.25%;
+	--padding: 20%;
+  --margin-quarter: 1.2%;
 	--margin-half: 2.5%;
 	--margin: 5%;
 	--margin-fixed: 12px;
@@ -25,18 +25,6 @@ html * {
 	font-family: 'Segoe UI Variable', sans-serif;
   font-style: normal;
   font-weight: 400;
-}
-
-.script {
-  font-family: 'Mermaid', serif;
-}
-
-.signature {
-	font-family: 'Autography', sans-serif;
-}
-
-.serif {
-	font-family: 'Perpetua', serif;
 }
 
 object {
