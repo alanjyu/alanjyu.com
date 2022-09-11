@@ -13,7 +13,9 @@ export default class Cursor {
     var ax = 0, ay = 0; // adjustments for cursor position
     var bw = 30, bh = 30; // base width and height
     var cw = bw, ch = bw; // dyanmic cursor width and height
-    const wobble = 10;
+    var aw = 0, ah = 0; // additional width and height while hovered
+    var dax = 20, day = 20; // dot placement off the bottom right while hovered
+    const wobble = 5;
 
     cursor.style.opacity = '0';
 
@@ -52,8 +54,8 @@ export default class Cursor {
       coverTarget.addEventListener('mousemove', (e) => {
         coverTargetHover = true;
         let rect = coverTarget.getBoundingClientRect();
-        cw = rect.width + 15;
-        ch = rect.height + 15;
+        cw = rect.width + aw;
+        ch = rect.height + ah;
         hx = (rect.left + rect.right) * .5; // hover center x
         hy = (rect.top + rect.bottom) * .5; // hover center y
         ax = (e.clientX - hx) / cw * wobble; // adjustment on width
@@ -76,8 +78,8 @@ export default class Cursor {
       dotTarget.addEventListener('mousemove', (e) => {
         dotTargetHover = true;
         let rect = dotTarget.getBoundingClientRect();
-        hx = rect.right - 20;
-        hy = rect.bottom - 20;
+        hx = rect.right - dax;
+        hy = rect.bottom - day;
         cw = 5;
         ch = 5;
         ax = (e.clientX - (rect.left + rect.right) * .5) * wobble * .005;
