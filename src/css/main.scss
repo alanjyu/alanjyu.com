@@ -268,7 +268,7 @@
 	display: flex;
 	flex-direction: column;
 
-  &__item {
+  article {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -312,7 +312,7 @@
     width: 100%;
 
     @include respond-to('medium') {
-			width: 60%;
+			width: 75%;
 
       &:hover {  
         a {
@@ -340,9 +340,9 @@
 
     @include respond-to('medium') {
       position: absolute;
-      opacity: 0;
       left: 50%;
       bottom: 0;
+      opacity: 0;
       transform: translateX(-50%);
       margin-bottom: var(--margin);
       transition: opacity var(--time) ease-in-out;
