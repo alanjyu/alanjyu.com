@@ -1,29 +1,11 @@
-import {
-  gsap
-} from 'gsap';
-
 export default class Header {
-  constructor(e) {
-    var prevScrollY = document.documentElement.scrollTop || window.pageYOffset;
+	constructor() {
+		const headers = document.querySelectorAll('.script')
+    const observer = new IntersectionObserver(
+      ([e]) => e.target.classList.toggle('is_sticky', e.intersectionRatio < 1),
+      { threshold: [1] }
+    );
+    observer.observe(headers);
+	};
+};
 
-    var toHideMenu = gsap.timeline();
-    toHideMenu
-      .to(
-        '.header', {
-          opacity: 0,
-        }
-      );
-
-    toHideMenu.pause();
-
-    window.addEventListener('scroll', () => {
-      var scrollY = document.documentElement.scrollTop || window.pageYOffset;
-      if (scrollY <= prevScrollY) {
-        toHideMenu.reverse();
-      } else {
-        toHideMenu.play();
-      }
-      prevScrollY = scrollY;
-    }, false);
-  }
-}
