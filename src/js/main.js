@@ -9,7 +9,7 @@ const components = [
 	{
 		class: Cursor,
 		selector: '.cursor'
-	},
+	}
 ];
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -49,12 +49,10 @@ body {
 }
 
 nav {
-  padding: var(--space-quarter) var(--space-half) 0 var(--space-half);
-  z-index: 1;
 
   li {
     padding: var(--space-fixed);
-    margin: 0 var(--space) 0 0;
+    margin: 0 var(--space-fixed) 0 0;
 
     &:nth-of-type(odd) {
       background: linear-gradient(67deg, #ffffff00 0%, #6124db1a 50%, #d09aef1a 100%);
@@ -178,7 +176,7 @@ html {
 }
 
 .script {
-  font-family: 'SilianRail', sans-serif;
+  font-family: 'Autography', sans-serif;
 }
 
 .autograph {
@@ -252,12 +250,11 @@ img {
 
 .sticky {
 	position: sticky;
+  top: 0;
 }
 
-.acrylic {
-	background-blend-mode: exclusion;
-	-webkit-backdrop-filter: blur(18px);
-	backdrop-filter: blur(18px);
+.is-sticky {
+  font-size: medium;
 }
 
 .backdrop-blur {
@@ -279,7 +276,10 @@ img {
 $allow-dark-mode: 0; // 0 is false, 1 is true
 
 .acrylic {
-  background: #efefefbf;;
+  background-blend-mode: exclusion;
+	-webkit-backdrop-filter: blur(18px);
+	backdrop-filter: blur(18px);
+  background: #efefefbf;
 }
 
 @if ($allow-dark-mode == 1) { 

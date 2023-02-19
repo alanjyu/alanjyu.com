@@ -1,23 +1,5 @@
 @import 'common';
 
-nav {
-  @include respond-to('medium') {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: var(--space-half);
-    justify-content: space-between;
-    
-    ul {
-      writing-mode: tb-rl;
-
-      li {
-        margin: 0 0 var(--space-fixed) 0;
-      }
-    }
-  }
-}
-
 .hero {
   display: flex;
   flex-direction: column;
@@ -85,7 +67,7 @@ nav {
     bottom: 0;
     width: 2px;
     transform: translateX(-50%);
-    background: linear-gradient(to top, #3a3a3a00 5%, #3a3a3a 10%, #3a3a3a 90%, #3a3a3a00 95%);
+    background: linear-gradient(to top, #3a3a3a00 2.5%, #3a3a3a 10%, #3a3a3a 90%, #3a3a3a00 97.5%);
     border: 0;
 
     @include respond-to('medium') {
