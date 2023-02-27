@@ -146,24 +146,47 @@ html {
   font-weight: 400;
 
   h1 {
-    font-size: xxx-large;
+    font-size: xx-large;
+    line-height: 0.5;
+
+    @include respond-to('medium'){
+      font-size: xxx-large;
+      line-height: 0.8;
+    }
   }
   
   h2 {
-    font-size: xx-large;
+    font-size: x-large;
+
+    @include respond-to('medium'){
+      font-size: xx-large;
+    }
   }
   
   h3 {
-    font-size: x-large;
+    font-size: large;
+
+    @include respond-to('medium'){
+      font-size: x-large;
+    }
   }
   
   h4 {
-    font-size: large;
+    font-size: medium;
+    
+
+    @include respond-to('medium'){
+      font-size: large;
+    }
   }
   
   a, p, span {
-    line-height: 1.2;
-    font-size: medium;
+    line-height: 1.15;
+    font-size: small;
+
+    @include respond-to('medium'){
+      font-size: medium;
+    }
   }
   
   h2, p {
