@@ -1,7 +1,7 @@
 $border-radius: 10px;
 $black: #131313;
 $white: #efefef;
-$space-fixed: 14px;
+$space-fixed: 12px;
 $time: .25s;
 $time-long: 6s;
 
@@ -30,7 +30,6 @@ $solid-backgrounds: (
 	--space-quarter: 5%;
 	--space-half: 10%;
 	--space: 20%;
-  --space-fixed: 14px;
 }
 
 @import 'normalize', 'fonts', 'breakpoints', 'cursor';
@@ -51,8 +50,8 @@ body {
 nav {
 
   li {
-    padding: var(--space-fixed);
-    margin: 0 var(--space-fixed) 0 0;
+    padding: $space-fixed;
+    margin: 0 $space-fixed 0 0;
 
     &:nth-of-type(odd) {
       background: linear-gradient(67deg, #ffffff00 0%, #6124db1a 50%, #d09aef1a 100%);
@@ -147,14 +146,20 @@ html {
 
   h1 {
     font-size: xx-large;
-    line-height: 0.5;
 
     @include respond-to('medium'){
       font-size: xxx-large;
-      line-height: 0.8;
     }
   }
   
+  .sticky {
+    line-height: 0.7;
+
+    @include respond-to('medium'){
+      line-height: 0.85;
+    }
+  }
+
   h2 {
     font-size: x-large;
 
@@ -233,7 +238,7 @@ section {
   h1 {
     top: 0;
     z-index: 2;
-    padding: var(--space-fixed);
+    padding: $space-fixed;
     text-align: center;
   }
 }
