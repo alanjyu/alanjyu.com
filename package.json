@@ -1,6 +1,6 @@
 {
   "name": "alanjyu.com",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "default": "src/js/main.js",
   "description": "Personal website.",
   "directories": {
