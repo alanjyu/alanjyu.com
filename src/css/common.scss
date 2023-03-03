@@ -301,7 +301,7 @@ img {
 }
 
 // dark mode
-$allow-dark-mode: 0; // 0 is false, 1 is true
+$allow-dark-mode: 1; // 0 is false, 1 is true
 
 .acrylic {
   background-blend-mode: exclusion;
