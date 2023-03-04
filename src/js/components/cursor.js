@@ -11,7 +11,7 @@ export default class Cursor {
     var cy = document.documentElement.clientHeight * .5; // dyanmic cursor position
     var hx = 0, hy = 0;
     var ax = 0, ay = 0; // adjustments for cursor position
-    var bw = 30, bh = 30; // base width and height
+    var bw = 40, bh = 40; // base width and height
     var cw = bw, ch = bw; // dyanmic cursor width and height
     var aw = 0, ah = 0; // additional width and height while hovered
     var dax = 20, day = 20; // dot placement off the bottom right while hovered
@@ -23,22 +23,26 @@ export default class Cursor {
       // update cursor width and height
       cursor.style.width = cw + 'px';
       cursor.style.height = ch + 'px';
-      cursor.style.opacity = '1';
 
       // cover
       if (coverTargetHover && (!dotTargetHover)) {
         cx = hx + ax - cw * .5;
         cy = hy + ay - ch * .5;
-        cursor.style.backgroundColor = '#fff';
+        cursor.style.background = '#fff';
+        cursor.style.filter = 'blur(0)';
+        cursor.style.opacity = '1';
         cursor.style.borderRadius = '10px';
       } else if (dotTargetHover && (!coverTargetHover)) {
         cx = hx + ax;
         cy = hy + ay;
-        cursor.style.backgroundColor = '#fff';
+        cursor.style.background = '#fff';
+        cursor.style.opacity = '1';
+        cursor.style.filter = 'blur(0)';
       } else {
         cx = e.clientX - cw * .5;
         cy = e.clientY - ch * .5;
-        cursor.style.backgroundColor = 'transparent';
+        cursor.style.filter = 'blur(32px)';
+        cursor.style.opacity = '0.3';
         cursor.style.borderRadius = '50%';
       }
       
@@ -48,6 +52,10 @@ export default class Cursor {
     document.addEventListener('mouseleave', () => {
       cursor.style.opacity = '0';
     });
+
+    // document.addEventListener('scroll', () =>
+    //   if ()
+    // )
 
     // covers the entire target
     coverTargets.forEach(coverTarget => {

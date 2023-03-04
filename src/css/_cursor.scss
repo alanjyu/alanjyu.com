@@ -1,14 +1,16 @@
 .cursor {
 	display: none;
 	position: fixed;
-	opacity: 1;
+
 	border-radius: 50%;
 	pointer-events: none;
+
 	transition: transform .07s linear, height $time ease-in-out, width $time ease-in-out, border-radius $time ease-in-out, background-color $time ease-in, opacity $time ease-in;
 	transform-origin: center center;
+	
 	mix-blend-mode: exclusion;
-	background: transparent;
-	outline: 2px solid var(--default-white);
+	background: linear-gradient(135deg, rgb(127, 255, 212), rgb(147, 112, 216));
+
 	z-index: 9;
 }
 

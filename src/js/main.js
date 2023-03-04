@@ -1,11 +1,6 @@
-import Theme from './components/theme';
 import Cursor from './components/cursor';
 
 const components = [
-	{
-		class: Theme,
-		selector: 'main'
-	},
 	{
 		class: Cursor,
 		selector: '.cursor'
