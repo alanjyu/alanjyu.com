@@ -57,7 +57,7 @@
 
   &::before {
     content: '“';
-    font-size: var(--icon);
+    font-size: $icon;
     color: #828282;
   }
 
@@ -65,7 +65,7 @@
 		content: '';
     margin-top: 24px;
 		display: block;
-		width: var(--icon);
+		width: $icon;
 		height: 3px;
 		background: #828282;
 	}
@@ -94,17 +94,19 @@
 
     @include respond-to('medium') {
       flex-direction: row;
-
+    
+      // core component
       &:nth-of-type(odd) {
         flex-direction: row-reverse;
         text-align: right;
-  
+
         aside {
           text-align: left;
         }
 
         div {
-          background: linear-gradient(90deg, #ffffff00 0%, #ffffff00 50%, #6124db1a 50%, #c4a2d81a 100%);
+          // adjust these colours
+          background: linear-gradient(90deg, #ffffff00 0%, #ffffff00 50%, #6124db1a 50%, #c4a2d81a 100%); 
           background-size: 300% auto;
           background-position: left center;
           transition: background $time ease-in-out;
@@ -138,11 +140,13 @@
     }
   }
 
+  // date
   aside {
     width: 100%;
-    padding: $gap-medium;
+    //padding: $gap-medium;
 
     a {
+      left: 10%;
       position: absolute;
       content: ' ';
       height: 2px;
@@ -167,9 +171,36 @@
     }  
   }
 
+  // main content with description
   div {
     width: 100%;
-    padding: $space-small;
+    padding-top: $space-small;
+    padding-left: $space-small;
+    padding-right: $space-small;
+    padding-bottom: $space-small;
+
+    // enables dyanmic hover in large screens
+    @include respond-to('medium') {
+      padding-top: 0;
+
+      p {
+        transform: translateY(-24px);
+        height: 0px;
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity $time ease-in, transform $time ease-in;
+      }
+
+      &:hover {
+        padding-top: $space-small;
+  
+        p {
+          transform: translateY(0);
+          height: auto;
+          opacity: 1;
+        }
+      }
+    }
 
     a {
       opacity: 1;

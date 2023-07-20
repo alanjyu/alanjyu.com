@@ -2,7 +2,7 @@
   "name": "alanjyu.com",
   "version": "1.5.0",
   "default": "src/js/main.js",
-  "description": "Personal website.",
+  "description": "Alan's web portfolio.",
   "directories": {
     "lib": "lib"
   },
@@ -28,6 +28,6 @@
     "parcel": "^2.8.3"
   },
   "dependencies": {
-    "chalk": "^5.2.0"
+    "lmdb": "^2.8.2"
   }
 }

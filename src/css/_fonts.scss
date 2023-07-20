@@ -29,3 +29,78 @@
 	font-style: normal;
 	font-display: swap;
 }
+
+html {
+	font-family: 'Segoe UI Variable', sans-serif;
+	font-style: normal;
+  font-weight: 400;
+
+  h1 {
+    font-size: xx-large;
+
+    @include respond-to('medium'){
+      font-size: 3rem;
+    }
+  }
+  
+  .sticky {
+    line-height: 0.7;
+
+    @include respond-to('medium'){
+      line-height: 0.9;
+    }
+  }
+
+  h2 {
+    font-size: x-large;
+
+    @include respond-to('medium'){
+      font-size: xx-large;
+    }
+  }
+  
+  h3 {
+    font-size: large;
+
+    @include respond-to('medium'){
+      font-size: x-large;
+    }
+  }
+  
+  h4 {
+    font-size: medium;
+    
+
+    @include respond-to('medium'){
+      font-size: large;
+    }
+  }
+
+  a, p, span {
+    line-height: 1.35;
+    font-size: small;
+
+    @include respond-to('medium'){
+      font-size: medium;
+    }
+  }
+  
+  main {
+    h2, h6, p {
+      margin-bottom: $gap-medium;
+    }
+  }
+  
+  .small {
+    font-size: small;
+  }
+}
+
+.scriptic {
+  font-family: 'Autography', sans-serif;
+}
+
+
+.serif {
+	font-family: 'Perpetua', serif;
+}
