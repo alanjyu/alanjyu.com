@@ -1,69 +1,84 @@
 @font-face {
-	font-family: 'Perpetua';
-	src: url('../fonts/Perpetua.woff2') format('woff2');
+	font-family: 'basier square';
+	src: url('../fonts/basiersquare-regular-webfont.woff2') format('woff2'),
+       url('../fonts/basiersquare-regular-webfont.woff') format('woff'),
+       url('../fonts/basiersquare-regular-webfont.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'basier square';
+	src: url('../fonts/basiersquare-medium-webfont.woff2') format('woff2'),
+       url('../fonts/basiersquare-medium-webfont.woff') format('woff'),
+       url('../fonts/basiersquare-medium-webfont.ttf') format('truetype');
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
 }
 
 @font-face {
-	font-family: 'Segoe UI Variable';
-	src: url('../fonts/SegoeUIVariable.woff2') format('woff2');
-	font-weight: normal;
+	font-family: 'basier square';
+	src: url('../fonts/basiersquare-semibold-webfont.woff2') format('woff2'),
+       url('../fonts/basiersquare-semibold-webfont.woff') format('woff'),
+       url('../fonts/basiersquare-semibold-webfont.ttf') format('truetype');
+	font-weight: 600;
 	font-style: normal;
 	font-display: swap;
 }
 
 @font-face {
-	font-family: 'Autography';
-	src: url('../fonts/Autography.woff2') format('woff2');
-	font-weight: normal;
+	font-family: 'basier square';
+	src: url('../fonts/basiersquare-bold-webfont.woff2') format('woff2'),
+       url('../fonts/basiersquare-bold-webfont.woff') format('woff'),
+       url('../fonts/basiersquare-bold-webfont.ttf') format('truetype');
+	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
 
 @font-face {
-	font-family: 'SilianRail';
-	src: url('../fonts/SilianRail.woff2') format('woff2');
-	font-weight: normal;
+	font-family: 'novela';
+	src: url('../fonts/novela-regular-webfont.woff2') format('woff2'),
+       url('../fonts/novela-regular-webfont.woff') format('woff'),
+       url('../fonts/novela-regular-webfont.ttf') format('truetype');
+	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
 
-html {
-	font-family: 'Segoe UI Variable', sans-serif;
+*, html, body {
+	font-family: 'basier square', sans-serif;
 	font-style: normal;
   font-weight: 400;
 
   h1 {
-    font-size: xx-large;
+    font-family: 'novela', serif;
+    font-size: 2rem;
+    line-height: .9;
 
     @include respond-to('medium'){
       font-size: 3rem;
     }
   }
-  
-  .sticky {
-    line-height: 0.7;
-
-    @include respond-to('medium'){
-      line-height: 0.9;
-    }
-  }
 
   h2 {
-    font-size: x-large;
+    font-family: 'novela', serif;
+    font-size: 2rem;
+    line-height: 1;
 
     @include respond-to('medium'){
-      font-size: xx-large;
+      font-size: 2.5rem;
     }
   }
   
   h3 {
-    font-size: large;
+    font-family: 'novela', serif;
+    font-size: 1.5rem;
 
     @include respond-to('medium'){
-      font-size: x-large;
+      font-size: 1.8rem;
     }
   }
   
@@ -77,8 +92,8 @@ html {
   }
 
   a, p, span {
-    line-height: 1.35;
-    font-size: small;
+    line-height: 1.5;
+    font-size: medium;
 
     @include respond-to('medium'){
       font-size: medium;
@@ -87,20 +102,20 @@ html {
   
   main {
     h2, h6, p {
-      margin-bottom: $gap-medium;
+      margin: $gap-medium 0;
+    }
+  }
+
+  .sticky {
+    line-height: 1;
+
+    @include respond-to('medium'){
+      line-height: 2;
     }
   }
   
-  .small {
-    font-size: small;
+  .tag {
+    font-size: .8rem;
+    font-weight: 600;
   }
-}
-
-.scriptic {
-  font-family: 'Autography', sans-serif;
-}
-
-
-.serif {
-	font-family: 'Perpetua', serif;
 }
