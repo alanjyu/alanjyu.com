@@ -19,6 +19,16 @@
 }
 
 @font-face {
+	font-family: 'basier circle';
+	src: url('../fonts/basiercircle-medium-webfont.woff2') format('woff2'),
+       url('../fonts/basiercircle-medium-webfont.woff') format('woff'),
+       url('../fonts/basiercircle-medium-webfont.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
 	font-family: 'basier square';
 	src: url('../fonts/basiersquare-semibold-webfont.woff2') format('woff2'),
        url('../fonts/basiersquare-semibold-webfont.woff') format('woff'),
@@ -29,10 +39,30 @@
 }
 
 @font-face {
+	font-family: 'basier circle';
+	src: url('../fonts/basiercircle-semibold-webfont.woff2') format('woff2'),
+       url('../fonts/basiercircle-semibold-webfont.woff') format('woff'),
+       url('../fonts/basiercircle-semibold-webfont.ttf') format('truetype');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
 	font-family: 'basier square';
 	src: url('../fonts/basiersquare-bold-webfont.woff2') format('woff2'),
        url('../fonts/basiersquare-bold-webfont.woff') format('woff'),
        url('../fonts/basiersquare-bold-webfont.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'basier circle';
+	src: url('../fonts/basiercircle-bold-webfont.woff2') format('woff2'),
+       url('../fonts/basiercircle-bold-webfont.woff') format('woff'),
+       url('../fonts/basiercircle-bold-webfont.ttf') format('truetype');
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -54,9 +84,9 @@
   font-weight: 400;
 
   h1 {
-    font-family: 'novela', serif;
-    font-size: 2rem;
-    line-height: .9;
+    font-family: 'basier circle', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 500;
 
     @include respond-to('medium'){
       font-size: 3rem;
@@ -64,7 +94,7 @@
   }
 
   h2 {
-    font-family: 'novela', serif;
+    font-family: 'basier circle', sans-serif;
     font-size: 2rem;
     line-height: 1;
 
@@ -74,7 +104,7 @@
   }
   
   h3 {
-    font-family: 'novela', serif;
+    font-family: 'basier circle', sans-serif;
     font-size: 1.5rem;
 
     @include respond-to('medium'){
@@ -83,8 +113,8 @@
   }
   
   h4 {
+    font-family: 'basier circle', sans-serif;
     font-size: medium;
-    
 
     @include respond-to('medium'){
       font-size: large;
