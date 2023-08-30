@@ -1,124 +1,17 @@
-// faint backgrounds
-$faint-backgrounds: (
-  'n': linear-gradient(-46deg, #0076bd1a, transparent 50%),
-  '2n': linear-gradient(-7deg, #bd49491a, transparent 50%),
-  '3n': linear-gradient(-68deg, #a4bd491a, transparent 50%),
-  '4n': linear-gradient(-24deg, #b949bd1a, transparent 50%),
-  '5n': linear-gradient(-38deg, #bd49901a, transparent 50%)
-);
-
-// solid backgrounds
-$solid-backgrounds: (
-  'n': linear-gradient(-46deg, #0075bd, transparent 50%),
-  '2n': linear-gradient(-7deg, #bd4949, transparent 50%),
-  '3n': linear-gradient(-68deg, #a4bd49, transparent 50%),
-  '4n': linear-gradient(-24deg, #b949bd, transparent 50%),
-  '5n': linear-gradient(-38deg, #bd4990, transparent 50%)
-);
-
-$space-small: 5%;
-$space-medium: 10%;
-$space-large: 18%;
-$gap-small: 8px;
-$gap-medium: 12px;
-$gap-large: 20px;
-$white: #efefef;
-$silk: #efefefbf;
-$black: #131313;
-$icon: calc(3rem + 1.25vw);
-$border-radius: 10px;
-$black: #131313;
-$white: #efefef;
-$time: .25s;
-$time-long: 6s;
-
-@import 'normalize', 'breakpoints', 'fonts', 'cursor';
-
-object {
-	pointer-events: none;
-}
-
-body {
-	background: $white;
-  color: $black;
-}
-
-nav {
-  li {
-    padding: $gap-medium;
-    margin: 0 $gap-medium 0 0;
-
-    &:nth-of-type(odd) {
-      background: linear-gradient(67deg, #ffffff00 0%, #6124db1a 50%, #d09aef1a 100%);
-    }
-
-    &:nth-of-type(even) {
-      background: linear-gradient(-32deg, #ffffff00 0%, #db5e241a 50%, #dfef9a1a 100%);
-    }
-  }
-}
-
-.dynamic-background {
-  color: $white;
-  background-color: $black;
-  background-image: radial-gradient(closest-side, #502219, #55271d00), radial-gradient(closest-side, #330323, #36032500), radial-gradient(closest-side, #1f1c10, #27262000), radial-gradient(closest-side, #1a1627, #221c3100), radial-gradient(closest-side, #1f1811, #2b201900);
-  background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
-  background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
-  background-repeat: no-repeat;
-  animation: $time-long movement linear infinite;
-
-  @keyframes movement {
-    0%, 100% {
-      background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
-      background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
-    }
-  
-    25% {
-      background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
-      background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
-    }
-  
-    50% {
-      background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
-      background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
-    }
-  
-    75% {
-      background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
-      background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
-    }
-  }
-}
-
 .social-media {
   
 	li {
 		display: inline-block;
-    padding: $gap-small;
-		height: $icon;
-		width: $icon;
+    padding: var(--gap-small);
+		height: var(--icon);
+		width: var(--icon);
 	}
 
   a {
     display: block;
     
     svg {
-      fill: $white;
-    }
-  }
-}
-
-.back-to-top {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  justify-self: last baseline;
-
-  svg {
-    fill: transparent; 
-
-    &:hover {
-      fill: #f5f5f5;
+      fill: var(--white);
     }
   }
 }
@@ -128,63 +21,9 @@ nav {
 	width: 100%;
 }
 
-.rounded {
-	border-radius: $border-radius;
-}
-
-// font styles
-
-
-
-.content {
-	padding: $space-small $space-medium;
-
-	@include respond-to('medium') {
-		padding: $space-small $space-large;
-	}
-
-	&-tight {
-		padding: $space-small;
-	}
-}
 
 .faded {
 	opacity: .7;
-}
-
-section {
-  display: flex;
-  flex-direction: column;
-
-  h1 {
-    top: 0;
-    z-index: 2;
-    padding: $gap-medium 0;
-    text-align: center;
-  }
-}
-
-img {
-  object-fit: cover;
-	width: 100%;
-	height: 100%;
-  transition: transform $time ease-in-out;
-  transform: scale(1.0);
-
-  @include respond-to('medium') {	
-		&:hover {
-			transform: scale(1.05);
-		}
-	}
-}
-
-.center-text {
-	text-align: center;
-}
-
-.center-item {
-	align-items: center;
-	justify-content: center;
 }
 
 .flex {
@@ -208,8 +47,8 @@ img {
 }
 
 .hover-shadow {
-	@include respond-to('medium') {
-		transition: box-shadow $time ease-in-out;
+	@include respond-to('landscape') {
+		transition: box-shadow var(--time) ease-in-out;
 
 		&:hover {
 			box-shadow: 0px 8px 20px #36363633;
@@ -217,34 +56,21 @@ img {
 	}
 }
 
-.tag {
-  background: $black;
-  color: $silk;
-  padding: $gap-medium;
-}
-
 .link {
-  background: $black;
-  color: $silk;
-  padding: $gap-medium;
+  background: var(--black);
+  color: var(--silk);
+  padding: var(--gap-medium);
   text-align: center;
 }
 
 // dark mode
-$allow-dark-mode: 1; // 0 is false, 1 is true
-
-.acrylic {
-  background-blend-mode: exclusion;
-	-webkit-backdrop-filter: blur(18px);
-	backdrop-filter: blur(18px);
-  background: #efefefbf;
-}
+$allow-dark-mode: 0; // 0 is false, 1 is true
 
 @if ($allow-dark-mode == 1) { 
   @media (prefers-color-scheme: dark) {
     body {
-      background: $black;
-      color: $white;
+      background: var(--black);
+      color: var(--white);
     }
   
     img {
@@ -252,12 +78,12 @@ $allow-dark-mode: 1; // 0 is false, 1 is true
     }
   
     svg {
-      fill: $white;
+      fill: var(--white);
     }
   
     .hover-shadow {
-      @include respond-to('medium') {
-        transition: box-shadow $time ease-in-out;
+      @include respond-to('landscape') {
+        transition: box-shadow var(--time) ease;
     
         &:hover {
           box-shadow: 0px 8px 20px #d4d4d433;
@@ -274,8 +100,8 @@ $allow-dark-mode: 1; // 0 is false, 1 is true
     }
 
     .tag {
-      background: $white;
-      color: $black;
+      background: var(--white);
+      color: var(--black);
     }
   }
 }

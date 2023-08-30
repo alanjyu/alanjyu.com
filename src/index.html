@@ -26,287 +26,296 @@
 <body>
 	<div class="cursor"></div>
 	<main>
-		<section class="content">
+		<figure>
+			<img class="hero__background" src="./img/profile.jpg">
+		</figure>
+		<section class="section">
+
 			<div class="hero container">
-				<figure>
-					<img class="rounded" src="./img/profile.jpg" title="Alan's profile picture">
+				<figure class="hero__figure">
+					<img class="full-frame rounded" src="./img/profile.jpg" title="Alan's profile picture">
 				</figure>
 				
-				<article class="flex-col content-tight">
-					<h1>Hey, name's Alan.</h1>
-					<p>I am a geophysicsist and currently a Master of Science student at the University of Toronto.</p>
-					<p>I have researched about glacial landforms, glacial and seismic disturbance of lake sediments, and geodynamics of rifting (i.e., separation of the continent). 	
-					<p>I am experienced in geospatial mapping, numerical modelling, data visualization and processing.
+				<div class="hero__content">
+					<h1 class="hero__title">Hey, name's Alan.</h1>
+					<p>I am a geophysicsist and a Master of Science student at the University of Toronto. I research a lot about glacial landforms, lake sediments, and rift dynamics. I am good at geospatial mapping, numerical modelling, and data analysis.</p>
 	
-					<nav class="nav">
-						<ul class="flex">
-							<li class="rounded" data-target-cover>
-								<a href="./files/resume.pdf">
-									Resume
-								</a>
+					<nav class="hero__nav">
+						<ul class="hero__nav__list">
+							<li class="hero__nav__item rounded" data-target-cover>
+								<a href="./files/resume.pdf">Resume</a>
+							</li>
+							<li class="hero__nav__item rounded" data-target-cover>
+								<a href="https://viridislabs.ca">Viridis Labs</a>
 							</li>
 						</ul>
 					</nav>
-				</article>
+				</div>
 			</div>
-			
 		</section>
 
-		<!-- quote -->
-		<!-- <section>
-			<blockquote class="content quote">
-				<span>Seek progress,</span>
-				<span style="margin-bottom: 40px;">and cherish the experience.</span>
-			</blockquote>
-		</section> -->
-
 		<!-- journey -->
-		<section>
-			<h2 class="center">Journey</h2>
+		<section class="section">
+			<div class="container">
+				<h2 class="center title">Journey</h2>
+				<div class="timeline">
+					<hr class="timeline__line"></hr>
 
-			<div class="content flex-col timeline">
-				<hr></hr>
+					<article class="timeline__item">
+						<aside></aside>
+						<div class="timeline__item__content">
+							<h3 class="timeline__item__title">Co-founder</h3>
+							<i>Viridis Labs Inc.</i>
+							<p>Numerical modelling, data visualization and analysis, supercomputer </p>
+							<p>A start-up venture initiated to make clean technology products that are efficient, sustainable, and user-friendly.</p>
+						</div>
+					</article>
+	
+					<article class="timeline__item">
+						<aside></aside>
+						<div class="timeline__item__content">
+							<h3 class="timeline__item__title">Geodynamic Researcher</h3>
+							<i>Prof. Phil Heron at University of Toronto</i>
+							<p class="faded">Numerical modelling, data visualization and analysis, supercomputer </p>
+							<p>I examined rifting (a geological process where continents break apart) and formation of a landmass fragment using numerical simulated models, and identified factors and conditions needed for fragment generation. I presented the results at 2023 Canadian Geophysical Union Annual Meeting.</p>
+						</div>
+					</article>
 
-				<article>
-					<aside>
-						<a></a>
-						<span class="rounded tag">Summer 2022 -</span>
-					</aside>
-					<div class="rounded">
-						<h3>Geodynamic Researcher</h3>
-						<h6 class="faded"><i>Prof. Phil Heron at University of Toronto</i></h6>
-						<p class="faded">Numerical modelling, data visualization and analysis, supercomputer </p>
-						<p>I examined rifting (a geological process where continents break apart) and formation of a landmass fragment. Using numercial modelling, I simulated the physical process where the Earth's crust and mantle moved for millions of years. These models allowed us to identify controlling factors and conditions needed for the initiation and evolution of rifting and fragment formation. The results were presented by me in the 2023 Annual Meeting of the Canadian Geophysical Union in Banff.</p>
-					</div>
-				</article>
+					<span class="timeline__time rounded tag">2023</span>
 
-				<article class="flex-col">
-					<aside>
-						<a></a>
-						<span class="rounded tag">Spring 2022</span>
-					</aside>
-					<div class="rounded flex-col">
-						<h3>Geophysicist</h3>
-						<h6 class="faded"><i>Abitibi Geophysics Inc</i></h6>
-						<p class="faded">Geophysical data analysis, map production, scripting </p>
-						<p>My work focused on mapping and processing of preliminary geophysical data (e.g., magnetic, induced polarization, and gravity surveys) in Geosoft Montaj, and developing templates and control scripts for the software to achieve streamlined, standardized map production.</p>
-					</div>
-				</article>
+					<article class="timeline__item">
+						<aside></aside>
+						<div class="timeline__item__content">
+							<h3 class="timeline__item__title">Geophysicist</h3>
+							<i>Abitibi Geophysics Inc</i>
+							<p class="faded">Geophysical data analysis, map production, scripting </p>
+							<p>I processed preliminary geophysical data (e.g. magnetic, induced polarization, and gravity surveys) and developed templates and control scripts for Geosoft Montaj to ensure standardized map production.</p>
+						</div>
+					</article>
 
-				<article class="flex-col">
-					<aside>
-						<a></a>
-						<span class="rounded tag">Fall 2021 – Fall 2022</span>
-					</aside>
-					<div class="rounded flex-col">
-						<h3>Sedimentary Researcher</h3>
-						<h6 class="faded"><i>Prof. Nick Eyles at University of Toronto</i></h6>
-						<p class="faded">Sub-bottom profiling, stratigraphy analysis, past earthquakes, large glacial lakes </p>
-						<p>I investigated potential archieves of paleo-earthquakes in western Quebec via seismic reflection profiles of the Lac Simard basin. and identified deposits of disturbed structures associated with deglaciation. The profiles were translated and visualized as 3-dimensional fence diagrams in Blender to determine the glacio-seismic extent and chronology.</p>
-					</div>
-				</article>
+					<article class="timeline__item">
+						<aside></aside>
+						<div class="timeline__item__content">
+							<h3 class="timeline__item__title">Sedimentary Researcher</h3>
+							<i>Prof. Nick Eyles at University of Toronto</i>
+							<p class="faded">Sub-bottom profiling, stratigraphy analysis, past earthquakes, large glacial lakes </p>
+							<p>I investigated seismic reflection acoustic profiles of Lac Simard and identified mass flow deposits of potential seismic significance. The acoustic profiles were visualized as 3D fence diagrams in Blender to determine the tectonic extent.</p>
+						</div>
+					</article>
 
-				<article class="flex-col">
-					<aside>
-						<a></a>
-						<span class="rounded tag">Summer 2021</span>
-					</aside>
-					<div class="rounded flex-col">
-						<h3>Research Assistant </h3>
-						<h6 class="faded"><i>Prof. Nick Eyles at University of Toronto</i></h6>
-						<p class="faded">GIS, spatial data analysis, Li-DAR imaging, field work </p>
-						<p>This research position involved training for high-resolution Li-DAR digital data processing and imaging of glacial geological features (e.g., drumlins, glacial lineations and moraines, etc.), and I assisted with establishing the glacial history and dynamics in North America based on their remnant structures. I also contributed to numerous field projects including measuring mega grooves; ecolgoical drone surveying; testing seismic reflection/refraction equipment, and; capturing media content around the Georgian Bay.</p>
-					</div>
-				</article>
+					<span class="timeline__time rounded tag">2022</span>
+
+					<article class="timeline__item">
+						<aside></aside>
+						<div class="timeline__item__content">
+							<h3 class="timeline__item__title">Research Assistant</h3>
+							<i>Prof. Nick Eyles at University of Toronto</i>
+							<p class="faded">GIS, spatial data analysis, Li-DAR imaging, field work </p>
+							<p>I trained for large Li-DAR data processing and imaging of glacial landforms (e.g., drumlins, glacial lineations, and moraines). I assisted to interpret glacier dyanmics in North America based on their remnant structures.</p>
+						</div>
+					</article>
+				</div>
 			</div>
+
 		</section>
 
 		<!-- experience -->
-		<section>
-			<h2 class="center">Experience</h2>
+		<section class="section">
+			<div class="container">
+				<h2 class="center title">Experience</h2>
+				<div class="exp">
+					<article class="rounded exp__item">
+						<figure class="exp__item__figure">
+							<img class="full-frame" src="./img/labrador_sea.jpg" title="Setting up seismic surveying equipments" img-alt=""/>
+						</figure>
+						<div class="acrylic exp__item__content">
+							<h3 class="exp__item__title">Rifting and formation of a continental fragment </h3>
+							<i>Sept 2022</i>
+							<p>Rifting is a geological process that occurs when a continent splits apart and separates into two or more smaller landmasses. This extensional process sometimes generates a stranded terrance as a fragment of the larger continent, but the underlying mechanisms are not well-understood. Using numerical modelling, we investigated the influence of rock deformation due to an ancient mountain building event in the creation of Canada's Nain province, Labrador, Canada.</p>
+							<a class="rounded exp__item__link" href="https://doi.org/10.1130/G50734.1" data-target-cover>See publication</a>
+						</div>
+					</article>
 
-			<div class="content experiences">
-				<article class="rounded">
-					<figure>
-						<img src="./img/labrador_sea.jpg" title="Setting up seismic equipments" />
-					</figure>
-					<div class="flex-col content-tight">
-						<h3>Rifting and formation of a continental fragment </h3>
-						<p class="faded"><i>Sept 2022</i></p>
-						<p>Rifting is a geological process that occurs when a continent splits apart and separates into two or more smaller landmasses. This extensional process sometimes generates a stranded terrance as a fragment of the larger continent, but the underlying mechanisms are not well-understood. Using numerical modelling, we investigated the influence of rock deformation due to an ancient mountain building event in the creation of Canada's Nain province, Labrador, Canada.</p>
-						<a class="rounded backdrop-blur link" href="https://doi.org/10.1130/G50734.1" data-target-cover>See publication</a>
-					</div>
-				</article>
+					<article class="rounded exp__item">
+						<figure class="exp__item__figure">
+							<img class="full-frame" src="./img/seismic.jpg" title="Setting up GPR equipments" />
+						</figure>
+						<div class="acrylic exp__item__content">
+							<h3 class="exp__item__title">Exploring below the surface</h3>
+							<p class="faded">Sept 2022</p>
+							<p>In my exploration geophysics course, we learned the interpretational procedures and field application of various geophysical survey methods, including EM waves, gravity, and Ground Penetrating Radar (GPR). We used the hammer seismic method, which involves striking a hammer to create an acoustic signal that penetrates the subsurface, undergoes reflection and refraction, and is picked up by geophones. Randon noise is cancelled out by stacking.</p>
+						</div>
+					</article>
 
-				<article class="rounded">
-					<figure>
-						<img title="seismic reflection stratigraphy" src="./img/simard.jpg" img-alt="" />
-					</figure>
-					<div class="flex-col content-tight postcard__content">
-						<h3>Seismic reflection stratigraphy of Lake Simard</h3>
-						<p class="faded"><i>Dec 2021</i></p>
-						<p>Lake Simard is situated in the western Quebec seismic zone, which is among Canada's most seismically active areas and poses a threat to Ottawa, Quebec, and New York. Our study involved analyzing data from a seismic reflection survey of the Lake Simard basin. We identified two primary stratigraphic successions, originating from the lateglacial and postglacial periods, respectively. We also investigated the extent of seismicity and the potential use of glaciated Shield lakes to study past intraplate earthquakes. </p>
-						<a class="rounded backdrop-blur link" href="https://doi.org/10.1139/cjes-2023-0027" data-target-cover>See publication</a>
-					</div>
-				</article>
+					<article class="rounded exp__item">
+						<figure class="exp__item__figure">
+							<img class="full-frame" src="./img/simard.jpg" title="seismic reflection stratigraphy" />
+						</figure>
+						<div class="acrylic exp__item__content">
+							<h3 class="exp__item__title">Lake basin stratigraphy analysis</h3>
+							<i>Dec 2021</i>
+							<p>The Western Quebec Seismic Zone is one of the poorly understood regions due to the lack of instrumental earthquake records. Such records are vital for building code formulation and risk assessment. Since lake sediments were found to potentially record earthquake-related disturbance, a seismic reflection survey of the basin of Lac Simard, western Quebec was carried out. From the processed data, we identified two sediment sequences, one retaining lateglacial (~10-8 ka) records, and one postglacial, as well as acoustic facies that reflect disturbance of either tectonic origin, or likely due to meltwater influx when the entire region was covered by a huge, retreating Larentide Ice Sheet.</p>
+							<a class="rounded exp__item__link" href="https://doi.org/10.1139/cjes-2023-0027" data-target-cover>See publication</a>
+						</div>
+					</article>
 
-				<article class="rounded">
-					<figure>
-						<img src="./img/seismic.jpg" title="Setting up seismic equipments" />
-					</figure>
-					<div class="flex-col content-tight">
-						<h3>Seismic Surveying in the Valley</h3>
-						<p class="faded"><i>July 2021</i></p>
-						<p>Seismic surveying is a geophysical technique that employs seismic waves to generate a 3D image of the Earth's subsurface, similar to a CAT scan. As part of my exploration geophysics course, we evaluated the functionality of seismic reflection and refraction surveying equipment. The course curriculum encompassed various surveying techniques, including electromagnetic, gravity, and ground-penetrating radar (GPR). For our experiment, we utilized the hammer seismic method, which involves striking a hammer to create an acoustic signal that penetrates the subsurface. Following the initial strike, geophones are used to capture the reflected seismic waves.</p>
-						<a class="rounded backdrop-blur link" href="https://planetearth.utsc.utoronto.ca/news/seismic.html" data-target-cover>Read more</a>
-					</div>
-				</article>
 
-				<article class="rounded">
-					<figure>
-						<img src="./img/odessa.jpg" title="Getting groovy with the mega grooves."/>
-					</figure>
-					<div class="flex-col content-tight">
-						<h3>Capturing Glacial Mega-grooves</h3>
-						<p class="faded"><i>July 2021</i></p>
-						<p>Mega-grooves are geological formations left by glaciers, which provide valuable information about the speed and direction of past ice flows on the bedrock. As a glacier moves, it picks up and carries subglacial material, which acts as an abrasive and can carve into the underlying bedrock. By examining these features, researchers can reconstruct the paleo-glacial dynamics of an area. Our study focused on measuring and documenting mega-grooves near Odessa, Ontario. Our analysis revealed a southwest movement of the Ontario Lobe during the last glacial maximum, as evidenced by the observed patterns. Additionally, the crossing striations suggest a northwest regression during deglaciation.</p>
-						<a class="rounded backdrop-blur link" href="https://planetearth.utsc.utoronto.ca/news/odessa.html" data-target-cover>Read more</a>
-					</div>
-				</article>
+
+					<article class="rounded exp__item">
+						<figure class="exp__item__figure">
+							<img class="full-frame" src="./img/odessa.jpg" title="Getting groovy with the mega grooves."/>
+						</figure>
+						<div class="acrylic exp__item__content">
+							<h3 class="exp__item__title">Capturing glacial landforms</h3>
+							<p class="faded">July 2021</p>
+							<p>Mega-grooves are geological formations left by glaciers, which provide valuable information about the speed and direction of past ice flows on the bedrock. As a glacier moves, it picks up and carries subglacial material, which acts as an abrasive and can carve into the underlying bedrock. By examining these features, researchers can reconstruct the paleo-glacial dynamics of an area. Our study focused on measuring and documenting mega-grooves near Odessa, Ontario. Our analysis revealed a southwest movement of the Ontario Lobe during the last glacial maximum, as evidenced by the observed patterns. Additionally, the crossing striations suggest a northwest regression during deglaciation.</p>
+							<a class="rounded exp__item__link" href="https://planetearth.utsc.utoronto.ca/news/odessa.html" data-target-cover>Read more</a>
+						</div>
+					</article>
+				</div>
 			</div>
 		</section>
 
 		<!-- books -->
-		<section>
-			<h2 class="center">Bookshelf</h2>
+		<section class="section">
+			<div class="container">
+				<h2 class="center title">Bookshelf</h2>
 
-			<div class="content bookshelf">
-				<article class="flex-col">
-					<a rel="nofollow" href="https://www.goodreads.com/book/show/12176421-how-to-win-friends-and-influence-people-in-the-digital-age">
-						<figure>
-							<img class="rounded" title="How to Win Friends and Influence People in the Digital Age" border="0" src="./img/friends_carnegie.jpg" data-target-dot />
-						</figure>
-					</a>
-					<h3>How to Win Friends & Influence People</h3>
-					<p class="faded">Dale Carnegie</p>
-				</article>
-
-				<article class="flex-col">
-					<a href="https://www.goodreads.com/book/show/40121378-atomic-habits">
-						<figure>
-							<img class="rounded" title="Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones" border="0" src="./img/habits_clear.jpg" data-target-dot />
-						</figure>
-					</a>
-					<h3>Atomic Habits</h3>
-					<p class="faded">James Clear</p>
-				</article>
-
-				<article class="flex-col">
-					<a rel="nofollow" href="https://www.goodreads.com/book/show/28257707-the-subtle-art-of-not-giving-a-f-ck">
-						<figure>
-							<img class="rounded" title="The Subtle Art of Not Giving a F*ck: A Counterintuitive Approach to Living a Good Life" border="0" src="./img/subtle_manson.jpg" data-target-dot />
-						</figure>
-					</a>
-					<h3>The Subtle Art of Not Giving a F*ck</h3>
-					<p class="faded">Mark Manson</p>
-				</article>
-
-				<article class="flex-col">
-					<a rel="nofollow" href="https://www.goodreads.com/book/show/28257707-the-subtle-art-of-not-giving-a-f-ck">
-						<figure>
-							<img class="rounded" title="The Upward Spiral: Using Neuroscience to Reverse the Course of Depression, One Small Change at a Time" border="0" src="./img/spiral_korb.jpg" data-target-dot />
-						</figure>
-					</a>
-					<h3>The Upward Spiral</h3>
-					<p class="faded">Alex Korb</p>
-				</article>
+				<div class="book">
+					<article class="book__item">
+						<a rel="nofollow" href="https://www.goodreads.com/book/show/12176421-how-to-win-friends-and-influence-people-in-the-digital-age">
+							<figure class="book__cover">
+								<img class="full-frame rounded" title="How to Win Friends and Influence People in the Digital Age" border="0" src="./img/friends_carnegie.jpg" data-target-dot />
+							</figure>
+						</a>
+						<h3 class="book__title">How to Win Friends & Influence People</h3>
+						<p class="faded">Dale Carnegie</p>
+					</article>
+	
+					<article class="book__item">
+						<a href="https://www.goodreads.com/book/show/40121378-atomic-habits">
+							<figure class="book__cover">
+								<img class="full-frame rounded" title="Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones" border="0" src="./img/habits_clear.jpg" data-target-dot />
+							</figure>
+						</a>
+						<h3 class="book__title">Atomic Habits</h3>
+						<p class="faded">James Clear</p>
+					</article>
+	
+					<article class="book__item">
+						<a rel="nofollow" href="https://www.goodreads.com/book/show/28257707-the-subtle-art-of-not-giving-a-f-ck">
+							<figure class="book__cover">
+								<img class="full-frame rounded" title="The Subtle Art of Not Giving a F*ck: A Counterintuitive Approach to Living a Good Life" border="0" src="./img/subtle_manson.jpg" data-target-dot />
+							</figure>
+						</a>
+						<h3 class="book__title">The Subtle Art of Not Giving a F*ck</h3>
+						<p class="faded">Mark Manson</p>
+					</article>
+	
+					<article class="book__item">
+						<a rel="nofollow" href="https://www.goodreads.com/book/show/28257707-the-subtle-art-of-not-giving-a-f-ck">
+							<figure class="book__cover">
+								<img class="full-frame rounded" title="The Upward Spiral: Using Neuroscience to Reverse the Course of Depression, One Small Change at a Time" border="0" src="./img/spiral_korb.jpg" data-target-dot />
+							</figure>
+						</a>
+						<h3 class="book__title">The Upward Spiral</h3>
+						<p class="faded">Alex Korb</p>
+					</article>
+				</div>
 			</section>
 
-		<!-- study notes -->
-		<section>
-			<h2 class="center">Notes</h2>
+		<section class="section">
+			<div class="container">
+				<h2 class="center title">Notes</h2>
 
-			<div class="content notebook">
-				<div class="rounded" data-target-dot>
-					<a href="https://www.notion.so/alanjyu/Thermal-Physics-e91afe7080724f7c8f701ce2091e838a">
-						<figure>
-							<img class="rounded" title="Thermal Physics" src="./img/thermal.jpg" />
-							<figcaption class="rounded backdrop-blur notebook__title">Thermal Physics</figcaption>
-						</figure> 
-					</a>
-				</div>
+				<div class="note">
+					<article class="rounded note__item" data-target-dot>
+						<a href="https://www.notion.so/alanjyu/Thermal-Physics-e91afe7080724f7c8f701ce2091e838a">
+							<figure class="note__figure">
+								<img class="full-frame rounded" title="Thermal Physics" src="./img/thermal.jpg" />
+								<figcaption class="rounded backdrop-blur note__title">Thermal Physics</figcaption>
+							</figure> 
+						</a>
+					</article>
 
-				<div class="rounded" data-target-dot>
-					<a href="https://www.notion.so/alanjyu/Electricity-and-Magnetism-1499cbad339a4e11a6329e266bde40f3">
-						<figure>
-							<img class="rounded" title="Electricity and Magnetism" src="./img/elecmag.jpg" />
-							<figcaption class="rounded backdrop-blur">Electricity & Magnetism</figcaption>
-						</figure>
-					</a>
-				</div>
+					<article class="rounded note__item" data-target-dot>
+						<a href="https://www.notion.so/alanjyu/Electricity-and-Magnetism-1499cbad339a4e11a6329e266bde40f3">
+							<figure class="note__figure">
+								<img class="full-frame rounded" title="Electricity and Magnetism" src="./img/elecmag.jpg" />
+								<figcaption class="rounded backdrop-blur note__title">Electricity & Magnetism</figcaption>
+							</figure>
+						</a>
+					</article>
 
-				<div class="rounded" data-target-dot>
-					<a href="https://www.notion.so/alanjyu/Hydrology-79ef880b621c49778009918e09858f2f">
-						<figure>
-							<img class="rounded" title="Hydrology" src="./img/hydrology.jpg" />
-							<figcaption class="rounded backdrop-blur notebook__title" >Hydrology</figcaption>
-						</figure>
-					</a>
-				</div>
+					<article class="rounded note__item" data-target-dot>
+						<a href="https://www.notion.so/alanjyu/Hydrology-79ef880b621c49778009918e09858f2f">
+							<figure class="note__figure">
+								<img class="full-frame rounded" title="Hydrology" src="./img/hydrology.jpg" />
+								<figcaption class="rounded backdrop-blur note__title" >Hydrology</figcaption>
+							</figure>
+						</a>
+					</article>
 
-				<div class="rounded" data-target-dot>
-					<a href="https://www.notion.so/alanjyu/Multivariable-Calculus-II-d290e58e6a0949a996cfb070ce07289b">
-						<figure>
-							<img class="rounded" title="Multivariable Calculus" src="./img/multical.jpg" />
-							<figcaption class="rounded backdrop-blur notebook__title"> Multivariable Calculus</figcaption>
-						</figure>
-					</a>
+					<article class="rounded note__item" data-target-dot>
+						<a href="https://www.notion.so/alanjyu/Multivariable-Calculus-II-d290e58e6a0949a996cfb070ce07289b">
+							<figure class="note__figure">
+								<img class="full-frame rounded" title="Multivariable Calculus" src="./img/multical.jpg" />
+								<figcaption class="rounded backdrop-blur note__title"> Multivariable Calculus</figcaption>
+							</figure>
+						</a>
+					</article>
 				</div>
 			</div>
+			
 		</section>
 	</main>
 
-	<footer class="flex-col content-tight dynamic-background">
-		<section>
-			<p><a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE" data-target-cover>&#169;</a> 2023 Alan J. Yu</p>
-			<p>Design and code by yours truly ❤️.</p>
+	<footer class="dynamic-background">
+		<section class="section">
+			<div class="footer">
+				<p>MIT License <a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE" data-target-cover>&#169;</a> 2023  Alan J. Yu</p>
+				<p>Design and code by yours truly ❤️.</p>
+				<ul class="flex social-media">
+					<li>
+						<a href="https://www.instagram.com/alanjyu/" data-target-cover>
+							<object title="Instagram">
+								<svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 50 50">
+									<path d="M 16 3 C 8.83 3 3 8.83 3 16 L 3 34 C 3 41.17 8.83 47 16 47 L 34 47 C 41.17 47 47 41.17 47 34 L 47 16 C 47 8.83 41.17 3 34 3 L 16 3 z M 37 11 C 38.1 11 39 11.9 39 13 C 39 14.1 38.1 15 37 15 C 35.9 15 35 14.1 35 13 C 35 11.9 35.9 11 37 11 z M 25 14 C 31.07 14 36 18.93 36 25 C 36 31.07 31.07 36 25 36 C 18.93 36 14 31.07 14 25 C 14 18.93 18.93 14 25 14 z M 25 16 C 20.04 16 16 20.04 16 25 C 16 29.96 20.04 34 25 34 C 29.96 34 34 29.96 34 25 C 34 20.04 29.96 16 25 16 z"/>
+								</svg>
+							</object>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.linkedin.com/in/ajyu/" data-target-cover >
+							<object title="Linkedin">
+								<svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 50 50">
+									<path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z"/>
+								</svg>
+							</object>
+						</a>
+					</li>
+					<li>
+						<a href="https://github.com/alanjyu/" data-target-cover>
+							<object title="Github">
+								<svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 30 30">
+									<path d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z"/>
+								</svg>
+							</object>
+						</a>
+					</li>
+					<li>
+						<a href="https://goodreads.com/alanjyu/" data-target-cover>
+							<object title="Goodreads">
+								<svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 50 50"><path d="M 25 2 C 20.459 2 16.58664 3.9082151 13.982422 6.9453125 C 11.378203 9.9824099 10 14.07975 10 18.5 C 10 22.92025 11.378203 27.017589 13.982422 30.054688 C 16.58664 33.091785 20.459 35 25 35 C 29.531588 35 33.395936 33.098395 36 30.072266 L 36 35 C 36 37.598543 35.181497 39.764071 33.548828 41.339844 C 31.91616 42.915616 29.363725 44 25.5 44 C 17.784314 44 15 39.933333 15 36 L 11 36 C 11 42.066667 16.215686 48 25.5 48 C 30.136275 48 33.83384 46.622274 36.326172 44.216797 C 38.818503 41.811319 40 38.476457 40 35 L 40 18.5 L 40 3 L 36 3 L 36 6.9277344 C 33.395936 3.9016049 29.531588 2 25 2 z M 25 6 C 28.459 6 31.08664 7.3379255 32.982422 9.5488281 C 34.878203 11.759731 36 14.91225 36 18.5 C 36 22.08775 34.878203 25.240269 32.982422 27.451172 C 31.08664 29.662074 28.459 31 25 31 C 21.541 31 18.91336 29.662074 17.017578 27.451172 C 15.121797 25.240269 14 22.08775 14 18.5 C 14 14.91225 15.121797 11.759731 17.017578 9.5488281 C 18.91336 7.3379255 21.541 6 25 6 z"/></svg>
+							</object>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
 		</section>
 
-		<ul class="flex social-media">
-			<li>
-				<a href="https://www.instagram.com/alanjyu/" data-target-cover>
-					<object title="Instagram">
-						<svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 50 50">
-							<path d="M 16 3 C 8.83 3 3 8.83 3 16 L 3 34 C 3 41.17 8.83 47 16 47 L 34 47 C 41.17 47 47 41.17 47 34 L 47 16 C 47 8.83 41.17 3 34 3 L 16 3 z M 37 11 C 38.1 11 39 11.9 39 13 C 39 14.1 38.1 15 37 15 C 35.9 15 35 14.1 35 13 C 35 11.9 35.9 11 37 11 z M 25 14 C 31.07 14 36 18.93 36 25 C 36 31.07 31.07 36 25 36 C 18.93 36 14 31.07 14 25 C 14 18.93 18.93 14 25 14 z M 25 16 C 20.04 16 16 20.04 16 25 C 16 29.96 20.04 34 25 34 C 29.96 34 34 29.96 34 25 C 34 20.04 29.96 16 25 16 z"/>
-						</svg>
-					</object>
-				</a>
-			</li>
-			<li>
-				<a href="https://www.linkedin.com/in/ajyu/" data-target-cover >
-					<object title="Linkedin">
-						<svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 50 50">
-							<path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z"/>
-						</svg>
-					</object>
-				</a>
-			</li>
-			<li>
-				<a href="https://github.com/alanjyu/" data-target-cover>
-					<object title="Github">
-						<svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 30 30">
-							<path d="M15,3C8.373,3,3,8.373,3,15c0,5.623,3.872,10.328,9.092,11.63C12.036,26.468,12,26.28,12,26.047v-2.051 c-0.487,0-1.303,0-1.508,0c-0.821,0-1.551-0.353-1.905-1.009c-0.393-0.729-0.461-1.844-1.435-2.526 c-0.289-0.227-0.069-0.486,0.264-0.451c0.615,0.174,1.125,0.596,1.605,1.222c0.478,0.627,0.703,0.769,1.596,0.769 c0.433,0,1.081-0.025,1.691-0.121c0.328-0.833,0.895-1.6,1.588-1.962c-3.996-0.411-5.903-2.399-5.903-5.098 c0-1.162,0.495-2.286,1.336-3.233C9.053,10.647,8.706,8.73,9.435,8c1.798,0,2.885,1.166,3.146,1.481C13.477,9.174,14.461,9,15.495,9 c1.036,0,2.024,0.174,2.922,0.483C18.675,9.17,19.763,8,21.565,8c0.732,0.731,0.381,2.656,0.102,3.594 c0.836,0.945,1.328,2.066,1.328,3.226c0,2.697-1.904,4.684-5.894,5.097C18.199,20.49,19,22.1,19,23.313v2.734 c0,0.104-0.023,0.179-0.035,0.268C23.641,24.676,27,20.236,27,15C27,8.373,21.627,3,15,3z"/>
-						</svg>
-					</object>
-				</a>
-			</li>
-			<li>
-				<a href="https://goodreads.com/alanjyu/" data-target-cover>
-					<object title="Goodreads">
-						<svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 50 50"><path d="M 25 2 C 20.459 2 16.58664 3.9082151 13.982422 6.9453125 C 11.378203 9.9824099 10 14.07975 10 18.5 C 10 22.92025 11.378203 27.017589 13.982422 30.054688 C 16.58664 33.091785 20.459 35 25 35 C 29.531588 35 33.395936 33.098395 36 30.072266 L 36 35 C 36 37.598543 35.181497 39.764071 33.548828 41.339844 C 31.91616 42.915616 29.363725 44 25.5 44 C 17.784314 44 15 39.933333 15 36 L 11 36 C 11 42.066667 16.215686 48 25.5 48 C 30.136275 48 33.83384 46.622274 36.326172 44.216797 C 38.818503 41.811319 40 38.476457 40 35 L 40 18.5 L 40 3 L 36 3 L 36 6.9277344 C 33.395936 3.9016049 29.531588 2 25 2 z M 25 6 C 28.459 6 31.08664 7.3379255 32.982422 9.5488281 C 34.878203 11.759731 36 14.91225 36 18.5 C 36 22.08775 34.878203 25.240269 32.982422 27.451172 C 31.08664 29.662074 28.459 31 25 31 C 21.541 31 18.91336 29.662074 17.017578 27.451172 C 15.121797 25.240269 14 22.08775 14 18.5 C 14 14.91225 15.121797 11.759731 17.017578 9.5488281 C 18.91336 7.3379255 21.541 6 25 6 z"/></svg>
-					</object>
-				</a>
-			</li>
+		
 			<!-- <li>
 				<a aria-label="To top" class="back-to-top" href="#" data-target-cover>
 					<object title="back to top">

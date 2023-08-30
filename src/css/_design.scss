@@ -1,0 +1,413 @@
+.dynamic-background {
+  color: var(--white);
+  background-color: var(--black);
+  background-image: radial-gradient(closest-side, #502219, #55271d00), radial-gradient(closest-side, #330323, #36032500), radial-gradient(closest-side, #1f1c10, #27262000), radial-gradient(closest-side, #1a1627, #221c3100), radial-gradient(closest-side, #1f1811, #2b201900);
+  background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+  background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+  background-repeat: no-repeat;
+  animation: var(--time-long) movement linear infinite;
+
+  @keyframes movement {
+    0%, 100% {
+      background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+      background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    }
+  
+    25% {
+      background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+      background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
+    }
+  
+    50% {
+      background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+      background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+    }
+  
+    75% {
+      background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+      background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+    }
+  }
+}
+
+.container {
+  max-width: 85vw;
+  
+  @include respond-to('tablet') {
+    max-width: 650px;
+  }
+
+  @include respond-to('desktop') {
+    max-width: 950px;
+  }
+}
+
+.section {
+  padding: var(--gap-huge) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.title {
+  font-size: 4rem;
+  line-height: 4;
+}
+
+.subtitle {
+  font-size: 2.5rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.tag {
+  font-size: 1.6rem;
+  background: var(--white);
+  color: var(--black);
+  padding: var(--gap-small) var(--gap-medium);
+  border: none;
+}
+
+.rounded {
+	border-radius: var(--border-radius);
+}
+
+.acrylic {
+  background-blend-mode: exclusion;
+	-webkit-backdrop-filter: blur(18px);
+	backdrop-filter: blur(18px);
+}
+
+.full-frame {
+  object-fit: cover;
+	width: 100%;
+	height: 100%;
+  transition: transform var(--time) ease-in-out;
+  transform: scale(1.0);
+  
+  @include respond-to('landscape') {	
+		&:hover {
+			transform: scale(1.05);
+		}
+	}
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 800px;
+
+  @include respond-to('landscape') {
+    flex-direction: row;
+  }
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(38px) opacity(.2);
+  }
+
+  &__content {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--space-small);
+  }
+
+  &__title {
+    text-align: left;
+    font-size: 4rem;
+    line-height: 1;
+  }
+
+  &__nav {
+    margin-top: var(--gap-medium);
+    width: 100%;
+    
+    &__list {
+      width: 100%;
+      display: flex;
+    }
+
+    &__item {
+      display: block;
+      padding: var(--gap-small) var(--gap-medium);
+      margin: 0 var(--gap-medium) 0 0;
+      background: var(--white);
+    }
+  }
+
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__line {
+    position: absolute;
+    top: 0;
+    left: 2.5%;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to top, #69696900 0%, #707070 2.5%, #707070 97.5%, #69696900 100%);
+    border: 0;
+    z-index: -1;
+
+    @include respond-to('landscape') {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__time {
+    align-self: flex-start;
+
+    @include respond-to('landscape') {
+      align-self: inherit;
+    }
+  }
+
+	&__item {
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to('landscape') {
+      flex-direction: row;
+    }
+
+    &__title {
+      font-size: 2.4rem;
+      margin-bottom: var(--gap-small);
+    }
+
+    &__content {
+      padding: var(--gap-large);
+  
+      a {
+        opacity: 1;
+        
+        @include respond-to('landscape') {
+          position: absolute;
+          opacity: 0;
+          left: 50%;
+          bottom: var(--gap-large);
+          transform: translateX(-50%);
+          transition: opacity var(--time) ease;
+        }
+      }
+  
+      @include respond-to('landscape') {
+        width: 50%;
+        transition: background var(--time) ease;
+  
+        &:hover {
+          a {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    
+    aside {
+      @include respond-to('landscape') {
+        width: 50%;
+      }
+    }
+
+    @include respond-to('landscape') {
+      flex-direction: row;
+    
+      // core component
+      &:nth-of-type(odd) {
+        flex-direction: row-reverse;
+        text-align: right;
+
+        aside {
+          text-align: left;
+        }
+
+        div {
+          // adjust these colours
+          background: linear-gradient(90deg, #ffffff00 0%, #ffffff00 50%, #6124db1a 50%, #c4a2d81a 100%); 
+          background-size: 300% auto;
+          background-position: left center;
+          transition: background var(--time) ease;
+    
+          &:hover {
+            background-position: right center;
+          }
+        }
+      }
+  
+      &:nth-of-type(even) {
+        flex-direction: row;
+        text-align: left;
+
+        aside {
+          text-align: right;
+        }
+
+        div {
+          background: linear-gradient(-90deg, #ffffff00 0%, #ffffff00 50%, #db5e241a 50%,#dfef9a1a 100%);
+          background-position: right center;
+          background-size: 300% auto;
+          transition: background var(--time) ease-in-out;
+    
+          &:hover {
+            background-position: 0;
+          }
+
+        }
+      }
+    }
+  }
+}
+
+.exp {
+	display: flex;
+	flex-direction: column;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: var(--gap-large) 0;
+    transform-origin: center;
+    transition: var(--time) ease;
+
+    @include respond-to('landscape') {
+      flex-direction: row;
+    }
+
+    &__title {
+      font-size: 2.4rem;
+      margin-bottom: var(--gap-small);
+    }
+
+    &__figure {
+      width: 100%;
+      max-height: 300px;
+
+      img {
+        height: 350px;
+      }
+
+      @include respond-to('landscape') {
+        width: 450px;
+        max-height: 550px;
+
+        img {
+          width: 105%;
+          height: 100%;
+        }
+  
+        &:hover {  
+          a {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &__content {
+      padding: var(--gap-large);
+      background: var(--silk-shade);
+  
+      @include respond-to('landscape') {
+        max-width: 450px;
+  
+        &:hover {  
+          a {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &__link {
+      opacity: 1;
+      z-index: 1;
+      padding: var(--gap-small) var(--gap-medium);
+      background: var(--white);
+  
+      @include respond-to('landscape') {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        opacity: 0;
+        transform: translateX(-50%);
+        margin-bottom: var(--gap-small);
+        transition: opacity var(--time) ease;
+      }
+    }
+
+    @each $faint-backgrounds, $i in $faint-backgrounds {
+      &:nth-of-type(#{$faint-backgrounds}) {
+        background: $i;
+      }
+    }
+  }
+}
+
+.book {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include respond-to('landscape') {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  &__cover {
+    max-height: 400px;
+  }
+  
+  &__item {
+    position: relative;
+    justify-content: space-between;
+    padding: var(--gap-medium);
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 2rem;
+  }
+}
+
+.note {
+	display: grid;
+  grid-template-columns: 1fr;
+
+	@include respond-to('landscape') {
+		grid-template-columns: 1fr 1fr; 
+	}
+
+  &__item {
+    position: relative;
+		overflow: hidden;
+		margin: var(--gap-small);
+
+    figure {
+      width: 100%;
+      height: 300px;
+
+      figcaption {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: var(--space-small);
+        padding: var(--gap-small) var(--gap-medium);
+      }
+    }
+  }
+}
