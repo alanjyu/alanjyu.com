@@ -187,7 +187,7 @@
     left: 2.5%;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(to top, #69696900 0%, #707070 2.5%, #707070 97.5%, #69696900 100%);
+    background: var(--line-color);
     border: 0;
     z-index: -1;
 

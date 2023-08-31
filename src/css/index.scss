@@ -21,7 +21,6 @@ body {
     transition: color var(--time) ease;
     
     &:hover {
-      background: linear-gradient(35deg,#8c66d8 0%,#ac2d9b 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
