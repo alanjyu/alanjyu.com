@@ -1,0 +1,42 @@
+// dark mode
+$allow-dark-mode: 0; // 0 is false, 1 is true
+
+@if ($allow-dark-mode == 1) { 
+  @media (prefers-color-scheme: dark) {
+    body {
+      background: var(--black);
+      color: var(--white);
+    }
+  
+    img {
+      filter: brightness(.75)
+    }
+  
+    svg {
+      fill: var(--white);
+    }
+  
+    .hover-shadow {
+      @include respond-to('landscape') {
+        transition: box-shadow var(--time) ease;
+    
+        &:hover {
+          box-shadow: 0px 8px 20px #d4d4d433;
+        }
+      }
+    }
+  
+    .acrylic {
+      background: #131313bf;
+    }
+  
+    .backdrop-blur{
+      background: #0f0f0fbf;
+    }
+
+    .tag {
+      background: var(--white);
+      color: var(--black);
+    }
+  }
+}

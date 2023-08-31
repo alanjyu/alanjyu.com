@@ -18,19 +18,11 @@
 }
 
 $faint-backgrounds: (
-  'n': linear-gradient(-46deg, #0076bd1a, transparent 50%),
+  'n': linear-gradient(139deg, #0076bd1a, transparent 50%),
   '2n': linear-gradient(-7deg, #bd49491a, transparent 50%),
   '3n': linear-gradient(-68deg, #a4bd491a, transparent 50%),
   '4n': linear-gradient(-24deg, #b949bd1a, transparent 50%),
   '5n': linear-gradient(-38deg, #bd49901a, transparent 50%)
-);
-
-$solid-backgrounds: (
-  'n': linear-gradient(-46deg, #0075bd, transparent 50%),
-  '2n': linear-gradient(-7deg, #bd4949, transparent 50%),
-  '3n': linear-gradient(-68deg, #a4bd49, transparent 50%),
-  '4n': linear-gradient(-24deg, #b949bd, transparent 50%),
-  '5n': linear-gradient(-38deg, #bd4990, transparent 50%)
 );
 
 $breakpoints: ('mobile': (min-width: 478),
