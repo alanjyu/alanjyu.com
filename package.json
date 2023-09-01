@@ -1,8 +1,8 @@
 {
   "name": "alanjyu.com",
-  "version": "1.5.0",
+  "version": "1.6",
   "default": "src/js/main.js",
-  "description": "Alan's web portfolio.",
+  "description": "Alan Yu's web portfolio.",
   "directories": {
     "lib": "lib"
   },
