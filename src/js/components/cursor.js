@@ -2,116 +2,143 @@ export default class Cursor {
   constructor() {
     const coverTargets = document.querySelectorAll('[data-target-cover]');
     const dotTargets = document.querySelectorAll('[data-target-dot]');
-    const iframes = document.querySelectorAll('iframe');
     const cursor = document.querySelector('.cursor');
+    const cursorInner = document.querySelector('.cursor__inner');
 
-    var coverTargetHover = false;
-    var dotTargetHover = false;
-    var cx = document.documentElement.clientWidth * .5;
-    var cy = document.documentElement.clientHeight * .5; // dyanmic cursor position
-    var hx = 0, hy = 0;
-    var ax = 0, ay = 0; // adjustments for cursor position
-    var bw = 40, bh = 40; // base width and height
-    var cw = bw, ch = bw; // dyanmic cursor width and height
-    var aw = 0, ah = 0; // additional width and height while hovered
-    var dax = 20, day = 20; // dot placement off the bottom right while hovered
-    const wobble = 5;
+    let borderRadius = 10;
 
-    cursor.style.opacity = '0';
+    let hoverState = 'none'; // none; 'dot'; 'cover'
 
-    document.addEventListener('mousemove', (e) => {
-      // update cursor width and height
-      cursor.style.width = cw + 'px';
-      cursor.style.height = ch + 'px';
+    let cursorPosX = document.documentElement.clientWidth * .5; // center initial mouse position
+    let cursorPosY = document.documentElement.clientHeight * .5;
 
-      // cover
-      if (coverTargetHover && (!dotTargetHover)) {
-        cx = hx + ax - cw * .5;
-        cy = hy + ay - ch * .5;
-        cursor.style.background = '#fff';
+    let wobbleX = 0, wobbleY = 0; // further adjustments (wobbling while a target hover is triggered) for cursor position
+    let cursorBaseWidth = 40; // base width and height
+    let cursorWidth = cursorBaseWidth, cursorHeight = cursorBaseWidth; // dyanmic cursor width and height
+
+    let hoverPosX = 0, hoverPosY = 0;
+    let dotOffsetX = 20, dotOffsetY = 20; // dot placement off the bottom right while hovered
+    let wobble = 5;
+
+    let lastUpdateTime = 0;
+
+    let sensitivity = .3; // Adjust the sensitivity factor (between 0 and 1)
+    let borderRadiusAnimationSpeed = 1000 / 1; // Adjust the animation speed (e.g., 30 frames per second)
+
+    function updateCursor(x, y) {
+      cursor.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function updateCursorInner(w, h) {
+      let scaleX = w / cursorBaseWidth;
+      let scaleY = h / cursorBaseWidth;
+      cursorInner.style.transform = `scale(${scaleX}, ${scaleY})`;
+    }
+
+    function updateCursorStyle () {
+      if (hoverState === 'none') {
+        cursor.style.filter = 'blur(12px)';
+      } else if (hoverState === 'dot') {
         cursor.style.filter = 'blur(0)';
-        cursor.style.opacity = '1';
-        cursor.style.borderRadius = '10px';
-      } else if (dotTargetHover && (!coverTargetHover)) {
-        cx = hx + ax;
-        cy = hy + ay;
-        cursor.style.background = '#fff';
-        cursor.style.opacity = '1';
+      } else if (hoverState === 'cover') {
         cursor.style.filter = 'blur(0)';
-      } else {
-        cx = e.clientX - cw * .5;
-        cy = e.clientY - ch * .5;
-        cursor.style.filter = 'blur(32px)';
-        cursor.style.opacity = '0.3';
-        cursor.style.borderRadius = '50%';
       }
-      
-      cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+    };
+
+    // create a new series of randomized border radius
+    function getRandomBorderRadius(min, max) {
+      let radii = [];
+
+      for (let i = 0; i < 8; i++) {
+        let r = Math.floor(Math.random() * (max - min + 1)) + min;
+        radii.push(r);
+      }
+      return `${radii[0]}% ${radii[1]}% ${radii[2]}% ${radii[3]}% / ${radii[4]}% ${radii[5]}% ${radii[6]}% ${radii[7]}%`;
+    }
+
+    function updateCursorRadius(currentTime) {
+      if (!lastUpdateTime || currentTime - lastUpdateTime >= borderRadiusAnimationSpeed) {
+        cursor.style.borderRadius = getRandomBorderRadius(35, 65);
+        lastUpdateTime = currentTime;
+      }
+      requestAnimationFrame(updateCursorRadius);
+    }
+
+    updateCursorStyle();
+    requestAnimationFrame(updateCursorRadius);
+
+    // update position, dimension, and styles according to state
+    document.addEventListener('mousemove', (e) => {
+      if (hoverState === 'cover' || hoverState === 'dot') {
+        cursorPosX = hoverPosX + wobbleX - cursorBaseWidth * .5;
+        cursorPosY = hoverPosY + wobbleY - cursorBaseWidth * .5;
+      } else {
+        cursorPosX = e.clientX - cursorWidth * .5;
+        cursorPosY = e.clientY - cursorHeight * .5;
+      }
+
+      updateCursor(cursorPosX, cursorPosY);
+      updateCursorInner(cursorWidth, cursorHeight);
     });
 
-    document.addEventListener('mouseleave', () => {
-      cursor.style.opacity = '0';
+    // reset cursor state after scroll
+    document.addEventListener('scroll', () => {
+      hoverState = 'none';
+      updateCursorStyle();
     });
 
-    // document.addEventListener('scroll', () =>
-    //   if ()
-    // )
-
-    // covers the entire target
+    // mouse shadow covers the entire target
     coverTargets.forEach(coverTarget => {
       coverTarget.addEventListener('mousemove', (e) => {
-        coverTargetHover = true;
+        hoverState = 'cover';
+
+        // get boudning diimensions
         let rect = coverTarget.getBoundingClientRect();
-        cw = rect.width + aw;
-        ch = rect.height + ah;
-        hx = (rect.left + rect.right) * .5; // hover center x
-        hy = (rect.top + rect.bottom) * .5; // hover center y
-        ax = (e.clientX - hx) / cw * wobble; // adjustment on width
-        ay = (e.clientY - hy) / ch * wobble; // adjustment on height
+        
+        // update cursor width and height (transformation )
+        cursorWidth = rect.width;
+        cursorHeight = rect.height;
+
+        hoverPosX = (rect.left + rect.right) * .5; // hover position x at center of object
+        hoverPosY = (rect.top + rect.bottom) * .5; // hover position y at center of object
+
+        wobbleX = (e.clientX - hoverPosX) / rect.width * wobble; // adjustment on width
+        wobbleY = (e.clientY - hoverPosY) / rect.height * wobble; // adjustment on height
+
+        updateCursorStyle('10px', '#fff', 'blur(0)', '1');
       });
 
       coverTarget.addEventListener('mouseleave', (e) => {
-        coverTargetHover = false;
-        cw = bw;
-        ch = bh;
-        hx = 0;
-        hy = 0;
-        ax = 0;
-        ay = 0;
+        hoverState = 'none';
+
+        cursorWidth = cursorBaseWidth;
+        cursorHeight = cursorBaseWidth;
+
+        updateCursorStyle();
       });
     });
 
     // transform into a dot
     dotTargets.forEach(dotTarget => {
       dotTarget.addEventListener('mousemove', (e) => {
-        dotTargetHover = true;
+        hoverState = 'dot';
+
+        // get bounding dimensions
         let rect = dotTarget.getBoundingClientRect();
-        hx = rect.right - dax;
-        hy = rect.bottom - day;
-        cw = 5;
-        ch = 5;
-        ax = (e.clientX - (rect.left + rect.right) * .5) * wobble * .005;
-        ay = (e.clientY - (rect.top + rect.bottom) * .5) * wobble * .005;
+
+        hoverPosX = rect.right;
+        hoverPosY = rect.bottom;
+
+        wobbleX = (e.clientX - (rect.left + rect.right) * .5) * wobble * .005;
+        wobbleY = (e.clientY - (rect.top + rect.bottom) * .5) * wobble * .005;
+
+        updateCursorStyle();
       });
 
       dotTarget.addEventListener('mouseleave', (e) => {
-        dotTargetHover = false;
-        cw = bw;
-        ch = bh;
-        hx = 0;
-        hy = 0;
-        ax = 0;
-        ay = 0;
-      });
-    });
+        hoverState = 'none';
 
-    iframes.forEach(iframe => {
-      iframe.addEventListener('mousemove', (e) => {
-        cursor.style.opacity = '0';
-      });
-
-      iframe.addEventListener('mouseleave', (e) => {
-        cursor.style.opacity = '1';
+        updateCursorStyle();
       });
     });
   }

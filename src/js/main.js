@@ -1,9 +1,14 @@
 import Cursor from './components/cursor';
+import Theme from './components/theme';
 
 const components = [
 	{
 		class: Cursor,
 		selector: '.cursor'
+	},
+	{
+		class: Theme,
+		selector: 'html'
 	}
 ];
 

@@ -1,9 +1,16 @@
 @import 'variables', 'mixins', 'normalize', 'design', 'fonts', 'cursor', 'darkmode';
 
 body {
-	background: var(--silk);
-  color: var(--black);
+	background: var(--background-color);
+  color: var(--text-color);
   overflow-x: hidden;
+}
+
+html, html[data-theme=light] {
+  color-scheme: light;
+}
+html[data-theme=dark] {
+  color-scheme: dark;
 }
 
 .quote {

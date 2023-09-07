@@ -32,10 +32,14 @@
 
 .container {
   width: 100%;
-  max-width: 85vw;
+  max-width: 85%;
   
   @include respond-to('tablet') {
-    max-width: 650px;
+    max-width: 600px;
+  }
+
+  @include respond-to('landscape') {
+    max-width: 750px;
   }
 
   @include respond-to('desktop') {
@@ -65,11 +69,18 @@
 }
 
 .tag {
-  font-size: 1.6rem;
-  background: var(--white);
-  color: var(--black);
+  font-size: 1.5rem;
+  background: var(--button-color);
   padding: var(--gap-small) var(--gap-medium);
-  border: none;
+}
+
+.outlined {
+  border: 2px solid var(--charcol-shade);
+  transition: border var(--time) ease;
+
+  &:hover {
+    border: 2px solid #ffffff00;
+  }
 }
 
 .rounded {
@@ -78,15 +89,15 @@
 
 .acrylic {
   background-blend-mode: exclusion;
-	-webkit-backdrop-filter: blur(18px);
-	backdrop-filter: blur(18px);
+	-webkit-backdrop-filter: blur(24px);
+	backdrop-filter: blur(24px);
 }
 
 .full-frame {
   object-fit: cover;
 	width: 100%;
 	height: 100%;
-  transition: transform var(--time) ease-in-out;
+  transition: transform var(--time) ease;
   transform: scale(1.0);
   
   @include respond-to('landscape') {	
@@ -96,9 +107,26 @@
 	}
 }
 
+.button {
+  display: block;
+  background: var(--button-color);
+  transition: box-shadow var(--time) ease;
+
+  &:hover, &:focus {
+    animation: pulse 1s;
+    background: transparent;
+    box-shadow: 0 0 0 2em transparent;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--charcol-shade);
+  }
+}
+
 .link {
   background: var(--black);
-  color: var(--silk);
   padding: var(--gap-medium);
   text-align: center;
 }
@@ -113,23 +141,36 @@
 }
 
 .hover-shadow {
-	@include respond-to('landscape') {
-		transition: box-shadow var(--time) ease-in-out;
+  transition: all var(--time) ease;
 
-		&:hover {
-			box-shadow: 0px 8px 20px #36363633;
-		}
-	}
+  &::after {
+    content: ' ';
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    box-shadow: 0 5px 15px var(--accent-color);
+    transition: opacity var(--time) ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
 }
 
 .hero {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  align-items: center;
+  justify-content: center;
   min-height: 800px;
 
   @include respond-to('landscape') {
     flex-direction: row;
+  }
+
+  &__figure {
+    min-width: 350px;
+    max-width: 500px;
   }
 
   &__background {
@@ -138,7 +179,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    filter: blur(38px) opacity(.2);
+    filter: blur(48px) opacity(.25);
   }
 
   &__content {
@@ -154,6 +195,7 @@
     text-align: left;
     font-size: 4rem;
     line-height: 1;
+    margin-bottom: var(--gap-medium);
   }
 
   &__nav {
@@ -161,18 +203,23 @@
     width: 100%;
     
     &__list {
-      width: 100%;
       display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     &__item {
       display: block;
+      min-width: 150px;
+      text-align: center;
+      margin: var(--gap-small) 0;
+    }
+
+    &__link {
       padding: var(--gap-small) var(--gap-medium);
-      margin: 0 var(--gap-medium) 0 0;
-      background: var(--white);
+      font-weight: 500;
     }
   }
-
 }
 
 .timeline {
@@ -188,7 +235,7 @@
     bottom: 0;
     width: 2px;
     background: var(--line-color);
-    border: 0;
+    border: none;
     z-index: -1;
 
     @include respond-to('landscape') {
@@ -199,6 +246,7 @@
 
   &__time {
     align-self: flex-start;
+    font-weight: 500;
 
     @include respond-to('landscape') {
       align-self: inherit;
@@ -208,6 +256,7 @@
 	&__item {
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     @include respond-to('landscape') {
       flex-direction: row;
@@ -255,46 +304,13 @@
     @include respond-to('landscape') {
       flex-direction: row;
     
-      // core component
       &:nth-of-type(odd) {
         flex-direction: row-reverse;
         text-align: right;
-
-        aside {
-          text-align: left;
-        }
-
-        div {
-          background: linear-gradient(90deg, #ffffff00 0%, #ffffff00 50%, #6124db1a 50%, #c4a2d81a 100%); 
-          background-size: 300% auto;
-          background-position: left center;
-          transition: background var(--time) ease;
-    
-          &:hover {
-            background-position: right center;
-          }
-        }
       }
   
       &:nth-of-type(even) {
         flex-direction: row;
-        text-align: left;
-
-        aside {
-          text-align: right;
-        }
-
-        div {
-          background: linear-gradient(-90deg, #ffffff00 0%, #ffffff00 50%, #db5e241a 50%,#dfef9a1a 100%);
-          background-position: right center;
-          background-size: 300% auto;
-          transition: background var(--time) ease-in-out;
-    
-          &:hover {
-            background-position: 0;
-          }
-
-        }
       }
     }
   }
@@ -307,81 +323,67 @@
   &__item {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     overflow: hidden;
     margin: var(--gap-large) 0;
     transform-origin: center;
     transition: var(--time) ease;
 
-    @include respond-to('landscape') {
+    @include respond-to('desktop') {
       flex-direction: row;
-    }
-
-    &__title {
-      font-size: 2.4rem;
-      margin-bottom: var(--gap-small);
-    }
-
-    &__figure {
-      width: 100%;
-      max-height: 300px;
-
-      img {
-        height: 350px;
-      }
-
-      @include respond-to('landscape') {
-        width: 450px;
-        max-height: 550px;
-
-        img {
-          width: 105%;
-          height: 100%;
-        }
-  
-        &:hover {  
-          a {
-            opacity: 1;
-          }
-        }
-      }
-    }
-
-    &__content {
-      padding: var(--gap-large);
-      background: var(--silk-shade);
-  
-      @include respond-to('landscape') {
-        max-width: 450px;
-  
-        &:hover {  
-          a {
-            opacity: 1;
-          }
-        }
-      }
-    }
-
-    &__link {
-      opacity: 1;
-      z-index: 1;
-      padding: var(--gap-small) var(--gap-medium);
-      background: var(--white);
-  
-      @include respond-to('landscape') {
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        opacity: 0;
-        transform: translateX(-50%);
-        margin-bottom: var(--gap-small);
-        transition: opacity var(--time) ease;
-      }
     }
 
     @each $faint-backgrounds, $i in $faint-backgrounds {
       &:nth-of-type(#{$faint-backgrounds}) {
         background: $i;
       }
+    }
+
+    &__title {
+      font-size: 2.5rem;
+      margin-bottom: var(--gap-medium);
+    }
+
+    &__figure {
+      min-width: 450px;
+      width: 100%;
+      max-height: 350px;
+
+      img {
+        height: 400px;
+      }
+
+      // a different layout between mobile and desktop
+      @include respond-to('desktop') {
+        width: 450px;
+        max-height: 550px;
+
+        img {
+          width: 110%;
+          height: 100%;
+        }
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      padding: var(--gap-medium);
+      background: var(--accent-color);
+  
+      @include respond-to('desktop') {
+        padding: var(--gap-large);
+      }
+    }
+
+    &__link {
+      display: block;
+      align-self: center;
+      min-width: 150px;
+      margin-top: var(--gap-small);
+      padding: var(--gap-small) var(--gap-medium);
+      text-align: center;
+      font-weight: 500;
     }
   }
 }
@@ -399,9 +401,10 @@
   }
   
   &__item {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    padding: var(--gap-medium);
+    margin: var(--gap-small);
     text-align: center;
   }
 
@@ -435,7 +438,7 @@
     right: 0;
     margin: var(--space-small);
     padding: var(--gap-small) var(--gap-medium);
-    background: var(--silk-shade);
+    background: var(--accent-color);
   }
 }
 
@@ -448,14 +451,89 @@
 		display: inline-block;
 		height: var(--icon);
 		width: var(--icon);
+
+    svg {
+      height: 100%;
+      width: 100%;
+      fill: var(--white);
+    }
 	}
 
   &__item {
     margin: 0 var(--gap-small);
     display: block;
-    
-    svg {
-      fill: var(--white);
-    }
   }
+}
+
+.toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  .sun-icon, .moon-icon {
+    width: 30px;
+    height: 30px;
+    fill: var(--icon-color);
+    transition: fill 0.3s;
+  }
+}
+
+#mode-toggle {
+  display: none;
+}
+
+.checkbox {
+  display: none;
+}
+
+.icon {
+  width: 50%;
+  font-size: 32px;
+  line-height: 60px;
+  text-align: center;
+  z-index: 1;
+}
+
+.ball {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin: 7px;
+  transition: 0.2s;
+}
+
+.light .icon--light {
+  color: #fafafa;
+}
+.light .icon--dark {
+  color: #151d2a;
+}
+.light .ball {
+  background-color: #151d2a;
+}
+/* ---- ---- Dark Mode ---- ---- */
+.dark {
+  background-color: #151d2a;
+}
+.dark .toggle {
+  background: #151d2a;
+  box-shadow: 3px 3px 3px #0e131b, -3px -3px 3px #1c2739;
+}
+.dark .icon--light {
+  color: #fafafa;
+}
+.dark .icon--dark {
+  color: #0e131b;
+}
+.dark .ball {
+  background-color: #fafafa;
+  transition: 0.3s;
+  transform: translateX(60px);
 }

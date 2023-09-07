@@ -1,17 +1,34 @@
+@keyframes blob {
+	0%, 100% {
+		border-radius: 0;
+	}
+}
+
 .cursor {
-	display: none;
 	position: fixed;
-
-	border-radius: 50%;
+	display: none; // hide in mobile
 	pointer-events: none;
-
-	transition: transform .07s linear, height var(--time) ease-in-out, width var(--time) ease-in-out, border-radius var(--time) ease-in-out, background-color var(--time) ease-in, opacity var(--time) ease-in;
-	transform-origin: center center;
-	
 	mix-blend-mode: exclusion;
-	background: linear-gradient(135deg, rgb(127, 255, 212), rgb(147, 112, 216));
+	transition: border-radius .9s linear;
+	overflow: overlay;
+	opacity: 1;
+	z-index: 99;
 
-	z-index: 9;
+	&__inner {
+		border-radius: 50%; // initial state
+		width: 40px;
+		height: 40px;
+		transform-origin: center;
+		opacity: .2;
+		background: #fff;
+		animation: blob 25s linear infinite;
+	}
+
+	&--cover {
+		border-radius: 10px;
+		transition: all var(--time) ease;
+		animation: none;
+	}
 }
 
 @media (pointer: fine) and (min-width: 768px) {

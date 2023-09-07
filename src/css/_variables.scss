@@ -7,23 +7,44 @@
   --gap-large: 4rem;
   --gap-huge: 8rem;
   --white: #fff;
-  --silk: #eeeeee;
-  --silk-shade: #eeeeee9e;
+  --silk: #f5f5f5;
+  --silk-shade: #f5f5f580;
   --charcol: #424c4c;
+  --charcol-shade: #424c4c85;
   --black: #1c1c1c;
   --icon: 5rem;
   --border-radius: 10px;
   --time: .25s;
   --time-long: 6s;
-  --line-color: linear-gradient(to top, #69696900 0%, #707070 2.5%, #707070 97.5%, #69696900 100%);
+}
+
+:root, html[data-theme="light"] {
+  --background-color: #f5f5f5;
+  --border-color: #c7cdd1;
+  --button-color: #fff;
+  --accent-color: #eeeeee98;
+  --line-color: linear-gradient(to top, #424c4c00 0%, #424c4c85 2.5%, #424c4c85 97.5%, #424c4c00 100%);
+}
+
+html[data-theme="dark"] {
+  --background-color: #1c1c1c;
+  --text-color: #f5f5f5;
+  --border-color: #323232;
+  --button-color: #2c2c2c;
+  --accent-color: #2c2c2c98;
+  --line-color: linear-gradient(to top, #9db7b700 0%, #9db7b785 2.5%, #9db7b785 97.5%, #9db7b700 100%);
 }
 
 $faint-backgrounds: (
-  'n': linear-gradient(139deg, #0076bd1a, transparent 50%),
-  '2n': linear-gradient(-7deg, #bd49491a, transparent 50%),
-  '3n': linear-gradient(-68deg, #a4bd491a, transparent 50%),
-  '4n': linear-gradient(-24deg, #b949bd1a, transparent 50%),
-  '5n': linear-gradient(-38deg, #bd49901a, transparent 50%)
+  'n': linear-gradient(90deg, #00bd561a, #f9fd501a),
+  '2n': linear-gradient(90deg, #26baee1a, #9fe8fa),
+  '3n': linear-gradient(90deg, #55968f1a, #8acbbb1a)
+);
+
+$button-backgrounds: (
+  'n': linear-gradient(90deg, #00bd561a, #f9fd501a),
+  '2n': linear-gradient(90deg, #26baee1a, #9fe8fa),
+  '3n': linear-gradient(90deg, #55968f1a, #8acbbb1a)
 );
 
 $breakpoints: ('mobile': (min-width: 478),
