@@ -1,33 +1,32 @@
-@keyframes blob {
-	0%, 100% {
-		border-radius: 0;
-	}
-}
-
 .cursor {
 	position: fixed;
 	display: none; // hide in mobile
 	pointer-events: none;
 	mix-blend-mode: exclusion;
-	transition: border-radius .9s linear;
-	overflow: overlay;
 	opacity: 1;
 	z-index: 99;
 
 	&__inner {
-		border-radius: 50%; // initial state
 		width: 40px;
 		height: 40px;
 		transform-origin: center;
-		opacity: .2;
 		background: #fff;
-		animation: blob 25s linear infinite;
+	}
+
+	&--no-target {
+		opacity: .25;
+		filter: blur(24px);
+		transition: opacity var(--time) ease;
 	}
 
 	&--cover {
-		border-radius: 10px;
+		opacity: 1;
+		transition: border-radius 1s linear, transform var(--time) ease, opacity var(--time) ease;
+	}
+
+	&--dot {
+		opacity: 1;
 		transition: all var(--time) ease;
-		animation: none;
 	}
 }
 

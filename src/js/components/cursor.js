@@ -4,11 +4,7 @@ export default class Cursor {
     const dotTargets = document.querySelectorAll('[data-target-dot]');
     const cursor = document.querySelector('.cursor');
     const cursorInner = document.querySelector('.cursor__inner');
-
-    let borderRadius = 10;
-
     let hoverState = 'none'; // none; 'dot'; 'cover'
-
     let cursorPosX = document.documentElement.clientWidth * .5; // center initial mouse position
     let cursorPosY = document.documentElement.clientHeight * .5;
 
@@ -23,7 +19,7 @@ export default class Cursor {
     let lastUpdateTime = 0;
 
     let sensitivity = .3; // Adjust the sensitivity factor (between 0 and 1)
-    let borderRadiusAnimationSpeed = 1000 / 1; // Adjust the animation speed (e.g., 30 frames per second)
+    let borderRadiusAnimationSpeed = 1000; // in seconds
 
     function updateCursor(x, y) {
       cursor.style.transform = `translate(${x}px, ${y}px)`;
@@ -37,35 +33,21 @@ export default class Cursor {
 
     function updateCursorStyle () {
       if (hoverState === 'none') {
-        cursor.style.filter = 'blur(12px)';
+        cursorInner.classList.add('cursor--no-target');
+        cursorInner.classList.remove('cursor--dot');
+        cursorInner.classList.remove('cursor--cover');
       } else if (hoverState === 'dot') {
-        cursor.style.filter = 'blur(0)';
+        cursorInner.classList.add('cursor--dot');
+        cursorInner.classList.remove('cursor--no-target');
+        cursorInner.classList.remove('cursor--cover');
       } else if (hoverState === 'cover') {
-        cursor.style.filter = 'blur(0)';
+        cursorInner.classList.add('cursor--cover');
+        cursorInner.classList.remove('cursor--no-target');
+        cursorInner.classList.remove('cursor--dot');
       }
     };
 
-    // create a new series of randomized border radius
-    function getRandomBorderRadius(min, max) {
-      let radii = [];
-
-      for (let i = 0; i < 8; i++) {
-        let r = Math.floor(Math.random() * (max - min + 1)) + min;
-        radii.push(r);
-      }
-      return `${radii[0]}% ${radii[1]}% ${radii[2]}% ${radii[3]}% / ${radii[4]}% ${radii[5]}% ${radii[6]}% ${radii[7]}%`;
-    }
-
-    function updateCursorRadius(currentTime) {
-      if (!lastUpdateTime || currentTime - lastUpdateTime >= borderRadiusAnimationSpeed) {
-        cursor.style.borderRadius = getRandomBorderRadius(35, 65);
-        lastUpdateTime = currentTime;
-      }
-      requestAnimationFrame(updateCursorRadius);
-    }
-
     updateCursorStyle();
-    requestAnimationFrame(updateCursorRadius);
 
     // update position, dimension, and styles according to state
     document.addEventListener('mousemove', (e) => {
@@ -76,7 +58,8 @@ export default class Cursor {
         cursorPosX = e.clientX - cursorWidth * .5;
         cursorPosY = e.clientY - cursorHeight * .5;
       }
-
+      
+      updateCursorStyle();
       updateCursor(cursorPosX, cursorPosY);
       updateCursorInner(cursorWidth, cursorHeight);
     });
@@ -92,10 +75,8 @@ export default class Cursor {
       coverTarget.addEventListener('mousemove', (e) => {
         hoverState = 'cover';
 
-        // get boudning diimensions
         let rect = coverTarget.getBoundingClientRect();
         
-        // update cursor width and height (transformation )
         cursorWidth = rect.width;
         cursorHeight = rect.height;
 
@@ -105,7 +86,7 @@ export default class Cursor {
         wobbleX = (e.clientX - hoverPosX) / rect.width * wobble; // adjustment on width
         wobbleY = (e.clientY - hoverPosY) / rect.height * wobble; // adjustment on height
 
-        updateCursorStyle('10px', '#fff', 'blur(0)', '1');
+        updateCursorStyle();
       });
 
       coverTarget.addEventListener('mouseleave', (e) => {
@@ -139,7 +120,7 @@ export default class Cursor {
         hoverState = 'none';
 
         updateCursorStyle();
-      });
+       });
     });
   }
 }

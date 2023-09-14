@@ -217,6 +217,7 @@
 
     &__link {
       padding: var(--gap-small) var(--gap-medium);
+      mix-blend-mode: exclusion;
       font-weight: 500;
     }
   }
@@ -379,6 +380,7 @@
     &__link {
       display: block;
       align-self: center;
+      mix-blend-mode: exclusion;
       min-width: 150px;
       margin-top: var(--gap-small);
       padding: var(--gap-small) var(--gap-medium);
