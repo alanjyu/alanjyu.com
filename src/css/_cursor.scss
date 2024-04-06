@@ -21,11 +21,15 @@
 
 	&--cover {
 		opacity: 1;
-		transition: border-radius 1s linear, transform var(--time) ease, opacity var(--time) ease;
+		border-radius: 25%;
+		transition: border-radius .1s ease, transform var(--time) ease, opacity var(--time) ease;
 	}
 
 	&--dot {
 		opacity: 1;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
 		transition: all var(--time) ease;
 	}
 }

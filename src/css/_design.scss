@@ -263,36 +263,28 @@
       flex-direction: row;
     }
 
+    
+
     &__title {
-      font-size: 2.4rem;
+      font-size: 25;
+      font-weight: 700;
       margin-bottom: var(--gap-small);
+    }
+
+    &__person {
+      font-weight: 500;
+    }
+
+    &__place {
+      font-weight: 500;
     }
 
     &__content {
       padding: var(--gap-large);
   
-      a {
-        opacity: 1;
-        
-        @include respond-to('landscape') {
-          position: absolute;
-          opacity: 0;
-          left: 50%;
-          bottom: var(--gap-large);
-          transform: translateX(-50%);
-          transition: opacity var(--time) ease;
-        }
-      }
-  
       @include respond-to('landscape') {
         width: 50%;
         transition: background var(--time) ease;
-  
-        &:hover {
-          a {
-            opacity: 1;
-          }
-        }
       }
     }
     
