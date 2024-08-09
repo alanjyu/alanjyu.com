@@ -1,5 +1,32 @@
 // dark mode
-$allow-dark-mode: 0; // 0 is false, 1 is true
+$allow-dark-mode: 1; // 0 is false, 1 is true
+
+.toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  .sun-icon, .moon-icon {
+    width: 30px;
+    height: 30px;
+    fill: var(--icon-color);
+    transition: fill 0.3s;
+  }
+}
+
+#mode-toggle {
+  display: none;
+}
+
+.checkbox {
+  display: none;
+}
 
 @if ($allow-dark-mode == 1) { 
   @media (prefers-color-scheme: dark) {

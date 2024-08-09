@@ -1,0 +1,85 @@
+.timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    &__line {
+      position: absolute;
+      top: 0;
+      left: 2.5%;
+      bottom: 0;
+      width: 2px;
+      background: var(--line-color);
+      border: none;
+      z-index: -1;
+  
+      @include respond-to('landscape') {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  
+    &__time {
+      align-self: flex-start;
+      font-weight: 500;
+  
+      @include respond-to('landscape') {
+        align-self: inherit;
+      }
+    }
+  
+      &__item {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+  
+      @include respond-to('landscape') {
+        flex-direction: row;
+      }
+  
+      
+  
+      &__title {
+        font-size: 25;
+        font-weight: 700;
+        margin-bottom: var(--gap-small);
+      }
+  
+      &__person {
+        font-weight: 500;
+      }
+  
+      &__place {
+        font-weight: 500;
+      }
+  
+      &__content {
+        padding: var(--gap-large);
+    
+        @include respond-to('landscape') {
+          width: 50%;
+          transition: background var(--time) ease;
+        }
+      }
+      
+      aside {
+        @include respond-to('landscape') {
+          width: 50%;
+        }
+      }
+  
+      @include respond-to('landscape') {
+        flex-direction: row;
+      
+        &:nth-of-type(odd) {
+          flex-direction: row-reverse;
+          text-align: right;
+        }
+    
+        &:nth-of-type(even) {
+          flex-direction: row;
+        }
+      }
+    }
+  }

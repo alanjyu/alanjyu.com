@@ -1,0 +1,72 @@
+.exp {
+	display: flex;
+	flex-direction: column;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    margin: var(--gap-large) 0;
+    transform-origin: center;
+    transition: var(--time) ease;
+
+    @include respond-to('desktop') {
+      flex-direction: row;
+    }
+
+    @each $faint-backgrounds, $i in $faint-backgrounds {
+      &:nth-of-type(#{$faint-backgrounds}) {
+        background: $i;
+      }
+    }
+
+    &__title {
+      font-size: 2.5rem;
+      margin-bottom: var(--gap-medium);
+    }
+
+    &__figure {
+      min-width: 450px;
+      width: 100%;
+      max-height: 350px;
+
+      img {
+        height: 400px;
+      }
+
+      // a different layout between mobile and desktop
+      @include respond-to('desktop') {
+        width: 450px;
+        max-height: 550px;
+
+        img {
+          width: 110%;
+          height: 100%;
+        }
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      padding: var(--gap-medium);
+      background: var(--accent-color);
+  
+      @include respond-to('desktop') {
+        padding: var(--gap-large);
+      }
+    }
+
+    &__link {
+      display: block;
+      align-self: center;
+      mix-blend-mode: exclusion;
+      min-width: 150px;
+      margin-top: var(--gap-small);
+      padding: var(--gap-small) var(--gap-medium);
+      text-align: center;
+      font-weight: 500;
+    }
+  }
+}

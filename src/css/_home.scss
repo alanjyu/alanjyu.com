@@ -1,0 +1,224 @@
+.hero {
+  display: flex;
+  height: 100vh;
+  min-height: 800px;
+
+  &__figure {
+    min-width: 350px;
+    max-width: 500px;
+  }
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(48px) opacity(.25);
+  }
+
+  &__content {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--space-small);
+  }
+
+  &__title {
+    text-align: left;
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: var(--gap-medium);
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.nav {
+  margin-bottom: 40px;
+  
+  &__list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__item {
+    display: block;
+    min-width: 150px;
+    text-align: center;
+    margin: 0 var(--gap-small);
+  }
+
+  &__link {
+    padding: var(--gap-small) var(--gap-medium);
+    mix-blend-mode: exclusion;
+    font-weight: 500;
+  }
+}
+
+.book {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include respond-to('landscape') {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  &__cover {
+    max-height: 400px;
+  }
+  
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: var(--gap-small);
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 2rem;
+  }
+}
+
+.note {
+	display: grid;
+  grid-template-columns: 1fr;
+
+	@include respond-to('landscape') {
+		grid-template-columns: 1fr 1fr; 
+	}
+
+  &__item {
+    position: relative;
+		overflow: hidden;
+		margin: var(--gap-small);
+  }
+
+  &__figure {
+    width: 100%;
+    height: 300px;
+  }
+
+  &__title {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: var(--space-small);
+    padding: var(--gap-small) var(--gap-medium);
+    background: var(--accent-color);
+  }
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+  margin: var(--gap-medium) 0;
+
+	&__link {
+		display: inline-block;
+		height: var(--icon);
+		width: var(--icon);
+
+    svg {
+      height: 100%;
+      width: 100%;
+      fill: var(--white);
+    }
+	}
+
+  &__item {
+    margin: 0 var(--gap-small);
+    display: block;
+  }
+}
+
+.icon {
+  width: 50%;
+  font-size: 32px;
+  line-height: 60px;
+  text-align: center;
+  z-index: 1;
+}
+
+.ball {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin: 7px;
+  transition: 0.2s;
+}
+
+.quote {
+  background: linear-gradient(35deg,#8c66d8 0%,#ac2d9b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  span {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+
+  @include respond-to('landscape') {
+    transition: color var(--time) ease;
+    
+    &:hover {
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  &::before {
+    content: '“';
+    font-size: var(--icon);
+  }
+
+  &::after {
+		content: '';
+    margin-top: 24px;
+		display: block;
+		width: var(--icon);
+		height: 3px;
+	}
+}
+
+.dynamic-background {
+  color: var(--white);
+  background-color: var(--black);
+  background-image: radial-gradient(closest-side, #502219, #55271d00), radial-gradient(closest-side, #330323, #36032500), radial-gradient(closest-side, #1f1c10, #27262000), radial-gradient(closest-side, #1a1627, #221c3100), radial-gradient(closest-side, #1f1811, #2b201900);
+  background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+  background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+  background-repeat: no-repeat;
+  animation: var(--time-long) movement linear infinite;
+
+  @keyframes movement {
+    0%, 100% {
+      background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+      background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    }
+  
+    25% {
+      background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+      background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
+    }
+  
+    50% {
+      background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+      background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+    }
+  
+    75% {
+      background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+      background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+    }
+  }
+}

@@ -4,6 +4,7 @@ export default class Cursor {
     const dotTargets = document.querySelectorAll('[data-target-dot]');
     const cursor = document.querySelector('.cursor');
     const cursorInner = document.querySelector('.cursor__inner');
+  
     let hoverState = 'none'; // none; 'dot'; 'cover'
     let cursorPosX = document.documentElement.clientWidth * .5; // center initial mouse position
     let cursorPosY = document.documentElement.clientHeight * .5;
@@ -18,17 +19,17 @@ export default class Cursor {
 
     let lastUpdateTime = 0;
 
-    let sensitivity = .3; // Adjust the sensitivity factor (between 0 and 1)
+    let sensitivity = .3; // Adjust the sensitivity of mousemove when hovered (between 0 and 1)
     let borderRadiusAnimationSpeed = 1000; // in seconds
+
 
     function updateCursor(x, y) {
       cursor.style.transform = `translate(${x}px, ${y}px)`;
     }
 
     function updateCursorInner(w, h) {
-      let scaleX = w / cursorBaseWidth;
-      let scaleY = h / cursorBaseWidth;
-      cursorInner.style.transform = `scale(${scaleX}, ${scaleY})`;
+      cursorInner.style.width = w;
+      cursorInner.style.height = h;
     }
 
     function updateCursorStyle () {
@@ -73,7 +74,7 @@ export default class Cursor {
     // mouse shadow covers the entire target
     coverTargets.forEach(coverTarget => {
       coverTarget.addEventListener('mousemove', (e) => {
-        hoverState = 'cover';
+        hoverState = 'cover'; // update the hover state
 
         let rect = coverTarget.getBoundingClientRect();
         
@@ -86,6 +87,7 @@ export default class Cursor {
         wobbleX = (e.clientX - hoverPosX) / rect.width * wobble; // adjustment on width
         wobbleY = (e.clientY - hoverPosY) / rect.height * wobble; // adjustment on height
 
+        updateCursorInner(w, h)
         updateCursorStyle();
       });
 

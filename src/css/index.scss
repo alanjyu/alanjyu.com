@@ -1,4 +1,67 @@
-@import 'variables', 'mixins', 'normalize', 'design', 'fonts', 'cursor', 'darkmode';
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html * {
+  scroll-behavior: smooth;
+  }
+  
+  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  
+  i {
+    font-style: italic;
+  }
+  
+  body, html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    min-width: 100vw;
+    min-height: 100vh;
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1;
+    margin: 0;
+  }
+  
+  main, footer, header, hgroup, menu, nav {
+    display: block;
+  }
+  
+  ol, ul, li, a {
+    list-style-type: none;
+    text-decoration: none;
+  }
+  
+  a {
+    color: inherit;
+  }
+  
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  section, div, ul {
+    position: relative;
+  }
+  
+  object {
+  pointer-events: none;
+  }
+
+@import 'preambles', 'home', 'resume', 'research', 'fonts', 'cursor', 'darkmode';
 
 body {
 	background: var(--background-color);
@@ -11,39 +74,4 @@ html, html[data-theme=light] {
 }
 html[data-theme=dark] {
   color-scheme: dark;
-}
-
-.quote {
-  background: linear-gradient(35deg,#8c66d8 0%,#ac2d9b 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-
-  span {
-    font-size: 2.5rem;
-    line-height: 1.1;
-  }
-
-  @include respond-to('landscape') {
-    transition: color var(--time) ease;
-    
-    &:hover {
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-  }
-
-  &::before {
-    content: '“';
-    font-size: var(--icon);
-  }
-
-  &::after {
-		content: '';
-    margin-top: 24px;
-		display: block;
-		width: var(--icon);
-		height: 3px;
-	}
 }
