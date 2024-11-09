@@ -104,6 +104,10 @@ $breakpoints: ('mobile': (min-width: 478),
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
+
+  &__first {
+    padding: 150px 0;
+  }
 }
 
 .title {

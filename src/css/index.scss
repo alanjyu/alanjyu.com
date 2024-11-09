@@ -61,7 +61,7 @@ html * {
   pointer-events: none;
   }
 
-@import 'preambles', 'home', 'resume', 'research', 'fonts', 'cursor', 'darkmode';
+@import 'preambles', 'home', 'cv', 'research', 'fonts', 'darkmode';
 
 body {
 	background: var(--background-color);
@@ -71,7 +71,8 @@ body {
 
 html, html[data-theme=light] {
   color-scheme: light;
-}
-html[data-theme=dark] {
-  color-scheme: dark;
+
+  &[data-theme=dark] {
+    color-scheme: dark;
+  }
 }

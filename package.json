@@ -7,9 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "dev": "parcel serve ./src/index.html ./src/research/index.html ./src/resume/index.html ./src/hobbies/index.html",
-    "build": "parcel build ./src/index.html ./src/research/index.html ./src/resume/index.html ./src/hobbies/index.html --dist-dir docs/",
-    "publish": "parcel build ./src/index.html ./src/research/index.html ./src/resume/index.html ./src/hobbies/index.html --public-url https://alanjyu.com --dist-dir docs/"
+    "dev": "parcel serve ./src/index.html ./src/research/index.html ./src/cv/index.html ./src/hobbies/index.html",
+    "build": "parcel build ./src/index.html ./src/research/index.html ./src/cv/index.html ./src/hobbies/index.html --dist-dir docs/",
+    "publish": "parcel build ./src/index.html ./src/research/index.html ./src/cv/index.html ./src/hobbies/index.html --public-url https://alanjyu.com --dist-dir docs/"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/alanjyu/",
   "devDependencies": {
-    "@parcel/packager-raw-url": "^2.8.3",
-    "@parcel/transformer-sass": "^2.8.3",
-    "@parcel/transformer-webmanifest": "^2.8.3",
-    "parcel": "^2.8.3"
+    "@parcel/packager-raw-url": "^2.12.0",
+    "@parcel/transformer-sass": "^2.12.0",
+    "@parcel/transformer-webmanifest": "^2.12.0",
+    "parcel": "^2.12.0"
   },
   "dependencies": {
     "lmdb": "^2.8.2"

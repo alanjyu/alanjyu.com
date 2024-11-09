@@ -1,4 +1,4 @@
-import Cursor from './components/cursor';
+// import Cursor from './components/cursor';
 import Theme from './components/theme';
 
 const components = [
