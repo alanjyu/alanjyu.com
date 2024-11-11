@@ -21,7 +21,7 @@ html[data-theme="dark"] {
   position: absolute;
   top: 25px;
   right: 25px;
-  z-index: 1;
+  z-index: 9;
   gap: 8px;
 }
 
@@ -38,6 +38,7 @@ html[data-theme="dark"] {
 
 .icon-sun, .icon-moon {
   display: none;
+  mix-blend-mode: difference;
 }
 
 html[data-theme="light"] .icon-sun {

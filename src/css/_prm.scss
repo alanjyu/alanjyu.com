@@ -18,6 +18,9 @@
   --time-long: 6s;
 }
 
+$border-radius: 10px;
+$border-radius-large: 20px;
+
 $breakpoints: ('mobile': (min-width: 478),
   'landscape': (min-width: 768px),
   'tablet': (min-width: 992px),
@@ -65,13 +68,13 @@ $breakpoints: ('mobile': (min-width: 478),
 }
 
 .section {
-  padding: var(--gap-huge) 0;
+  padding: var(--space-small) 0;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
 
-  &__first {
+  &:nth-of-type(1) {
     padding: 200px 0;
   }
 }
@@ -97,6 +100,10 @@ $breakpoints: ('mobile': (min-width: 478),
 
 .rounded {
 	border-radius: var(--border-radius);
+
+  &__large {
+    border-radius: calc(var(--border-radius) * 2);
+  }
 }
 
 .acrylic {

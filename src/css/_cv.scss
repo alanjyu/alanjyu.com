@@ -12,7 +12,6 @@
     width: 2px;
     background: var(--line-color);
     border: none;
-    z-index: -1;
   }
 
   &__item {
@@ -26,6 +25,7 @@
   }
 
   &__title {
+    @extend .subtitle;
     margin: var(--gap-large) 0;
     font-weight: 600;
   }

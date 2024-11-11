@@ -1,0 +1,34 @@
+.hero {
+    min-height: 700px;
+  
+    @include respond-to('landscape') {
+      height: 100vh;
+      flex-direction: row;
+    }
+  
+    &__content {
+      @extend .acrylic;
+      @extend .card__item__content;
+    
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--space-small);
+  
+      @include respond-to('landscape') {
+        position: absolute;
+        top: 45%;
+        right: 10%;
+        max-width: 500px;
+        border-radius: $border-radius-large;
+      }
+    }
+  
+    &__title {
+      @extend .title;
+
+      text-align: left;
+      line-height: 1.5;
+      margin-bottom: var(--gap-medium);
+    }
+}

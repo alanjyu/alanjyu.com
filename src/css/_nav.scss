@@ -2,17 +2,20 @@
   display: block;
 
   &__list {
+    @extend .acrylic;
+    @extend .rounded;
+    
+    position: absolute;
     display: none;
+    z-index: 9;
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
 
     @include respond-to('landscape') {
-      z-index: 9;
-      position: absolute;
       display: flex;
       align-items: center;
-      top: 150px;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      overflow: hidden;
     }
   }
 
