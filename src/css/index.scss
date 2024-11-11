@@ -61,7 +61,7 @@ object {
   pointer-events: none;
 }
 
-@import 'prm', 'main', 'nav', 'cv', 'science', 'music', 'fonts', 'theme';
+@import 'prm', 'theme', 'main', 'nav', 'cv', 'science', 'music', 'fonts';
 
 body {
 	background: var(--background-color);

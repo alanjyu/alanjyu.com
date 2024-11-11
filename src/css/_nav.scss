@@ -1,34 +1,95 @@
 .nav {
-  position: absolute;
-  z-index: 1;
-  top: 40px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
-  @include respond-to('landscape') {
-    top: 120px;
-  }
+  display: block;
 
   &__list {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    overflow: hidden;
+    display: none;
+
+    @include respond-to('landscape') {
+      z-index: 9;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      top: 150px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+    }
   }
 
   &__item {
     display: block; 
     min-width: 100px;
     text-align: center;
+
+    @include respond-to('landscape') {
+      min-width: 150px;
+    }
   }
 
   &__link {
+    display: block;
     padding: var(--gap-small) var(--gap-medium);
-    mix-blend-mode: exclusion;
     font-weight: 500;
+    background: var(--accent-color);
+    transition: background var(--time);
 
     &__active {
       background: var(--highlight-color);
+    }
+  }
+}
+
+.burger{
+  top: 20px;
+  left: 20px;
+  position: relative;
+  width: 30px;
+  height: 3px;
+  background: var(--white);
+
+  &-wrapper {
+    z-index: 9;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &::before {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    content: '';
+    width: 30px;
+    height: 3px;
+    background: var(--white);
+    transition: all var(--time);
+  }
+
+  &::after {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    content: '';
+    width: 30px;
+    height: 3px;
+    background: var(--white);
+    transition: all var(--time);
+  }
+
+  &__active {
+    background-color: transparent;
+
+    &::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+      top: 0;
     }
   }
 }

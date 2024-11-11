@@ -11,7 +11,7 @@ $button-backgrounds: (
   '3n': linear-gradient(90deg, #55968f1a, #8acbbb1a)
 );
 
-.exp {
+.card {
 	display: flex;
 	flex-direction: column;
 
@@ -35,7 +35,7 @@ $button-backgrounds: (
     }
 
     &__title {
-      font-size: 2.5rem;
+      font-size: 26px;
       margin-bottom: var(--gap-medium);
     }
 

@@ -20,7 +20,7 @@
 	<link rel="manifest" href="../site.webmanifest" />
 	<link rel="stylesheet" href="../css/index.scss" />
 
-	<script type="module" src="../js/main.js" defer></script>
+	<script type="module" src="../js/main.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -51,18 +51,22 @@
 	</div>
 
 	<nav class="nav">
+		<div class="burger-wrapper">
+			<div class="burger"></div>
+		</div>
+
 		<ul class="rounded nav__list">
-			<li class="nav__item" data-target-cover>
-				<a class="button nav__link" href="/">Home</a>
+			<li class="nav__item">
+				<a class="nav__link" href="/">Home</a>
 			</li>
-			<li class="nav__item" data-target-cover>
-				<a class="button nav__link nav__link__active" href="#">CV</a>
+			<li class="nav__item">
+				<a class="nav__link nav__link__active" href="#">CV</a>
 			</li>
-			<li class="nav__item" data-target-cover>
-				<a class="button nav__link" href="/science/">Science</a>
+			<li class="nav__item">
+				<a class="nav__link" href="/science/">Science</a>
 			</li>
-			<li class="nav__item" data-target-cover>
-				<a class="button nav__link" href="/music/">Music</a>
+			<li class="nav__item">
+				<a class="nav__link" href="/music/">Music</a>
 			</li>
 		</ul>
 	</nav>

@@ -20,7 +20,7 @@
 	<link rel="manifest" href="./site.webmanifest" />
 	<link rel="stylesheet" href="./css/index.scss" />
 
-	<script type="module" src="./js/main.js" defer></script>
+	<script type="module" src="./js/main.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -51,38 +51,36 @@
 	</div>
 
 	<nav class="nav">
-		<ul class="rounded nav__list">
+		<div class="burger-wrapper">
+			<div class="burger"></div>
+		</div>
+
+		<ul class="rounded acrylic nav__list">
 			<li class="nav__item" data-target-cover>
-				<a class="button nav__link nav__link__active" href="#">Home</a>
+				<a class="nav__link nav__link__active" href="#">Home</a>
 			</li>
 			<li class="nav__item" data-target-cover>
-				<a class="button nav__link" href="/cv/">CV</a>
+				<a class="nav__link" href="/cv/">CV</a>
 			</li>
 			<li class="nav__item" data-target-cover>
-				<a class="button nav__link" href="/science/">Science</a>
+				<a class="nav__link" href="/science/">Science</a>
 			</li>
 			<li class="nav__item" data-target-cover>
-				<a class="button nav__link" href="/music/">Music</a>
+				<a class="nav__link" href="/music/">Music</a>
 			</li>
 		</ul>
 	</nav>
 
 	<main>
 		<section class="section hero">
-			<div class="rounded hero__container">
-				<figure class="hero__figure">
-					<img class="full-frame" src="./img/profile.jpg" title="Alan's profile picture" />
-				</figure>
+			<figure class="background">
+				<img class="full-frame" src="./img/profile.jpg" title="Alan's profile picture" />
+			</figure>
 
-				<figure>
-					<img class="hero__background" src="./img/background.jpg" title="Background" />
-				</figure>
-				
-				<div class="hero__content">
-					<h1 class="hero__title">Hey, name's Alan.</h1>
-					<p>Thanks for stopping by! I am an Earth scientist specializing in geophysics. I have researched about <a href="https://en.wikipedia.org/wiki/Drumlin">drumlins</a>, lake sediments, and rift systems. </p>
-					<p>When I am not exploring the wonders of our planet, you can find me tinkering with my car or jamming out on the drums with friends. I am also a huge synthesizer nerd. </p>
-				</div>
+			<div class="rounded acrylic card__item__content hero__content">
+				<h1 class="title hero__title">Hey, name's Alan.</h1>
+				<p>Thanks for stopping by! I am an Earth scientist specializing in geophysics. I have researched about <a href="https://en.wikipedia.org/wiki/Drumlin">drumlins</a>, lake sediments, and rift systems. </p>
+				<p>When I am not exploring the wonders of our planet, you can find me tinkering with my car or jamming out on the drums with friends. I am also a huge synthesizer nerd. </p>
 			</div>
 		</section>
 	</main>

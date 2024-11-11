@@ -2,7 +2,7 @@ export default class Theme {
   constructor() {
     const themeCheckbox = document.getElementById('checkbox');
     const savedTheme = localStorage.getItem('theme');
-    const themeToApply = savedTheme || window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';;
+    const themeToApply = savedTheme;
 
     // Apply the theme
     document.documentElement.setAttribute('data-theme', themeToApply);
