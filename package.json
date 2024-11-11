@@ -1,32 +1,21 @@
 {
   "name": "alanjyu.com",
-  "version": "1.7",
+  "version": "1.8.0",
   "default": "src/js/main.js",
   "description": "Alan Yu's web portfolio.",
   "directories": {
     "lib": "lib"
   },
   "targets": {
-    "index": {
-      "source": "src/index.html"
-    },
-    "cv": {
-      "source": "src/cv/index.html"
-    },
-    "science": {
-      "source": "src/science/index.html"
-    },
-    "music": {
-      "source": "src/music/index.html"
-    },
-    "coding": {
-      "source": "src/coding/index.html"
+    "build": {
+      "source": ["src/index.html", "src/cv/index.html", "src/science/index.html", "src/music/index.html"],
+      "distDir": "docs/"
     }
   },
   "scripts": {
     "dev": "parcel serve",
-    "build": "parcel build --dist-dir docs/",
-    "publish": "parcel build --public-url https://alanjyu.com --dist-dir docs/"
+    "build": "parcel build",
+    "publish": "parcel build --public-url https://alanjyu.com"
   },
   "repository": {
     "type": "git",
