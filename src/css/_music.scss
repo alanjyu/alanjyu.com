@@ -1,0 +1,10 @@
+.musicbox {
+    display: flex;
+    justify-content: center;
+
+    &__item {
+        width: 50%;
+        height: 250px;
+    }
+}
+  

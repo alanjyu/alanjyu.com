@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Alan Yu - Resume</title>
+	<title>Alan Yu - CV</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -20,27 +20,49 @@
 	<link rel="manifest" href="../site.webmanifest" />
 	<link rel="stylesheet" href="../css/index.scss" />
 
-	<script type="module" src="../js/main.js" charset="utf-8"></script>
+	<script type="module" src="../js/main.js" defer></script>
 </head>
 
 <body>
-	<div class="cursor">
-		<div class="cursor__inner"></div>
+	<div class="theme-switch-wrapper">
+		<span class="icon-sun" aria-hidden="true">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<circle cx="12" cy="12" r="5" fill="currentColor" />
+				<line x1="12" y1="1" x2="12" y2="4" stroke="currentColor" stroke-width="2"/>
+				<line x1="12" y1="20" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+				<line x1="4.22" y1="4.22" x2="6.34" y2="6.34" stroke="currentColor" stroke-width="2"/>
+				<line x1="17.66" y1="17.66" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/>
+				<line x1="1" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="2"/>
+				<line x1="20" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
+				<line x1="4.22" y1="19.78" x2="6.34" y2="17.66" stroke="currentColor" stroke-width="2"/>
+				<line x1="17.66" y1="6.34" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
+			  </svg>
+		  </span>
+		<span class="icon-moon" aria-hidden="true">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+			</svg>
+		</span>
+
+		<label class="theme-switch" for="checkbox">
+		  <input type="checkbox" id="checkbox" />
+		  <div class="slider round"></div>
+		</label>
 	</div>
 
 	<nav class="nav">
-		<ul class="nav__list">
-			<li class="rounded" data-target-cover>
-				<a href="/" class="faded"><object><svg xmlns="https://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 30 30" width="30px" height="30px">    <path d="M 15 2 A 1 1 0 0 0 14.300781 2.2851562 L 3.3925781 11.207031 A 1 1 0 0 0 3.3554688 11.236328 L 3.3183594 11.267578 L 3.3183594 11.269531 A 1 1 0 0 0 3 12 A 1 1 0 0 0 4 13 L 5 13 L 5 24 C 5 25.105 5.895 26 7 26 L 23 26 C 24.105 26 25 25.105 25 24 L 25 13 L 26 13 A 1 1 0 0 0 27 12 A 1 1 0 0 0 26.681641 11.267578 L 26.666016 11.255859 A 1 1 0 0 0 26.597656 11.199219 L 25 9.8925781 L 25 6 C 25 5.448 24.552 5 24 5 L 23 5 C 22.448 5 22 5.448 22 6 L 22 7.4394531 L 15.677734 2.2675781 A 1 1 0 0 0 15 2 z M 18 15 L 22 15 L 22 23 L 18 23 L 18 15 z"/></svg>
-				</object></a>
-			</li>
-
+		<ul class="rounded nav__list">
 			<li class="nav__item" data-target-cover>
-				<a class="rounded button nav__link" href="/research/">Research</a>
+				<a class="button nav__link" href="/">Home</a>
 			</li>
-
 			<li class="nav__item" data-target-cover>
-				<a class="rounded button nav__link" href="/hobbies/">Hobbies</a>
+				<a class="button nav__link nav__link__active" href="#">CV</a>
+			</li>
+			<li class="nav__item" data-target-cover>
+				<a class="button nav__link" href="/science/">Science</a>
+			</li>
+			<li class="nav__item" data-target-cover>
+				<a class="button nav__link" href="/music/">Music</a>
 			</li>
 		</ul>
 	</nav>
@@ -48,36 +70,79 @@
 	<main>
 		<section class="section section__first">
 			<div class="container">
-				<h2 class="title">Research Experience</h2>
+				<h2 class="timeline__title subtitle">Education</h2>
 				<div class="timeline">
 					<hr class="timeline__line"></hr>
 
 					<article class="timeline__item">
-						<div class="timeline__item__content">
-							<h3 class="timeline__item__title">Research Assistant &ndash; Geodynamics</h3>
-							<p class="timeline__item__place"><a data-target-cover href="https://philheron.com" class="timeline__item__person">Prof. Phil Heron</a>, University of Toronto</p>
-							<!-- <p>I generate a large number of numerical models of rifting (a geological process where continents break apart) where a small piece of the continent is detached from its parent plate. By conducting the models using code ASPECT on supercomputers, I simulated multiple layers of rock with various physical properties undergoing extension for ten of millions of years. Furthermore, I implemented an efficient automated system that detect the instance of continental break-up. We identified a list of physical parameters that control the geological process.</p> -->
+						<div class="timeline__content">
+							<h3 class="subsubtitle">PhD Student, Geophysics</h3>
+							<p class="timeline__time">09/2024&ndash;</p>
+							<p class="timeline__place">University of Potsdam</p>
 						</div>
 					</article>
 
 					<article class="timeline__item">
-						<div class="timeline__item__content">
-							<h3 class="timeline__item__title">Geophysicist</h3>
-							<p class="timeline__item__place">Abitibi Geophysics</p>
+						<div class="timeline__content">
+							<h3 class="subsubtitle">MSc, Earth Sciences</h3>
+							<p class="timeline__time">09/2023&ndash;08/2024</p>
+							<p class="timeline__place">University of Toronto</p>
+						</div>
+					</article>
+
+					<article class="timeline__item">					
+						<div class="timeline__content">
+							<h3 class="subsubtitle">BSc, Environmental Physics</h3>
+							<p class="timeline__time">09/2018&ndash;04/2023</p>
+							<p class="timeline__place">University of Toronto</p>
+						</div>
+					</article>
+				</div>
+
+				<h2 class="timeline__title subtitle">Career</h2>
+				<div class="timeline">
+					<hr class="timeline__line"></hr>
+
+					<article class="timeline__item">
+						<div class="timeline__content">
+							<h3 class="subsubtitle">Doctoral Researcher &ndash; Geosystem</h3>
+							<p class="timeline__time">09/2024&ndash;</p>
+							<p class="timeline__place"> German Research Centre for Geosciences (GFZ)</p>
+							<p class="faded"><i>Geodynamic modelling, reservoir flow modelling, geophysical data integration</i></p>
+						</div>
+					</article>
+
+					<article class="timeline__item">
+						<div class="timeline__content">
+							<h3 class="subsubtitle">Research Assistant &ndash; Geodynamics</h3>
+							<p class="timeline__time">05/2022&ndash;08/2024</p>
+							<p class="timeline__place"><a class="hover-line" href="https://philheron.com" class="timeline__item__person">Prof. Phil Heron</a>, University of Toronto</p>
+							<p class="faded"><i>Plate tectonics, computational physics, automated data analysis</i></p>
+						</div>
+					</article>
+
+					<article class="timeline__item">
+						<div class="timeline__content">
+							<h3 class="subsubtitle">Geophysicist</h3>
+							<p class="timeline__time">01/2022&ndash;04/2022</p>
+							<p class="timeline__place">Abitibi Geophysics, Toronto, Canada</p>
+							<p class="faded"><i>Geophysical data analysis, automated map production</i></p>
 						</div>
 					</article>
 
 					<article class="timeline__item">
 						<aside></aside>						
-						<div class="timeline__item__content">
-							<h3 class="timeline__item__title">Research Assistant &ndash; Glacial Geology</h3>
-							<p class="timeline__item__place"><a data-target-cover href="https://planetearth.utsc.utoronto.ca/#nick-eyles">Prof. Nick Eyles</a>, University of Toronto</p>
+						<div class="timeline__content">
+							<h3 class="subsubtitle">Research Assistant &ndash; Glacial Geology</h3>
+							<p class="timeline__time">05/2021&ndash;12/2021</p>
+							<p class="timeline__place"><a class="hover-line" href="https://planetearth.utsc.utoronto.ca/#nick-eyles">Prof. Nick Eyles</a>, University of Toronto</p>
+							<p class="faded"><i>GIS, seismic reflection stratigraphy, drone-assisted field work</i></p>
 						</div>
 					</article>
 				</div>
-
-				<a class="rounded button hero__nav__link" href="https://www.overleaf.com/read/qjrvhqjdgdjv">Projects</a>
 			</div>
+
+			<a class="rounded button timeline__button hover-fill" href="https://www.overleaf.com/read/qjrvhqjdgdjv">Full CV in PDF</a>
 		</section>
 	</main>
 
@@ -128,7 +193,7 @@
 			</div>
 		</section>
 	</footer>
-	
+
 	<noscript>Please enable JavaScript to ensure that the website function properly.</noscript>
 </body>
 </html>

@@ -1,15 +1,33 @@
 .hero {
   display: flex;
-  height: 100vh;
   min-height: 800px;
+  overflow: hidden;
+
+  @include respond-to('landscape') {
+    height: 100vh;
+    flex-direction: row;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    @include respond-to('landscape') {
+      flex-direction: row;
+    }
+  }
 
   &__figure {
     min-width: 350px;
-    max-width: 500px;
+    max-width: 450px;
+    max-height: 450px;
   }
 
   &__background {
     position: absolute;
+    object-fit: cover;
+    z-index: -1;
     top: 0;
     left: 0;
     width: 100%;
@@ -31,39 +49,6 @@
     font-size: 4rem;
     line-height: 1;
     margin-bottom: var(--gap-medium);
-  }
-
-  &__container {
-    display: flex;
-    flex-direction: row;
-  }
-}
-
-.nav {
-  position: absolute;
-  z-index: 1;
-  top: 150px;
-  left: 50%;
-
-  transform: translate(-50%, -50%); /* Adjust for the nav's own dimensions */
-  
-  &__list {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  &__item {
-    display: block;
-    min-width: 150px;
-    text-align: center;
-    margin: 0 var(--gap-small);
-  }
-
-  &__link {
-    padding: var(--gap-small) var(--gap-medium);
-    mix-blend-mode: exclusion;
-    font-weight: 500;
   }
 }
 
@@ -150,50 +135,6 @@
   line-height: 60px;
   text-align: center;
   z-index: 1;
-}
-
-.ball {
-  position: absolute;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  margin: 7px;
-  transition: 0.2s;
-}
-
-.quote {
-  background: linear-gradient(35deg,#8c66d8 0%,#ac2d9b 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-
-  span {
-    font-size: 2.5rem;
-    line-height: 1.1;
-  }
-
-  @include respond-to('landscape') {
-    transition: color var(--time) ease;
-    
-    &:hover {
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-  }
-
-  &::before {
-    content: '“';
-    font-size: var(--icon);
-  }
-
-  &::after {
-		content: '';
-    margin-top: 24px;
-		display: block;
-		width: var(--icon);
-		height: 3px;
-	}
 }
 
 .dynamic-background {

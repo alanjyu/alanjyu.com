@@ -1,3 +1,16 @@
+
+$faint-backgrounds: (
+  'n': linear-gradient(112deg, #05c0591e, #f9fd501e),
+  '2n': linear-gradient(72deg, #6bbdcf1e, #268ea81e),
+  '3n': linear-gradient(90deg, #b559921e, #d79cb11e)
+);
+
+$button-backgrounds: (
+  'n': linear-gradient(90deg, #00bd561a, #f9fd501a),
+  '2n': linear-gradient(90deg, #26baee1a, #9fe8fa),
+  '3n': linear-gradient(90deg, #55968f1a, #8acbbb1a)
+);
+
 .exp {
 	display: flex;
 	flex-direction: column;
@@ -35,7 +48,6 @@
         height: 400px;
       }
 
-      // a different layout between mobile and desktop
       @include respond-to('desktop') {
         width: 450px;
         max-height: 550px;
@@ -61,12 +73,12 @@
     &__link {
       display: block;
       align-self: center;
-      mix-blend-mode: exclusion;
       min-width: 150px;
       margin-top: var(--gap-small);
       padding: var(--gap-small) var(--gap-medium);
       text-align: center;
       font-weight: 500;
+      z-index: 1;
     }
   }
 }

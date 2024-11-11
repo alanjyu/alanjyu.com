@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Alan Yu</title>
+	<title>Alan Yu - Research</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -14,13 +14,13 @@
 	<meta prefix="og: https://ogp.me/ns#" property="og:image" content="https://alanjyu.com/profile.0de77c35.jpg" />
 	<meta prefix="og: https://ogp.me/ns#" property="og:description" content=" " />
 
-	<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
-	<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
-	<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
-	<link rel="manifest" href="./site.webmanifest" />
-	<link rel="stylesheet" href="./css/index.scss" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png" />
+	<link rel="manifest" href="../site.webmanifest" />
+	<link rel="stylesheet" href="../css/index.scss" />
 
-	<script type="module" src="./js/main.js" defer></script>
+	<script type="module" src="../js/main.js" charset="utf-8" defer></script>
 </head>
 
 <body>
@@ -53,38 +53,60 @@
 	<nav class="nav">
 		<ul class="rounded nav__list">
 			<li class="nav__item" data-target-cover>
-				<a class="button nav__link nav__link__active" href="#">Home</a>
+				<a class="button nav__link" href="/">Home</a>
 			</li>
 			<li class="nav__item" data-target-cover>
 				<a class="button nav__link" href="/cv/">CV</a>
 			</li>
 			<li class="nav__item" data-target-cover>
-				<a class="button nav__link" href="/science/">Science</a>
+				<a class="button nav__link nav__link__active" href="#">Science</a>
 			</li>
 			<li class="nav__item" data-target-cover>
 				<a class="button nav__link" href="/music/">Music</a>
 			</li>
 		</ul>
 	</nav>
-
+	
 	<main>
-		<section class="section hero">
-			<div class="rounded hero__container">
-				<figure class="hero__figure">
-					<img class="full-frame" src="./img/profile.jpg" title="Alan's profile picture" />
-				</figure>
+		<section class="section section__first">
+			<div class="container">
+				<div class="exp">
+					<article class="rounded exp__item">
+						<figure class="exp__item__figure">
+							<img class="full-frame full-frame__hover" src="../img/labrador_sea.jpg" title="Setting up seismic surveying equipments" img-alt=""/>
+						</figure>
+						<div class="acrylic exp__item__content">
+							<h3 class="exp__item__title">Geoydnamic modelling of rifting on supercomputers</h3>
+							<p>Rifting is a process in which a continent splits into two or more smaller pieces. About 60 million years ago, a major rift occured in the North Atlantic that separated Greenland, Canada, and Europe. Why fragments of Greenland ended up in both Canada (the Nain Province) and Scotland (the Lewisian Complex) remains a geological mystery. Using numerical models, we simulated multiple layers of rock with varying properties under millions of years of extension and deformation. This allowed us to explore the impact of pre-existing mountain belts on rifting. </p>
+							<a class="rounded button exp__item__link hover-fill" href="https://doi.org/10.1130/G50734.1">See publication</a>
+						</div>
+					</article>
 
-				<figure>
-					<img class="hero__background" src="./img/background.jpg" title="Background" />
-				</figure>
-				
-				<div class="hero__content">
-					<h1 class="hero__title">Hey, name's Alan.</h1>
-					<p>Thanks for stopping by! I am an Earth scientist specializing in geophysics. I have researched about <a href="https://en.wikipedia.org/wiki/Drumlin">drumlins</a>, lake sediments, and rift systems. </p>
-					<p>When I am not exploring the wonders of our planet, you can find me tinkering with my car or jamming out on the drums with friends. I am also a huge synthesizer nerd. </p>
+					<article class="rounded exp__item">
+						<figure class="exp__item__figure">
+							<img class="full-frame full-frame__hover" src="../img/simard.jpg" title="seismic reflection stratigraphy" />
+						</figure>
+						<div class="acrylic exp__item__content">
+							<h3 class="exp__item__title">Sediment layers reveal geological history of Lac Simard</h3>
+							<p>The Western Quebec Seismic Zone is known for earthquakes but lacks sufficient instrumental records and understanding of its underlying geology. By analyzing seismic reflection profiles from Lac Simard, Canada, we identified two distinct sediment sequences &mdash; one capturing lateglacial (~10-8 thousand years ago) records and another postglacial. We also found acoustic facies suggesting disturbances potentially linked to ancient tectonic activity or sudden surges of meltwater from the retreating Laurentide Ice Sheet, which once blanketed most of North America.</p>
+							<a class="rounded button exp__item__link hover-fill" href="https://doi.org/10.1139/cjes-2023-0027">See publication</a>
+						</div>
+					</article>
+
+					<article class="rounded exp__item">
+						<figure class="exp__item__figure">
+							<img class="full-frame full-frame__hover" src="../img/odessa.jpg" title="Getting groovy with the mega grooves."/>
+						</figure>
+						<div class="acrylic exp__item__content">
+							<h3 class="exp__item__title">Reconstructing past ice flow patterns from glacial grooves</h3>
+							<p>Glacial mega-grooves are etched into bedrock by the abrasive force of ancient ice sheets. These grooves reveal crucial information about the speed and direction of past glacial flow. Our study focused on documenting and measuring mega-grooves near Odessa, Canada. The remnant patterns paint a vivid picture of the region's glacial history: a SW advance of the Ontario Lobe during the Last Ice Age, followed by a NW retreat during deglaciation evidenced by crossing striations.</p>
+							<a class="rounded button exp__item__link hover-fill" href="https://planetearth.utsc.utoronto.ca/news/odessa.html">Read more</a>
+						</div>
+					</article>
 				</div>
 			</div>
 		</section>
+
 	</main>
 
 	<footer class="dynamic-background">
@@ -132,7 +154,7 @@
 			</div>
 		</section>
 	</footer>
-
+	
 	<noscript>Please enable JavaScript to ensure that the website function properly.</noscript>
 </body>
 </html>

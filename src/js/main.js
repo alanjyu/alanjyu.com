@@ -1,13 +1,19 @@
 // import Cursor from './components/cursor';
-import Theme from './components/theme';
+import Theme from './_theme.js';
+import Nav from './_nav.js';
+import Hover from './_hover.js';
 
 const components = [
 	{
-		class: Cursor,
-		selector: '.cursor'
+		class: Theme,
+		selector: 'html'
 	},
 	{
-		class: Theme,
+		class: Nav,
+		selector: 'nav'
+	},
+	{
+		class: Hover,
 		selector: 'html'
 	}
 ];
@@ -15,7 +21,6 @@ const components = [
 document.addEventListener('DOMContentLoaded', () => {
 	/* Checks if the selector is loaded.
 	If so, then excecute the corresponding scripts and options */
-
 	components.forEach(component => {
 		if (document.querySelector(component.selector) !== null) {
 			document.querySelectorAll(component.selector).forEach(

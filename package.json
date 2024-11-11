@@ -6,10 +6,27 @@
   "directories": {
     "lib": "lib"
   },
+  "targets": {
+    "index": {
+      "source": "src/index.html"
+    },
+    "cv": {
+      "source": "src/cv/index.html"
+    },
+    "science": {
+      "source": "src/science/index.html"
+    },
+    "music": {
+      "source": "src/music/index.html"
+    },
+    "coding": {
+      "source": "src/coding/index.html"
+    }
+  },
   "scripts": {
-    "dev": "parcel serve ./src/index.html ./src/research/index.html ./src/cv/index.html ./src/hobbies/index.html",
-    "build": "parcel build ./src/index.html ./src/research/index.html ./src/cv/index.html ./src/hobbies/index.html --dist-dir docs/",
-    "publish": "parcel build ./src/index.html ./src/research/index.html ./src/cv/index.html ./src/hobbies/index.html --public-url https://alanjyu.com --dist-dir docs/"
+    "dev": "parcel serve",
+    "build": "parcel build --dist-dir docs/",
+    "publish": "parcel build --public-url https://alanjyu.com --dist-dir docs/"
   },
   "repository": {
     "type": "git",
