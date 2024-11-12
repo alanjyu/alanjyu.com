@@ -34,7 +34,7 @@
     padding: var(--gap-small) var(--gap-medium);
     font-weight: 500;
     background: var(--accent-color);
-    transition: background var(--time);
+    transition: background var(--animation-time);
 
     &__active {
       background: var(--highlight-color);
@@ -68,7 +68,7 @@
     width: 30px;
     height: 3px;
     background: var(--white);
-    transition: all var(--time);
+    transition: all var(--animation-time);
   }
 
   &::after {
@@ -79,7 +79,7 @@
     width: 30px;
     height: 3px;
     background: var(--white);
-    transition: all var(--time);
+    transition: all var(--animation-time);
   }
 
   &__active {

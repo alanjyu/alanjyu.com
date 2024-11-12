@@ -1,25 +1,35 @@
 .hero {
-    min-height: 700px;
+    min-height: 600px;
   
     @include respond-to('landscape') {
       height: 100vh;
       flex-direction: row;
     }
+
+    &__background {
+      min-height: 550px;
+    }
   
     &__content {
       @extend .acrylic;
-      @extend .card__item__content;
     
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: var(--space-small);
-  
+      align-items: center;
+      padding: var(--gap-medium);
+      background: var(--accent-color);
+
+      h1, p {
+        width: 100%;
+        max-width: 500px;
+      }
+
       @include respond-to('landscape') {
         position: absolute;
         top: 45%;
         right: 10%;
-        max-width: 500px;
+        padding: var(--gap-large);
         border-radius: $border-radius-large;
       }
     }

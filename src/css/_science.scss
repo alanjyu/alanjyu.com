@@ -22,7 +22,7 @@ $button-backgrounds: (
     overflow: hidden;
     margin: var(--gap-large) 0;
     transform-origin: center;
-    transition: var(--time) ease;
+    transition: var(--animation-time) ease;
 
     @include respond-to('desktop') {
       flex-direction: row;

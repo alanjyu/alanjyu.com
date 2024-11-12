@@ -16,13 +16,13 @@
 	&--no-target {
 		opacity: .25;
 		filter: blur(24px);
-		transition: opacity var(--time) ease;
+		transition: opacity var(--animation-time) ease;
 	}
 
 	&--cover {
 		opacity: 1;
 		border-radius: 25%;
-		transition: border-radius .1s ease, transform var(--time) ease, opacity var(--time) ease;
+		transition: border-radius .1s ease, transform var(--animation-time) ease, opacity var(--animation-time) ease;
 	}
 
 	&--dot {
@@ -30,7 +30,7 @@
 		width: 10px;
 		height: 10px;
 		border-radius: 50%;
-		transition: all var(--time) ease;
+		transition: all var(--animation-time) ease;
 	}
 }
 
