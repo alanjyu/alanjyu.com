@@ -61,6 +61,7 @@ object {
   pointer-events: none;
 }
 
+@import 'breakpoints';
 @import 'prm', 'theme', 'hero', 'main', 'nav', 'footer', 'cv', 'science', 'music', 'fonts';
 
 body {

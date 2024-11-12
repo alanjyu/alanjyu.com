@@ -21,29 +21,6 @@
 $border-radius: 10px;
 $border-radius-large: 20px;
 
-$breakpoints: ('mobile': (min-width: 478),
-  'landscape': (min-width: 768px),
-  'tablet': (min-width: 992px),
-  'desktop': (min-width: 1200px),
-  'ultrawide': (min-width: 2000px)) !default;
-
-@mixin dynamic-border-radius($value, $breakpoint) {
-  & {
-    border-radius: #{"max(0px, min(#{$value}, 100% - #{$breakpoint} + 1px) * 9999) / #{$value}"};
-  }
-}
-
-@mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media #{inspect(map-get($breakpoints, $breakpoint))} {
-      @content;
-    }
-  }
-
-  @else {
-    @warn 'Unfortunately, no value could be retrieved.';
-  }
-}
 
 @keyframes pulse {
   0% {
@@ -52,13 +29,14 @@ $breakpoints: ('mobile': (min-width: 478),
 }
 
 .container {
-  width: 100%;
+  width: 90%;
   
   @include respond-to('tablet') {
     max-width: 600px;
   }
 
   @include respond-to('landscape') {
+    width: 100%;
     max-width: 750px;
   }
 
@@ -68,26 +46,18 @@ $breakpoints: ('mobile': (min-width: 478),
 }
 
 .section {
-  padding: var(--space-small) 0;
+  padding: 60px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-x: hidden;
 
   &__top {
     @extend .section;
-    padding: 200px 0;
+
+    @include respond-to('landscape') {
+      padding: 200px 0 60px 0;
+    }
   }
-}
-
-.center {
-  text-align: center;
-}
-
-.tag {
-  font-size: 16px;
-  background: var(--button-color);
-  padding: var(--gap-small) var(--gap-medium);
 }
 
 .outlined {
@@ -100,10 +70,10 @@ $breakpoints: ('mobile': (min-width: 478),
 }
 
 .rounded {
-	border-radius: var(--border-radius);
+	border-radius: $border-radius;
 
   &__large {
-    border-radius: calc(var(--border-radius) * 2);
+    border-radius: $border-radius-large;
   }
 }
 
@@ -113,16 +83,26 @@ $breakpoints: ('mobile': (min-width: 478),
 	backdrop-filter: blur(24px);
 }
 
-.full-frame {
+.fullframe {
   position: absolute;
   object-fit: cover;
 	width: 100%;
 	height: 100%;
+
+  &--hover {
+    @extend .fullframe;
+    transition: transform var(--animation-time);
+    transform: scale(1);
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 
 .button {
   display: block;
-  background: var(--white);
+  background: var(--button-color);
   transition: background var(--animation-time), box-shadow var(--animation-time);
 }
 
@@ -187,9 +167,9 @@ $breakpoints: ('mobile': (min-width: 478),
 
 .hover-line {
   text-decoration: none;
-  box-shadow: inset 0 -1px 0 0 var(--highlight-color);
+  box-shadow: inset 0 -2px 0 0 var(--highlight-color);
   display: inline-block;
-  transition: all .2s ease-in-out;
+  transition: all var(--animation-time);
   padding: 0 3px;
   box-sizing: border-box;
 
@@ -199,3 +179,6 @@ $breakpoints: ('mobile': (min-width: 478),
   }
 }
 
+.highlight {
+  background: var(--highlight-color);
+}

@@ -24,7 +24,7 @@
 </head>
 
 <body>
-	<div class="theme-switch-wrapper">
+	<div class="themeswitch">
 		<span class="icon-sun" aria-hidden="true">
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<circle cx="12" cy="12" r="5" fill="currentColor" />
@@ -44,26 +44,28 @@
 			</svg>
 		</span>
 
-		<label class="theme-switch" for="checkbox">
+		<label class="themeswitch__checkbox" for="checkbox">
 		  <input type="checkbox" id="checkbox" />
-		  <div class="slider round"></div>
+		  <div class="slider"></div>
 		</label>
 	</div>
 
-	<nav class="rounded nav">
+	<nav class="nav">
+		<div class="burger">
+			<div class="burger__inner"></div>
+		</div>
+
+		<ul class="nav__menu">
+			<li><a href="/">Home</a></li>
+			<li><a href="/cv/">CV</a></li>
+			<li><a href="/science/">Science</a></li>
+		</ul>
+		
 		<ul class="nav__list">
-			<li class="nav__item" data-target-cover>
-				<a class="nav__link" href="/">Home</a>
-			</li>
-			<li class="nav__item" data-target-cover>
-				<a class="nav__link" href="/cv/">CV</a>
-			</li>
-			<li class="nav__item" data-target-cover>
-				<a class="nav__link" href="/science/">Science</a>
-			</li>
-			<li class="nav__item" data-target-cover>
-				<a class="nav__link nav__link__active" href="#">Music</a>
-			</li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/cv/">CV</a></li>
+			<li><a href="/science/">Science</a></li>
+			<li><a class="highlight" href="/music/">Music</a></li>
 		</ul>
 	</nav>
 
@@ -86,11 +88,11 @@
 			</article>
 		</section> -->
 
-		<section class="section section__first">
+		<section class="section__top">
 			<div class="container">
 				<h2 class="timeline__title subtitle">Synths</h2>
 				<article class="content">
-					<p>I have learned to produce, mix, and master music. I fell in love with synthesizers &mdash; <a class="hover-line" data-target href="https://www.youtube.com/watch?v=t1xEJccP6Zw" target="_blank">DX-7</a>, <a class="hover-line" data-target href="https://www.youtube.com/watch?v=bhOQzrpniJo" target="_blank">Prophet-5</a>, <a class="hover-line" data-target href="https://www.youtube.com/watch?v=O1E69vocb7A" target="_blank">Jupiter-8</a>, Moog Model D, and <a class="hover-line" data-target href="https://www.youtube.com/watch?v=SNf57jhzmPE" target="_blank">Juno-60</a>.</p>
+					<p>I have learned to produce, mix, and master music. I fell in love with synthesizers &mdash; <a class="hover-line" href="https://www.youtube.com/watch?v=t1xEJccP6Zw" target="_blank">DX-7</a>, <a class="hover-line" data-target href="https://www.youtube.com/watch?v=bhOQzrpniJo" target="_blank">Prophet-5</a>, <a class="hover-line" data-target href="https://www.youtube.com/watch?v=O1E69vocb7A" target="_blank">Jupiter-8</a>, Moog Model D, and <a class="hover-line" data-target href="https://www.youtube.com/watch?v=SNf57jhzmPE" target="_blank">Juno-60</a>.</p>
 
 					<div class="musicbox">
 						<iframe class="musicbox__item" src="https://bandcamp.com/EmbeddedPlayer/album=33360417/size=large/bgcol=1f1f1f/linkcol=efd7ab/artwork=small/transparent=true/" seamless><a href="https://lennjuno.bandcamp.com/album/exploration-of-space">Exploration of Space by Lenn Juno</a></iframe>

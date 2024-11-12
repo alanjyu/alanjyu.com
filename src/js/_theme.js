@@ -2,7 +2,7 @@ export default class Theme {
   constructor() {
     const themeCheckbox = document.querySelector('#checkbox');
     const savedTheme = localStorage.getItem('theme');
-    const backgrounds = document.querySelectorAll('.full-frame');
+    const backgrounds = document.querySelectorAll('.fullframe');
 
     console.log(backgrounds)
 

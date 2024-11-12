@@ -2,6 +2,7 @@
   display: block;
 
   &__list {
+    // only shows in desktop
     @extend .acrylic;
     @extend .rounded;
     
@@ -11,88 +12,139 @@
     top: 150px;
     left: 50%;
     transform: translate(-50%, -50%);
+    background: var(--accent-color);
+    align-items: center;
     overflow: hidden;
 
     @include respond-to('landscape') {
       display: flex;
-      align-items: center;
+    }
+
+    > li {
+      display: block; 
+      min-width: 100px;
+      text-align: center;
+  
+      @include respond-to('landscape') {
+        min-width: 150px;
+      }
+
+      > a {
+        display: block;
+        padding: var(--gap-small) var(--gap-medium);
+        font-weight: 500;
+        transition: background var(--animation-time);
+      }
     }
   }
 
-  &__item {
-    display: block; 
-    min-width: 100px;
-    text-align: center;
+  &__menu {
+    @extend .acrylic;
+
+    display: flex;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 8;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 60px 0;
+    background: var(--accent-color);
+    transform: translateY(-100%);
+    transition: var(--animation-time);
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-x: hidden;
 
     @include respond-to('landscape') {
-      min-width: 150px;
+      display: none;
     }
-  }
 
-  &__link {
-    display: block;
-    padding: var(--gap-small) var(--gap-medium);
-    font-weight: 500;
-    background: var(--accent-color);
-    transition: background var(--animation-time);
+    > li {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      padding: var(--gap-small) 0;
 
-    &__active {
-      background: var(--highlight-color);
+      > a {
+        text-align: center;
+        font-weight: 500;
+        min-width: 120px;
+        font-size: 26px;
+        line-height: 2;
+      }
+    }
+  
+    &--visible {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
 
 .burger{
-  top: 20px;
+  @extend .acrylic;
+  @extend .rounded;
+
+  position: fixed;
+  z-index: 9;
+  top: 15px;
   left: 20px;
-  position: relative;
   width: 30px;
-  height: 3px;
-  background: var(--white);
+  height: 30px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &-wrapper {
-    z-index: 9;
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  @include respond-to('landscape') {
+    display: none;
   }
 
-  &::before {
+  &__inner {
     position: absolute;
-    left: 0;
-    top: -10px;
-    content: '';
-    width: 30px;
+    width: 80%;
+    left: 10%;
     height: 3px;
-    background: var(--white);
-    transition: all var(--animation-time);
-  }
-
-  &::after {
-    position: absolute;
-    left: 0;
-    top: 10px;
-    content: '';
-    width: 30px;
-    height: 3px;
-    background: var(--white);
-    transition: all var(--animation-time);
-  }
-
-  &__active {
-    background-color: transparent;
-
+    background: var(--text-color);
+    transition: var(--animation-time);
+  
     &::before {
-      transform: rotate(45deg);
-      top: 0;
+      content: '';
+      position: absolute;
+      width: 80%;
+      left: 10%;
+      top: -10px;
+      height: 3px;
+      background: var(--text-color);
+      transition: var(--animation-time);
     }
-
+  
     &::after {
-      transform: rotate(-45deg);
-      top: 0;
+      position: absolute;
+      content: ' ';
+      width: 80%;
+      left: 10%;
+      top: 10px;
+      height: 3px;
+      background: var(--text-color);
+      transition: var(--animation-time);
+    }
+  
+    &--active {
+      background-color: transparent;
+  
+      &::before {
+        transform: rotate(45deg);
+        top: 0;
+      }
+  
+      &::after {
+        transform: rotate(-45deg);
+        top: 0;
+      }
     }
   }
 }

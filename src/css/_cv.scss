@@ -44,6 +44,9 @@
   }
 
   &__button {
+    @extend .rounded;
+    @extend .button;
+  
     font-weight: 500;
     margin-top: var(--gap-large);
     padding: var(--gap-small) var(--gap-large);

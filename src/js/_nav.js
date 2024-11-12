@@ -1,22 +1,25 @@
 export default class Nav {
     constructor() {
-        const navBurger = document.querySelector('.burger-wrapper');
-        const navLinks = document.querySelectorAll('.nav__link');
-        let currentActiveLink = document.querySelector('.nav__link__active');
-
+        const navBurger = document.querySelector('.burger');
+        const navBurgerInner = document.querySelector('.burger__inner');
+        const navMenu = document.querySelector('.nav__menu'); 
+        const navLinks = document.querySelectorAll('.nav__list > li');
+        let currentActiveLink = document.querySelector('.highlight');
+        
         navBurger.addEventListener('click', () => {
-            document.querySelectorAll('.burger').classList.toggle('burger__active');
+            navBurgerInner.classList.toggle('burger__inner--active');
+            navMenu.classList.toggle('nav__menu--visible');
         });
 
         navLinks.forEach(link => {
             link.addEventListener('mouseenter', () => {
-                currentActiveLink.classList.remove('nav__link__active');
-                link.classList.add('nav__link__active');
+                currentActiveLink.classList.remove('highlight');
+                link.classList.add('highlight');
             });
 
             link.addEventListener('mouseleave', () => {
-                link.classList.remove('nav__link__active');
-                currentActiveLink.classList.add('nav__link__active');
+                link.classList.remove('highlight');
+                currentActiveLink.classList.add('highlight');
             });
         });
     }
