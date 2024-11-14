@@ -2,13 +2,18 @@
   "name": "alanjyu.com",
   "version": "1.8.0",
   "default": "src/js/main.js",
-  "description": "Alan Yu's web portfolio.",
+  "description": "Alan Yu's portfolio website.",
   "directories": {
     "lib": "lib"
   },
   "targets": {
     "build": {
-      "source": ["src/index.html", "src/cv/index.html", "src/science/index.html", "src/music/index.html"],
+      "source": [
+        "src/index.html",
+        "src/cv/index.html",
+        "src/science/index.html",
+        "src/music/index.html"
+      ],
       "distDir": "docs/"
     }
   },
@@ -31,7 +36,8 @@
     "@parcel/packager-raw-url": "^2.12.0",
     "@parcel/transformer-sass": "^2.12.0",
     "@parcel/transformer-webmanifest": "^2.12.0",
-    "parcel": "^2.12.0"
+    "parcel": "^2.12.0",
+    "sharp": "^0.31.3"
   },
   "dependencies": {
     "lmdb": "^2.8.2"

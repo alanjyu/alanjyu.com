@@ -4,8 +4,6 @@ export default class Theme {
     const savedTheme = localStorage.getItem('theme');
     const backgrounds = document.querySelectorAll('.fullframe');
 
-    console.log(backgrounds)
-
     // check the system theme
     const getSystemTheme = () => {
       return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
