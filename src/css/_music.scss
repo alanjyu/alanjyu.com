@@ -12,6 +12,8 @@
   }
 
   &__item {
+    @extend .box-shadow;
+    
     display: flex;
     flex-direction: column;
     background: var(--accent-color);
@@ -36,10 +38,9 @@
     }
 
     > iframe {
-      @extend .box-shadow;
       width: 100%;
       border-radius: 10px; 
-      margin: 4px 0;
+      margin: 6px 0;
       background: var(--button-color);
     }
 
