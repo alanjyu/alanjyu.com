@@ -1,12 +1,49 @@
-.musicbox {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+.music {
+  @extend .container;
 
-    &__item {
-        width: 100%;
-        height: 250px;
-        max-width: 500px;
+  display: flex;
+  flex-direction: column;
+
+  > h2 {
+    @extend .subtitle;
+
+    margin: 40px 0 24px 0;
+    font-weight: 600;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    background: var(--accent-color);
+    padding: var(--gap-medium) var(--gap-large);
+    border-radius: $border-radius-large;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    margin: var(--gap-medium) 0;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    > audio {
+      width: 100%;
+      margin: 4px 0;
     }
+
+    > iframe {
+      @extend .box-shadow;
+      width: 100%;
+      border-radius: 10px; 
+      margin: 4px 0;
+      background: var(--button-color);
+    }
+
+    > .bandcamp {
+      max-width: 550px;
+      height: 208px;
+    }
+  }
 }
   

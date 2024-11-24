@@ -1,8 +1,8 @@
 export default class Hover {
     constructor() {
-        const buttons = document.querySelectorAll('.hover-fill');
+        this.buttons = document.querySelectorAll('.hover-fill');
 
-        buttons.forEach(button => {
+        this.buttons.forEach(button => {
           button.addEventListener('mouseenter', function(e) {
             const parentOffset = button.getBoundingClientRect();
             const relX = e.pageX - window.scrollX - parentOffset.left;

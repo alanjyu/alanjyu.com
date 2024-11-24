@@ -12,12 +12,12 @@
   margin: var(--gap-medium) 0;
 
     &__link {
-        @extend .hover-pulse;
+      @extend .hover-pulse;
 
-        border-radius: $border-radius;
-        display: inline-block;
-        height: var(--icon);
-        width: var(--icon);
+      border-radius: $border-radius;
+      display: inline-block;
+      height: var(--icon);
+      width: var(--icon);
 
       svg {
         height: 100%;

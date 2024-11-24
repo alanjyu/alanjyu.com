@@ -18,6 +18,8 @@
   --animation-time-long: 6s;
 }
 
+$color-white: #fff;
+
 $border-radius: 10px;
 $border-radius-large: 20px;
 
@@ -106,6 +108,10 @@ $border-radius-large: 20px;
   transition: background var(--animation-time), box-shadow var(--animation-time);
 }
 
+.box-shadow {
+  box-shadow: 0 0 2px var(--shadow-color);
+}
+
 .hover-pulse {
   &:hover, &:focus {
     animation: pulse .5s;
@@ -144,10 +150,6 @@ $border-radius-large: 20px;
   }
 }
 
-.faded {
-	opacity: .7;
-}
-
 .hover-shadow {
   transition: all var(--animation-time);
 
@@ -179,6 +181,6 @@ $border-radius-large: 20px;
   }
 }
 
-.highlight {
-  background: var(--highlight-color);
+.faded {
+	opacity: .7;
 }

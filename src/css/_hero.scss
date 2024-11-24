@@ -22,6 +22,7 @@
   
     &__content {
       @extend .acrylic;
+      @extend .box-shadow;
     
       display: flex;
       flex-direction: column;
@@ -35,6 +36,7 @@
         max-width: 450px;
 
         @include respond-to('landscape') {
+          width: 100%;
           max-width: 400px;
         }
       }

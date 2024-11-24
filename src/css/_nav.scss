@@ -5,6 +5,7 @@
     // only shows in desktop
     @extend .acrylic;
     @extend .rounded;
+    @extend .box-shadow;
     
     position: absolute;
     display: none;
@@ -22,20 +23,30 @@
 
     > li {
       display: block; 
-      min-width: 100px;
+      position: relative;
       text-align: center;
-  
-      @include respond-to('landscape') {
-        min-width: 150px;
-      }
+      min-width: 150px;
 
       > a {
-        display: block;
+        display: inline-block;
+        width: 100%;
         padding: var(--gap-small) var(--gap-medium);
         font-weight: 500;
-        transition: background var(--animation-time);
+      }
+
+      &:not(:last-child) {
+        // add subtitle separation effect
+        box-shadow: inset -10px 0 10px -15px var(--shadow-color);
       }
     }
+  }
+
+  &__rect {
+    position: absolute;
+    width: 150px;
+    height: 100%;
+    background: var(--highlight-color);
+    z-index: -1;
   }
 
   &__menu {
