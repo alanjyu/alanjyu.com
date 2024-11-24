@@ -27,7 +27,7 @@ $button-backgrounds: (
     border-radius: $border-radius-large;
     overflow: hidden;
     width: 100%;
-    margin: 28px 0;
+    margin: 20px 0;
     transition: var(--animation-time) ease;
 
     @include respond-to('desktop') {
