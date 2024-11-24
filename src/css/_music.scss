@@ -15,14 +15,17 @@
     display: flex;
     flex-direction: column;
     background: var(--accent-color);
-    padding: var(--gap-medium) var(--gap-large);
+    padding: var(--gap-medium);
     border-radius: $border-radius-large;
+
+    > p:first-of-type {
+      margin-top: 0;
+    }
   }
 
   &__box {
     display: flex;
     flex-direction: column;
-    margin: var(--gap-medium) 0;
     width: 100%;
     justify-content: center;
     align-items: center;

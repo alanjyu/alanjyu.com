@@ -73,7 +73,6 @@ $button-backgrounds: (
       flex-direction: column;
       padding: var(--gap-medium);
       background: var(--accent-color);
-      align-items: center;
   
       @include respond-to('desktop') {
         padding: var(--gap-large);
@@ -84,6 +83,10 @@ $button-backgrounds: (
         margin-bottom: var(--gap-small);
         line-height: 1.15;
       }
+
+      > p:first-of-type {
+        margin-top: 0;
+      }
     }
 
     &__link {
@@ -92,6 +95,7 @@ $button-backgrounds: (
 
       display: block;
       min-width: 250px;
+      align-self: center;
       border-radius: $border-radius;
       margin-top: var(--gap-small);
       padding: var(--gap-small) var(--gap-medium);
