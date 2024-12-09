@@ -17,7 +17,7 @@ The website is built with native HTML, CSS, and Javascript, and supports all maj
 
 Parcel is a compiler that takes all of your files and dependencies, transforms them, and merges them together into a smaller set of static files that can serve as a web page.
 
-To install Parcel, use `npm install -D parcel`. You may also need install some dependencies. 
+To install Parcel, use `npm install -D parcel`. You may also need to install some dependencies. 
 
 
 The following three commands, stored in [package.json](https://github.com/alanjyu/alanjyu.com/blob/master/package.json), are set up of develeopment, production and release:
