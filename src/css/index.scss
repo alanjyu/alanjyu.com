@@ -62,10 +62,4 @@ object {
 }
 
 @import 'breakpoints';
-@import 'prm', 'theme', 'hero', 'main', 'nav', 'footer', 'cv', 'science', 'music', 'fonts';
-
-body {
-	background: var(--background-color);
-  color: var(--text-color);
-  overflow-x: hidden;
-}
+@import 'prm', 'fonts', 'theme', 'hero', 'main', 'nav', 'footer', 'cv', 'science', 'music';

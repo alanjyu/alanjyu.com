@@ -20,6 +20,12 @@ html[data-theme="dark"] {
   --shadow-color: #ffffff7e;
 }
 
+html, body {
+	background: var(--background-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+}
+
 .themeswitch {
   position: absolute;
   top: 25px;
