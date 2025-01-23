@@ -1,6 +1,6 @@
 {
   "name": "alanjyu.com",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "default": "src/js/main.js",
   "description": "Alan Yu's portfolio website.",
   "directories": {
@@ -41,6 +41,7 @@
     "svgo": "^3.3.2"
   },
   "dependencies": {
-    "lmdb": "^2.8.2"
+    "lmdb": "^2.8.2",
+    "parcel-transformer-webextension": "^0.0.5"
   }
 }
