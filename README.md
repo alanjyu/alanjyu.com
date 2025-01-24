@@ -1,10 +1,10 @@
-# [Alan's Portfolio](https://alanjyu.com)
+# [alanjyu.com](https://alanjyu.com)
 
 This repository stores and serves my personal website at alanjyu.com. The source code, used for development, is stored in [src/](https://github.com/alanjyu/alanjyu.com/tree/master/src), and the compiled code, used to display the web page, is stored in [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs). I will provide snippets later so that you won't have to download the whole repository just for a feature.
 
 ## Compatibility
 
-The website is built with native HTML, CSS, and Javascript, and supports all major browsers based on Chromium (Chrome, Edge, etc.), WebKit (Safari) and moz (Firefox).
+The website is built in native HTML, CSS, and Javascript and supports all major browsers based on Chromium (Chrome, Edge, etc.), WebKit (Safari) and moz (Firefox).
 
 ## Dependencies
 
@@ -25,7 +25,7 @@ The following three commands, stored in [package.json](https://github.com/alanjy
 - `npm run build` is used for debugging and local testing. It complies the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) with local hyperlink references.
 - `npm run publish` is for the final release. It complies the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) but with absolute hyperlink references ("https://alanjyu.com/...").
 
-Note that the compiled CSS and JS file in [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) aren't subject to be overwritten. You need to clean them manually.
+Note that the compiled CSS and JS file in [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) will not be overwritten. You need to clean them manually.
 
 ## License
 
