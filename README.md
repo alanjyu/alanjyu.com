@@ -4,7 +4,7 @@ This repository stores and serves my personal website. The source code used for 
 
 ## Compatibility
 
-The website is built with native HTML, CSS, and Javascript, and supports all major browsers based on Chromium (Chrome, Edge, etc.), WebKit (Safari) and moz (Firefox).
+The website is built in native HTML, CSS, and Javascript and supports all major browsers based on Chromium (Chrome, Edge, etc.), WebKit (Safari) and moz (Firefox).
 
 ## Dependencies
 
@@ -26,6 +26,11 @@ The following three commands, stored in [package.json](https://github.com/alanjy
 - `npm run build` is used for debugging and local testing. It complies the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) with local hyperlink references.
 - `npm run publish` is for the final release. It complies the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) but with absolute hyperlink references ("https://alanjyu.com/...").
 
+<<<<<<< HEAD
+=======
+Note that the compiled CSS and JS file in [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) will not be overwritten. You need to clean them manually.
+
+>>>>>>> 0a728b220f71ac07846f312997f62682834c0284
 ## License
 
 This project is licensed under the terms of [MIT License](https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE).
