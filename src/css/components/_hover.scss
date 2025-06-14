@@ -1,0 +1,79 @@
+@use '../base/variables' as *;
+
+@mixin pulse {
+  &:hover, &:focus {
+    animation: pulse 0.5s;
+    box-shadow: 0 0 0 36px transparent;
+  }
+}
+
+.hover-fill {
+  position: relative;
+  overflow: hidden;
+  
+  --hover-x: 50%;
+  --hover-y: 50%;
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    top: var(--hover-y);
+    left: var(--hover-x);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: var(--highlight-color);
+    transition: width $animation-time ease-in-out, height $animation-time ease-in-out;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  &:hover::after {
+    width: 300%;
+    height: 300%;
+  }
+
+  &:active {
+    background-color: var(--highlight-color);
+  }
+}
+
+.hover-shadow {
+  transition: all $animation-time;
+
+  &::after {
+    content: ' ';
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    box-shadow: 0 5px 15px var(--shade-color-alpha);
+    transition: opacity $animation-time ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+.hover-line {
+  text-decoration: none;
+  box-shadow: inset 0 -2px 0 0 var(--highlight-color);
+  display: inline-block;
+  transition: all $animation-time;
+  padding: 0 3px;
+  box-sizing: border-box;
+
+  &:hover {
+    border: none;
+    box-shadow: inset 0 -24px 0 0 var(--highlight-color);
+  }
+}
+
+.hover-enlarge {
+  transition: transform $animation-time ease-in-out;
+  transform: scale(1);
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "alanjyu.com",
-  "version": "1.8.3",
+  "version": "1.9.0",
   "default": "src/js/main.js",
   "description": "Alan Yu's portfolio website.",
   "directories": {
@@ -12,7 +12,7 @@
         "src/index.html",
         "src/cv/index.html",
         "src/science/index.html",
-        "src/music/index.html"
+        "src/stuff/index.html"
       ],
       "distDir": "docs/"
     }

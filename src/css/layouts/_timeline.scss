@@ -1,0 +1,92 @@
+
+@use '../base/variables' as *;
+@use '../components/decorations' as decor;
+@use '../components/structures' as struc;
+@use '../functions/breakpoints' as breakpoint;
+
+.timeline {
+  @include struc.container;
+
+  &__line {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    bottom: 0;
+    width: 2px;
+    background: var(--line-color);
+    border: none;
+  }
+
+  &__subtitle {
+    margin: 40px 0 24px 0;
+    font-size: $subtitle-font-size;
+  }
+
+  &__inner {
+    @include decor.acrylic;
+    display: flex;
+    flex-direction: column;
+    background: var(--shade-color-alpha);
+    border-radius: $border-radius-large;
+    box-shadow: $box-shadow;
+    overflow: hidden;
+
+    @include breakpoint.respond-to('landscape') {
+      margin-left: 36px;
+    }
+  }
+  
+  &__background {
+    top: 0;
+    right: 0;
+    @include struc.fullframe;
+
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      transparent 50%,
+      #000 100%
+    );
+
+    @include breakpoint.respond-to('landscape') {
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        #00000080 50%,
+        #000 100%
+      );
+    }
+  }
+
+  &__item {
+    flex-direction: row;
+
+    &:not(:last-child) {
+      // add subtitle separation effect
+      box-shadow: $inset-shadow-y;
+    }
+  }
+
+  &__content {
+    padding: $gap-medium $gap-large;
+
+    h3 {
+      font-size: $subsubtitle-font-size;
+      font-weight: 500;
+    }
+
+    h3, p {
+      margin: $gap-tiny 0;
+    }
+  }
+
+  &__button {
+    @include decor.button;
+    font-weight: 500;
+    margin-top: 48px;
+    padding: $gap-small $gap-large;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    z-index: 1;
+  }
+}

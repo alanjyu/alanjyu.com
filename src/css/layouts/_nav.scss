@@ -1,23 +1,28 @@
+@use '../base/variables' as *;
+@use '../components/decorations' as decor;
+@use '../functions/breakpoints' as breakpoint;
+
 .nav {
-  display: block;
+  display: flex;
+  overflow: hidden;
 
   &__list {
     // only shows in desktop
-    @extend .acrylic;
-    @extend .rounded;
-    @extend .box-shadow;
+    @include decor.acrylic;
     
     position: absolute;
     display: none;
     z-index: 9;
-    top: 150px;
+    top: 125px;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: var(--accent-color);
+    background: var(--shade-color-alpha);
     align-items: center;
     overflow: hidden;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
 
-    @include respond-to('landscape') {
+    @include breakpoint.respond-to('landscape') {
       display: flex;
     }
 
@@ -28,22 +33,20 @@
 
       > a {
         display: inline-block;
-        min-width: 150px;
-        padding: var(--gap-small) var(--gap-medium);
         font-weight: 500;
+        min-width: 150px;
+        padding: 10px 0;
       }
 
       &:not(:last-child) {
         // add subtitle separation effect
-        box-shadow: inset -10px 0 10px -15px var(--shadow-color);
+        box-shadow: $inset-shadow-x;
       }
     }
   }
 
   &__rect {
     position: absolute;
-    top: 0;
-    left: 0;
     transform: translateX(0);
     width: 150px;
     height: 100%;
@@ -51,8 +54,7 @@
   }
 
   &__menu {
-    @extend .acrylic;
-
+    @include decor.acrylic;
     display: flex;
     position: fixed;
     visibility: hidden;
@@ -62,14 +64,14 @@
     left: 0;
     width: 100%;
     padding: 60px 0;
-    background: var(--accent-color);
+    background: var(--shade-color-alpha);
     transform: translateY(-100%);
-    transition: var(--animation-time);
+    transition: $animation-time;
     flex-direction: row;
     flex-wrap: wrap;
     overflow-x: hidden;
 
-    @include respond-to('landscape') {
+    @include breakpoint.respond-to('landscape') {
       display: none;
     }
 
@@ -77,7 +79,7 @@
       display: flex;
       width: 100%;
       justify-content: center;
-      padding: var(--gap-small) 0;
+      padding: $gap-small 0;
 
       > a {
         text-align: center;
@@ -97,9 +99,7 @@
 }
 
 .burger{
-  @extend .acrylic;
-  @extend .rounded;
-
+  @include decor.acrylic;
   position: fixed;
   z-index: 9;
   top: 15px;
@@ -110,8 +110,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: $border-radius;
 
-  @include respond-to('landscape') {
+  @include breakpoint.respond-to('landscape') {
     display: none;
   }
 
@@ -121,7 +122,7 @@
     left: 10%;
     height: 3px;
     background: var(--text-color);
-    transition: var(--animation-time);
+    transition: $animation-time;
   
     &::before {
       content: '';
@@ -131,7 +132,7 @@
       top: -10px;
       height: 3px;
       background: var(--text-color);
-      transition: var(--animation-time);
+      transition: $animation-time;
     }
   
     &::after {
@@ -142,7 +143,7 @@
       top: 10px;
       height: 3px;
       background: var(--text-color);
-      transition: var(--animation-time);
+      transition: $animation-time;
     }
   
     &--active {

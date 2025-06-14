@@ -1,0 +1,44 @@
+@use '../base/variables' as *;
+@use '../functions/breakpoints' as breakpoint;
+
+@mixin container {
+  width: 90%;
+
+  @include breakpoint.respond-to('tablet') {
+    max-width: 600px;
+  }
+
+  @include breakpoint.respond-to('landscape') {
+    max-width: 750px;
+  }
+
+  @include breakpoint.respond-to('desktop') {
+    max-width: 950px;
+  }
+}
+
+.section {
+  padding: 60px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__top {
+    @extend .section;
+
+    @include breakpoint.respond-to('landscape') {
+      padding: 200px 0 60px 0;
+    }
+  }
+}
+
+@mixin fullframe {
+  position: absolute;
+  object-fit: cover;
+	width: 100%;
+	height: 100%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

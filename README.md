@@ -11,6 +11,9 @@ The website is built in native HTML, CSS, and Javascript and supports all major 
 - [Node.js](https://nodejs.org/en/)
 - [Sass](https://www.npmjs.com/package/sass)
 - [Parcel](https://parceljs.org/docs/)
+  - [transformer-webmanifest](https://www.npmjs.com/package/@parcel/transformer-webmanifest)
+  - [transformer-sass](https://www.npmjs.com/package/@parcel/transformer-sass)
+  - [packager-raw-url](https://www.npmjs.com/package/@parcel/packager-raw-url)
 - [package.json](https://github.com/alanjyu/alanjyu.com/blob/master/package.json) contains all required modules.
 
 ## Using Parcel

@@ -1,0 +1,68 @@
+@use '../base/variables' as *;
+@use '../components/hover' as hover;
+
+.footer {
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+	&__attribution {
+		margin-bottom: 8px;
+	}
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+
+	&__link {
+		@include hover.pulse;
+		border-radius: $border-radius;
+		display: inline-block;
+		height: $icon-size;
+		width: $icon-size;
+
+		svg {
+			height: 100%;
+			width: 100%;
+			fill: var(--text-color);
+		}
+	}
+
+	&__item {
+		margin: 0 $gap-small;
+		display: block;
+	}
+}
+
+@keyframes movement {
+  0%, 100% {
+    background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+    background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+  }
+
+  25% {
+    background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+    background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
+  }
+
+  50% {
+    background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+    background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+  }
+
+  75% {
+    background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+    background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+  }
+}
+
+.dynamic-background {
+	background-image: radial-gradient(closest-side, #9e5041, #a74f3b00), radial-gradient(closest-side, #894372, #a33b8000), radial-gradient(closest-side, #857741, #8d834c00), radial-gradient(closest-side, #533e9a, #5536a400), radial-gradient(closest-side, #94683c, #965e3b00), radial-gradient(closest-side, #9a553e, #bb5d3d00);
+	background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax, 100vmax, 100vmax;
+	background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax, -20vmax, -40vmax;
+	background-repeat: no-repeat;
+	animation: 10s movement linear infinite;
+}

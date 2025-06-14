@@ -1,0 +1,40 @@
+// spaces
+$space-small: 5%;
+$space-medium: 10%;
+$space-large: 18%;
+
+// gaps
+$gap-tiny: 8px;
+$gap-small: 12px;
+$gap-medium: 24px;
+$gap-large: 48px;
+$gap-huge: 96px;
+
+// fonts
+$title-font-size: 44px;
+$subtitle-font-size: 32px;
+$subsubtitle-font-size: 22px;
+$nav-font-size: 18px;
+$body-font-size: 16px;
+$icon-size: 50px;
+
+// colors
+$white: #fff;
+$silk: #f5f5f5;
+$silk-shade: #f5f5f580;
+$charcol: #424c4c;
+$charcol-shade: #424c4c85;
+$black: #1c1c1c;
+
+// borders
+$border-radius: 10px;
+$border-radius-large: 20px;
+
+// shadows
+$box-shadow: 0 0 2px 0px var(--border-color), 0 0 8px 0px var(--border-color-alpha);
+$inset-shadow-x: inset -10px 0 10px -15px var(--border-color-alpha);
+$inset-shadow-y: inset 0 -5px 10px -10px var(--border-color-alpha);
+
+// animations
+$animation-time: 0.2s;
+$animation-time-long: 6s;

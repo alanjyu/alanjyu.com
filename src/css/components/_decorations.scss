@@ -1,0 +1,25 @@
+@use "../base/variables" as *;
+
+@mixin acrylic {
+  background-blend-mode: exclusion;
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+}
+
+@mixin button {
+  display: block;
+  background: var(--shade-color);
+  transition: background $animation-time, box-shadow $animation-time;
+}
+
+.filter--blur {
+  filter: blur(48px) opacity(.25);
+}
+
+.filter--darken {
+  filter: brightness(.8);
+}
+
+.faded {
+	opacity: .7;
+}

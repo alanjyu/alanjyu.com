@@ -1,3 +1,7 @@
+@use '../base/variables' as *;
+@use '../components/structures' as struc;
+@use '../components/decorations' as decor;
+@use '../functions/breakpoints' as breakpoint;
 
 $faint-backgrounds: (
   'n': linear-gradient(112deg, #05c0591e, #f9fd501e),
@@ -12,14 +16,9 @@ $button-backgrounds: (
 );
 
 .card {
-  @extend .container;
+  @include struc.container;
 
-	display: flex;
-	flex-direction: column;
-
-  &__item {
-    @extend .box-shadow;
-    
+  &__item {   
     position: relative;
     display: flex;
     flex-direction: column;
@@ -29,8 +28,9 @@ $button-backgrounds: (
     width: 100%;
     margin: 20px 0;
     transition: var(--animation-time) ease;
+    box-shadow: $box-shadow;
 
-    @include respond-to('desktop') {
+    @include breakpoint.respond-to('desktop') {
       flex-direction: row;
     }
 
@@ -54,7 +54,7 @@ $button-backgrounds: (
         height: 110%;
       }
 
-      @include respond-to('desktop') {
+      @include breakpoint.respond-to('desktop') {
         width: 450px;
         max-height: 550px;
 
@@ -66,15 +66,14 @@ $button-backgrounds: (
     }
 
     &__content {
-      @extend .acrylic;
-  
       position: relative;
       display: flex;
       flex-direction: column;
       padding: var(--gap-medium);
-      background: var(--accent-color);
+      background: var(--shade-color-alpha);
+      @include decor.acrylic;
   
-      @include respond-to('desktop') {
+      @include breakpoint.respond-to('desktop') {
         padding: var(--gap-large);
       }
 
@@ -90,9 +89,6 @@ $button-backgrounds: (
     }
 
     &__link {
-      @extend .button;
-      @extend .box-shadow;
-
       display: block;
       min-width: 250px;
       align-self: center;
@@ -102,6 +98,8 @@ $button-backgrounds: (
       text-align: center;
       font-weight: 500;
       z-index: 0;
+      box-shadow: $box-shadow;
+      @include decor.button;
     }
   }
 }
