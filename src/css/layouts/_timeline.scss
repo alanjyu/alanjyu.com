@@ -62,7 +62,7 @@
     flex-direction: row;
 
     &:not(:last-child) {
-      // add subtitle separation effect
+      // add subtitle separation effect between items
       box-shadow: $inset-shadow-y;
     }
   }
