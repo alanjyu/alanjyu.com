@@ -17,15 +17,13 @@
   }
 }
 
-.section {
+section {
   padding: 60px 0;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  &__top {
-    @extend .section;
-
+  &:first-of-type {
     @include breakpoint.respond-to('landscape') {
       padding: 200px 0 60px 0;
     }

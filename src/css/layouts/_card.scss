@@ -94,4 +94,9 @@ $button-backgrounds: (
       @include decor.button;
     }
   }
+
+  &__subtitle {
+    margin: 60px 0 24px 0;
+    font-size: $subtitle-font-size;
+  }
 }

@@ -1,3 +1,5 @@
+@use 'variables';
+
 .music {
   @extend .container;
 
@@ -17,7 +19,7 @@
     display: flex;
     flex-direction: column;
     background: var(--shade-color-alpha);
-    padding: var(--gap-medium);
+    padding: $gap-medium;
     border-radius: $border-radius-large;
 
     > p:first-of-type {

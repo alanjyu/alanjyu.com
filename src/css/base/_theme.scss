@@ -8,6 +8,7 @@
   --shade-color: #fff;
   --shade-color-alpha: #ffffff7f;
   --highlight-color: #efd096;
+  --filter: invert(0);
   --line-color: linear-gradient(to top, #00000000 0%, #00000030 2.5%, #00000030 97.5%, #00000000 100%);
 }
 
@@ -19,6 +20,7 @@ html[data-theme="dark"] {
   --shade-color: #474747; 
   --shade-color-alpha: #2c2c2c78;
   --highlight-color: #397a95;
+  --filter: invert(1);
   --line-color: linear-gradient(to top, #ffffff00 0%, #ffffff7e 2.5%, #ffffff7e 97.5%, #ffffff00 100%);
 }
 
