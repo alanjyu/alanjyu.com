@@ -18,6 +18,11 @@ $button-backgrounds: (
 .card {
   @include struc.container;
 
+  >.subtitle {
+    margin: 60px 0 24px 0;
+    font-size: $subtitle-font-size;
+  }
+
   &__item {   
     position: relative;
     display: flex;
@@ -26,7 +31,7 @@ $button-backgrounds: (
     border-radius: $border-radius-large;
     overflow: hidden;
     width: 100%;
-    margin: 20px 0;
+    margin-bottom: 48px;
     transition: $animation-time ease;
     box-shadow: $box-shadow;
 
@@ -91,12 +96,7 @@ $button-backgrounds: (
       text-align: center;
       font-weight: 500;
       z-index: 0;
-      box-shadow: $box-shadow;
+      box-shadow: $box-shadow-inset;
     }
-  }
-
-  &__subtitle {
-    margin: 60px 0 24px 0;
-    font-size: $subtitle-font-size;
   }
 }

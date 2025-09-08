@@ -19,7 +19,7 @@ export default class Nav {
         this.navLinks.forEach(link => {
             link.addEventListener('mouseenter', () => {
                 // apply to a slower transition only when other links are hovered
-                this.navRect.style.transition = 'transform var(--animation-time)';
+                this.navRect.style.transition = 'transform 0.2s ease';
                 this.setRectToLink(link);
             });
 

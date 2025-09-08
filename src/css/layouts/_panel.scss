@@ -1,0 +1,52 @@
+@use '../base/variables' as *;
+@use '../components/decorations' as decor;
+@use '../components/structures' as struc;
+@use '../functions/breakpoints' as breakpoint;
+
+.panel {
+  @include struc.container;
+
+  > .subtitle {
+    margin: 60px 0 24px 0;
+    font-size: $subtitle-font-size;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    background: var(--shade-color-alpha);
+    padding: $gap-medium;
+    border-radius: $border-radius-large;
+    box-shadow: $box-shadow;
+
+    > p:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    > audio {
+      width: 100%;
+      margin: 4px 0;
+    }
+
+    > iframe {
+      width: 100%;
+      border-radius: 10px; 
+      margin: 6px 0;
+      background: var(--shade-color);
+    }
+
+    > .bandcamp {
+      max-width: 550px;
+      height: 208px;
+    }
+  }
+}
+  

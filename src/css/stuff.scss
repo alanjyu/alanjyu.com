@@ -1,55 +1,7 @@
-@use 'variables';
+@use 'base/reset';
+@use 'base/theme';
+@use 'base/fonts';
 
-.music {
-  @extend .container;
-
-  display: flex;
-  flex-direction: column;
-
-  > h2 {
-    @extend .subtitle;
-
-    margin: 40px 0 24px 0;
-    font-weight: 600;
-  }
-
-  &__item {
-    @extend .box-shadow;
-    
-    display: flex;
-    flex-direction: column;
-    background: var(--shade-color-alpha);
-    padding: $gap-medium;
-    border-radius: $border-radius-large;
-
-    > p:first-of-type {
-      margin-top: 0;
-    }
-  }
-
-  &__box {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-
-    > audio {
-      width: 100%;
-      margin: 4px 0;
-    }
-
-    > iframe {
-      width: 100%;
-      border-radius: 10px; 
-      margin: 6px 0;
-      background: var(--shade-color);
-    }
-
-    > .bandcamp {
-      max-width: 550px;
-      height: 208px;
-    }
-  }
-}
-  
+@use 'layouts/nav';
+@use 'layouts/footer';
+@use 'layouts/panel';

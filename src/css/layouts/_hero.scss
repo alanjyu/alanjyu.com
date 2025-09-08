@@ -45,9 +45,8 @@
       box-shadow: $box-shadow;
     }
 
-    h1 {
+    > h1 {
       font-size: $title-font-size;
-      font-weight: 500;
       text-align: left;
     }
     
