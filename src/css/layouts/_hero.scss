@@ -5,6 +5,8 @@
 
 .hero {
   min-height: 600px;
+  padding: 0;
+  align-items: normal;
 
   @include breakpoint.respond-to('landscape') {
     height: 100vh;
