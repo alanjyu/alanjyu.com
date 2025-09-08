@@ -81,17 +81,17 @@ $button-backgrounds: (
     }
 
     &__link {
+      @include decor.button;
       display: block;
       min-width: 250px;
       align-self: center;
       border-radius: $border-radius;
-      margin-top: $gap-small;
+      margin-top: $gap-medium;
       padding: $gap-small $gap-medium;
       text-align: center;
       font-weight: 500;
       z-index: 0;
       box-shadow: $box-shadow;
-      @include decor.button;
     }
   }
 

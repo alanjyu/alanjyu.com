@@ -121,7 +121,7 @@
   &__button {
     @include decor.button;
     font-weight: 500;
-    margin-top: 48px;
+    margin-top: $gap-large;
     padding: $gap-small $gap-large;
     border-radius: $border-radius;
     box-shadow: $box-shadow;

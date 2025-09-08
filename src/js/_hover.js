@@ -1,6 +1,6 @@
 export default class Hover {
     constructor() {
-        this.buttons = document.querySelectorAll('.hover-fill');
+        this.buttons = document.querySelectorAll('.hover-fill, .hover-glow');
 
         this.buttons.forEach(button => {
           button.addEventListener('mouseenter', function(e) {

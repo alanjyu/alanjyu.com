@@ -18,7 +18,6 @@ footer {
   flex-direction: row;
 
 	&__link {
-		@include hover.pulse;
 		border-radius: $border-radius;
 		display: inline-block;
 		height: $icon-size;
