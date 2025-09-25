@@ -1,40 +1,61 @@
 export default class Nav {
-    constructor() {
-        this.navBurger = document.querySelector('.burger');
-        this.navBurgerInner = document.querySelector('.burger__inner');
-        
-        this.navMenu = document.querySelector('.nav__menu'); 
-        this.navList = document.querySelector('.nav__list');
-        this.navLinks = document.querySelectorAll('.nav__list > li > a');
-        this.navLinkDefault = this.navList.querySelector('.link--default');
-        this.navRect = document.querySelector('.nav__rect');
+	constructor() {
+		this.navBurger = document.querySelector('.burger');
+		this.navBurgerInner = document.querySelector('.burger__inner');
+		
+		this.navMenu = document.querySelector('.nav__menu'); 
+		this.navList = document.querySelector('.nav__list');
+		this.navLinks = document.querySelectorAll('.nav__list > li > a');
+		this.navLinkDefault = this.navList.querySelector('.link--default');
+		this.navRect = document.querySelector('.nav__rect');
 
-        this.setRectToLink(this.navLinkDefault);
+		this.setRectToLink(this.navLinkDefault);
+		this.initScrollHandler();
 
-        this.navBurger.addEventListener('click', () => {
-            this.navBurgerInner.classList.toggle('burger__inner--active');
-            this.navMenu.classList.toggle('nav__menu--visible');
-        });
+		this.navBurger.addEventListener('click', () => {
+			this.navBurgerInner.classList.toggle('burger__inner--active');
+			this.navMenu.classList.toggle('nav__menu--visible');
+		});
 
-        this.navLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                // apply to a slower transition only when other links are hovered
-                this.navRect.style.transition = 'transform 0.2s ease';
-                this.setRectToLink(link);
-            });
+		this.navLinks.forEach(link => {
+			link.addEventListener('mouseenter', () => {
+				// apply to a slower transition only when other links are hovered
+				this.navRect.style.transition = 'transform 0.2s ease';
+				this.setRectToLink(link);
+			});
 
-            link.addEventListener('mouseleave', () => {
-                this.setRectToLink(this.navLinkDefault);
-            });
-        });
-    }
+			link.addEventListener('mouseleave', () => {
+				this.setRectToLink(this.navLinkDefault);
+			});
+		});
+	}
 
-    setRectToLink(linkElement) {
-        const linkRect = linkElement.getBoundingClientRect();
-        const navListRect = this.navList.getBoundingClientRect();
+	initScrollHandler() {
+		// Move nav up when scrolling down
+		let ticking = false;
+		
+		const handleScroll = () => {
+			const scrollBuffer = 200;
+			if (window.scrollY > scrollBuffer) {
+				this.navList.style.transform = 'translate(-50%, -50%) translateY(-80px)';
+			} else {
+				this.navList.style.transform = 'translate(-50%, -50%) translateY(0)';
+			}
+			ticking = false;
+		};
 
-        const offsetX = linkRect.left - navListRect.left;
+		window.addEventListener('scroll', () => {
+			if (!ticking) {
+				requestAnimationFrame(handleScroll);
+				ticking = true;
+			}
+		});
+	}
 
-        this.navRect.style.transform = `translateX(${offsetX}px)`;
-    }
+	setRectToLink(linkElement) {
+		const linkRect = linkElement.getBoundingClientRect();
+		const navListRect = this.navList.getBoundingClientRect();
+		const offsetX = linkRect.left - navListRect.left;
+		this.navRect.style.transform = `translateX(${offsetX}px)`;
+	}
 }

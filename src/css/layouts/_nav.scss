@@ -10,10 +10,10 @@
     // only shows in desktop
     @include decor.acrylic;
     
-    position: absolute;
+    position: fixed;
     display: none;
     z-index: 9;
-    top: 125px;
+    top: 120px;
     left: 50%;
     transform: translate(-50%, -50%);
     background: var(--shade-color-alpha);
@@ -21,6 +21,7 @@
     overflow: hidden;
     border-radius: $border-radius;
     box-shadow: $box-shadow;
+    transition: $animation-time ease;
 
     @include breakpoint.respond-to('landscape') {
       display: flex;
