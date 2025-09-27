@@ -10,7 +10,7 @@ export default class Nav {
 		this.navRect = document.querySelector('.nav__rect');
 
 		this.setRectToLink(this.navLinkDefault);
-		this.initScrollHandler();
+		this.scrollHandler();
 
 		this.navBurger.addEventListener('click', () => {
 			this.navBurgerInner.classList.toggle('burger__inner--active');
@@ -30,16 +30,16 @@ export default class Nav {
 		});
 	}
 
-	initScrollHandler() {
+	scrollHandler() {
 		// Move nav up when scrolling down
 		let ticking = false;
 		
 		const handleScroll = () => {
 			const scrollBuffer = 200;
 			if (window.scrollY > scrollBuffer) {
-				this.navList.style.transform = 'translate(-50%, -50%) translateY(-80px)';
+				this.navList.classList.add('nav__list--sticky');
 			} else {
-				this.navList.style.transform = 'translate(-50%, -50%) translateY(0)';
+				this.navList.classList.remove('nav__list--sticky');
 			}
 			ticking = false;
 		};
@@ -56,6 +56,6 @@ export default class Nav {
 		const linkRect = linkElement.getBoundingClientRect();
 		const navListRect = this.navList.getBoundingClientRect();
 		const offsetX = linkRect.left - navListRect.left;
-		this.navRect.style.transform = `translateX(${offsetX}px)`;
+		this.navRect.style.transform = `translateX(${offsetX-1}px)`;
 	}
 }

@@ -4,7 +4,6 @@
 
 .nav {
   display: flex;
-  overflow: hidden;
 
   &__list {
     // only shows in desktop
@@ -15,16 +14,27 @@
     z-index: 9;
     top: 120px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) translateY(0);
     background: var(--shade-color-alpha);
     align-items: center;
     overflow: hidden;
     border-radius: $border-radius;
     box-shadow: $box-shadow;
     transition: $animation-time ease;
+    border: 1px solid var(--border-color-alpha);
+
 
     @include breakpoint.respond-to('landscape') {
       display: flex;
+    }
+
+    &--sticky {
+      transform: translate(-50%, -50%) translateY(-80px);
+      box-shadow: $box-shadow-spread;
+
+      > li > a {
+        padding: 8px 0 !important;
+      }
     }
 
     > li {
@@ -36,13 +46,31 @@
         display: inline-block;
         font-weight: 500;
         min-width: 150px;
-        padding: 10px 0;
+        padding: $gap-small 0;
       }
 
       &:not(:last-child) {
         // add subtitle separation effect
         box-shadow: $inset-shadow-x;
       }
+    }
+  }
+
+  &__shadow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 7;
+    visibility: visible;
+    opacity: 1;
+    transition: $animation-time;
+
+    &--visible {
+      visibility: visible;
+      opacity: 1;
     }
   }
 
