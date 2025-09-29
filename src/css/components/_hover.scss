@@ -60,3 +60,23 @@
     transform: scale(1.1);
   }
 }
+
+.hover-glow {
+  &::before {
+    content: ' ';
+    position: absolute;
+    mix-blend-mode: overlay;
+    inset: 0;
+    background: radial-gradient(
+      circle at var(--hover-x, 30%) var(--hover-y, 30%),
+      var(--shade-color-alpha) 0%,
+      transparent 30%
+    );
+    opacity: 0;
+    transition: opacity $animation-time ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}

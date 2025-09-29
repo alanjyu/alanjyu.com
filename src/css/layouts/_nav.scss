@@ -21,8 +21,7 @@
     border-radius: $border-radius;
     box-shadow: $box-shadow;
     transition: $animation-time ease;
-    border: 1px solid var(--border-color-alpha);
-
+    border: none;
 
     @include breakpoint.respond-to('landscape') {
       display: flex;
@@ -30,6 +29,7 @@
 
     &--sticky {
       transform: translate(-50%, -50%) translateY(-80px);
+      border: $border-line;
       box-shadow: $box-shadow-spread;
 
       > li > a {

@@ -32,7 +32,6 @@ $button-backgrounds: (
     overflow: hidden;
     width: 100%;
     margin-bottom: 48px;
-    transition: $animation-time ease;
     box-shadow: $box-shadow;
 
     @include breakpoint.respond-to('desktop') {

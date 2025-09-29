@@ -27,13 +27,14 @@ $charcol-shade: #424c4c85;
 $black: #1c1c1c;
 
 // borders
+$border-line: 1px solid var(--border-color);
 $border-radius: 10px;
 $border-radius-large: 20px;
 
 // shadows
 $box-shadow: 0 0 2px 0px var(--border-color), 0 0 8px 0px var(--border-color-alpha);
 $box-shadow-inset: inset 0 0 2px 0 var(--border-color-alpha);
-$box-shadow-spread: 0 0 150px 60px var(--shade-color);
+$box-shadow-spread: 0 0 14px 4px var(--border-color-alpha);
 $inset-shadow-x: inset -10px 0 10px -12px var(--border-color-alpha);
 $inset-shadow-y: inset 0 -5px 10px -10px var(--border-color-alpha);
 
