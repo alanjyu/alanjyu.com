@@ -4,6 +4,14 @@
 @use '../components/structures' as struc;
 @use '../functions/breakpoints' as breakpoint;
 
+:root, html[data-theme="light"] {
+  --line-color: linear-gradient(to top, #00000000 0%, #00000030 2.5%, #00000030 97.5%, #00000000 100%);
+}
+
+html[data-theme="dark"] {
+  --line-color: linear-gradient(to top, #ffffff00 0%, #ffffff7e 2.5%, #ffffff7e 97.5%, #ffffff00 100%);
+}
+
 .nested {
   @include struc.container;
 
@@ -120,11 +128,13 @@
 
   &__button {
     @include decor.button;
-    font-weight: 500;
+    display: block;
+    min-width: 250px;
     margin-top: $gap-large;
-    padding: $gap-small $gap-large;
     border-radius: $border-radius;
-    box-shadow: $box-shadow;
-    z-index: 1;
+    padding: $gap-small $gap-medium;
+    text-align: center;
+    box-shadow: $box-shadow-inset;
+    z-index: 0;
   }
 }

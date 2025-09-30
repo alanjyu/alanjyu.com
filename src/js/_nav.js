@@ -56,6 +56,6 @@ export default class Nav {
 		const linkRect = linkElement.getBoundingClientRect();
 		const navListRect = this.navList.getBoundingClientRect();
 		const offsetX = linkRect.left - navListRect.left;
-		this.navRect.style.transform = `translateX(${offsetX-1}px)`;
+		this.navRect.style.transform = `translateX(${offsetX}px)`;
 	}
 }

@@ -2,6 +2,7 @@
 import Theme from './_theme.js';
 import Nav from './_nav.js';
 import Hover from './_hover.js';
+import Synth from './_synth.js';
 
 const components = [
 	{
@@ -15,6 +16,10 @@ const components = [
 	{
 		class: Hover,
 		selector: 'html'
+	},
+	{
+		class: Synth,
+		selector: '.synth'
 	}
 ];
 

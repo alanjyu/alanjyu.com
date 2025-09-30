@@ -1,0 +1,534 @@
+@use '../base/variables' as *;
+@use '../functions/breakpoints' as breakpoint;
+@use '../components/decorations' as decor;
+
+:root, html[data-theme="light"] {
+  --screen-color: #efefef;
+}
+
+html[data-theme="dark"] {
+  --screen-color: #191919;
+}
+
+.synth {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	overflow-x: auto;
+	gap: $gap-large;
+	margin-top: 60px;
+}
+
+.audiobox {
+	display: flex;
+	flex-direction: column;
+	padding: $gap-medium;
+	border-radius: $border-radius;
+	align-items: center;
+	width: 75%;
+	background: var(--shade-color-alpha);
+	align-items: center;
+	border-radius: $border-radius-large;
+	overflow: hidden;
+	box-shadow: $box-shadow;
+	@include decor.acrylic;
+
+	.toprack {
+		height: 150px;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+	}
+}
+
+.visualizer {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	background: var(--screen-color);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+	border-radius: $border-radius;
+	justify-content: center;
+	align-items: center;
+}
+
+.waveform-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.volume-meter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $gap-tiny;
+    width: 100%;
+    height: 50px;
+}
+
+.volume-bar {
+    flex: 1;
+    width: 20px;
+    height: 100%;
+    background: #1a1a1a;
+    border-radius: 10px;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+    padding: 1px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+    
+    @include breakpoint.respond-to('tablet') {
+        width: 16px;
+    }
+    
+    @include breakpoint.respond-to('mobile') {
+        flex-direction: row;
+        width: 100%;
+        height: 6px;
+        gap: 1px;
+    }
+}
+
+.volume-fill {
+    display: none; // Hide the old fill
+}
+
+// Mixer-style LED segments
+.volume-segments {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    height: 100%;
+    gap: 2px;
+    
+    @include breakpoint.respond-to('mobile') {
+        flex-direction: row;
+        gap: 1px;
+    }
+}
+
+.volume-segment {
+    flex: 1;
+    width: 100%;
+    background: #2a2a2a;
+    border-radius: 2px;
+    transition: background-color 0.05s ease;
+    
+    &.active {
+        &.green {
+            background: #00ff00;
+            box-shadow: 0 0 3px #00ff00;
+        }
+        
+        &.yellow {
+            background: #ffff00;
+            box-shadow: 0 0 3px #ffff00;
+        }
+        
+        &.red {
+            background: #ff0000;
+            box-shadow: 0 0 3px #ff0000;
+        }
+    }
+    
+    @include breakpoint.respond-to('mobile') {
+        width: 100%;
+        height: 100%;
+        border-radius: 1px;
+    }
+}
+
+.volume-label {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    
+    @include breakpoint.respond-to('tablet') {
+        font-size: 10px;
+    }
+    
+    @include breakpoint.respond-to('mobile') {
+        writing-mode: horizontal-tb;
+        font-size: 12px;
+    }
+}
+
+.volume-percentage {
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    opacity: 0.9;
+    
+    @include breakpoint.respond-to('tablet') {
+        font-size: 9px;
+    }
+    
+    @include breakpoint.respond-to('mobile') {
+        font-size: 10px;
+    }
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background: linear-gradient(to bottom, #2c2c2c 0%, #1a1a1a 100%);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.7),
+        inset 0 3px 6px rgba(255, 255, 255, 0.1);
+    min-width: fit-content;
+    border: 2px solid #444;
+    
+    @include breakpoint.respond-to('desktop') {
+        padding: 25px;
+    }
+    
+    @include breakpoint.respond-to('tablet') {
+        padding: 20px;
+        overflow-x: auto;
+    }
+    
+    @include breakpoint.respond-to('mobile') {
+        padding: 15px;
+        transform: scale(0.8);
+        transform-origin: center;
+    }
+}
+
+.key {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    transition: all 0.15s ease;
+    font-family: 'Arial', sans-serif;
+
+    &__label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        
+        @include breakpoint.respond-to('tablet') {
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            font-size: 10px;
+            margin-bottom: 6px;
+        }
+    }
+
+    &__note {
+        font-size: 12px;
+        opacity: 0.7;
+        margin-bottom: 10px;
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        
+        @include breakpoint.respond-to('tablet') {
+            font-size: 10px;
+            margin-bottom: 8px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            font-size: 9px;
+            margin-bottom: 6px;
+        }
+    }
+
+    &.white {
+        width: 80px;
+        height: 280px;
+        background: linear-gradient(to bottom, 
+            #ffffff 0%, 
+            #f8f8f8 20%, 
+            #f0f0f0 80%, 
+            #e8e8e8 100%);
+        color: #333;
+        border: 1px solid #ddd;
+        border-radius: 0 0 8px 8px;
+        z-index: 1;
+        margin-right: 3px;
+        box-shadow: 
+            0 8px 16px rgba(0, 0, 0, 0.15),
+            inset 0 2px 0 rgba(255, 255, 255, 0.8),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            background: linear-gradient(to bottom, 
+                #f8f8f8 0%, 
+                #f0f0f0 20%, 
+                #e8e8e8 80%, 
+                #e0e0e0 100%);
+            transform: translateY(2px);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.2),
+                inset 0 2px 0 rgba(255, 255, 255, 0.6),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        &.active {
+            background: linear-gradient(to bottom, 
+                #e0e0e0 0%, 
+                #d8d8d8 20%, 
+                #d0d0d0 80%, 
+                #c8c8c8 100%);
+            transform: translateY(4px);
+            box-shadow: 
+                0 3px 6px rgba(0, 0, 0, 0.3),
+                inset 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+        
+        @include breakpoint.respond-to('tablet') {
+            width: 70px;
+            height: 240px;
+            margin-right: 2px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            width: 60px;
+            height: 200px;
+        }
+    }
+
+    &.black {
+        width: 48px;
+        height: 180px;
+        background: linear-gradient(to bottom, 
+            #3a3a3a 0%, 
+            #2a2a2a 30%, 
+            #1a1a1a 70%, 
+            #0a0a0a 100%);
+        color: #fff;
+        position: absolute;
+        border-radius: 0 0 6px 6px;
+        z-index: 2;
+        box-shadow: 
+            0 10px 20px rgba(0, 0, 0, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 0.1),
+            inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+        border: 1px solid #111;
+
+        &:hover {
+            background: linear-gradient(to bottom, 
+                #4a4a4a 0%, 
+                #3a3a3a 30%, 
+                #2a2a2a 70%, 
+                #1a1a1a 100%);
+            transform: translateY(2px);
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.15),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        &.active {
+            background: linear-gradient(to bottom, 
+                #2a2a2a 0%, 
+                #1a1a1a 30%, 
+                #0a0a0a 70%, 
+                #000000 100%);
+            transform: translateY(3px);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.6),
+                inset 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        @include breakpoint.respond-to('tablet') {
+            width: 42px;
+            height: 155px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            width: 36px;
+            height: 130px;
+        }
+    }
+}
+
+// Black key positioning for bigger keys (80px white keys + 3px margins)
+.key.black[data-key="KeyW"] { left: 58px; }   // Between A and S
+.key.black[data-key="KeyE"] { left: 141px; }  // Between S and D  
+.key.black[data-key="KeyT"] { left: 307px; }  // Between F and G
+.key.black[data-key="KeyY"] { left: 390px; }  // Between G and H
+.key.black[data-key="KeyU"] { left: 473px; }  // Between H and J
+.key.black[data-key="KeyO"] { left: 639px; }  // Between K and L
+.key.black[data-key="KeyP"] { left: 722px; }  // Between L and ;
+
+// Tablet positioning (70px white keys)
+@include breakpoint.respond-to('tablet') {
+    .key.black[data-key="KeyW"] { left: 51px; }
+    .key.black[data-key="KeyE"] { left: 123px; }
+    .key.black[data-key="KeyT"] { left: 267px; }
+    .key.black[data-key="KeyY"] { left: 339px; }
+    .key.black[data-key="KeyU"] { left: 411px; }
+    .key.black[data-key="KeyO"] { left: 555px; }
+    .key.black[data-key="KeyP"] { left: 627px; }
+}
+
+// Mobile positioning (60px white keys)
+@include breakpoint.respond-to('mobile') {
+    .key.black[data-key="KeyW"] { left: 43px; }
+    .key.black[data-key="KeyE"] { left: 105px; }
+    .key.black[data-key="KeyT"] { left: 229px; }
+    .key.black[data-key="KeyY"] { left: 291px; }
+    .key.black[data-key="KeyU"] { left: 353px; }
+    .key.black[data-key="KeyO"] { left: 477px; }
+    .key.black[data-key="KeyP"] { left: 539px; }
+}
+
+.synth-controls {
+    width: 100%;
+    max-width: 1000px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: $gap-medium;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    @include breakpoint.respond-to('tablet') {
+        max-width: 800px;
+        padding: $gap-small;
+    }
+    
+    @include breakpoint.respond-to('mobile') {
+        padding: $gap-tiny;
+        margin: 0 $gap-tiny;
+    }
+}
+
+.oscillator-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: $gap-small;
+    align-items: start;
+    
+    @include breakpoint.respond-to('tablet') {
+        grid-template-columns: 1fr;
+        gap: $gap-tiny;
+    }
+}
+
+.osc-group {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-tiny;
+
+    label {
+        color: #fff;
+        font-size: 16px;
+        font-weight: 500;
+        
+        @include breakpoint.respond-to('tablet') {
+            font-size: 14px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            font-size: 13px;
+        }
+    }
+
+    select {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-size: 15px;
+
+        &:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+        
+        @include breakpoint.respond-to('tablet') {
+            padding: 8px;
+            font-size: 14px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            padding: 6px;
+            font-size: 13px;
+        }
+    }
+
+    input[type="range"] {
+        width: 100%;
+        height: 8px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        outline: none;
+        -webkit-appearance: none;
+
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00ff88;
+            cursor: pointer;
+            
+            @include breakpoint.respond-to('mobile') {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        &::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00ff88;
+            cursor: pointer;
+            border: none;
+            
+            @include breakpoint.respond-to('mobile') {
+                width: 16px;
+                height: 16px;
+            }
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            height: 6px;
+        }
+    }
+
+    .volume-display,
+    .detune-display {
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+        opacity: 0.8;
+        
+        @include breakpoint.respond-to('tablet') {
+            font-size: 12px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            font-size: 11px;
+        }
+    }
+}

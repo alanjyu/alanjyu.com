@@ -10,9 +10,10 @@
     "build": {
       "source": [
         "src/index.html",
-        "src/cv/index.html",
+        "src/resume/index.html",
         "src/science/index.html",
-        "src/stuff/index.html"
+        "src/stuff/index.html",
+        "src/stuff/synth/index.html"
       ],
       "distDir": "docs/"
     }

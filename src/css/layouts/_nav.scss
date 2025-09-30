@@ -7,8 +7,6 @@
 
   &__list {
     // only shows in desktop
-    @include decor.acrylic;
-    
     position: fixed;
     display: none;
     z-index: 9;
@@ -17,11 +15,12 @@
     transform: translate(-50%, -50%) translateY(0);
     background: var(--shade-color-alpha);
     align-items: center;
-    overflow: hidden;
     border-radius: $border-radius;
+    overflow: hidden;
     box-shadow: $box-shadow;
     transition: $animation-time ease;
     border: none;
+    @include decor.acrylic;
 
     @include breakpoint.respond-to('landscape') {
       display: flex;

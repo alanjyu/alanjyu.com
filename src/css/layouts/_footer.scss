@@ -22,6 +22,7 @@ footer {
 		display: inline-block;
 		height: $icon-size;
 		width: $icon-size;
+    z-index: 0;
 
 		svg {
 			height: 100%;
