@@ -1,73 +1,91 @@
+import { synthStorage } from './storage.js';
+
 export default class Oscillator {
     constructor(audioContext, destinationNode) {
         this.audioContext = audioContext;
         this.destinationNode = destinationNode;
         this.activeOscillators = new Map();
+        this.storage = synthStorage;
         
-        // Oscillator settings
+        // Load oscillator settings from storage
+        const savedSettings = this.storage.getModuleSettings('oscillator');
         this.osc1Settings = {
-            waveform: 'sawtooth',
-            volume: 0.5
+            waveform: savedSettings.osc1?.waveform || 'sawtooth',
+            volume: (savedSettings.osc1?.volume || 50) / 100,
+            phase: savedSettings.osc1?.phase || 0
         };
         
         this.osc2Settings = {
-            waveform: 'sine',
-            volume: 0.3,
-            detune: 0
+            waveform: savedSettings.osc2?.waveform || 'sine',
+            volume: (savedSettings.osc2?.volume || 30) / 100,
+            detune: savedSettings.osc2?.detune || 0,
+            phase: savedSettings.osc2?.phase || 0
         };
         
         this.initControls();
+        this.loadUIState();
     }
 
     initControls() {
         // Waveform button controls
-        const waveformButtons = document.querySelectorAll('.waveform-btn');
+        const waveformButtons = document.querySelectorAll('.waveforms__button');
         
-        // Volume and detune controls
-        const osc1Volume = document.getElementById('osc1-volume');
-        const osc2Volume = document.getElementById('osc2-volume');
-        const osc2Detune = document.getElementById('osc2-detune');
-
         // Event listeners for waveform buttons
         waveformButtons.forEach(button => {
             button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
                 const waveform = e.target.dataset.waveform;
                 const oscNumber = e.target.dataset.osc;
                 
                 // Remove selected class from siblings
-                const siblings = e.target.parentNode.querySelectorAll('.waveform-btn');
+                const siblings = e.target.parentNode.querySelectorAll('.waveforms__button');
                 siblings.forEach(btn => btn.classList.remove('selected'));
                 
                 // Add selected class to clicked button
                 e.target.classList.add('selected');
                 
-                // Update oscillator settings
+                // Update oscillator settings and save to storage
                 if (oscNumber === '1') {
                     this.osc1Settings.waveform = waveform;
+                    this.storage.updateSetting('oscillator', 'osc1.waveform', waveform);
                 } else if (oscNumber === '2') {
                     this.osc2Settings.waveform = waveform;
+                    this.storage.updateSetting('oscillator', 'osc2.waveform', waveform);
                 }
                 
                 this.updateActiveOscillators();
             });
         });
 
+        // Volume and detune controls
+        const osc1Volume = document.getElementById('osc1-volume');
+        const osc2Volume = document.getElementById('osc2-volume');
+        const osc2Detune = document.getElementById('osc2-detune');
+
         // Event listeners for volume controls
         osc1Volume?.addEventListener('input', (e) => {
-            this.osc1Settings.volume = e.target.value / 100;
-            e.target.parentNode.nextElementSibling.textContent = `${e.target.value}%`;
+            const volume = parseInt(e.target.value);
+            this.osc1Settings.volume = volume / 100;
+            this.storage.updateSetting('oscillator', 'osc1.volume', volume);
+            e.target.parentNode.nextElementSibling.textContent = `${volume}%`;
             this.updateActiveOscillators();
         });
 
         osc2Volume?.addEventListener('input', (e) => {
-            this.osc2Settings.volume = e.target.value / 100;
-            e.target.parentNode.nextElementSibling.textContent = `${e.target.value}%`;
+            const volume = parseInt(e.target.value);
+            this.osc2Settings.volume = volume / 100;
+            this.storage.updateSetting('oscillator', 'osc2.volume', volume);
+            e.target.parentNode.nextElementSibling.textContent = `${volume}%`;
             this.updateActiveOscillators();
         });
 
         osc2Detune?.addEventListener('input', (e) => {
-            this.osc2Settings.detune = parseInt(e.target.value);
-            e.target.parentNode.nextElementSibling.textContent = `${e.target.value} cents`;
+            const detune = parseInt(e.target.value);
+            this.osc2Settings.detune = detune;
+            this.storage.updateSetting('oscillator', 'osc2.detune', detune);
+            e.target.parentNode.nextElementSibling.textContent = `${detune} cents`;
             this.updateActiveOscillators();
         });
     }
@@ -179,6 +197,79 @@ export default class Oscillator {
         if (newSettings.osc2) {
             Object.assign(this.osc2Settings, newSettings.osc2);
         }
+        this.updateActiveOscillators();
+        this.loadUIState();
+    }
+
+    /**
+     * Load UI state from storage settings
+     */
+    loadUIState() {
+        const settings = this.storage.getModuleSettings('oscillator');
+        
+        // Update waveform buttons
+        document.querySelectorAll('.waveforms__button[data-osc="1"]').forEach(btn => {
+            btn.classList.toggle('selected', btn.dataset.waveform === settings.osc1?.waveform);
+        });
+        
+        document.querySelectorAll('.waveforms__button[data-osc="2"]').forEach(btn => {
+            btn.classList.toggle('selected', btn.dataset.waveform === settings.osc2?.waveform);
+        });
+        
+        // Update sliders and displays
+        const osc1Volume = document.getElementById('osc1-volume');
+        const osc2Volume = document.getElementById('osc2-volume');
+        const osc2Detune = document.getElementById('osc2-detune');
+        
+        if (osc1Volume) {
+            osc1Volume.value = settings.osc1?.volume || 50;
+            const display = osc1Volume.parentNode.nextElementSibling;
+            if (display) display.textContent = `${osc1Volume.value}%`;
+        }
+        
+        if (osc2Volume) {
+            osc2Volume.value = settings.osc2?.volume || 30;
+            const display = osc2Volume.parentNode.nextElementSibling;
+            if (display) display.textContent = `${osc2Volume.value}%`;
+        }
+        
+        if (osc2Detune) {
+            osc2Detune.value = settings.osc2?.detune || 0;
+            const display = osc2Detune.parentNode.nextElementSibling;
+            if (display) display.textContent = `${osc2Detune.value} cents`;
+        }
+    }
+
+    /**
+     * Reset oscillator to default settings
+     */
+    resetToDefaults() {
+        this.storage.resetModuleToDefaults('oscillator');
+        const defaultSettings = this.storage.getDefaultModuleSettings('oscillator');
+        
+        this.osc1Settings = {
+            waveform: defaultSettings.osc1.waveform,
+            volume: defaultSettings.osc1.volume / 100,
+            phase: defaultSettings.osc1.phase
+        };
+        
+        this.osc2Settings = {
+            waveform: defaultSettings.osc2.waveform,
+            volume: defaultSettings.osc2.volume / 100,
+            detune: defaultSettings.osc2.detune,
+            phase: defaultSettings.osc2.phase
+        };
+        
+        this.updateActiveOscillators();
+        this.loadUIState();
+    }
+
+    /**
+     * Initialize oscillator settings and UI state from storage
+     */
+    initialize() {
+        // Load settings from storage
+        this.loadUIState();
         this.updateActiveOscillators();
     }
 }

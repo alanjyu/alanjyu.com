@@ -108,33 +108,30 @@
 									<div class="volume-segment red"></div>
 								</div>
 							</div>
-							<p class="volumemeter__text">volume</p>
+							<label class="volumemeter__text">volume</label>
 						</div>
-						
 					</div>
 
-					<div class="control-section">
-    <div class="control-panel">
         <div class="oscillator-section">
-            <div class="osc-group">
-                <label>Oscillator 1</label>
-                <div class="waveform-buttons">
-                    <button class="waveform-btn active" data-waveform="sine" data-osc="1">
+            <div class="oscillators">
+                <label class="oscillators__text">OSC 1</label>
+                <div class="waveforms">
+                    <button class="waveforms__button active" data-waveform="sine" data-osc="1">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
                             <path d="M0,8 Q8,2 16,8 Q24,14 32,8" stroke="currentColor" fill="none" stroke-width="2"/>
                         </svg>
                     </button>
-                    <button class="waveform-btn" data-waveform="square" data-osc="1">
+                    <button class="waveforms__button" data-waveform="square" data-osc="1">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
                             <path d="M0,12 L0,4 L8,4 L8,12 L16,12 L16,4 L24,4 L24,12 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
                         </svg>
                     </button>
-                    <button class="waveform-btn selected" data-waveform="sawtooth" data-osc="1">
+                    <button class="waveforms__button selected" data-waveform="sawtooth" data-osc="1">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
                             <path d="M0,12 L8,4 L8,12 L16,4 L16,12 L24,4 L24,12 L32,4" stroke="currentColor" fill="none" stroke-width="2"/>
                         </svg>
                     </button>
-                    <button class="waveform-btn" data-waveform="triangle" data-osc="1">
+                    <button class="waveforms__button" data-waveform="triangle" data-osc="1">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
                             <path d="M0,12 L8,4 L16,12 L24,4 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
                         </svg>
@@ -147,25 +144,25 @@
                 <span class="volume-display">50%</span>
             </div>
             
-            <div class="osc-group osc-group--dual">
-                <label>Oscillator 2</label>
-                <div class="waveform-buttons">
-                    <button class="waveform-btn selected" data-waveform="sine" data-osc="2">
+            <div class="oscillators oscillators--dual">
+                <label class="oscillators__text">OSC 2</label>
+                <div class="waveforms">
+                    <button class="waveforms__button selected" data-waveform="sine" data-osc="2">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
                             <path d="M0,8 Q8,2 16,8 Q24,14 32,8" stroke="currentColor" fill="none" stroke-width="2"/>
                         </svg>
                     </button>
-                    <button class="waveform-btn" data-waveform="square" data-osc="2">
+                    <button class="waveforms__button" data-waveform="square" data-osc="2">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
                             <path d="M0,12 L0,4 L8,4 L8,12 L16,12 L16,4 L24,4 L24,12 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
                         </svg>
                     </button>
-                    <button class="waveform-btn" data-waveform="sawtooth" data-osc="2">
+                    <button class="waveforms__button" data-waveform="sawtooth" data-osc="2">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
                             <path d="M0,12 L8,4 L8,12 L16,4 L16,12 L24,4 L24,12 L32,4" stroke="currentColor" fill="none" stroke-width="2"/>
                         </svg>
                     </button>
-                    <button class="waveform-btn" data-waveform="triangle" data-osc="2">
+                    <button class="waveforms__button" data-waveform="triangle" data-osc="2">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
                             <path d="M0,12 L8,4 L16,12 L24,4 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
                         </svg>
@@ -189,9 +186,8 @@
                         <label class="knob-label">Detune</label>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+							</div>
+   		</div>
 
     <!-- Effects Panel -->
     <div class="control-panel">

@@ -22,6 +22,9 @@ export default class Synth {
             (note) => this.oscillator.noteOff(note)
         );
         
+        // Initialize modules after creation
+        this.oscillator.initialize();
+        
         // Connect final audio chain: analyser -> destination
         this.analyser.connect(this.audioContext.destination);
     }

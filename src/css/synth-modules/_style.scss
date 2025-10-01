@@ -1,15 +1,140 @@
 :root, html[data-theme="light"] {
-  --hardware-color: linear-gradient(145deg, #d2d2d2 0%, #e0e0e0 50%, #f5f5f5 100%);
-  --volumemeter-color: #acacac;
-  --visualizer-color: #4d4d4d;
-  --visualier-shadow: inset 0 4px 8px #d4d4d4cc, 0 2px 4px #69696999;
+  --hardware-color: 
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
+    linear-gradient(145deg, #ececec 0%, #f2f2f2 25%, #f6f6f6 50%, #f2f2f2 75%, #ececec 100%);
+  --hardware-shadow: 
+    0 6px 24px rgba(0, 0, 0, 0.08),
+    0 3px 12px rgba(0, 0, 0, 0.06),
+    0 1px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06);
+  --oscillator-color: linear-gradient(145deg, #d2d2d2 0%, #e0e0e0 50%, #f5f5f5 100%);
+  --oscillator-shadow: 
+    0 3px 12px rgba(0, 0, 0, 0.03),
+    0 1px 6px rgba(0, 0, 0, 0.02),
+    0 1px 3px rgba(0, 0, 0, 0.015),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.025);
+  --oscillator-border: 1px solid #00000033;
+  --waveforms-color: 
+    radial-gradient(circle at center, rgba(0, 255, 100, 0.05) 0%, transparent 50%),
+    linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  --waveforms-shadow: 
+    0 0 15px rgba(0, 255, 100, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(0, 0, 0, 0.8),
+    inset 0 -1px 0 rgba(0, 255, 100, 0.1);
+  --waveforms-border: 1px solid rgba(255, 255, 255, 0.05);
+  --waveform-button-color: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+  --waveform-button-border: 1px solid rgba(255, 255, 255, 0.1);
+  --waveform-button-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.05);
+  --waveform-button-hover-color: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+  --waveform-button-hover-border: rgba(0, 255, 136, 0.4);
+  --waveform-button-hover-shadow: 
+    0 0 8px rgba(0, 255, 136, 0.2),
+    inset 0 1px 2px rgba(0, 0, 0, 0.8);
+  --waveform-button-selected-color: linear-gradient(145deg, #00ff88 0%, #00cc66 100%);
+  --waveform-button-selected-border: #00ff88;
+  --waveform-button-selected-shadow: 
+    0 0 15px rgba(0, 255, 136, 0.6),
+    0 0 25px rgba(0, 255, 136, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --knob-color: radial-gradient(circle at 30% 30%, #666, #333, #111);
+  --knob-border: 3px solid #444;
+  --knob-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  --knob-indicator-color: #00ff88;
+  --knob-indicator-shadow: 0 0 4px #00ff88;
+  --knob-center-color: linear-gradient(145deg, #555, #222);
+  --knob-center-border: 1px solid #666;
+  --knob-label-color: #aaa;
+  --led-display-color: linear-gradient(to bottom, #0a0a0a, #000);
+  --led-display-text-color: #00ff88;
+  --led-display-border: 1px solid #333;
+  --led-display-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.05);
+  --led-display-text-shadow: 0 0 4px #00ff88;
+  --volumemeter-color: #2a2a2a;
+  --visualizer-color: #1a1a1a;
+  --visualizer-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    0 1px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 3px rgba(0, 0, 0, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
   --border-color: #00000033;
 }
 
 html[data-theme="dark"] {
-  --hardware-color: linear-gradient(145deg, #3c3c3c 0%, #39393b 50%, #3a3a3a 100%);
-  --volumemeter-color: #191C21;
-  --visualizer-color: #191C21;
-  --visualier-shadow: inset 0 4px 8px #000000cc, 0 2px 4px #00000099;
+  --hardware-color: 
+    radial-gradient(circle at 25% 25%, #ffffff05 0%, transparent 50%),
+    linear-gradient(145deg, #2e2e2e 0%, #343434 20%, #3b3939 40%, #343434 60%, #303030 80%, #2c2c2c 100%);
+  --hardware-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    0 4px 16px rgba(0, 0, 0, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  --oscillator-color: linear-gradient(145deg, #303030 0%, #323236 50%, #2c2828 100%);
+  --oscillator-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.12),
+    0 1px 4px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  --oscillator-border: 1px solid #e4e4e433;
+  --waveforms-color: 
+    radial-gradient(circle at center, #00ff6414 0%, transparent 50%),
+    linear-gradient(145deg, #000000 0%, #0f0f0f 50%, #050505 100%);
+  --waveforms-shadow:
+    0 0 20px #5454544d,
+    0 3px 12px rgba(0, 0, 0, 0.6),
+    inset 0 3px 6px rgba(0, 0, 0, 0.9);
+  --waveforms-border: 1px solid rgba(255, 255, 255, 0.08);
+  --waveform-button-color: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+  --waveform-button-border: 1px solid rgba(255, 255, 255, 0.15);
+  --waveform-button-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.03);
+  --waveform-button-hover-color: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+  --waveform-button-hover-border: rgba(0, 255, 136, 0.5);
+  --waveform-button-hover-shadow: 
+    0 0 10px rgba(0, 255, 136, 0.3),
+    inset 0 1px 2px rgba(0, 0, 0, 0.9);
+  --waveform-button-selected-color: linear-gradient(145deg, #00ff88 0%, #00cc66 100%);
+  --waveform-button-selected-border: #00ff88;
+  --waveform-button-selected-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.8),
+    0 0 30px rgba(0, 255, 136, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  --knob-color: radial-gradient(circle at 30% 30%, #777, #444, #1a1a1a);
+  --knob-border: 3px solid #555;
+  --knob-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.8),
+    inset 0 2px 4px rgba(255, 255, 255, 0.08),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+  --knob-indicator-color: #00ff88;
+  --knob-indicator-shadow: 0 0 6px #00ff88;
+  --knob-center-color: linear-gradient(145deg, #666, #333);
+  --knob-center-border: 1px solid #777;
+  --knob-label-color: #bbb;
+  --led-display-color: linear-gradient(to bottom, #050505, #000);
+  --led-display-text-color: #00ff88;
+  --led-display-border: 1px solid #444;
+  --led-display-shadow: 
+    inset 0 3px 6px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.02);
+  --led-display-text-shadow: 0 0 6px #00ff88;
+  --volumemeter-color: #0a0a0a;
+  --visualizer-color: #050505;
+  --visualizer-shadow: 
+    0 3px 12px rgba(0, 0, 0, 0.4),
+    0 1px 6px rgba(0, 0, 0, 0.3),
+    inset 0 1px 4px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02);
   --border-color: #00000033;
 }
