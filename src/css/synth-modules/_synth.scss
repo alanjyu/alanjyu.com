@@ -1,0 +1,134 @@
+@use '../base/variables' as *;
+@use '../functions/breakpoints' as breakpoint;
+@use '../components/structures' as struc;
+@use '../components/decorations' as decor;
+
+// Import all synth modules
+@use 'display';
+@use 'oscillator';
+@use 'keyboard';
+@use 'effects';
+
+// Main synth container and layout styles
+.synth {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.audiobox {
+	@include struc.container;
+	display: flex;
+	flex-direction: column;
+	max-width: 1400px;
+	background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #0f0f0f 100%);
+	border-radius: 20px;
+	border: 3px solid #444;
+	position: relative;
+		
+	// Add LED power indicator
+	&::after {
+		content: '';
+		position: absolute;
+		top: 20px;
+		right: 30px;
+		width: 8px;
+		height: 8px;
+		background: #00ff00;
+		border-radius: 50%;
+		box-shadow: 
+			0 0 10px #00ff00,
+			inset 0 1px 0 rgba(255, 255, 255, 0.3);
+		z-index: 10;
+	}
+}
+
+.synth-controls {
+	width: 100%;
+	background: linear-gradient(to bottom, #2d2d2d 0%, #1f1f1f 100%);
+	border-radius: 0;
+	padding: $gap-large $gap-medium;
+	border-top: 1px solid #444;
+	border-bottom: 1px solid #111;
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+	
+	// Add control panel sections
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: $gap-large;
+	
+	@include breakpoint.respond-to('tablet') {
+		grid-template-columns: 1fr;
+		gap: $gap-medium;
+		padding: $gap-medium $gap-small;
+	}
+	
+	@include breakpoint.respond-to('mobile') {
+		padding: $gap-small $gap-tiny;
+		gap: $gap-small;
+	}
+}
+
+// Control panel sections
+.control-panel {
+	background: linear-gradient(145deg, #363636 0%, #2a2a2a 100%);
+	border-radius: 12px;
+	padding: $gap-medium;
+	border: 2px solid #444;
+	box-shadow: 
+		inset 0 2px 4px rgba(0, 0, 0, 0.3),
+		0 4px 8px rgba(0, 0, 0, 0.2);
+	position: relative;
+	
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, 
+			transparent 0%, 
+			rgba(255, 255, 255, 0.2) 50%, 
+			transparent 100%);
+	}
+	
+	h3 {
+		color: #fff;
+		font-family: 'Arial', sans-serif;
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: $gap-medium;
+		text-align: center;
+		background: linear-gradient(90deg, #00ff88, #00cc6a);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		
+		@include breakpoint.respond-to('mobile') {
+			font-size: 12px;
+			margin-bottom: $gap-small;
+		}
+	}
+}
+
+// Rack mounting screws effect
+.audiobox {
+	&::before {
+		content: '';
+		position: absolute;
+		top: 10px;
+		left: 15px;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		box-shadow: 
+			0 1px 2px rgba(0, 0, 0, 0.8),
+			inset 0 1px 0 rgba(255, 255, 255, 0.2);
+		z-index: 5;
+	}
+}

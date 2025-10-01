@@ -1,0 +1,318 @@
+@use '../base/variables' as *;
+@use '../functions/breakpoints' as breakpoint;
+
+// Professional keyboard styles
+.keyboard {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background: linear-gradient(to bottom, 
+        #3a3a3a 0%, 
+        #2c2c2c 20%, 
+        #1e1e1e 80%, 
+        #0f0f0f 100%);
+    padding: 40px 30px 30px;
+    border-radius: 16px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        inset 0 3px 6px rgba(255, 255, 255, 0.1),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.6);
+    min-width: fit-content;
+    border: 3px solid #444;
+    position: relative;
+    
+    // Add keyboard branding
+    &::before {
+        content: 'MIDI KEYBOARD';
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #888;
+        font-family: 'Arial', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+    
+    // Add mounting hardware
+    &::after {
+        content: '';
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, #666 30%, #333 100%);
+        border-radius: 50%;
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.8),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    @include breakpoint.respond-to('desktop') {
+        padding: 35px 25px 25px;
+    }
+    
+    @include breakpoint.respond-to('tablet') {
+        padding: 30px 20px 20px;
+        overflow-x: auto;
+    }
+    
+    @include breakpoint.respond-to('mobile') {
+        padding: 25px 15px 15px;
+        transform: scale(0.85);
+        transform-origin: center;
+    }
+}
+
+.key {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    transition: all 0.12s cubic-bezier(0.4, 0.0, 0.2, 1);
+    font-family: 'Arial', sans-serif;
+
+    &__label {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        opacity: 0.8;
+        
+        @include breakpoint.respond-to('tablet') {
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            font-size: 9px;
+            margin-bottom: 8px;
+        }
+    }
+
+    &__note {
+        font-size: 11px;
+        opacity: 0.6;
+        margin-bottom: 12px;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        
+        @include breakpoint.respond-to('tablet') {
+            font-size: 9px;
+            margin-bottom: 10px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            font-size: 8px;
+            margin-bottom: 8px;
+        }
+    }
+
+    &.white {
+        width: 80px;
+        height: 280px;
+        background: linear-gradient(to bottom, 
+            #ffffff 0%, 
+            #fafafa 10%,
+            #f5f5f5 30%, 
+            #eeeeee 70%,
+            #e8e8e8 90%,
+            #e0e0e0 100%);
+        color: #444;
+        border: 2px solid #ddd;
+        border-radius: 0 0 10px 10px;
+        z-index: 1;
+        margin-right: 2px;
+        box-shadow: 
+            0 12px 24px rgba(0, 0, 0, 0.2),
+            inset 0 3px 0 rgba(255, 255, 255, 0.9),
+            inset 0 -3px 0 rgba(0, 0, 0, 0.15),
+            inset 2px 0 0 rgba(255, 255, 255, 0.4),
+            inset -2px 0 0 rgba(0, 0, 0, 0.1);
+        position: relative;
+        
+        // Add key texture
+        &::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 20px;
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.1) 100%);
+            border-radius: 0 0 6px 6px;
+            pointer-events: none;
+        }
+
+        &:hover {
+            background: linear-gradient(to bottom, 
+                #f8f8f8 0%, 
+                #f2f2f2 10%,
+                #ececec 30%, 
+                #e6e6e6 70%,
+                #e0e0e0 90%,
+                #d8d8d8 100%);
+            transform: translateY(3px);
+            box-shadow: 
+                0 9px 18px rgba(0, 0, 0, 0.25),
+                inset 0 3px 0 rgba(255, 255, 255, 0.7),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2),
+                inset 2px 0 0 rgba(255, 255, 255, 0.3),
+                inset -2px 0 0 rgba(0, 0, 0, 0.15);
+        }
+
+        &.active {
+            background: linear-gradient(to bottom, 
+                #e8e8e8 0%, 
+                #e0e0e0 10%,
+                #d8d8d8 30%, 
+                #d0d0d0 70%,
+                #c8c8c8 90%,
+                #c0c0c0 100%);
+            transform: translateY(6px);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.35),
+                inset 0 4px 8px rgba(0, 0, 0, 0.2),
+                inset 2px 0 0 rgba(255, 255, 255, 0.2),
+                inset -2px 0 0 rgba(0, 0, 0, 0.2);
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+        
+        @include breakpoint.respond-to('tablet') {
+            width: 70px;
+            height: 240px;
+            margin-right: 1px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            width: 60px;
+            height: 200px;
+        }
+    }
+
+    &.black {
+        width: 48px;
+        height: 180px;
+        background: linear-gradient(to bottom, 
+            #4a4a4a 0%, 
+            #3a3a3a 15%,
+            #2a2a2a 40%, 
+            #1a1a1a 70%,
+            #0f0f0f 90%,
+            #000000 100%);
+        color: #ccc;
+        position: absolute;
+        border-radius: 0 0 8px 8px;
+        z-index: 2;
+        box-shadow: 
+            0 15px 30px rgba(0, 0, 0, 0.6),
+            inset 0 3px 0 rgba(255, 255, 255, 0.15),
+            inset 0 -3px 0 rgba(0, 0, 0, 0.6),
+            inset 1px 0 0 rgba(255, 255, 255, 0.1),
+            inset -1px 0 0 rgba(0, 0, 0, 0.3);
+        border: 2px solid #111;
+        position: relative;
+        
+        // Add key texture
+        &::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 6px;
+            right: 6px;
+            bottom: 15px;
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 100%);
+            border-radius: 0 0 4px 4px;
+            pointer-events: none;
+        }
+
+        &:hover {
+            background: linear-gradient(to bottom, 
+                #5a5a5a 0%, 
+                #4a4a4a 15%,
+                #3a3a3a 40%, 
+                #2a2a2a 70%,
+                #1a1a1a 90%,
+                #0a0a0a 100%);
+            transform: translateY(2px);
+            box-shadow: 
+                0 12px 24px rgba(0, 0, 0, 0.7),
+                inset 0 3px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.7),
+                inset 1px 0 0 rgba(255, 255, 255, 0.15),
+                inset -1px 0 0 rgba(0, 0, 0, 0.4);
+        }
+
+        &.active {
+            background: linear-gradient(to bottom, 
+                #3a3a3a 0%, 
+                #2a2a2a 15%,
+                #1a1a1a 40%, 
+                #0f0f0f 70%,
+                #050505 90%,
+                #000000 100%);
+            transform: translateY(4px);
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.8),
+                inset 0 4px 8px rgba(0, 0, 0, 0.6),
+                inset 1px 0 0 rgba(255, 255, 255, 0.05),
+                inset -1px 0 0 rgba(0, 0, 0, 0.5);
+        }
+        
+        @include breakpoint.respond-to('tablet') {
+            width: 42px;
+            height: 155px;
+        }
+        
+        @include breakpoint.respond-to('mobile') {
+            width: 36px;
+            height: 130px;
+        }
+    }
+}
+
+// Enhanced black key positioning with better precision
+.key.black[data-key="KeyW"] { left: 59px; }   // Between A and S
+.key.black[data-key="KeyE"] { left: 141px; }  // Between S and D  
+.key.black[data-key="KeyT"] { left: 305px; }  // Between F and G
+.key.black[data-key="KeyY"] { left: 387px; }  // Between G and H
+.key.black[data-key="KeyU"] { left: 469px; }  // Between H and J
+.key.black[data-key="KeyO"] { left: 633px; }  // Between K and L
+.key.black[data-key="KeyP"] { left: 715px; }  // Between L and ;
+
+// Tablet positioning adjustments
+@include breakpoint.respond-to('tablet') {
+    .key.black[data-key="KeyW"] { left: 52px; }
+    .key.black[data-key="KeyE"] { left: 123px; }
+    .key.black[data-key="KeyT"] { left: 266px; }
+    .key.black[data-key="KeyY"] { left: 337px; }
+    .key.black[data-key="KeyU"] { left: 408px; }
+    .key.black[data-key="KeyO"] { left: 551px; }
+    .key.black[data-key="KeyP"] { left: 622px; }
+}
+
+// Mobile positioning adjustments  
+@include breakpoint.respond-to('mobile') {
+    .key.black[data-key="KeyW"] { left: 44px; }
+    .key.black[data-key="KeyE"] { left: 104px; }
+    .key.black[data-key="KeyT"] { left: 224px; }
+    .key.black[data-key="KeyY"] { left: 284px; }
+    .key.black[data-key="KeyU"] { left: 344px; }
+    .key.black[data-key="KeyO"] { left: 464px; }
+    .key.black[data-key="KeyP"] { left: 524px; }
+}
