@@ -1,4 +1,5 @@
 import { synthStorage } from './storage.js';
+import { updateKnobRotation, initKnobRotations } from './knobs.js';
 
 export default class Oscillator {
     constructor(audioContext, destinationNode) {
@@ -24,6 +25,7 @@ export default class Oscillator {
         
         this.initControls();
         this.loadUIState();
+        initKnobRotations('#osc1-volume, #osc2-volume, #osc2-detune');
     }
 
     initControls() {
@@ -70,6 +72,7 @@ export default class Oscillator {
             this.osc1Settings.volume = volume / 100;
             this.storage.updateSetting('oscillator', 'osc1.volume', volume);
             e.target.parentNode.nextElementSibling.textContent = `${volume}%`;
+            updateKnobRotation(e.target);
             this.updateActiveOscillators();
         });
 
@@ -78,6 +81,7 @@ export default class Oscillator {
             this.osc2Settings.volume = volume / 100;
             this.storage.updateSetting('oscillator', 'osc2.volume', volume);
             e.target.parentNode.nextElementSibling.textContent = `${volume}%`;
+            updateKnobRotation(e.target);
             this.updateActiveOscillators();
         });
 
@@ -86,6 +90,7 @@ export default class Oscillator {
             this.osc2Settings.detune = detune;
             this.storage.updateSetting('oscillator', 'osc2.detune', detune);
             e.target.parentNode.nextElementSibling.textContent = `${detune} cents`;
+            updateKnobRotation(e.target);
             this.updateActiveOscillators();
         });
     }
@@ -225,18 +230,21 @@ export default class Oscillator {
             osc1Volume.value = settings.osc1?.volume || 50;
             const display = osc1Volume.parentNode.nextElementSibling;
             if (display) display.textContent = `${osc1Volume.value}%`;
+            updateKnobRotation(osc1Volume);
         }
         
         if (osc2Volume) {
             osc2Volume.value = settings.osc2?.volume || 30;
             const display = osc2Volume.parentNode.nextElementSibling;
             if (display) display.textContent = `${osc2Volume.value}%`;
+            updateKnobRotation(osc2Volume);
         }
         
         if (osc2Detune) {
             osc2Detune.value = settings.osc2?.detune || 0;
             const display = osc2Detune.parentNode.nextElementSibling;
             if (display) display.textContent = `${osc2Detune.value} cents`;
+            updateKnobRotation(osc2Detune);
         }
     }
 

@@ -218,23 +218,32 @@
 		border: var(--knob-border);
 		box-shadow: var(--knob-shadow);
 		pointer-events: none;
-		transition: transform 0.1s ease;
 
-		// Knob indicator
-		&::before {
-			content: "";
+		// Rotating indicator container
+		.knob-indicator {
 			position: absolute;
-			top: 5px;
-			left: 50%;
-			transform: translateX(-50%);
-			width: 3px;
-			height: 20px;
-			background: var(--knob-indicator-color);
-			border-radius: 2px;
-			box-shadow: var(--knob-indicator-shadow);
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transition: transform 0.1s ease;
+
+			// Knob indicator line
+			&::before {
+				content: "";
+				position: absolute;
+				top: 5px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 3px;
+				height: 20px;
+				background: var(--knob-indicator-color);
+				border-radius: 2px;
+				box-shadow: var(--knob-indicator-shadow);
+			}
 		}
 
-		// Center dot
+		// Center dot (static)
 		&::after {
 			content: "";
 			position: absolute;
@@ -252,7 +261,7 @@
 			width: 60px;
 			height: 60px;
 
-			&::before {
+			.knob-indicator::before {
 				top: 4px;
 				height: 18px;
 				width: 2px;
@@ -268,7 +277,7 @@
 			width: 50px;
 			height: 50px;
 
-			&::before {
+			.knob-indicator::before {
 				top: 3px;
 				height: 15px;
 				width: 2px;

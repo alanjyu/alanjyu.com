@@ -1,3 +1,5 @@
+import { updateKnobRotation, initKnobRotations } from './knobs.js';
+
 export default class Effects {
     constructor(audioContext, inputNode, outputNode) {
         this.audioContext = audioContext;
@@ -105,7 +107,9 @@ export default class Effects {
                     <label>Room Size</label>
                     <div class="knob-container">
                         <input type="range" id="${effectSlot}-reverb-size" min="0.1" max="5" step="0.1" value="3">
-                        <div class="knob"></div>
+                        <div class="knob">
+                            <div class="knob-indicator"></div>
+                        </div>
                     </div>
                     <span class="param-display">3.0s</span>
                 </div>
@@ -113,7 +117,9 @@ export default class Effects {
                     <label>Wet/Dry</label>
                     <div class="knob-container">
                         <input type="range" id="${effectSlot}-reverb-mix" min="0" max="100" value="30">
-                        <div class="knob"></div>
+                        <div class="knob">
+                            <div class="knob-indicator"></div>
+                        </div>
                     </div>
                     <span class="param-display">30%</span>
                 </div>
@@ -127,6 +133,7 @@ export default class Effects {
                 const size = parseFloat(e.target.value);
                 this.createImpulseResponse(convolver, size, 0.8);
                 e.target.nextElementSibling.textContent = `${size}s`;
+                updateKnobRotation(e.target);
             });
 
             mixControl?.addEventListener('input', (e) => {
@@ -135,6 +142,7 @@ export default class Effects {
                 wetGain.gain.setValueAtTime(wetLevel, this.audioContext.currentTime);
                 dryGain.gain.setValueAtTime(dryLevel, this.audioContext.currentTime);
                 e.target.nextElementSibling.textContent = `${e.target.value}%`;
+                updateKnobRotation(e.target);
             });
         }
 
@@ -179,7 +187,9 @@ export default class Effects {
                     <label>Rate</label>
                     <div class="knob-container">
                         <input type="range" id="${effectSlot}-chorus-rate" min="0.1" max="5" step="0.1" value="0.5">
-                        <div class="knob"></div>
+                        <div class="knob">
+                            <div class="knob-indicator"></div>
+                        </div>
                     </div>
                     <span class="param-display">0.5 Hz</span>
                 </div>
@@ -187,7 +197,9 @@ export default class Effects {
                     <label>Depth</label>
                     <div class="knob-container">
                         <input type="range" id="${effectSlot}-chorus-depth" min="0" max="100" value="50">
-                        <div class="knob"></div>
+                        <div class="knob">
+                            <div class="knob-indicator"></div>
+                        </div>
                     </div>
                     <span class="param-display">50%</span>
                 </div>
@@ -201,6 +213,7 @@ export default class Effects {
                 const rate = parseFloat(e.target.value);
                 lfo.frequency.setValueAtTime(rate, this.audioContext.currentTime);
                 e.target.nextElementSibling.textContent = `${rate} Hz`;
+                updateKnobRotation(e.target);
             });
 
             depthControl?.addEventListener('input', (e) => {
@@ -209,6 +222,7 @@ export default class Effects {
                 wetGain.gain.setValueAtTime(depth * 0.5, this.audioContext.currentTime);
                 dryGain.gain.setValueAtTime(1 - (depth * 0.5), this.audioContext.currentTime);
                 e.target.nextElementSibling.textContent = `${e.target.value}%`;
+                updateKnobRotation(e.target);
             });
         }
 
@@ -249,16 +263,20 @@ export default class Effects {
                 <div class="effect-param">
                     <label>Time</label>
                     <div class="knob-container">
-                        <input type="range" id="${effectSlot}-delay-time" min="0.05" max="1" step="0.05" value="0.3">
-                        <div class="knob"></div>
+                        <input type="range" id="${effectSlot}-delay-time" min="0.01" max="1" step="0.01" value="0.3">
+                        <div class="knob">
+                            <div class="knob-indicator"></div>
+                        </div>
                     </div>
                     <span class="param-display">0.3s</span>
                 </div>
                 <div class="effect-param">
                     <label>Feedback</label>
                     <div class="knob-container">
-                        <input type="range" id="${effectSlot}-delay-feedback" min="0" max="80" value="30">
-                        <div class="knob"></div>
+                        <input type="range" id="${effectSlot}-delay-feedback" min="0" max="95" value="30">
+                        <div class="knob">
+                            <div class="knob-indicator"></div>
+                        </div>
                     </div>
                     <span class="param-display">30%</span>
                 </div>
@@ -266,7 +284,9 @@ export default class Effects {
                     <label>Wet/Dry</label>
                     <div class="knob-container">
                         <input type="range" id="${effectSlot}-delay-mix" min="0" max="100" value="30">
-                        <div class="knob"></div>
+                        <div class="knob">
+                            <div class="knob-indicator"></div>
+                        </div>
                     </div>
                     <span class="param-display">30%</span>
                 </div>
@@ -281,12 +301,14 @@ export default class Effects {
                 const time = parseFloat(e.target.value);
                 delayNode.delayTime.setValueAtTime(time, this.audioContext.currentTime);
                 e.target.nextElementSibling.textContent = `${time}s`;
+                updateKnobRotation(e.target);
             });
 
             feedbackControl?.addEventListener('input', (e) => {
                 const feedback = e.target.value / 100;
                 feedbackGain.gain.setValueAtTime(feedback, this.audioContext.currentTime);
                 e.target.nextElementSibling.textContent = `${e.target.value}%`;
+                updateKnobRotation(e.target);
             });
 
             mixControl?.addEventListener('input', (e) => {
@@ -295,6 +317,7 @@ export default class Effects {
                 wetGain.gain.setValueAtTime(wetLevel, this.audioContext.currentTime);
                 dryGain.gain.setValueAtTime(dryLevel, this.audioContext.currentTime);
                 e.target.nextElementSibling.textContent = `${e.target.value}%`;
+                updateKnobRotation(e.target);
             });
         }
 
@@ -365,5 +388,13 @@ export default class Effects {
             const controlsContainer = document.getElementById('effect2-controls');
             this.updateEffect('effect2', state.effect2.type, controlsContainer);
         }
+    }
+
+    // Initialize all knob rotations for existing effects
+    initializeKnobRotations() {
+        const effectInputs = document.querySelectorAll('.effects input[type="range"]');
+        effectInputs.forEach(input => {
+            updateKnobRotation(input);
+        });
     }
 }

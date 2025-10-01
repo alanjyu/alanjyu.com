@@ -24,6 +24,7 @@ export default class Synth {
         
         // Initialize modules after creation
         this.oscillator.initialize();
+        this.effects.initializeKnobRotations();
         
         // Connect final audio chain: analyser -> destination
         this.analyser.connect(this.audioContext.destination);
