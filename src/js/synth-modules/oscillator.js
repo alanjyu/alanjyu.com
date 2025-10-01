@@ -20,42 +20,54 @@ export default class Oscillator {
     }
 
     initControls() {
-        // Oscillator 1 controls
-        const osc1Waveform = document.getElementById('osc1-waveform');
-        const osc1Volume = document.getElementById('osc1-volume');
+        // Waveform button controls
+        const waveformButtons = document.querySelectorAll('.waveform-btn');
         
-        // Oscillator 2 controls
-        const osc2Waveform = document.getElementById('osc2-waveform');
+        // Volume and detune controls
+        const osc1Volume = document.getElementById('osc1-volume');
         const osc2Volume = document.getElementById('osc2-volume');
         const osc2Detune = document.getElementById('osc2-detune');
 
-        // Event listeners for OSC1
-        osc1Waveform?.addEventListener('change', (e) => {
-            this.osc1Settings.waveform = e.target.value;
-            this.updateActiveOscillators();
+        // Event listeners for waveform buttons
+        waveformButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const waveform = e.target.dataset.waveform;
+                const oscNumber = e.target.dataset.osc;
+                
+                // Remove selected class from siblings
+                const siblings = e.target.parentNode.querySelectorAll('.waveform-btn');
+                siblings.forEach(btn => btn.classList.remove('selected'));
+                
+                // Add selected class to clicked button
+                e.target.classList.add('selected');
+                
+                // Update oscillator settings
+                if (oscNumber === '1') {
+                    this.osc1Settings.waveform = waveform;
+                } else if (oscNumber === '2') {
+                    this.osc2Settings.waveform = waveform;
+                }
+                
+                this.updateActiveOscillators();
+            });
         });
 
+        // Event listeners for volume controls
         osc1Volume?.addEventListener('input', (e) => {
             this.osc1Settings.volume = e.target.value / 100;
-            e.target.nextElementSibling.textContent = `${e.target.value}%`;
-            this.updateActiveOscillators();
-        });
-
-        // Event listeners for OSC2
-        osc2Waveform?.addEventListener('change', (e) => {
-            this.osc2Settings.waveform = e.target.value;
+            e.target.parentNode.nextElementSibling.textContent = `${e.target.value}%`;
             this.updateActiveOscillators();
         });
 
         osc2Volume?.addEventListener('input', (e) => {
             this.osc2Settings.volume = e.target.value / 100;
-            e.target.nextElementSibling.textContent = `${e.target.value}%`;
+            e.target.parentNode.nextElementSibling.textContent = `${e.target.value}%`;
             this.updateActiveOscillators();
         });
 
         osc2Detune?.addEventListener('input', (e) => {
             this.osc2Settings.detune = parseInt(e.target.value);
-            e.target.nextElementSibling.textContent = `${e.target.value} cents`;
+            e.target.parentNode.nextElementSibling.textContent = `${e.target.value} cents`;
             this.updateActiveOscillators();
         });
     }
