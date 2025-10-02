@@ -137,13 +137,16 @@
                         </svg>
                     </button>
                 </div>
-                <div class="knob-container">
-                    <input type="range" id="osc1-volume" min="0" max="100" value="50">
-                    <div class="knob">
-                        <div class="knob-indicator"></div>
+                <div class="knob-controller">
+                    <span class="volume-display">50%</span>
+                    <div class="knob-container">
+                        <input type="range" id="osc1-volume" min="0" max="100" value="50">
+                        <div class="knob">
+                            <div class="knob-indicator"></div>
+                        </div>
                     </div>
+                    <label class="knob-label">Volume</label>
                 </div>
-                <span class="volume-display">50%</span>
             </div>
             
             <div class="oscillators oscillators--dual">
@@ -170,25 +173,25 @@
                         </svg>
                     </button>
                 </div>
-                <div class="dual-knobs">
-                    <div class="knob-group">
+                <div class="knob-groups">
+                    <div class="knob-controller">
+                        <span class="volume-display">30%</span>
                         <div class="knob-container">
                             <input type="range" id="osc2-volume" min="0" max="100" value="30">
                             <div class="knob">
                                 <div class="knob-indicator"></div>
                             </div>
                         </div>
-                        <span class="volume-display">30%</span>
                         <label class="knob-label">Volume</label>
                     </div>
-                    <div class="knob-group">
+                    <div class="knob-controller">
+                        <span class="detune-display">0 cents</span>
                         <div class="knob-container">
                             <input type="range" id="osc2-detune" min="-50" max="50" value="0">
                             <div class="knob">
                                 <div class="knob-indicator"></div>
                             </div>
                         </div>
-                        <span class="detune-display">0 cents</span>
                         <label class="knob-label">Detune</label>
                     </div>
                 </div>

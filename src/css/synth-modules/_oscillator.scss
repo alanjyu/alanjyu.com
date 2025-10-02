@@ -13,6 +13,8 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: space-around;
+	min-width: 300px;
 	gap: $gap-small;
 	background: var(--oscillator-color);
 	box-shadow: var(--oscillator-shadow);
@@ -21,7 +23,7 @@
 	padding: $gap-large $gap-medium $gap-medium $gap-medium;
 
 	&--dual {
-		.dual-knobs {
+		.knob-groups {
 			display: flex;
 			gap: $gap-medium;
 			width: 100%;
@@ -101,32 +103,24 @@
 		}
 	}
 
-	.knob-group {
+	.knob-controller {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: $gap-tiny;
 	}
 
 	.knob-label {
 		color: var(--knob-label-color);
-		font-family: "Arial", sans-serif;
 		font-size: 10px;
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-
-		@include breakpoint.respond-to("mobile") {
-			font-size: 9px;
-		}
 	}
 
-	// Hardware-style knob container
 	.knob-container {
 		position: relative;
 		width: 80px;
 		height: 80px;
-		margin: $gap-small 0;
 
 		@include breakpoint.respond-to("tablet") {
 			width: 70px;
@@ -205,94 +199,10 @@
 		}
 	}
 
-	// Create actual visual knob
-	.knob {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 70px;
-		height: 70px;
-		background: var(--knob-color);
-		border-radius: 50%;
-		border: var(--knob-border);
-		box-shadow: var(--knob-shadow);
-		pointer-events: none;
 
-		// Rotating indicator container
-		.knob-indicator {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			transition: transform 0.1s ease;
-
-			// Knob indicator line
-			&::before {
-				content: "";
-				position: absolute;
-				top: 5px;
-				left: 50%;
-				transform: translateX(-50%);
-				width: 3px;
-				height: 20px;
-				background: var(--knob-indicator-color);
-				border-radius: 2px;
-				box-shadow: var(--knob-indicator-shadow);
-			}
-		}
-
-		// Center dot (static)
-		&::after {
-			content: "";
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			width: 12px;
-			height: 12px;
-			background: var(--knob-center-color);
-			border-radius: 50%;
-			border: var(--knob-center-border);
-		}
-
-		@include breakpoint.respond-to("tablet") {
-			width: 60px;
-			height: 60px;
-
-			.knob-indicator::before {
-				top: 4px;
-				height: 18px;
-				width: 2px;
-			}
-
-			&::after {
-				width: 10px;
-				height: 10px;
-			}
-		}
-
-		@include breakpoint.respond-to("mobile") {
-			width: 50px;
-			height: 50px;
-
-			.knob-indicator::before {
-				top: 3px;
-				height: 15px;
-				width: 2px;
-			}
-
-			&::after {
-				width: 8px;
-				height: 8px;
-			}
-		}
-	}
 
 	// LED-style value displays
-	.volume-display,
-	.detune-display {
+	.volume-display, .detune-display {
 		background: var(--led-display-color);
 		color: var(--led-display-text-color);
 		font-family: "Courier New", monospace;
@@ -305,17 +215,55 @@
 		box-shadow: var(--led-display-shadow);
 		text-shadow: var(--led-display-text-shadow);
 		min-width: 60px;
+	}
+}
 
-		@include breakpoint.respond-to("tablet") {
-			font-size: 12px;
-			padding: 6px 10px;
-			min-width: 50px;
-		}
+.knob {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50px;
+	height: 50px;
+	background: var(--knob-color);
+	border: var(--knob-border);
+	box-shadow: var(--knob-shadow);
+	border-radius: 50%;
 
-		@include breakpoint.respond-to("mobile") {
-			font-size: 11px;
-			padding: 5px 8px;
-			min-width: 45px;
+	.knob-indicator {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transition: transform 0.1s ease;
+
+		// Knob indicator line
+		&::before {
+			content: "";
+			position: absolute;
+			top: 5px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 3px;
+			height: 20px;
+			background: var(--knob-indicator-color);
+			border-radius: 2px;
+			box-shadow: var(--knob-indicator-shadow);
 		}
+	}
+
+	// Center dot (static)
+	&::after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 12px;
+		height: 12px;
+		background: var(--knob-center-color);
+		border-radius: 50%;
+		border: var(--knob-center-border);
 	}
 }

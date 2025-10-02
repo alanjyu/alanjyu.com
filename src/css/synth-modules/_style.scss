@@ -41,16 +41,16 @@
     0 0 15px rgba(0, 255, 136, 0.6),
     0 0 25px rgba(0, 255, 136, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  --knob-color: radial-gradient(circle at 30% 30%, #666, #333, #111);
-  --knob-border: 3px solid #444;
+  --knob-color: radial-gradient(circle at 30% 30%, #f8f9fa, #e9ecef, #ced4da);
+  --knob-border: 3px solid #adb5bd;
   --knob-shadow: 
-    0 8px 16px rgba(0, 0, 0, 0.6),
-    inset 0 2px 4px rgba(255, 255, 255, 0.1),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-  --knob-indicator-color: #00ff88;
-  --knob-indicator-shadow: 0 0 4px #00ff88;
-  --knob-center-color: linear-gradient(145deg, #555, #222);
-  --knob-center-border: 1px solid #666;
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+  --knob-indicator-color: #2563eb;
+  --knob-indicator-shadow: 0 0 4px #2563eb;
+  --knob-center-color: linear-gradient(145deg, #dee2e6, #adb5bd);
+  --knob-center-border: 1px solid #6c757d;
   --knob-label-color: #aaa;
   --led-display-color: linear-gradient(to bottom, #0a0a0a, #000);
   --led-display-text-color: #00ff88;
