@@ -1,168 +1,145 @@
+import WaveformDisplay from './display/waveform.js';
+import SpectrumDisplay from './display/spectrum.js';
+import VolumeMeter from './display/volume-meter.js';
+
 export default class Display {
     constructor(audioContext, analyser) {
         this.audioContext = audioContext;
         this.analyser = analyser;
         
-        // Canvas setup for both waveform and spectrum
-        this.canvas = document.getElementById('waveform');
-        this.canvasCtx = this.canvas.getContext('2d');
-        this.spectrumCanvas = document.getElementById('spectrum');
-        this.spectrumCtx = this.spectrumCanvas.getContext('2d');
-        this.volumeFill = document.querySelector('.volume-fill');
+        // Initialize display modules
+        this.displays = {
+            waveform: new WaveformDisplay(audioContext, analyser),
+            spectrum: new SpectrumDisplay(audioContext, analyser),
+            volumeMeter: new VolumeMeter(audioContext, analyser)
+        };
         
-        // Audio analysis data
-        this.bufferLength = this.analyser.frequencyBinCount;
-        this.dataArray = new Uint8Array(this.bufferLength);
+        // Display settings
+        this.settings = {
+            waveform: {
+                waveformColor: '#00ff88',
+                lineWidth: 2
+            },
+            spectrum: {
+                colorMode: 'frequency',
+                baseColor: '#ff6600',
+                smoothing: 0.8
+            },
+            volumeMeter: {
+                smoothing: 0.3,
+                peakHoldDuration: 1000
+            }
+        };
         
-        this.setupCanvas();
+        // Animation control
+        this.isRunning = false;
+        this.animationFrame = null;
+        
         this.startVisualization();
     }
 
-    setupCanvas() {
-        // Setup waveform canvas
-        const rect = this.canvas.getBoundingClientRect();
-        this.canvas.width = rect.width * window.devicePixelRatio;
-        this.canvas.height = rect.height * window.devicePixelRatio;
-        this.canvasCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
-        
-        // Setup spectrum canvas
-        const spectrumRect = this.spectrumCanvas.getBoundingClientRect();
-        this.spectrumCanvas.width = spectrumRect.width * window.devicePixelRatio;
-        this.spectrumCanvas.height = spectrumRect.height * window.devicePixelRatio;
-        this.spectrumCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
-        
-        // Handle canvas resize
-        window.addEventListener('resize', () => {
-            // Resize waveform canvas
-            const rect = this.canvas.getBoundingClientRect();
-            this.canvas.width = rect.width * window.devicePixelRatio;
-            this.canvas.height = rect.height * window.devicePixelRatio;
-            this.canvasCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
-            
-            // Resize spectrum canvas
-            const spectrumRect = this.spectrumCanvas.getBoundingClientRect();
-            this.spectrumCanvas.width = spectrumRect.width * window.devicePixelRatio;
-            this.spectrumCanvas.height = spectrumRect.height * window.devicePixelRatio;
-            this.spectrumCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
-        });
-    }
-
     startVisualization() {
+        if (this.isRunning) return;
+        
+        this.isRunning = true;
+        
         const draw = () => {
-            requestAnimationFrame(draw);
+            if (!this.isRunning) return;
             
-            // Draw both waveform and spectrum
-            this.drawWaveform();
-            this.drawSpectrum();
-            this.updateVolumeMeter();
+            this.animationFrame = requestAnimationFrame(draw);
+            
+            // Draw all displays
+            this.displays.waveform.draw();
+            this.displays.spectrum.draw();
+            this.displays.volumeMeter.draw();
         };
         
         draw();
     }
 
-    drawWaveform() {
-        // Get waveform data (time domain)
-        this.analyser.getByteTimeDomainData(this.dataArray);
-        
-        // Clear canvas
-        const rect = this.canvas.getBoundingClientRect();
-        this.canvasCtx.clearRect(0, 0, rect.width, rect.height);
-        
-        // Draw waveform
-        this.canvasCtx.lineWidth = 2;
-        this.canvasCtx.strokeStyle = '#00ff88';
-        this.canvasCtx.beginPath();
-        
-        const sliceWidth = rect.width / this.bufferLength;
-        let x = 0;
-        
-        for (let i = 0; i < this.bufferLength; i++) {
-            const v = (this.dataArray[i] - 128) / 128;
-            const y = (v * rect.height / 2) + (rect.height / 2);
+    stopVisualization() {
+        this.isRunning = false;
+        if (this.animationFrame) {
+            cancelAnimationFrame(this.animationFrame);
+            this.animationFrame = null;
+        }
+    }
+
+    // Update settings for individual displays
+    updateDisplaySettings(displayType, settings) {
+        if (this.displays[displayType]) {
+            this.displays[displayType].updateSettings(settings);
             
-            if (i === 0) {
-                this.canvasCtx.moveTo(x, y);
-            } else {
-                this.canvasCtx.lineTo(x, y);
+            // Update internal settings
+            if (this.settings[displayType]) {
+                Object.assign(this.settings[displayType], settings);
             }
-            
-            x += sliceWidth;
-        }
-        
-        this.canvasCtx.stroke();
-    }
-
-    drawSpectrum() {
-        const canvas = this.spectrumCanvas;
-        const ctx = this.spectrumCtx;
-        const rect = canvas.getBoundingClientRect();
-        const bufferLength = this.analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-        
-        this.analyser.getByteFrequencyData(dataArray);
-        
-        // Clear canvas with same background as waveform
-        ctx.clearRect(0, 0, rect.width, rect.height);
-        
-        const barWidth = rect.width / bufferLength;
-        let x = 0;
-        
-        for (let i = 0; i < bufferLength; i++) {
-            const barHeight = (dataArray[i] / 255) * rect.height;
-            
-            // Color gradient based on frequency
-            const hue = (i / bufferLength) * 120; // 0 = red, 120 = green
-            ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
-            
-            // Save the current transformation matrix
-            ctx.save();
-            
-            // Translate to move the rectangle from bottom
-            ctx.translate(0, rect.height - barHeight);
-            
-            // Draw the rectangle at the translated position
-            ctx.fillRect(x, 0, barWidth, barHeight);
-            
-            // Restore the transformation matrix
-            ctx.restore();
-            
-            x += barWidth;
         }
     }
 
-    updateVolumeMeter() {
-        // Calculate volume for volume meter (using frequency data)
-        const frequencyData = new Uint8Array(this.bufferLength);
-        this.analyser.getByteFrequencyData(frequencyData);
-        let sum = 0;
-        for (let i = 0; i < this.bufferLength; i++) {
-            sum += frequencyData[i];
+    // Update all display settings
+    updateSettings(settings) {
+        Object.entries(settings).forEach(([displayType, displaySettings]) => {
+            this.updateDisplaySettings(displayType, displaySettings);
+        });
+    }
+
+    // Get current settings
+    getSettings() {
+        return {
+            ...this.settings
+        };
+    }
+
+    // Reset all displays
+    reset() {
+        if (this.displays.volumeMeter.reset) {
+            this.displays.volumeMeter.reset();
         }
-        const average = sum / this.bufferLength;
-        const volumePercent = (average / 255) * 100;
+    }
+
+    // Toggle individual displays
+    toggleDisplay(displayType, enabled) {
+        const display = this.displays[displayType];
+        if (!display) return;
         
-        // Update mixer-style LED segments
-        const segments = document.querySelectorAll('.volume-segment');
-        const activeSegments = Math.floor((volumePercent / 100) * segments.length);
+        if (enabled) {
+            // Show display element
+            const element = this.getDisplayElement(displayType);
+            if (element) {
+                element.style.display = '';
+            }
+        } else {
+            // Hide display element
+            const element = this.getDisplayElement(displayType);
+            if (element) {
+                element.style.display = 'none';
+            }
+        }
+    }
+
+    getDisplayElement(displayType) {
+        switch (displayType) {
+            case 'waveform':
+                return document.getElementById('waveform');
+            case 'spectrum':
+                return document.getElementById('spectrum');
+            case 'volumeMeter':
+                return document.querySelector('.volume-meter');
+            default:
+                return null;
+        }
+    }
+
+    // Cleanup method
+    destroy() {
+        this.stopVisualization();
         
-        segments.forEach((segment, index) => {
-            if (index < activeSegments) {
-                segment.classList.add('active');
-            } else {
-                segment.classList.remove('active');
+        // Destroy individual displays
+        Object.values(this.displays).forEach(display => {
+            if (display.destroy) {
+                display.destroy();
             }
         });
-        
-        const volumePercentageElement = document.querySelector('.volume-percentage');
-        if (volumePercentageElement) {
-            volumePercentageElement.textContent = `${Math.round(volumePercent)}%`;
-        }
-    }
-
-    // Method to update display settings if needed
-    updateSettings(settings) {
-        if (settings.waveformColor) {
-            this.waveformColor = settings.waveformColor;
-        }
     }
 }
