@@ -1,52 +1,21 @@
 @use "../base/variables" as *;
 @use "../functions/breakpoints" as breakpoint;
 
-.oscillator-section {
-	display: flex;
-	width: 100%;
-	flex-direction: row;
-	gap: $gap-small;
-	align-items: stretch;
-}
-
-.oscillators {
+// Filter Section
+.filter-section {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-around;
-	width: 240px;
+	width: 360px;
 	min-height: 200px;
-	gap: $gap-small;
+	gap: $gap-tiny;
 	background: var(--oscillator-color);
 	box-shadow: var(--oscillator-shadow);
 	border: var(--oscillator-border);
 	border-radius: $border-radius-large;
 	padding: $gap-large $gap-medium $gap-medium $gap-medium;
-
-	// Common knob groups styling for both oscillators
-	.knob-groups {
-		display: flex;
-		flex-direction: row;
-		gap: $gap-tiny;
-		justify-content: center;
-		align-items: flex-start;
-		flex-wrap: nowrap;
-
-		.knob-controller {
-			flex-shrink: 0;
-		}
-	}
-
-	// Specific targeting for OSC 2 to ensure horizontal layout
-	&.oscillators--dual .knob-groups {
-		display: flex !important;
-		flex-direction: row !important;
-		
-		.knob-controller {
-			display: inline-flex !important;
-			flex-direction: column !important;
-		}
-	}
+	position: relative;
 
 	&__text {
 		position: absolute;
@@ -56,7 +25,7 @@
 		transform: translateX(-50%);
 		width: 100%;
 		color: var(--text-color);
-		filter: drop-shadow(0 0 4px rgba(0, 255, 136, 0.7));
+		filter: drop-shadow(0 0 4px rgba(255, 165, 0, 0.7));
 		font-size: 12px;
 		font-weight: 600;
 		letter-spacing: 2px;
@@ -65,8 +34,80 @@
 		pointer-events: none;
 	}
 
-	.waveforms {
+	.filter-left {
 		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.filter-right {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		flex: 1;
+		gap: $gap-small;
+	}
+
+	.filter-visualizer {
+		display: flex;
+		height: 80px;
+		width: 180px;
+		background: var(--visualizer-color);
+		box-shadow: var(--visualizer-shadow);
+		border-radius: $border-radius;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		overflow: hidden;
+
+		// Add screen scanlines effect
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: repeating-linear-gradient(
+				0deg,
+				transparent,
+				transparent 2px,
+				rgba(255, 165, 0, 0.03) 2px,
+				rgba(255, 165, 0, 0.03) 4px
+			);
+			pointer-events: none;
+			z-index: 5;
+		}
+		
+		// Add screen curvature effect
+		&::after {
+			content: '';
+			position: absolute;
+			top: 2px;
+			left: 2px;
+			right: 2px;
+			bottom: 2px;
+			border-radius: 6px;
+			background: radial-gradient(
+				ellipse at center,
+				transparent 50%,
+				rgba(0, 0, 0, 0.1) 100%
+			);
+			pointer-events: none;
+			z-index: 6;
+		}
+
+		.filter-canvas {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.filter-types {
+		display: flex;
+		flex-direction: column;
 		gap: 8px;
 		background: var(--waveforms-color);
 		box-shadow: var(--waveforms-shadow);
@@ -83,16 +124,26 @@
 			color: $silk;
 			font-size: 10px;
 			font-weight: 700;
-			padding: 6px 2px;
+			padding: 2px;
 			cursor: pointer;
 			transition: all 0.2s ease;
 			text-transform: uppercase;
 			box-shadow: var(--waveform-button-shadow);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 1px;
 
-			svg {
+			.filter-icon {
 				pointer-events: none;
-				width: 100%;
-				height: 100%;
+				width: 18px;
+				height: 8px;
+			}
+
+			span {
+				font-size: 5px;
+				letter-spacing: 0.5px;
 			}
 
 			&:hover {
@@ -108,69 +159,83 @@
 				border-color: var(--waveform-button-selected-border);
 				box-shadow: var(--waveform-button-selected-shadow);
 
-				svg {
+				.filter-icon {
 					filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
 				}
 			}
 		}
 	}
 
+	.filter-controls {
+		display: flex;
+		flex-direction: row;
+		gap: $gap-tiny;
+		justify-content: center;
+		align-items: flex-start;
+		flex-wrap: nowrap;
+
+		.knob-controller {
+			flex-shrink: 0;
+		}
+	}
+
+	// Filter-specific knob styling
 	.knob-controller {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 8px;
-		min-width: 60px;
+		min-width: 70px;
 	}
 
 	.knob-label {
 		color: var(--knob-label-color);
-		font-size: 8px;
+		font-size: 7px;
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		width: 60px;
+		width: 55px;
 		text-align: center;
 	}
 
 	.knob-container {
 		position: relative;
-		width: 80px;
-		height: 80px;
+		width: 60px;
+		height: 60px;
 
 		@include breakpoint.respond-to("tablet") {
-			width: 70px;
-			height: 70px;
+			width: 55px;
+			height: 55px;
 		}
 
 		@include breakpoint.respond-to("mobile") {
-			width: 60px;
-			height: 60px;
+			width: 50px;
+			height: 50px;
 		}
 	}
 
-	// LED-style value displays
-	.volume-display, .detune-display {
+	// Filter display styling
+	.frequency-display, .resonance-display {
 		background: var(--led-display-color);
 		color: var(--led-display-text-color);
-		font-size: 10px;
+		font-size: 9px;
 		font-weight: 700;
 		text-align: center;
-		padding: 4px 6px;
+		padding: 3px 4px;
 		border-radius: 4px;
 		border: var(--led-display-border);
 		box-shadow: var(--led-display-shadow);
 		text-shadow: var(--led-display-text-shadow);
-		width: 45px;
-		height: 18px;
+		width: 50px;
+		height: 16px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 }
 
-// Shared styles for oscillator knobs
-.oscillators {
+// Shared knob styles for filter section
+.filter-section {
 	// Transform range inputs to look like knobs
 	input[type="range"] {
 		position: absolute;
@@ -187,25 +252,25 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			width: 70px;
-			height: 70px;
+			width: 50px;
+			height: 50px;
 			background: radial-gradient(circle at 30% 30%, #666, #333, #111);
 			border-radius: 50%;
-			border: 3px solid #444;
+			border: 2px solid #444;
 			box-shadow:
-				0 8px 16px rgba(0, 0, 0, 0.6),
+				0 6px 12px rgba(0, 0, 0, 0.6),
 				inset 0 2px 4px rgba(255, 255, 255, 0.1),
 				inset 0 -2px 4px rgba(0, 0, 0, 0.3);
 			pointer-events: none;
 
 			@include breakpoint.respond-to("tablet") {
-				width: 60px;
-				height: 60px;
+				width: 45px;
+				height: 45px;
 			}
 
 			@include breakpoint.respond-to("mobile") {
-				width: 50px;
-				height: 50px;
+				width: 40px;
+				height: 40px;
 			}
 		}
 
@@ -213,25 +278,25 @@
 		&::after {
 			content: "";
 			position: absolute;
-			top: 15px;
+			top: 12px;
 			left: 50%;
 			transform: translateX(-50%);
-			width: 3px;
-			height: 20px;
+			width: 2px;
+			height: 15px;
 			background: #00ff88;
 			border-radius: 2px;
 			box-shadow: 0 0 4px #00ff88;
 			pointer-events: none;
 
 			@include breakpoint.respond-to("tablet") {
-				top: 12px;
-				height: 18px;
+				top: 10px;
+				height: 13px;
 				width: 2px;
 			}
 
 			@include breakpoint.respond-to("mobile") {
-				top: 10px;
-				height: 15px;
+				top: 8px;
+				height: 12px;
 				width: 2px;
 			}
 		}

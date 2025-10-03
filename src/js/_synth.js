@@ -2,6 +2,7 @@ import Display from './synth-modules/display.js';
 import Oscillator from './synth-modules/oscillator.js';
 import Keyboard from './synth-modules/keyboard.js';
 import Effects from './synth-modules/effects.js';
+import Filter from './synth-modules/filter.js';
 
 export default class Synth {
     constructor() {
@@ -13,10 +14,14 @@ export default class Synth {
         this.analyser.fftSize = 256;
         this.masterGain = this.audioContext.createGain();
         
-        // Initialize modules
+        // Create filter gain node to connect between oscillator and effects
+        this.filterGain = this.audioContext.createGain();
+        
+        // Initialize modules with proper audio chain
         this.display = new Display(this.audioContext, this.analyser);
+        this.oscillator = new Oscillator(this.audioContext, this.filterGain);
+        this.filter = new Filter(this.audioContext, this.filterGain, this.masterGain);
         this.effects = new Effects(this.audioContext, this.masterGain, this.analyser);
-        this.oscillator = new Oscillator(this.audioContext, this.masterGain);
         this.keyboard = new Keyboard(
             (note, velocity) => this.oscillator.noteOn(note, velocity),
             (note) => this.oscillator.noteOff(note)
@@ -29,8 +34,37 @@ export default class Synth {
         // Set up init button
         this.setupInitButton();
         
+        // Set up audio context resume on user interaction
+        this.setupAudioContextResume();
+        
         // Connect final audio chain: analyser -> destination
         this.analyser.connect(this.audioContext.destination);
+    }
+
+    // Setup audio context resume on user interaction
+    setupAudioContextResume() {
+        const resumeAudio = async () => {
+            if (this.audioContext.state === 'suspended') {
+                try {
+                    await this.audioContext.resume();
+                    console.log('Audio context resumed');
+                } catch (error) {
+                    console.error('Failed to resume audio context:', error);
+                }
+            }
+        };
+
+        // Resume audio context on any user interaction with the synth
+        const synthElement = document.querySelector('.synth');
+        if (synthElement) {
+            ['click', 'keydown', 'touchstart'].forEach(eventType => {
+                synthElement.addEventListener(eventType, resumeAudio, { once: true });
+            });
+        }
+
+        // Also try to resume when any key is pressed or button clicked
+        document.addEventListener('click', resumeAudio, { once: true });
+        document.addEventListener('keydown', resumeAudio, { once: true });
     }
 
     // Setup the init button functionality
@@ -57,6 +91,7 @@ export default class Synth {
         
         // Reset all modules
         this.oscillator.resetToDefaults();
+        this.filter.resetToDefaults();
         this.effects.resetToDefaults();
         
         // Small delay to show the reset is happening
@@ -76,6 +111,7 @@ export default class Synth {
     getState() {
         return {
             oscillator: this.oscillator.getSettings(),
+            filter: this.filter.getSettings(),
             effects: this.effects.getEffectsState(),
             keyboard: this.keyboard.getKeyMap()
         };
@@ -85,6 +121,9 @@ export default class Synth {
     setState(state) {
         if (state.oscillator) {
             this.oscillator.updateSettings(state.oscillator);
+        }
+        if (state.filter) {
+            this.filter.setSettings(state.filter);
         }
         if (state.effects) {
             this.effects.setEffectsState(state.effects);

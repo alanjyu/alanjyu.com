@@ -32,8 +32,8 @@ export default class SynthStorage {
                 },
                 filter: {
                     enabled: false,
-                    type: 'lowpass',
-                    frequency: 1000,
+                    type: 'none',
+                    frequency: 6000,
                     resonance: 1
                 }
             },
