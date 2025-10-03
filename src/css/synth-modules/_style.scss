@@ -1,98 +1,114 @@
 :root, html[data-theme="light"] {
   --hardware-color: 
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
-    linear-gradient(145deg, #ececec 0%, #f2f2f2 25%, #f6f6f6 50%, #f2f2f2 75%, #ececec 100%);
+    radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 80%),
+    #f2f2ec;
   --hardware-shadow: 
-    0 6px 24px rgba(0, 0, 0, 0.08),
-    0 3px 12px rgba(0, 0, 0, 0.06),
-    0 1px 6px rgba(0, 0, 0, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.06);
-  --oscillator-color: linear-gradient(145deg, #f5f5f5 0%, #e0e0e0 50%, #d2d2d2 100%);
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    inset 0 2px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+  --oscillator-color: 
+    radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.25) 0%, transparent 80%),
+    #dadada;
   --oscillator-shadow: 
-    0 3px 12px rgba(0, 0, 0, 0.03),
-    0 1px 6px rgba(0, 0, 0, 0.02),
-    0 1px 3px rgba(0, 0, 0, 0.015),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.025);
-  --oscillator-border: 1px solid #00000033;
+    0 6px 18px rgba(0, 0, 0, 0.08),
+    0 3px 8px rgba(0, 0, 0, 0.06),
+    0 1px 4px rgba(0, 0, 0, 0.04),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  --oscillator-border: 1px solid rgba(0, 0, 0, 0.15);
   --waveforms-color: 
-    radial-gradient(circle at center, rgba(0, 255, 100, 0.05) 0%, transparent 50%),
-    linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+    radial-gradient(circle at center, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+    linear-gradient(145deg, #2d1810 0%, #3d2318 30%, #4a2b1c 50%, #3d2318 70%, #2d1810 100%);
   --waveforms-shadow: 
-    0 0 15px rgba(0, 255, 100, 0.2),
-    0 2px 8px rgba(0, 0, 0, 0.4),
-    inset 0 2px 4px rgba(0, 0, 0, 0.8),
-    inset 0 -1px 0 rgba(0, 255, 100, 0.1);
-  --waveforms-border: 1px solid rgba(255, 255, 255, 0.05);
-  --waveform-button-color: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
-  --waveform-button-border: 1px solid rgba(255, 255, 255, 0.1);
+    0 0 20px rgba(139, 69, 19, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    inset 0 3px 6px rgba(0, 0, 0, 0.7),
+    inset 0 -1px 0 rgba(139, 69, 19, 0.2);
+  --waveforms-border: 1px solid rgba(139, 69, 19, 0.3);
+  --waveform-button-color: linear-gradient(145deg, #4a2b1c 0%, #3d2318 50%, #2d1810 100%);
+  --waveform-button-border: 1px solid rgba(139, 69, 19, 0.4);
   --waveform-button-shadow: 
-    inset 0 1px 2px rgba(0, 0, 0, 0.6),
-    0 1px 0 rgba(255, 255, 255, 0.05);
-  --waveform-button-hover-color: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
-  --waveform-button-hover-border: rgba(0, 255, 136, 0.4);
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(139, 69, 19, 0.2);
+  --waveform-button-hover-color: linear-gradient(145deg, #5a3b2c 0%, #4d3028 50%, #4a2b1c 100%);
+  --waveform-button-hover-border: rgba(255, 140, 0, 0.6);
   --waveform-button-hover-shadow: 
-    0 0 8px rgba(0, 255, 136, 0.2),
-    inset 0 1px 2px rgba(0, 0, 0, 0.8);
-  --waveform-button-selected-color: linear-gradient(145deg, #00ff88 0%, #00cc66 100%);
-  --waveform-button-selected-border: #00ff88;
+    0 0 12px rgba(255, 140, 0, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.7);
+  --waveform-button-selected-color: linear-gradient(145deg, #ff8c00 0%, #ff7700 50%, #ff6600 100%);
+  --waveform-button-selected-border: #ff8c00;
   --waveform-button-selected-shadow: 
-    0 0 15px rgba(0, 255, 136, 0.6),
-    0 0 25px rgba(0, 255, 136, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  --knob-color: radial-gradient(circle at 30% 30%, #f8f9fa, #e9ecef, #ced4da);
-  --knob-border: 3px solid #adb5bd;
+    0 0 20px rgba(255, 140, 0, 0.7),
+    0 0 35px rgba(255, 140, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  --knob-color: radial-gradient(circle at 30% 30%, #f8f8f8, #e9e9e9, #d4d4d4);
+  --knob-border: 3px solid #b8b8b8;
   --knob-shadow: 
     0 8px 16px rgba(0, 0, 0, 0.15),
     inset 0 2px 4px rgba(255, 255, 255, 0.8),
     inset 0 -2px 4px rgba(0, 0, 0, 0.1);
-  --knob-indicator-color: #2563eb;
-  --knob-indicator-shadow: 0 0 4px #2563eb;
-  --knob-center-color: linear-gradient(145deg, #dee2e6, #adb5bd);
-  --knob-center-border: 1px solid #6c757d;
-  --knob-label-color: #aaa;
-  --led-display-color: linear-gradient(to bottom, #0a0a0a, #000);
-  --led-display-text-color: #00ff88;
-  --led-display-border: 1px solid #333;
+  --knob-indicator-color: #8b4513;
+  --knob-indicator-shadow: 0 0 4px #8b4513;
+  --knob-center-color: linear-gradient(145deg, #e8e8e8, #c0c0c0);
+  --knob-center-border: 1px solid #909090;
+  --knob-label-color: #5a5a52;
+  --text-primary: #2a2a2a;
+  --text-secondary: #5a5a52;
+  --text-muted: #8a8a82;
+  --text-inverse: #ffffff;
+  --led-display-color: 
+    radial-gradient(ellipse at center, #0a0a08 0%, #000000 100%),
+    linear-gradient(to bottom, #1a1a15, #0a0a08);
+  --led-display-text-color: #ff8c00;
+  --led-display-border: 2px solid #3a3a32;
   --led-display-shadow: 
-    inset 0 2px 4px rgba(0, 0, 0, 0.8),
-    0 1px 0 rgba(255, 255, 255, 0.05);
-  --led-display-text-shadow: 0 0 4px #00ff88;
-  --volumemeter-color: #e8e8e8;
-  --visualizer-color: #f0f0f0;
+    inset 0 3px 6px rgba(0, 0, 0, 0.9),
+    inset 0 -1px 0 rgba(255, 140, 0, 0.1),
+    0 2px 0 rgba(255, 255, 255, 0.2);
+  --led-display-text-shadow: 0 0 3px #ff8c00, 0 0 1px #ff8c00;
+  --volumemeter-color: #dadada;
+  --visualizer-color: 
+    radial-gradient(ellipse at center, #1a1a15 0%, #0a0a08 100%),
+    linear-gradient(to bottom, #2a2a22, #1a1a15);
   --visualizer-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.1),
-    0 1px 4px rgba(0, 0, 0, 0.08),
-    inset 0 1px 3px rgba(0, 0, 0, 0.15),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.3);
-  --init-button-color: linear-gradient(145deg, #e8e8e8 0%, #d8d8d8 50%, #c8c8c8 100%);
-  --init-button-border: 1px solid #aaa;
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(0, 0, 0, 0.8),
+    inset 0 -1px 0 rgba(255, 140, 0, 0.1);
+  --init-button-color: 
+    radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.25) 0%, transparent 80%),
+    #dadada;
+  --init-button-border: 2px solid #a8a395;
   --init-button-shadow: 
-    inset 0 2px 4px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
-    0 1px 0 rgba(255, 255, 255, 0.06);
-  --init-button-hover-color: linear-gradient(145deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%);
-  --init-button-hover-border: rgba(255, 102, 0, 0.4);
+    0 6px 12px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+  --init-button-hover-color: 
+    radial-gradient(circle at 30% 30%, rgba(255, 140, 0, 0.2) 0%, transparent 60%),
+    linear-gradient(145deg, #e8e3db 0%, #d8d3cb 30%, #c8c3bb 50%, #d8d3cb 70%, #e8e3db 100%);
+  --init-button-hover-border: rgba(255, 140, 0, 0.8);
   --init-button-hover-shadow:
-    0 0 8px rgba(255, 102, 0, 0.2),
+    0 0 15px rgba(255, 140, 0, 0.4),
+    0 6px 12px rgba(0, 0, 0, 0.25),
+    inset 0 2px 4px rgba(255, 255, 255, 0.7),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+  --init-led-color: #5a4a3a;
+  --init-led-border: 2px solid #8a7a6a;
+  --init-led-shadow: 
     inset 0 2px 4px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
-  --init-led-color: #444;
-  --init-led-border: 1px solid #666;
-  --init-led-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  --init-led-active-color: #ff6600;
-  --init-led-active-shadow: 0 0 8px #ff6600;
-  --init-led-pressed-color: #ff3300;
-  --init-led-pressed-shadow: 0 0 12px #ff3300;
-  --border-color: #00000033;
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --init-led-active-color: #ff8c00;
+  --init-led-active-shadow: 0 0 12px #ff8c00, 0 0 6px #ff8c00;
+  --init-led-pressed-color: #ff6600;
+  --init-led-pressed-shadow: 0 0 16px #ff6600, 0 0 8px #ff6600;
+  --border-color: rgba(0, 0, 0, 0.2);
 }
 
 html[data-theme="dark"] {
   --hardware-color: 
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
     linear-gradient(145deg, #ececec 0%, #f2f2f2 25%, #f6f6f6 50%, #f2f2f2 75%, #ececec 100%);
   --hardware-shadow: 
     0 6px 24px rgba(0, 0, 0, 0.08),
@@ -144,6 +160,10 @@ html[data-theme="dark"] {
   --knob-center-color: linear-gradient(145deg, #dee2e6, #adb5bd);
   --knob-center-border: 1px solid #6c757d;
   --knob-label-color: #aaa;
+  --text-primary: #e0e0e0;
+  --text-secondary: #aaa;
+  --text-muted: #777;
+  --text-inverse: #000000;
   --led-display-color: linear-gradient(to bottom, #0a0a0a, #000);
   --led-display-text-color: #00ff88;
   --led-display-border: 1px solid #333;

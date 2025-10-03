@@ -16,6 +16,8 @@
 	border-radius: $border-radius-large;
 	padding: $gap-large $gap-medium $gap-medium $gap-medium;
 	position: relative;
+	transform: translateZ(0); // Force hardware acceleration to preserve box-shadow
+	will-change: auto; // Prevent unnecessary compositing
 
 	&__text {
 		position: absolute;

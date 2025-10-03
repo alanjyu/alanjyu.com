@@ -9,11 +9,42 @@ export default class WaveformDisplay {
         this.bufferLength = this.analyser.frequencyBinCount;
         this.dataArray = new Uint8Array(this.bufferLength);
         
-        // Visual settings
-        this.waveformColor = '#00ff88';
+        // Visual settings - theme-aware
+        this.updateThemeColors();
         this.lineWidth = 2;
         
+        // Listen for theme changes
+        this.setupThemeListener();
+        
         this.setupCanvas();
+    }
+
+    /**
+     * Detect current theme and set appropriate colors
+     */
+    updateThemeColors() {
+        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+        
+        if (theme === 'dark') {
+            this.waveformColor = '#00ff88'; // Green for dark mode
+        } else {
+            this.waveformColor = '#ff8c00'; // Orange for light mode
+        }
+    }
+
+    /**
+     * Listen for theme changes and update colors
+     */
+    setupThemeListener() {
+        // Watch for theme attribute changes
+        const observer = new MutationObserver(() => {
+            this.updateThemeColors();
+        });
+        
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
     }
 
     setupCanvas() {

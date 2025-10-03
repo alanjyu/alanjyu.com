@@ -295,16 +295,19 @@ export default class Filter {
      * Setup knobs with default values and double-click reset functionality
      */
     setupKnobDefaults() {
+        const defaultSettings = this.storage.getDefaultModuleSettings('effects');
+        const defaultFilter = defaultSettings.filter || {};
+        
         const knobConfigs = {
             '#filter-frequency': {
-                defaultValue: this.settings.frequency,
+                defaultValue: defaultFilter.frequency || 6000,
                 onReset: (value) => {
                     this.updateFrequency(value);
                     this.updateFrequencyDisplay(value);
                 }
             },
             '#filter-resonance': {
-                defaultValue: this.settings.resonance,
+                defaultValue: defaultFilter.resonance || 1,
                 onReset: (value) => {
                     this.updateResonance(value);
                     this.updateResonanceDisplay(value);
