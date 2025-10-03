@@ -1,5 +1,5 @@
 import { synthStorage } from './storage.js';
-import { updateKnobRotation, initKnobRotations } from './knobs.js';
+import { updateKnobRotation, initKnobRotations, setupKnobsWithDefaults, setupKnobMouseDrag } from './knobs.js';
 
 export default class Oscillator {
     constructor(audioContext, destinationNode) {
@@ -25,7 +25,58 @@ export default class Oscillator {
         
         this.initControls();
         this.loadUIState();
-        initKnobRotations('#osc1-volume, #osc2-volume, #osc2-detune');
+        this.setupKnobDefaults();
+    }
+
+    /**
+     * Setup knobs with default values and double-click reset functionality
+     */
+    setupKnobDefaults() {
+        const defaultSettings = this.storage.getDefaultModuleSettings('oscillator');
+        
+        const knobConfigs = {
+            '#osc1-volume': {
+                defaultValue: defaultSettings.osc1.volume,
+                onReset: (value) => {
+                    // Update display
+                    const display = document.querySelector('#osc1-volume').parentNode.parentNode.querySelector('.volume-display');
+                    if (display) display.textContent = `${value}%`;
+                    
+                    // Update internal settings and storage
+                    this.osc1Settings.volume = value / 100;
+                    this.storage.updateSetting('oscillator', 'osc1.volume', value);
+                    this.updateActiveOscillators();
+                }
+            },
+            '#osc2-volume': {
+                defaultValue: defaultSettings.osc2.volume,
+                onReset: (value) => {
+                    // Update display
+                    const display = document.querySelector('#osc2-volume').parentNode.parentNode.querySelector('.volume-display');
+                    if (display) display.textContent = `${value}%`;
+                    
+                    // Update internal settings and storage
+                    this.osc2Settings.volume = value / 100;
+                    this.storage.updateSetting('oscillator', 'osc2.volume', value);
+                    this.updateActiveOscillators();
+                }
+            },
+            '#osc2-detune': {
+                defaultValue: defaultSettings.osc2.detune,
+                onReset: (value) => {
+                    // Update display
+                    const display = document.querySelector('#osc2-detune').parentNode.parentNode.querySelector('.detune-display');
+                    if (display) display.textContent = `${value} cents`;
+                    
+                    // Update internal settings and storage
+                    this.osc2Settings.detune = value;
+                    this.storage.updateSetting('oscillator', 'osc2.detune', value);
+                    this.updateActiveOscillators();
+                }
+            }
+        };
+        
+        setupKnobsWithDefaults(knobConfigs);
     }
 
     initControls() {
