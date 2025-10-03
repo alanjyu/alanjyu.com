@@ -2,6 +2,8 @@
 @use 'base/theme';
 @use 'base/fonts';
 
+@use 'components/tooltip';
+
 @use 'layouts/nav';
 @use 'layouts/footer';
 @use 'layouts/card';

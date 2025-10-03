@@ -8,6 +8,7 @@
   --shade-color: #fff;
   --shade-color-alpha: #ffffff7f;
   --highlight-color: #efd096;
+  --highlight-color-alpha: #efd0967e;
   --filter: invert(0);
 }
 
@@ -19,6 +20,7 @@ html[data-theme="dark"] {
   --shade-color: #474747; 
   --shade-color-alpha: #2c2c2c78;
   --highlight-color: #397a95;
+  --highlight-color-alpha: #397a957e;
   --filter: invert(1);
 }
 

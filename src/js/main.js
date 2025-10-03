@@ -3,6 +3,8 @@ import Theme from './_theme.js';
 import Nav from './_nav.js';
 import Hover from './_hover.js';
 import Synth from './_synth.js';
+import Tooltip from './_tooltip.js';
+
 
 const components = [
 	{
@@ -20,6 +22,10 @@ const components = [
 	{
 		class: Synth,
 		selector: '.synth'
+	},
+	{
+		class: Tooltip,
+		selector: '.tooltip'
 	}
 ];
 

@@ -1,0 +1,44 @@
+@use '../base/variables' as *;
+@use './decorations' as decor;
+
+.tooltip {
+  position: relative;
+  background: var(--highlight-color-alpha);
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: help;
+  transition: all $animation-time ease;
+}
+
+.tooltip-box {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: var(--highlight-color-alpha);
+  color: var(--text-color);
+  padding: $gap-small;
+  border-radius: $border-radius;
+  line-height: 1.4;
+  max-width: 300px;
+  width: max-content;
+  opacity: 0;
+  pointer-events: none;
+  transition: all $animation-time ease;
+  @include decor.acrylic;
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--highlight-color-alpha);
+  }
+}
+
+.tooltip:hover .tooltip-box {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-7px);
+}
