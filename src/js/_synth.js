@@ -26,8 +26,43 @@ export default class Synth {
         this.oscillator.initialize();
         this.effects.initializeKnobRotations();
         
+        // Set up init button
+        this.setupInitButton();
+        
         // Connect final audio chain: analyser -> destination
         this.analyser.connect(this.audioContext.destination);
+    }
+
+    // Setup the init button functionality
+    setupInitButton() {
+        const initButton = document.getElementById('init-button');
+        if (initButton) {
+            initButton.addEventListener('click', () => {
+                this.resetToDefaults();
+            });
+        }
+    }
+
+    // Reset all modules to their default settings
+    resetToDefaults() {
+        const initButton = document.getElementById('init-button');
+        
+        // Add visual feedback
+        if (initButton) {
+            initButton.classList.add('pressed');
+            setTimeout(() => {
+                initButton.classList.remove('pressed');
+            }, 500);
+        }
+        
+        // Reset all modules
+        this.oscillator.resetToDefaults();
+        this.effects.resetToDefaults();
+        
+        // Small delay to show the reset is happening
+        setTimeout(() => {
+            console.log('Synthesizer reset to default settings');
+        }, 100);
     }
 
     // Public API methods for external access

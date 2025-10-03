@@ -110,6 +110,13 @@
 							</div>
 							<label class="volumemeter__text">volume</label>
 						</div>
+
+						<div class="init-button-container">
+							<button id="init-button" class="init-button" title="Reset all settings to defaults">
+								<div class="led-indicator"></div>
+							</button>
+							<label class="init-button__text">init</label>
+						</div>
 					</div>
 
         <div class="oscillator-section">
@@ -137,15 +144,17 @@
                         </svg>
                     </button>
                 </div>
-                <div class="knob-controller">
-                    <span class="volume-display">50%</span>
-                    <div class="knob-container">
-                        <input type="range" id="osc1-volume" min="0" max="100" value="50">
-                        <div class="knob">
-                            <div class="knob-indicator"></div>
+                <div class="knob-groups">
+                    <div class="knob-controller">
+                        <span class="volume-display">50%</span>
+                        <div class="knob-container">
+                            <input type="range" id="osc1-volume" min="0" max="100" value="50">
+                            <div class="knob">
+                                <div class="knob-indicator"></div>
+                            </div>
                         </div>
+                        <label class="knob-label">Volume</label>
                     </div>
-                    <label class="knob-label">Volume</label>
                 </div>
             </div>
             
@@ -185,7 +194,7 @@
                         <label class="knob-label">Volume</label>
                     </div>
                     <div class="knob-controller">
-                        <span class="detune-display">0 cents</span>
+                        <span class="detune-display">0c</span>
                         <div class="knob-container">
                             <input type="range" id="osc2-detune" min="-50" max="50" value="0">
                             <div class="knob">

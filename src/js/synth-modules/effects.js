@@ -160,4 +160,32 @@ export default class Effects {
             this.updateEffect('effect2', state.effect2.type, controlsContainer);
         }
     }
+
+    // Reset all effects to default (none) state
+    resetToDefaults() {
+        // Reset effect selectors to 'none'
+        const effect1Select = document.getElementById('effect1-type');
+        const effect2Select = document.getElementById('effect2-type');
+        
+        if (effect1Select) {
+            effect1Select.value = 'none';
+            const controlsContainer = document.getElementById('effect1-controls');
+            this.updateEffect('effect1', 'none', controlsContainer);
+        }
+        
+        if (effect2Select) {
+            effect2Select.value = 'none';
+            const controlsContainer = document.getElementById('effect2-controls');
+            this.updateEffect('effect2', 'none', controlsContainer);
+        }
+        
+        // Reset all effect instances to their defaults
+        Object.values(this.effectTypes).forEach(effect => {
+            if (typeof effect.resetToDefaults === 'function') {
+                effect.resetToDefaults();
+            }
+        });
+        
+        console.log('Effects reset to defaults');
+    }
 }

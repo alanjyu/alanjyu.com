@@ -147,7 +147,7 @@ export default class OscillatorUI {
         const knob = document.querySelector('#osc2-detune');
         if (knob) {
             const display = knob.parentNode.previousElementSibling;
-            if (display) display.textContent = `${detune} cents`;
+            if (display) display.textContent = `${detune}c`;
         }
     }
 
