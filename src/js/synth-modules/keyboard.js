@@ -145,4 +145,20 @@ export default class Keyboard {
         const visualKey = document.querySelector(`[data-note="${note}"]`);
         return visualKey ? visualKey.classList.contains('active') : false;
     }
+
+    // Method to release all currently active keys
+    releaseAllKeys() {
+        const activeKeys = document.querySelectorAll('.key.active');
+        activeKeys.forEach(key => {
+            const note = parseInt(key.dataset.note);
+            this.noteOffCallback(note);
+            key.classList.remove('active');
+        });
+
+        // Also deactivate any computer keyboard visual indicators
+        const activeKeyboardKeys = document.querySelectorAll('[data-key].active');
+        activeKeyboardKeys.forEach(key => {
+            key.classList.remove('active');
+        });
+    }
 }

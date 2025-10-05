@@ -34,6 +34,9 @@ export default class Synth {
         // Set up init button
         this.setupInitButton();
         
+        // Set up stop button
+        this.setupStopButton();
+        
         // Set up audio context resume on user interaction
         this.setupAudioContextResume();
         
@@ -75,6 +78,37 @@ export default class Synth {
                 this.resetToDefaults();
             });
         }
+    }
+
+    // Setup the stop button functionality
+    setupStopButton() {
+        const stopButton = document.getElementById('stop-button');
+        if (stopButton) {
+            stopButton.addEventListener('click', () => {
+                this.stopAllSound();
+            });
+        }
+    }
+
+    // Stop all sound and visual feedback
+    stopAllSound() {
+        const stopButton = document.getElementById('stop-button');
+        
+        // Add visual feedback
+        if (stopButton) {
+            stopButton.classList.add('pressed');
+            setTimeout(() => {
+                stopButton.classList.remove('pressed');
+            }, 500);
+        }
+        
+        // Stop all oscillators and notes
+        this.oscillator.stopAll();
+        
+        // Reset keyboard state (release visual keys)
+        this.keyboard.releaseAllKeys();
+        
+        console.log('All sound stopped');
     }
 
     // Reset all modules to their default settings
