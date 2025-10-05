@@ -185,7 +185,5 @@ export default class Effects {
                 effect.resetToDefaults();
             }
         });
-        
-        console.log('Effects reset to defaults');
     }
 }

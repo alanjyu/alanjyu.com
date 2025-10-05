@@ -17,6 +17,25 @@ export default class SynthStorage {
                     phase: 0
                 }
             },
+            filter: {
+                enabled: false,
+                type: 'none',
+                frequency: 6000,
+                resonance: 1,
+                gain: 0,
+                envelope: {
+                    attack: 0.1,
+                    decay: 0.2,
+                    sustain: 0.7,
+                    release: 0.3
+                },
+                lfo: {
+                    enabled: false,
+                    rate: 2,
+                    depth: 100,
+                    waveform: 'sine'
+                }
+            },
             effects: {
                 reverb: {
                     enabled: false,
@@ -29,12 +48,6 @@ export default class SynthStorage {
                     time: 250,
                     feedback: 40,
                     wetness: 25
-                },
-                filter: {
-                    enabled: false,
-                    type: 'none',
-                    frequency: 6000,
-                    resonance: 1
                 }
             },
             keyboard: {
@@ -279,6 +292,61 @@ export default class SynthStorage {
         }
         
         return modified;
+    }
+
+    /**
+     * Get filter-specific settings
+     * @returns {Object} Filter settings object
+     */
+    getFilterSettings() {
+        return JSON.parse(JSON.stringify(this.currentSettings.filter || {}));
+    }
+
+    /**
+     * Update filter settings
+     * @param {Object} newSettings - New filter settings to merge
+     * @param {boolean} save - Whether to save to localStorage immediately
+     * @returns {boolean} Success status
+     */
+    updateFilterSettings(newSettings, save = true) {
+        return this.updateModuleSettings('filter', newSettings, save);
+    }
+
+    /**
+     * Get a specific filter setting
+     * @param {string} setting - Setting path (e.g., 'envelope.attack')
+     * @returns {*} Setting value or undefined
+     */
+    getFilterSetting(setting) {
+        return this.getSetting('filter', setting);
+    }
+
+    /**
+     * Update a specific filter setting
+     * @param {string} setting - Setting path (e.g., 'envelope.attack')
+     * @param {*} value - New value
+     * @param {boolean} save - Whether to save to localStorage immediately
+     * @returns {boolean} Success status
+     */
+    updateFilterSetting(setting, value, save = true) {
+        return this.updateSetting('filter', setting, value, save);
+    }
+
+    /**
+     * Reset filter to default settings
+     * @param {boolean} save - Whether to save to localStorage immediately
+     * @returns {boolean} Success status
+     */
+    resetFilterToDefaults(save = true) {
+        return this.resetModuleToDefaults('filter', save);
+    }
+
+    /**
+     * Check if filter settings have been modified from defaults
+     * @returns {boolean} True if filter settings have been modified
+     */
+    hasCustomFilterSettings() {
+        return JSON.stringify(this.currentSettings.filter) !== JSON.stringify(this.defaultSettings.filter);
     }
 
     /**
