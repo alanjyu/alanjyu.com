@@ -1,6 +1,3 @@
-/**
- * Filter Module - Handles audio filtering with lowpass, highpass, and bandpass options
- */
 import { updateKnobRotation, setupKnobsWithDefaults } from './knobs.js';
 import { synthStorage } from './storage.js';
 
@@ -32,12 +29,11 @@ export default class Filter {
      * Load settings from storage
      */
     loadSettings() {
-        const savedSettings = this.storage.getModuleSettings('effects');
-        const filterSettings = savedSettings.filter || {};
+        const filterSettings = this.storage.getFilterSettings();
         
         this.settings = {
             type: filterSettings.type || 'none',
-            frequency: filterSettings.frequency || 1000,
+            frequency: filterSettings.frequency || 6000,
             resonance: filterSettings.resonance || 1,
             enabled: filterSettings.type !== 'none' && filterSettings.type !== undefined
         };
@@ -295,8 +291,7 @@ export default class Filter {
      * Setup knobs with default values and double-click reset functionality
      */
     setupKnobDefaults() {
-        const defaultSettings = this.storage.getDefaultModuleSettings('effects');
-        const defaultFilter = defaultSettings.filter || {};
+        const defaultFilter = this.storage.getDefaultModuleSettings('filter');
         
         const knobConfigs = {
             '#filter-frequency': {
@@ -387,7 +382,7 @@ export default class Filter {
     updateFilterType(type) {
         this.settings.type = type;
         this.settings.enabled = type !== 'none';
-        this.storage.updateSetting('effects', 'filter.type', type);
+        this.storage.updateFilterSetting('type', type);
         this.updateFilter();
     }
     
@@ -396,7 +391,7 @@ export default class Filter {
      */
     updateFrequency(frequency) {
         this.settings.frequency = frequency;
-        this.storage.updateSetting('effects', 'filter.frequency', frequency);
+        this.storage.updateFilterSetting('frequency', frequency);
         this.updateFilter();
     }
     
@@ -405,7 +400,7 @@ export default class Filter {
      */
     updateResonance(resonance) {
         this.settings.resonance = resonance;
-        this.storage.updateSetting('effects', 'filter.resonance', resonance);
+        this.storage.updateFilterSetting('resonance', resonance);
         this.updateFilter();
     }
     
@@ -469,20 +464,17 @@ export default class Filter {
      * Reset filter to default settings
      */
     resetToDefaults() {
-        const defaultSettings = this.storage.getDefaultModuleSettings('effects');
-        const defaultFilter = defaultSettings.filter || {};
+        const defaultFilter = this.storage.getDefaultModuleSettings('filter');
         
         this.settings = {
             type: defaultFilter.type || 'none',
-            frequency: defaultFilter.frequency || 1000,
+            frequency: defaultFilter.frequency || 6000,
             resonance: defaultFilter.resonance || 1,
             enabled: (defaultFilter.type || 'none') !== 'none'
         };
         
         // Save to storage
-        this.storage.updateSetting('effects', 'filter.type', this.settings.type);
-        this.storage.updateSetting('effects', 'filter.frequency', this.settings.frequency);
-        this.storage.updateSetting('effects', 'filter.resonance', this.settings.resonance);
+        this.storage.resetFilterToDefaults();
         
         this.updateFilter();
         this.loadUIState();

@@ -11,9 +11,6 @@ export default class OscillatorUI {
         this.setupKnobDefaults();
     }
 
-    /**
-     * Setup knobs with default values and double-click reset functionality
-     */
     setupKnobDefaults() {
         const defaultSettings = this.settings.getDefaultSettings();
         
@@ -128,9 +125,6 @@ export default class OscillatorUI {
         });
     }
 
-    /**
-     * Update volume display for oscillator
-     */
     updateVolumeDisplay(oscType, volume) {
         const knobId = oscType === 'osc1' ? '#osc1-volume' : '#osc2-volume';
         const knob = document.querySelector(knobId);
@@ -140,9 +134,6 @@ export default class OscillatorUI {
         }
     }
 
-    /**
-     * Update detune display
-     */
     updateDetuneDisplay(detune) {
         const knob = document.querySelector('#osc2-detune');
         if (knob) {
@@ -151,9 +142,6 @@ export default class OscillatorUI {
         }
     }
 
-    /**
-     * Load UI state from current settings
-     */
     loadUIState() {
         const currentSettings = this.settings.getSettings();
         

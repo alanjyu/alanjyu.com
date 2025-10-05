@@ -9,9 +9,6 @@ export default class OscillatorSettings {
         this.loadSettings();
     }
 
-    /**
-     * Load settings from storage
-     */
     loadSettings() {
         const savedSettings = this.storage.getModuleSettings('oscillator');
         
@@ -29,49 +26,31 @@ export default class OscillatorSettings {
         };
     }
 
-    /**
-     * Update oscillator 1 waveform
-     */
     updateOsc1Waveform(waveform) {
         this.osc1Settings.waveform = waveform;
         this.storage.updateSetting('oscillator', 'osc1.waveform', waveform);
     }
 
-    /**
-     * Update oscillator 2 waveform
-     */
     updateOsc2Waveform(waveform) {
         this.osc2Settings.waveform = waveform;
         this.storage.updateSetting('oscillator', 'osc2.waveform', waveform);
     }
 
-    /**
-     * Update oscillator 1 volume
-     */
     updateOsc1Volume(volume) {
         this.osc1Settings.volume = volume / 100;
         this.storage.updateSetting('oscillator', 'osc1.volume', volume);
     }
 
-    /**
-     * Update oscillator 2 volume
-     */
     updateOsc2Volume(volume) {
         this.osc2Settings.volume = volume / 100;
         this.storage.updateSetting('oscillator', 'osc2.volume', volume);
     }
 
-    /**
-     * Update oscillator 2 detune
-     */
     updateOsc2Detune(detune) {
         this.osc2Settings.detune = detune;
         this.storage.updateSetting('oscillator', 'osc2.detune', detune);
     }
 
-    /**
-     * Get current settings
-     */
     getSettings() {
         return {
             osc1: { ...this.osc1Settings },
@@ -79,23 +58,14 @@ export default class OscillatorSettings {
         };
     }
 
-    /**
-     * Get oscillator 1 settings
-     */
     getOsc1Settings() {
         return { ...this.osc1Settings };
     }
 
-    /**
-     * Get oscillator 2 settings
-     */
     getOsc2Settings() {
         return { ...this.osc2Settings };
     }
 
-    /**
-     * Update settings programmatically
-     */
     updateSettings(newSettings) {
         if (newSettings.osc1) {
             Object.assign(this.osc1Settings, newSettings.osc1);
@@ -105,9 +75,6 @@ export default class OscillatorSettings {
         }
     }
 
-    /**
-     * Reset to default settings
-     */
     resetToDefaults() {
         this.storage.resetModuleToDefaults('oscillator');
         const defaultSettings = this.storage.getDefaultModuleSettings('oscillator');
@@ -126,9 +93,6 @@ export default class OscillatorSettings {
         };
     }
 
-    /**
-     * Get default settings for knob configurations
-     */
     getDefaultSettings() {
         return this.storage.getDefaultModuleSettings('oscillator');
     }
