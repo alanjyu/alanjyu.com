@@ -66,6 +66,7 @@ $button-backgrounds: (
 
     &__content {
       position: relative;
+      background: var(--shade-color-alpha);
       padding: $gap-medium;
       @include decor.acrylic;
   

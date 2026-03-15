@@ -67,6 +67,7 @@
     position: absolute;
     mix-blend-mode: overlay;
     inset: 0;
+    border-radius: inherit;
     background: radial-gradient(
       circle at var(--hover-x, 30%) var(--hover-y, 30%),
       var(--shade-color-alpha) 0%,

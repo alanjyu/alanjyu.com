@@ -6,8 +6,10 @@ export default class WaveformDisplay {
         this.canvasCtx = this.canvas.getContext('2d');
         
         // Audio analysis data
-        this.bufferLength = this.analyser.frequencyBinCount;
+        this.bufferLength = this.analyser.fftSize;
         this.dataArray = new Uint8Array(this.bufferLength);
+        this.triggerLevel = 128;
+        this.triggerHysteresis = 4;
         
         // Visual settings - theme-aware
         this.updateThemeColors();
@@ -75,13 +77,17 @@ export default class WaveformDisplay {
         // Draw waveform
         this.canvasCtx.lineWidth = this.lineWidth;
         this.canvasCtx.strokeStyle = this.waveformColor;
+        this.canvasCtx.lineJoin = 'round';
+        this.canvasCtx.lineCap = 'round';
         this.canvasCtx.beginPath();
         
-        const sliceWidth = rect.width / this.bufferLength;
+        const startIndex = this.findTriggerIndex();
+        const sliceWidth = rect.width / (this.bufferLength - 1);
         let x = 0;
         
         for (let i = 0; i < this.bufferLength; i++) {
-            const v = (this.dataArray[i] - 128) / 128;
+            const sampleIndex = (startIndex + i) % this.bufferLength;
+            const v = (this.dataArray[sampleIndex] - 128) / 128;
             const y = (v * rect.height / 2) + (rect.height / 2);
             
             if (i === 0) {
@@ -96,6 +102,25 @@ export default class WaveformDisplay {
         this.canvasCtx.stroke();
     }
 
+    findTriggerIndex() {
+        const maxIndex = this.bufferLength - 1;
+
+        for (let i = 1; i < maxIndex; i++) {
+            const previous = this.dataArray[i - 1];
+            const current = this.dataArray[i];
+
+            const crossedUpward =
+                previous < this.triggerLevel - this.triggerHysteresis &&
+                current >= this.triggerLevel + this.triggerHysteresis;
+
+            if (crossedUpward) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
     updateSettings(settings) {
         if (settings.waveformColor) {
             this.waveformColor = settings.waveformColor;
@@ -103,6 +128,11 @@ export default class WaveformDisplay {
         if (settings.lineWidth) {
             this.lineWidth = settings.lineWidth;
         }
+    }
+
+    reset() {
+        const rect = this.canvas.getBoundingClientRect();
+        this.canvasCtx.clearRect(0, 0, rect.width, rect.height);
     }
 
     destroy() {

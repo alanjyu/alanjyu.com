@@ -172,6 +172,12 @@ export default class SpectrumDisplay {
         }
     }
 
+    reset() {
+        this.smoothedData.fill(0);
+        const rect = this.canvas.getBoundingClientRect();
+        this.canvasCtx.clearRect(0, 0, rect.width, rect.height);
+    }
+
     destroy() {
         if (this.resizeHandler) {
             window.removeEventListener('resize', this.resizeHandler);

@@ -13,6 +13,8 @@ export default class Synth {
         this.analyser = this.audioContext.createAnalyser();
         this.analyser.fftSize = 256;
         this.masterGain = this.audioContext.createGain();
+        this.outputGain = this.audioContext.createGain();
+        this.outputGain.gain.setValueAtTime(1, this.audioContext.currentTime);
         
         // Create filter gain node to connect between oscillator and effects
         this.filterGain = this.audioContext.createGain();
@@ -21,9 +23,12 @@ export default class Synth {
         this.display = new Display(this.audioContext, this.analyser);
         this.oscillator = new Oscillator(this.audioContext, this.filterGain);
         this.filter = new Filter(this.audioContext, this.filterGain, this.masterGain);
-        this.effects = new Effects(this.audioContext, this.masterGain, this.analyser);
+        this.effects = new Effects(this.audioContext, this.masterGain, this.outputGain);
         this.keyboard = new Keyboard(
-            (note, velocity) => this.oscillator.noteOn(note, velocity),
+            (note, velocity) => {
+                this.ensureOutputEnabled();
+                this.oscillator.noteOn(note, velocity);
+            },
             (note) => this.oscillator.noteOff(note)
         );
         
@@ -40,8 +45,16 @@ export default class Synth {
         // Set up audio context resume on user interaction
         this.setupAudioContextResume();
         
-        // Connect final audio chain: analyser -> destination
+        // Connect final audio chain: output gain -> analyser -> destination
+        this.outputGain.connect(this.analyser);
         this.analyser.connect(this.audioContext.destination);
+    }
+
+    ensureOutputEnabled() {
+        const now = this.audioContext.currentTime;
+        this.outputGain.gain.cancelScheduledValues(now);
+        this.outputGain.gain.setValueAtTime(Math.max(this.outputGain.gain.value, 0.001), now);
+        this.outputGain.gain.exponentialRampToValueAtTime(1, now + 0.015);
     }
 
     // Setup audio context resume on user interaction
@@ -93,6 +106,7 @@ export default class Synth {
     // Stop all sound and visual feedback
     stopAllSound() {
         const stopButton = document.getElementById('stop-button');
+        const now = this.audioContext.currentTime;
         
         // Add visual feedback
         if (stopButton) {
@@ -107,6 +121,14 @@ export default class Synth {
         
         // Reset keyboard state (release visual keys)
         this.keyboard.releaseAllKeys();
+
+        // Panic mute output to kill lingering tails from effects/feedback paths.
+        this.outputGain.gain.cancelScheduledValues(now);
+        this.outputGain.gain.setValueAtTime(Math.max(this.outputGain.gain.value, 0.001), now);
+        this.outputGain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+
+        // Clear all visual meters immediately.
+        this.display.reset();
         
         console.log('All sound stopped');
     }

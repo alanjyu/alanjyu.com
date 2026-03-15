@@ -132,22 +132,22 @@
                 <div class="waveforms">
                     <button class="waveforms__button active" data-waveform="sine" data-osc="1">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
-                            <path d="M0,8 Q8,1 16,8 Q24,15 32,8" stroke="currentColor" fill="none" stroke-width="2"/>
+							<path d="M8,8 C10,2 14,2 16,8 C18,14 22,14 24,8" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                     <button class="waveforms__button" data-waveform="square" data-osc="1">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
-                            <path d="M0,12 L0,4 L16,4 L16,12 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
+							<path d="M8,12 L8,4 L16,4 L16,12 L24,12 L24,4" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
                         </svg>
                     </button>
                     <button class="waveforms__button selected" data-waveform="sawtooth" data-osc="1">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
-                            <path d="M0,12 L16,4 L16,12 L32,4" stroke="currentColor" fill="none" stroke-width="2"/>
+							<path d="M8,8 L16,2 L16,14 L24,8" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                     <button class="waveforms__button" data-waveform="triangle" data-osc="1">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
-                            <path d="M0,12 L8,4 L16,12 L24,4 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
+							<path d="M8,12 L16,2 L24,12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                 </div>
@@ -170,22 +170,22 @@
                 <div class="waveforms">
                     <button class="waveforms__button selected" data-waveform="sine" data-osc="2">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
-                            <path d="M0,8 Q8,1 16,8 Q24,15 32,8" stroke="currentColor" fill="none" stroke-width="2"/>
+							<path d="M8,8 C10,2 14,2 16,8 C18,14 22,14 24,8" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                     <button class="waveforms__button" data-waveform="square" data-osc="2">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
-                            <path d="M0,12 L0,4 L16,4 L16,12 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
+							<path d="M8,12 L8,4 L16,4 L16,12 L24,12 L24,4" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
                         </svg>
                     </button>
                     <button class="waveforms__button" data-waveform="sawtooth" data-osc="2">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
-                            <path d="M0,12 L16,4 L16,12 L32,4" stroke="currentColor" fill="none" stroke-width="2"/>
+							<path d="M8,8 L16,2 L16,14 L24,8" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                     <button class="waveforms__button" data-waveform="triangle" data-osc="2">
                         <svg class="waveform-icon" viewBox="0 0 32 16">
-                            <path d="M0,12 L8,4 L16,12 L24,4 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
+							<path d="M8,12 L16,2 L24,12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                 </div>
@@ -278,40 +278,35 @@
    		</div>
 
     <!-- Effects Panel -->
-    <div class="control-panel">
-							<h3>Effects Rack</h3>
-							<div class="effects-rack">
-								<div class="effect-slot">
-									<label>Effect 1</label>
-									<select id="effect1-type">
-										<option value="none">None</option>
-										<option value="reverb">Reverb</option>
-										<option value="chorus">Chorus</option>
-										<option value="delay">Delay</option>
-									</select>
-									<div class="effect-controls" id="effect1-controls">
-										<!-- Effect controls will be populated dynamically -->
-									</div>
-								</div>
-								
-								<div class="effect-slot">
-									<label>Effect 2</label>
-									<select id="effect2-type">
-										<option value="none">None</option>
-										<option value="reverb">Reverb</option>
-										<option value="chorus">Chorus</option>
-										<option value="delay">Delay</option>
-									</select>
-									<div class="effect-controls" id="effect2-controls">
-										<!-- Effect controls will be populated dynamically -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+    <div class="effects-rack">
+        <div class="effect-slot">
+            <label>Effect 1</label>
+            <select id="effect1-type">
+                <option value="none">None</option>
+                <option value="reverb">Reverb</option>
+                <option value="chorus">Chorus</option>
+                <option value="delay">Delay</option>
+            </select>
+            <div class="effect-controls" id="effect1-controls">
+                <!-- Effect controls will be populated dynamically -->
+            </div>
+        </div>
+        <div class="effect-slot">
+            <label>Effect 2</label>
+            <select id="effect2-type">
+                <option value="none">None</option>
+                <option value="reverb">Reverb</option>
+                <option value="chorus">Chorus</option>
+                <option value="delay">Delay</option>
+            </select>
+            <div class="effect-controls" id="effect2-controls">
+                <!-- Effect controls will be populated dynamically -->
+            </div>
+        </div>
+    </div>
 
-					<!-- Keyboard Section -->
-					<div class="keyboard">
+						<!-- Keyboard Section -->
+						<div class="keyboard">
 						<!-- White keys -->
 						<div class="key white" data-note="60" data-key="KeyA">
 							<span class="key__label">A</span>
@@ -380,6 +375,7 @@
 						<div class="key white" data-note="76" data-key="Semicolon">
 							<span class="key__label">;</span>
 							<span class="key__note">E</span>
+						</div>
 						</div>
 					</div>
 				</div>

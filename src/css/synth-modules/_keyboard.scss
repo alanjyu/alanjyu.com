@@ -1,26 +1,40 @@
 @use '../base/variables' as *;
 @use '../functions/breakpoints' as breakpoint;
+@use '../components/structures' as struc;
 
 // Professional keyboard styles
 .keyboard {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     position: relative;
-    background: linear-gradient(to bottom, 
-        #3a3a3a 0%, 
-        #2c2c2c 20%, 
-        #1e1e1e 80%, 
-        #0f0f0f 100%);
+    width: 100%;
+    min-width: 0;
+    background:
+        linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.02) 14%,
+            rgba(255, 255, 255, 0) 28%),
+        linear-gradient(to bottom,
+            rgba(58, 58, 58, 0.9) 0%,
+            #2c2c2c 20%,
+            #1e1e1e 80%,
+            #0f0f0f 100%);
     padding: 40px 30px 30px;
     border-radius: 16px;
     box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 18px 32px rgba(0, 0, 0, 0.65),
         inset 0 3px 6px rgba(255, 255, 255, 0.1),
         inset 0 -3px 6px rgba(0, 0, 0, 0.6);
-    min-width: fit-content;
     border: 3px solid #444;
+    border-top: 0;
     position: relative;
-    
+
+    --keybed-width: 818px;
+    --keybed-offset: max(0px, calc((100% - var(--keybed-width)) / 2));
+
+    @include struc.container;
+
     // Add keyboard branding
     &::before {
         content: 'MIDI KEYBOARD';
@@ -56,11 +70,13 @@
     }
     
     @include breakpoint.respond-to('tablet') {
+        --keybed-width: 709px;
         padding: 30px 20px 20px;
         overflow-x: auto;
     }
     
     @include breakpoint.respond-to('mobile') {
+        --keybed-width: 609px;
         padding: 25px 15px 15px;
         transform: scale(0.85);
         transform-origin: center;
@@ -70,6 +86,7 @@
 .key {
     position: relative;
     cursor: pointer;
+    touch-action: none;
     user-select: none;
     display: flex;
     flex-direction: column;
@@ -223,7 +240,6 @@
             inset 1px 0 0 rgba(255, 255, 255, 0.1),
             inset -1px 0 0 rgba(0, 0, 0, 0.3);
         border: 2px solid #111;
-        position: relative;
         
         // Add key texture
         &::before {
@@ -287,32 +303,32 @@
 }
 
 // Enhanced black key positioning with better precision
-.key.black[data-key="KeyW"] { left: 59px; }   // Between A and S
-.key.black[data-key="KeyE"] { left: 141px; }  // Between S and D  
-.key.black[data-key="KeyT"] { left: 305px; }  // Between F and G
-.key.black[data-key="KeyY"] { left: 387px; }  // Between G and H
-.key.black[data-key="KeyU"] { left: 469px; }  // Between H and J
-.key.black[data-key="KeyO"] { left: 633px; }  // Between K and L
-.key.black[data-key="KeyP"] { left: 715px; }  // Between L and ;
+.key.black[data-key="KeyW"] { left: calc(var(--keybed-offset) + 59px); }   // Between A and S
+.key.black[data-key="KeyE"] { left: calc(var(--keybed-offset) + 141px); }  // Between S and D
+.key.black[data-key="KeyT"] { left: calc(var(--keybed-offset) + 305px); }  // Between F and G
+.key.black[data-key="KeyY"] { left: calc(var(--keybed-offset) + 387px); }  // Between G and H
+.key.black[data-key="KeyU"] { left: calc(var(--keybed-offset) + 469px); }  // Between H and J
+.key.black[data-key="KeyO"] { left: calc(var(--keybed-offset) + 633px); }  // Between K and L
+.key.black[data-key="KeyP"] { left: calc(var(--keybed-offset) + 715px); }  // Between L and ;
 
 // Tablet positioning adjustments
 @include breakpoint.respond-to('tablet') {
-    .key.black[data-key="KeyW"] { left: 52px; }
-    .key.black[data-key="KeyE"] { left: 123px; }
-    .key.black[data-key="KeyT"] { left: 266px; }
-    .key.black[data-key="KeyY"] { left: 337px; }
-    .key.black[data-key="KeyU"] { left: 408px; }
-    .key.black[data-key="KeyO"] { left: 551px; }
-    .key.black[data-key="KeyP"] { left: 622px; }
+    .key.black[data-key="KeyW"] { left: calc(var(--keybed-offset) + 52px); }
+    .key.black[data-key="KeyE"] { left: calc(var(--keybed-offset) + 123px); }
+    .key.black[data-key="KeyT"] { left: calc(var(--keybed-offset) + 266px); }
+    .key.black[data-key="KeyY"] { left: calc(var(--keybed-offset) + 337px); }
+    .key.black[data-key="KeyU"] { left: calc(var(--keybed-offset) + 408px); }
+    .key.black[data-key="KeyO"] { left: calc(var(--keybed-offset) + 551px); }
+    .key.black[data-key="KeyP"] { left: calc(var(--keybed-offset) + 622px); }
 }
 
 // Mobile positioning adjustments  
 @include breakpoint.respond-to('mobile') {
-    .key.black[data-key="KeyW"] { left: 44px; }
-    .key.black[data-key="KeyE"] { left: 104px; }
-    .key.black[data-key="KeyT"] { left: 224px; }
-    .key.black[data-key="KeyY"] { left: 284px; }
-    .key.black[data-key="KeyU"] { left: 344px; }
-    .key.black[data-key="KeyO"] { left: 464px; }
-    .key.black[data-key="KeyP"] { left: 524px; }
+    .key.black[data-key="KeyW"] { left: calc(var(--keybed-offset) + 44px); }
+    .key.black[data-key="KeyE"] { left: calc(var(--keybed-offset) + 104px); }
+    .key.black[data-key="KeyT"] { left: calc(var(--keybed-offset) + 224px); }
+    .key.black[data-key="KeyY"] { left: calc(var(--keybed-offset) + 284px); }
+    .key.black[data-key="KeyU"] { left: calc(var(--keybed-offset) + 344px); }
+    .key.black[data-key="KeyO"] { left: calc(var(--keybed-offset) + 464px); }
+    .key.black[data-key="KeyP"] { left: calc(var(--keybed-offset) + 524px); }
 }

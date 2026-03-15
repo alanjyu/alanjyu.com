@@ -19,10 +19,20 @@
 }
 
 .audiobox {
-	@include struc.container;
 	background: var(--hardware-color);
 	box-shadow: var(--hardware-shadow);
 	border-radius: $border-radius-large;
 	position: relative;
 	padding: $gap-large;
+	display: flex;
+	flex-direction: column;
+	gap: $gap-medium;
+	@include struc.container;
+}
+
+.audiobox > .keyboard {
+	margin: 0 calc(-1 * #{$gap-large}) calc(-1 * #{$gap-large});
+	width: calc(100% + (2 * #{$gap-large}));
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }

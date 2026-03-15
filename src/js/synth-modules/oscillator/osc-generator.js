@@ -15,6 +15,10 @@ export default class OscillatorGenerator {
             this.audioContext.resume();
         }
 
+        if (this.activeOscillators.has(note)) {
+            this.noteOff(note);
+        }
+
         // Create two oscillators
         const osc1 = this.audioContext.createOscillator();
         const osc2 = this.audioContext.createOscillator();
@@ -55,6 +59,14 @@ export default class OscillatorGenerator {
         // Start oscillators
         osc1.start();
         osc2.start();
+
+        const cleanup = () => {
+            gain1.disconnect();
+            gain2.disconnect();
+            mixerGain.disconnect();
+        };
+
+        osc1.addEventListener('ended', cleanup, { once: true });
         
         // Store all components for note off
         this.activeOscillators.set(note, { 
@@ -73,10 +85,18 @@ export default class OscillatorGenerator {
         const activeNote = this.activeOscillators.get(note);
         if (activeNote) {
             const { osc1, osc2, gain1, gain2, mixerGain } = activeNote;
+
+            gain1.gain.cancelScheduledValues(this.audioContext.currentTime);
+            gain2.gain.cancelScheduledValues(this.audioContext.currentTime);
+            mixerGain.gain.cancelScheduledValues(this.audioContext.currentTime);
             
             // Fade out both oscillators
+            gain1.gain.setValueAtTime(Math.max(gain1.gain.value, 0.001), this.audioContext.currentTime);
+            gain2.gain.setValueAtTime(Math.max(gain2.gain.value, 0.001), this.audioContext.currentTime);
+            mixerGain.gain.setValueAtTime(Math.max(mixerGain.gain.value, 0.001), this.audioContext.currentTime);
             gain1.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.1);
             gain2.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.1);
+            mixerGain.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.1);
             
             // Stop both oscillators
             osc1.stop(this.audioContext.currentTime + 0.1);

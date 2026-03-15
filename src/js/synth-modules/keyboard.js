@@ -2,6 +2,8 @@ export default class Keyboard {
     constructor(noteOnCallback, noteOffCallback) {
         this.noteOnCallback = noteOnCallback;
         this.noteOffCallback = noteOffCallback;
+        this.activeKeyboardCodes = new Set();
+        this.activePointerNotes = new Map();
         
         // Keyboard to MIDI note mapping
         this.keyMap = {
@@ -22,6 +24,7 @@ export default class Keyboard {
             
             const note = this.keyMap[e.code];
             if (note) {
+                this.activeKeyboardCodes.add(e.code);
                 this.noteOnCallback(note, 100);
                 this.activateVisualKey(e.code, true);
                 e.preventDefault();
@@ -31,39 +34,73 @@ export default class Keyboard {
         document.addEventListener('keyup', (e) => {
             const note = this.keyMap[e.code];
             if (note) {
+                this.activeKeyboardCodes.delete(e.code);
                 this.noteOffCallback(note);
                 this.activateVisualKey(e.code, false);
                 e.preventDefault();
+            }
+        });
+
+        window.addEventListener('blur', () => {
+            this.releaseAllKeys();
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.releaseAllKeys();
             }
         });
     }
 
     initVisualKeyboard() {
         const keys = document.querySelectorAll('.key');
+
+        const releasePointerNote = (pointerId) => {
+            const note = this.activePointerNotes.get(pointerId);
+            if (note === undefined) return;
+
+            this.activePointerNotes.delete(pointerId);
+            this.noteOffCallback(note);
+            this.activateVisualKeyByNote(note, false);
+        };
         
         keys.forEach(key => {
             const note = parseInt(key.dataset.note);
-            
-            key.addEventListener('mousedown', (e) => {
+
+            key.addEventListener('pointerdown', (e) => {
+                if (e.pointerType === 'mouse' && e.button !== 0) return;
+
                 e.preventDefault();
+                key.setPointerCapture(e.pointerId);
+                this.activePointerNotes.set(e.pointerId, note);
                 this.noteOnCallback(note, 100);
                 key.classList.add('active');
             });
 
-            key.addEventListener('mouseup', () => {
-                this.noteOffCallback(note);
-                key.classList.remove('active');
+            key.addEventListener('pointerup', (e) => {
+                releasePointerNote(e.pointerId);
             });
 
-            key.addEventListener('mouseleave', () => {
-                this.noteOffCallback(note);
-                key.classList.remove('active');
+            key.addEventListener('pointercancel', (e) => {
+                releasePointerNote(e.pointerId);
+            });
+
+            key.addEventListener('lostpointercapture', (e) => {
+                releasePointerNote(e.pointerId);
             });
 
             // Prevent context menu on right click
             key.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
             });
+        });
+
+        document.addEventListener('pointerup', (e) => {
+            releasePointerNote(e.pointerId);
+        });
+
+        document.addEventListener('pointercancel', (e) => {
+            releasePointerNote(e.pointerId);
         });
     }
 
@@ -148,6 +185,9 @@ export default class Keyboard {
 
     // Method to release all currently active keys
     releaseAllKeys() {
+        this.activeKeyboardCodes.clear();
+        this.activePointerNotes.clear();
+
         const activeKeys = document.querySelectorAll('.key.active');
         activeKeys.forEach(key => {
             const note = parseInt(key.dataset.note);

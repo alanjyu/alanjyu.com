@@ -93,6 +93,14 @@ export default class Display {
 
     // Reset all displays
     reset() {
+        if (this.displays.waveform.reset) {
+            this.displays.waveform.reset();
+        }
+
+        if (this.displays.spectrum.reset) {
+            this.displays.spectrum.reset();
+        }
+
         if (this.displays.volumeMeter.reset) {
             this.displays.volumeMeter.reset();
         }
