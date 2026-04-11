@@ -130,7 +130,7 @@
 	</main>
 
 	<footer class="dynamic-background">
-		<p><a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE" data-target-cover>&#169;</a> 2025 — Alan J. Yu</p>
+		<p><a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE" data-target-cover>&#169;</a> <span data-current-year></span> — Alan J. Yu</p>
 
 		<ul class="social">
 			<li class="social__item">
@@ -173,5 +173,6 @@
 
 	<script type="module" src="/src/js/main.js" charset="utf-8"></script>
 	<noscript>Please enable JavaScript to ensure that the website function properly.</noscript>
+<script>document.querySelectorAll('[data-current-year]').forEach((el)=>{el.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

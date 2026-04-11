@@ -27,6 +27,11 @@
 
     img {
       @include struc.fullframe;
+      object-position: 17.5% center;
+
+      @include breakpoint.respond-to('landscape') {
+        object-position: center;
+      }
     }
   }
 
@@ -39,8 +44,8 @@
     @include breakpoint.respond-to('landscape') {
       padding: $gap-medium $gap-large;
       position: absolute;
-      top: 37.5%;
-      right: 7.5%;
+      top: 35%;
+      right: 18%;
       border-radius: $border-radius-large;
       box-shadow: $box-shadow;
     }
