@@ -1,0 +1,33 @@
+@use 'sass:list';
+@use '../base/variables' as *;
+
+@mixin set-font($font-name, $weight: normal, $style: normal) {
+  // Setting font properties
+	font-family: quote($font-name);
+	font-weight: $weight;
+	font-style: $style;
+}
+
+@mixin set-dynamic-border-radius($value, $breakpoint) {
+  border-radius: #{"max(0px, min(#{$value}, 100% - #{$breakpoint} + 1px) * 9999) / #{$value}"};
+}
+
+@mixin cycle-card-gradients($gradients: $card-gradients, $mode: child) {
+	$count: list.length($gradients);
+
+	@if $count < 1 {
+		@warn 'cycle-card-gradients called with an empty gradient list.';
+	} @else {
+		@for $i from 1 through $count {
+			@if $mode == of-type {
+				&:nth-of-type(#{$count}n + #{$i}) {
+					background: list.nth($gradients, $i);
+				}
+			} @else {
+				&:nth-child(#{$count}n + #{$i}) {
+					background: list.nth($gradients, $i);
+				}
+			}
+		}
+	}
+}

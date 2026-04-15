@@ -1,19 +1,8 @@
 @use '../base/variables' as *;
 @use '../components/structures' as struc;
 @use '../components/decorations' as decor;
-@use '../functions/breakpoints' as breakpoint;
-
-$faint-backgrounds: (
-  'n': linear-gradient(112deg, #05c0591e, #f9fd501e),
-  '2n': linear-gradient(72deg, #6bbdcf1e, #268ea81e),
-  '3n': linear-gradient(90deg, #b559921e, #d79cb11e)
-);
-
-$button-backgrounds: (
-  'n': linear-gradient(90deg, #00bd561a, #f9fd501a),
-  '2n': linear-gradient(90deg, #26baee1a, #9fe8fa),
-  '3n': linear-gradient(90deg, #55968f1a, #8acbbb1a)
-);
+@use '../utils/breakpoints' as breakpoint;
+@use '../utils/mixins' as mixin;
 
 .card {
   @include struc.container;
@@ -38,11 +27,7 @@ $button-backgrounds: (
       flex-direction: row;
     }
 
-    @each $faint-backgrounds, $i in $faint-backgrounds {
-      &:nth-of-type(#{$faint-backgrounds}) {
-        background: $i;
-      }
-    }
+    @include mixin.cycle-card-gradients($card-gradients, of-type);
 
     &__figure {
       position: relative;
@@ -53,6 +38,11 @@ $button-backgrounds: (
         @include struc.fullframe;
         transform: scale(1.05);
         transition: transform $animation-time ease;
+
+        &.fullframe--contain {
+          object-fit: contain;
+          background-size: contain;
+        }
 
         &:hover {
           transform: scale(1.25);

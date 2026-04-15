@@ -1,7 +1,7 @@
 @use '../base/variables' as *;
 @use '../components/decorations' as decor;
 @use '../components/structures' as struc;
-@use '../functions/breakpoints' as breakpoint;
+@use '../utils/breakpoints' as breakpoint;
 
 .hero {
   min-height: 600px;

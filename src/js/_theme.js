@@ -1,6 +1,6 @@
 export default class Theme {
   constructor() {
-    const themeCheckbox = document.querySelector('#checkbox');
+    const themeButtons = document.querySelectorAll('.nav__theme-btn');
     const savedTheme = localStorage.getItem('theme');
     const backgrounds = document.querySelectorAll('.fullframe');
 
@@ -14,15 +14,28 @@ export default class Theme {
 
     // apply the theme
     document.documentElement.setAttribute('data-theme', themeToApply);
-    themeCheckbox.checked = themeToApply === 'dark';
     this.toggleBackgroundDarken(themeToApply, backgrounds);
     
-    themeCheckbox.addEventListener('change', () => {
-      const newTheme = themeCheckbox.checked ? 'dark' : 'light';
-  
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      this.toggleBackgroundDarken(newTheme, backgrounds);
+    // Add click listeners to all theme buttons
+    themeButtons.forEach(themeButton => {
+      themeButton.addEventListener('click', () => {
+        // Remove rotating class from all buttons first
+        themeButtons.forEach(btn => btn.classList.remove('rotating'));
+        
+        // Add to clicked button
+        themeButton.classList.add('rotating');
+        
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        this.toggleBackgroundDarken(newTheme, backgrounds);
+
+        setTimeout(() => {
+          themeButtons.forEach(btn => btn.classList.remove('rotating'));
+        }, 400);
+      });
     });      
   }
 

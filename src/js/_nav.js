@@ -1,16 +1,35 @@
 export default class Nav {
 	constructor() {
+		this.nav = document.querySelector('.nav');
 		this.navBurger = document.querySelector('.burger');
 		this.navBurgerInner = document.querySelector('.burger__inner');
 		
 		this.navMenu = document.querySelector('.nav__menu'); 
 		this.navList = document.querySelector('.nav__list');
 		this.navLinks = document.querySelectorAll('.nav__list > li > a');
-		this.navLinkDefault = this.navList.querySelector('.link--default');
+		this.navLinkDefault = this.navList.querySelector('.link--default') || this.navLinks[0] || null;
 		this.navRect = document.querySelector('.nav__rect');
+		this.navHomeActive = document.querySelector('.nav__home-btn--active');
+		this.isHomeLanding = Boolean(this.navRect && this.navHomeActive && this.navList.classList.contains('nav__list--home'));
 
-		this.setRectToLink(this.navLinkDefault);
-		this.scrollHandler();
+		if (this.isHomeLanding) {
+			this.navRect.style.transition = 'none';
+			this.navRect.style.opacity = '0';
+			this.setRectToElement(this.navHomeActive);
+		} else if (this.navRect && this.navLinkDefault) {
+			this.navRect.style.transition = 'none';
+			this.setRectToElement(this.navLinkDefault);
+			this.navRect.style.opacity = '1';
+		}
+
+		window.addEventListener('load', () => {
+			if (this.nav) {
+				this.nav.classList.add('nav--ready');
+			}
+			if (this.navRect) {
+				this.navRect.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+			}
+		});
 
 		this.navBurger.addEventListener('click', () => {
 			this.navBurgerInner.classList.toggle('burger__inner--active');
@@ -19,43 +38,57 @@ export default class Nav {
 
 		this.navLinks.forEach(link => {
 			link.addEventListener('mouseenter', () => {
+				if (!this.navRect) return;
+
+				if (this.isHomeLanding) {
+					this.navRect.style.transition = 'none';
+					this.navRect.style.opacity = '0';
+					this.setRectToElement(this.navHomeActive);
+					this.navHomeActive.classList.add('nav__home-btn--faded');
+
+					requestAnimationFrame(() => {
+						this.navRect.style.transition = 'transform 0.2s ease, opacity 0.2s ease, width 0.2s ease';
+						this.navRect.style.opacity = '1';
+						this.setRectToElement(link);
+					});
+					return;
+				}
+
 				// apply to a slower transition only when other links are hovered
-				this.navRect.style.transition = 'transform 0.2s ease';
-				this.setRectToLink(link);
+				this.navRect.style.transition = 'transform 0.2s ease, width 0.2s ease';
+				this.setRectToElement(link);
 			});
 
 			link.addEventListener('mouseleave', () => {
-				this.setRectToLink(this.navLinkDefault);
+				if (this.isHomeLanding) {
+					this.navRect.style.transition = 'transform 0.2s ease, opacity 0.2s ease, width 0.2s ease';
+					this.navRect.style.opacity = '0';
+					this.setRectToElement(this.navHomeActive);
+					this.navHomeActive.classList.remove('nav__home-btn--faded');
+					return;
+				}
+
+				if (this.navRect && this.navLinkDefault) {
+					this.setRectToElement(this.navLinkDefault);
+				}
 			});
 		});
-	}
 
-	scrollHandler() {
-		// Move nav up when scrolling down
-		let ticking = false;
-		
-		const handleScroll = () => {
-			const scrollBuffer = 200;
-			if (window.scrollY > scrollBuffer) {
-				this.navList.classList.add('nav__list--sticky');
-			} else {
-				this.navList.classList.remove('nav__list--sticky');
-			}
-			ticking = false;
-		};
-
-		window.addEventListener('scroll', () => {
-			if (!ticking) {
-				requestAnimationFrame(handleScroll);
-				ticking = true;
+		window.addEventListener('resize', () => {
+			if (!this.isHomeLanding) return;
+			if (this.navRect.style.opacity !== '1') {
+				this.setRectToElement(this.navHomeActive);
 			}
 		});
 	}
 
-	setRectToLink(linkElement) {
-		const linkRect = linkElement.getBoundingClientRect();
+	setRectToElement(element) {
+		if (!this.navRect || !element) return 0;
+		const elementRect = element.getBoundingClientRect();
 		const navListRect = this.navList.getBoundingClientRect();
-		const offsetX = linkRect.left - navListRect.left;
+		const borderLeft = this.navList.clientLeft || 0;
+		const offsetX = elementRect.left - navListRect.left - borderLeft;
+		this.navRect.style.width = `${elementRect.width}px`;
 		this.navRect.style.transform = `translateX(${offsetX}px)`;
 	}
 }

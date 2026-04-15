@@ -3,7 +3,7 @@
 
 .hover-pulse {
   &:hover, &:focus {
-    animation: pulse 0.5s;
+    animation: pulse 0.4s;
     box-shadow: 0 0 0 36px transparent;
   }
 }
@@ -38,17 +38,73 @@
   }
 }
 
-.hover-line {
+.hover-link {
+  position: relative;
+  overflow: hidden;
   text-decoration: none;
-  box-shadow: inset 0 -2px 0 0 var(--highlight-color);
-  display: inline-block;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
   transition: $animation-time ease;
-  padding: 0 3px;
+  padding: 0 1px;
+  border-radius: 4px;
   box-sizing: border-box;
+  cursor: pointer;
+  color: var(--text-color);
 
-  &:hover {
-    border: none;
-    box-shadow: inset 0 -24px 0 0 var(--highlight-color);
+  --hover-x: 50%;
+  --hover-y: 50%;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    top: var(--hover-y);
+    left: var(--hover-x);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: scale(0) translate(-50%, -50%);
+    transition: transform $animation-time linear;
+    background-color: var(--highlight-color);
+    z-index: -1;
+  }
+
+  &:hover::before,
+  &:focus-visible::before {
+    transform: scale(4);
+  }
+
+  .hover-link__icon {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    opacity: 0.45;
+    transition: transform $animation-time ease, filter $animation-time ease;
+    color: inherit;
+  }
+
+  &:hover,
+  &:focus-visible {
+    .hover-link__icon {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+}
+
+html[data-theme="dark"] .hover-link .hover-link__icon {
+  filter: brightness(0) invert(1);
+}
+
+.hover-border {
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+  transition: outline-color $animation-time ease;
+
+  &:hover,
+  &:focus-visible {
+    outline-color: var(--border-color);
   }
 }
 
@@ -71,13 +127,13 @@
     background: radial-gradient(
       circle at var(--hover-x, 30%) var(--hover-y, 30%),
       var(--shade-color-alpha) 0%,
-      transparent 30%
+      transparent 20%
     );
     opacity: 0;
     transition: opacity $animation-time ease;
   }
 
   &:hover::before {
-    opacity: 1;
+    opacity: .6;
   }
 }

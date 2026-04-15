@@ -1,6 +1,6 @@
 export default class Tooltip {
   constructor() {
-    const tooltipTerms = document.querySelectorAll('.tooltip');
+    const tooltipTerms = document.querySelectorAll('[data-tooltip]');
 
     tooltipTerms.forEach(term => {
       const tooltipText = term.getAttribute('data-tooltip');

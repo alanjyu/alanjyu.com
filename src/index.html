@@ -15,70 +15,110 @@
 
 	<link rel="icon" type="image/png" sizes="32x32" href="/src/img/favicon.ico" />
 	<link rel="manifest" href="/src/site.webmanifest" />
+	<link rel="preload" href="/src/fonts/basiersquare-regular-webfont.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="/src/fonts/basiercircle-medium-webfont.woff2" as="font" type="font/woff2" crossorigin />
+	<!-- Set theme early to avoid flashes -->
+	<script>
+		(() => {
+			try {
+				const savedTheme = localStorage.getItem('theme');
+				const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+				document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+			} catch {
+				document.documentElement.setAttribute('data-theme', 'light');
+			}
+		})();
+	</script>
 	<link rel="stylesheet" href="/src/css/index.scss" />
 </head>
 
 <body>
-	<div class="themeswitch">
-		<span class="icon-sun" aria-hidden="true">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<circle cx="12" cy="12" r="5" fill="currentColor" />
-				<line x1="12" y1="1" x2="12" y2="4" stroke="currentColor" stroke-width="2"/>
-				<line x1="12" y1="20" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
-				<line x1="4.22" y1="4.22" x2="6.34" y2="6.34" stroke="currentColor" stroke-width="2"/>
-				<line x1="17.66" y1="17.66" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/>
-				<line x1="1" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="2"/>
-				<line x1="20" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
-				<line x1="4.22" y1="19.78" x2="6.34" y2="17.66" stroke="currentColor" stroke-width="2"/>
-				<line x1="17.66" y1="6.34" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
-			  </svg>
-		</span>
-		
-		<span class="icon-moon" aria-hidden="true">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-				<path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
-			</svg>
-		</span>
-
-		<label class="themeswitch__checkbox" for="checkbox">
-		  <input type="checkbox" id="checkbox" />
-		  <div class="slider"></div>
-		</label>
-	</div>
-
 	<nav class="nav">
 		<div class="burger">
 			<div class="burger__inner"></div>
 		</div>
 
+		<button class="nav__home-btn nav__home-btn--active hover-border" type="button" aria-label="You are already home!" data-tooltip="You are already home!">
+			<img class="icon-home" src="./img/icons/home.svg" alt="" aria-hidden="true" />
+		</button>
+
 		<ul class="nav__menu">
 			<li><a href="/resume/">Resume</a></li>
 			<li><a href="/science/">Science</a></li>
 			<li><a href="/stuff/">Stuff</a></li>
+			<li><a href="/gallery/">Gallery</a></li>
 		</ul>
 
-		<ul class="nav__list">
+		<ul class="nav__list nav__list--home">
 			<div class="nav__rect"></div>
-			<li><a class="link--default" href="#">Home</a></li>
 			<li><a href="/resume/">Resume</a></li>
 			<li><a href="/science/">Science</a></li>
 			<li><a href="/stuff/">Stuff</a></li>
+			<li><a href="/gallery/">Gallery</a></li>
 		</ul>
+
+		<button class="nav__theme-btn hover-fill hover-pulse hover-border" aria-label="Toggle theme">
+			<img class="icon-sun" src="./img/icons/sun.svg" alt="" aria-hidden="true" />
+			<img class="icon-moon" src="./img/icons/moon.svg" alt="" aria-hidden="true" />
+		</button>
 	</nav>
 
 	<main>
 		<section class="hero">
 			<figure class="hero__background">
-				<img src="./img/profile.jpg?as=webp&width=1920&height=1080" title="Hey! It's me!" />
+				<img data-theme-dim src="./img/photos/profile.jpg?as=webp&width=1920&height=1080" title="Hey! It's me!" />
 			</figure>
 
 			<div class="hero__content">
 				<h1>Hey, name's Alan.</h1>
-				<p>Thanks for stopping by! I am an Earth scientist specializing in geophysics and currently a PhD student at <span class="tooltip" data-tooltip="Germany's national Earth Science centre">GFZ Helmholtz Centre for Geosciences</span> in Potsdam, Germany.</p>
-
-				<p>I use supercomputers to study how continents slowly pull apart, creating valleys and even oceans. By simulating how rocks break and how hot water flows through the cracks, I help identify promising sites for clean <span class="tooltip" data-tooltip="Heat or energy that comes from inside the Earth">geothermal</span> energy.</p>
+				<p>Thanks for stopping by! I am an Earth scientist specializing in geophysics and a PhD student at <span class="tooltip" data-tooltip="Germany's national centre for research into the solid Earth">GFZ Helmholtz Centre for Geosciences</span> in Potsdam, Germany.</p>
 
 				<p>Besides exploring the beautiful Earth, I enjoy working on my car, tinkering with <span class="tooltip" data-tooltip="Electronic instruments that build sound from simple waves">synthesizers</span>, or jamming out on the drums with friends.</p>
+			</div>
+		</section>
+
+		<section>
+			<div class="current-research">
+				<h2 class="current-research__title">Rock and physics!</h2>
+
+				<div class="current-research__stack" aria-label="Past geoscience projects">
+					<article class="current-research__feature hover-glow">
+						<figure class="current-research__feature-figure">
+							<span class="feature-badge">Current research</span>
+							<img data-theme-dim src="./img/photos/rittershoffen.jpg?as=webp&width=1200" alt="Rittershofften geothermal site" />
+						</figure>
+						<div class="current-research__feature-content">
+							<h3>Multi-scale modeling of the Rhine Graben</h3>
+							<p>Using supercomputer models, I simulate long-term <span class="tooltip" data-tooltip="A geological process where continents slowly pull apart, creating valleys and even oceans">rifting</span> (using geodynamic code <a class="hover-link hover-border" href="https://aspect.geodynamics.org" target="_blank" >ASPECT<img class="hover-link__icon" src="./img/icons/external_link.svg" alt="" aria-hidden="true" /></a>) and sedimentation (landscape evolution code <a class="hover-link hover-border" href="https://fastscape.org" target="_blank">Fastscape<img class="hover-link__icon" src="./img/icons/external_link.svg" alt="" aria-hidden="true" /></a>) that formed the Upper Rhine Graben, France&ndash;Germany. By modelling how rocks fracture and how heat and water flow through the porous crust (thermo-hydro-mechanical code <a class="hover-link hover-border" href="https://helmholtz.software/software/golem" target="_blank">GOLEM<img class="hover-link__icon" src="./img/icons/external_link.svg" alt="" aria-hidden="true" /></a>), I help identify target areas for geothermal energy development.</p>
+						</div>
+					</article>
+
+					<article class="current-research__card hover-glow">
+						<a class="current-research__card-link" href="/science/#fragment-opening">
+							<figure class="current-research__media">
+								<img data-theme-dim src="./img/photos/fragment_formation.gif" alt="Continental fragment formation during rifting" />
+							</figure>
+							<h4 class="current-research__card-title">Why continental fragments form during ocean opening</h4>
+						</a>
+					</article>
+
+					<article class="current-research__card hover-glow">
+						<a class="current-research__card-link" href="/science/#north-atlantic-breakup">
+							<figure class="current-research__media">
+								<img data-theme-dim src="./img/photos/labrador_sea.jpg?as=webp&width=600" alt="Labrador Sea rift modelling" />
+							</figure>
+							<h4 class="current-research__card-title">Ancient continental break-up modelled on supercomputers</h4>
+						</a>
+					</article>
+
+					<article class="current-research__card current-research__card--cta">
+						<a class="current-research__card-link current-research__card-link--cta hover-fill hover-border is-grad-1" href="/science/" aria-label="See more projects">
+							<h4 class="current-research__card-title current-research__card-title--cta">
+								<img class="current-research__cta-icon" src="./img/icons/see_more.svg" alt="" aria-hidden="true" />
+							</h4>
+						</a>
+					</article>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -88,38 +128,23 @@
 
 		<ul class="social">
 			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse" href="https://www.instagram.com/alanjyu/" data-target-cover>
-					<object title="Instagram">
-						<svg viewBox="0 0 800 800">
-							<path d="M150 400c0-119 0-166 42-208s88-42 208-42 166 0 208 42 42 89 42 208 0 166-42 208-88 42-208 42-166 0-208-42-42-89-42-208zm455 0c0-114 0-148-29-176-29-29-62-29-176-29s-148 0-176 29c-29 29-29 62-29 176s0 148 29 176c29 29 62 29 176 29s148 0 176-29c29-29 29-62 29-176zM400 272a128 128 0 1 1 0 256 128 128 0 0 1 0-256zm0 211c46 0 83-37 83-83s-37-83-83-83-83 37-83 83 37 83 83 83zm163-216c0 16-13 30-30 30-16 0-30-14-30-30 0-17 14-30 30-30 17 0 30 13 30 30z"/>
-							</svg>
-					</object>
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://www.instagram.com/alanjyu/" data-target-cover>
+					<img class="social__icon" src="./img/icons/social_instagram.svg" alt="Instagram" />
 				</a>
 			</li>
 			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse" href="https://www.linkedin.com/in/ajyu/" data-target-cover>
-					<object title="Linkedin">
-						<svg viewBox="0 0 800 800">
-							<path d="M268 629h-97V319h97zm157 0h-97V319h93v42h1q31-50 93-50 114 0 114 133v185h-96V466q0-70-49-70-59 0-59 69z" />
-							<circle cx="219" cy="220" r="56"/>
-							</svg>
-					</object>
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://www.linkedin.com/in/ajyu/" data-target-cover>
+					<img class="social__icon" src="./img/icons/social_linkedin.svg" alt="LinkedIn" />
 				</a>
 			</li>
 			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse" href="https://github.com/alanjyu/" data-target-cover>
-					<object title="Github">
-						<svg viewBox="0 0 800 800">
-							<path d="M400 139c144 0 260 116 260 260 0 115-75 213-178 247-9 3-17-2-17-13v-71c0-35-18-48-18-48 57-6 119-28 119-128 0-44-27-70-27-70s14-29-2-69c0 0-22-7-72 27-42-12-88-12-130 0-50-34-72-27-72-27-16 40-2 69-2 69s-27 26-27 70c0 100 62 122 119 128 0 0-14 10-17 35-15 7-53 18-76-22 0 0-13-25-39-27 0 0-26 0-2 16 0 0 17 8 29 38 0 0 16 51 88 35v44c0 11-9 16-18 13-103-34-178-132-178-247 0-144 116-260 260-260z"/>
-							</svg>
-					</object>
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://github.com/alanjyu/" data-target-cover>
+					<img class="social__icon" src="./img/icons/social_github.svg" alt="GitHub" />
 				</a>
 			</li>
 			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
-					<object title="Goodreads">
-						<svg fill="#000000" width="64px" height="64px" viewBox="-6 -6 36.00 36.00" role="img" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.096"></g><g id="SVGRepo_iconCarrier"><path d="M5.242 13.769 0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"></path></g></svg>
-					</object>
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
+					<img class="social__icon" src="./img/icons/social_scholar.svg" alt="Google Scholar" />
 				</a>
 			</li>
 		</ul>

@@ -1,5 +1,5 @@
 @use '../base/variables' as *;
-@use '../functions/breakpoints' as breakpoint;
+@use '../utils/breakpoints' as breakpoint;
 
 @mixin container {
   width: 90%;

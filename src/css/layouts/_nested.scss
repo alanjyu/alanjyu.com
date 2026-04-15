@@ -2,7 +2,7 @@
 @use '../base/variables' as *;
 @use '../components/decorations' as decor;
 @use '../components/structures' as struc;
-@use '../functions/breakpoints' as breakpoint;
+@use '../utils/breakpoints' as breakpoint;
 
 :root, html[data-theme="light"] {
   --line-color: linear-gradient(to top, #00000000 0%, #00000030 2.5%, #00000030 97.5%, #00000000 100%);
@@ -12,7 +12,7 @@ html[data-theme="dark"] {
   --line-color: linear-gradient(to top, #ffffff00 0%, #ffffff7e 2.5%, #ffffff7e 97.5%, #ffffff00 100%);
 }
 
-.nested {
+.timeline {
   @include struc.container;
 
   &__line {
@@ -41,6 +41,7 @@ html[data-theme="dark"] {
 
     @include breakpoint.respond-to('landscape') {
       margin-left: 36px;
+      overflow: visible;
     }
   }
   
@@ -67,6 +68,8 @@ html[data-theme="dark"] {
   }
 
   &__item {
+    position: relative;
+    display: flex;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
@@ -77,14 +80,40 @@ html[data-theme="dark"] {
     }
 
     &:hover{
-      .nested__photo {
+      .timeline__photo {
         opacity: 0.1;
         transition: opacity $animation-time ease;
       }
     }
 
     @include breakpoint.respond-to('landscape') {
+      display: flex;
       flex-direction: row;
+      align-items: center;
+      overflow: visible;
+    }
+
+    &::before {
+      content: attr(data-year);
+      display: none;
+
+      @include breakpoint.respond-to('landscape') {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: -24px;
+        transform: translate(-50%, -50%);
+        padding: $gap-tiny $gap-small;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.2;
+        color: var(--text-color);
+        background: var(--shade-color);
+        box-shadow: $box-shadow;
+        white-space: nowrap;
+        z-index: 2;
+      }
     }
   }
 
@@ -103,6 +132,7 @@ html[data-theme="dark"] {
     position: absolute;
     top: 0;
     right: 0;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     z-index: -1;

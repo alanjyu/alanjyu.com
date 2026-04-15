@@ -1,6 +1,6 @@
 {
   "name": "alanjyu.com",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "default": "src/js/main.js",
   "description": "Alan Yu's portfolio website.",
   "directories": {
@@ -10,6 +10,7 @@
     "build": {
       "source": [
         "src/index.html",
+        "src/gallery/index.html",
         "src/resume/index.html",
         "src/science/index.html",
         "src/stuff/index.html",
@@ -19,6 +20,7 @@
     }
   },
   "scripts": {
+    "serve": "parcel serve src/index.html src/gallery/index.html src/resume/index.html src/science/index.html src/stuff/index.html src/stuff/synth/index.html",
     "dev": "parcel serve",
     "build": "parcel build",
     "publish": "parcel build --public-url https://alanjyu.com"

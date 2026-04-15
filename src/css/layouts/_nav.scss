@@ -1,13 +1,20 @@
 @use '../base/variables' as *;
 @use '../components/decorations' as decor;
-@use '../functions/breakpoints' as breakpoint;
+@use '../utils/breakpoints' as breakpoint;
 
 .nav {
   display: flex;
+  position: relative;
+  --nav-detached-offset: 343px;
+
+  // Fallback before JS initializes the moving rectangle.
+  &:not(.nav--ready) .nav__list > li > a.link--default {
+    background: var(--highlight-color);
+  }
 
   &__list {
     // only shows in desktop
-    position: fixed;
+    position: absolute;
     display: none;
     z-index: 9;
     top: 120px;
@@ -17,23 +24,12 @@
     align-items: center;
     border-radius: $border-radius;
     overflow: hidden;
-    box-shadow: $box-shadow;
-    transition: $animation-time ease;
-    border: none;
+    box-shadow: none;
+    border: 1px solid var(--border-color-alpha);
     @include decor.acrylic;
 
     @include breakpoint.respond-to('landscape') {
       display: flex;
-    }
-
-    &--sticky {
-      transform: translate(-50%, -50%) translateY(-80px);
-      border: $border-line;
-      box-shadow: $box-shadow-spread;
-
-      > li > a {
-        padding: 8px 0 !important;
-      }
     }
 
     > li {
@@ -51,6 +47,108 @@
       &:not(:last-child) {
         // add subtitle separation effect
         box-shadow: $inset-shadow-x;
+      }
+    }
+
+    &--home .nav__rect {
+      opacity: 0;
+    }
+  }
+
+  &__theme-btn,
+  &__home-btn {
+    display: none;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    z-index: 9;
+    background: var(--shade-color-alpha);
+    border: 1px solid var(--border-color-alpha);
+    border-radius: $border-radius;
+    cursor: pointer;
+    text-decoration: none;
+    padding: $gap-small;
+    align-items: center;
+    justify-content: center;
+    width: $icon-size;
+    height: $icon-size;
+    transition: opacity $animation-time ease, background $animation-time ease;
+    @include decor.acrylic;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--highlight-color);
+      outline-offset: 4px;
+    }
+
+    @include breakpoint.respond-to('landscape') {
+      display: flex;
+    }
+
+    &.hover-fill::after {
+      z-index: 0;
+    }
+
+    &.hover-fill {
+      // Keep detached placement; hover utility sets position: relative globally.
+      position: absolute;
+    }
+
+    &.hover-pulse:hover,
+    &.hover-pulse:focus-visible {
+      // Override shared pulse keyframes which animate transform and cause position jumping.
+      animation: nav-detached-pulse 0.4s;
+      box-shadow: 0 0 0 36px transparent;
+    }
+
+    > .icon-home,
+    > .icon-sun,
+    > .icon-moon {
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+      width: 24px;
+      height: 24px;
+      filter: var(--filter);
+    }
+  }
+
+  &__theme-btn {
+    transform: translate(-50%, -50%) translateX(var(--nav-detached-offset));
+  }
+
+  &__home-btn {
+    transform: translate(-50%, -50%) translateX(calc(var(--nav-detached-offset) * -1));
+    overflow: hidden;
+
+    &--active {
+      background: var(--shade-color-alpha);
+      border-color: var(--border-color-alpha);
+      cursor: default;
+      opacity: 1;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        inset: 0;
+        background: var(--highlight-color);
+        transform: translateX(0);
+        transition: transform 0.2s ease;
+        z-index: 0;
+      }
+    }
+
+    &--active:hover,
+    &--active:focus-visible {
+      opacity: 1;
+    }
+
+    &--faded {
+      &::before {
+        transform: translateX(110%);
       }
     }
   }
@@ -79,6 +177,12 @@
     width: 150px;
     height: 100%;
     background: var(--highlight-color);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease, width 0.2s ease;
+  }
+
+  &.nav--ready &__list:not(.nav__list--home) .nav__rect {
+    opacity: 1;
   }
 
   &__menu {
@@ -108,6 +212,7 @@
       width: 100%;
       justify-content: center;
       padding: $gap-small 0;
+      align-items: center;
 
       > a {
         text-align: center;
@@ -116,6 +221,7 @@
         font-size: 26px;
         line-height: 2;
       }
+
     }
   
     &--visible {
@@ -123,6 +229,15 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+
+@keyframes nav-detached-pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--pulse-shadow);
+  }
+  30% {
+    box-shadow: 0 0 22px 14px var(--pulse-shadow);
   }
 }
 

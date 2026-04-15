@@ -26,6 +26,21 @@ $charcol: #424c4c;
 $charcol-shade: #424c4c85;
 $black: #1c1c1c;
 
+// gradients
+$card-gradients: (
+	linear-gradient(165deg, #5ca08630, #4782b630),
+	linear-gradient(165deg, #ae7c4b30, #5e8b6e30),
+	linear-gradient(165deg, #7f6ab430, #3f8f8a30),
+	linear-gradient(165deg, #5d7bb830, #4f9a6730)
+);
+
+$timeline-gradients: (
+	linear-gradient(165deg, #5ca086cc, #4782b6cc),
+	linear-gradient(165deg, #ae7c4bcc, #5e8b6ecc),
+	linear-gradient(165deg, #7f6ab4cc, #3f8f8acc),
+	linear-gradient(165deg, #5d7bb8cc, #4f9a67cc)
+);
+
 // borders
 $border-line: 1px solid var(--border-color);
 $border-radius: 10px;

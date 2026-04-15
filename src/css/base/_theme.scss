@@ -9,6 +9,7 @@
   --shade-color-alpha: #ffffff7f;
   --highlight-color: #efd096;
   --highlight-color-alpha: #efd0967e;
+  --pulse-shadow: rgba(0, 0, 0, 0.12);
   --filter: invert(0);
 }
 
@@ -21,7 +22,12 @@ html[data-theme="dark"] {
   --shade-color-alpha: #2c2c2c78;
   --highlight-color: #397a95;
   --highlight-color-alpha: #397a957e;
+  --pulse-shadow: rgba(255, 255, 255, 0.16);
   --filter: invert(1);
+}
+
+html[data-theme="dark"] [data-theme-dim] {
+  filter: brightness(.75);
 }
 
 html, body {
@@ -30,63 +36,59 @@ html, body {
 }
 
 .themeswitch {
-  position: absolute;
-  display: block;
-  top: 25px;
-  right: 25px;
-  z-index: 9;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transition: opacity $animation-time ease;
 
-  &__checkbox {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-
-    input {
-      display: none;
-    }
+  &:hover {
+    opacity: 0.7;
   }
+
+  &:focus-visible {
+    outline: 2px solid var(--highlight-color);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
 }
 
 .icon-sun, .icon-moon {
   display: none;
-  mix-blend-mode: difference;
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  filter: var(--filter);
+}
+
+.nav__theme-btn .icon-sun,
+.nav__theme-btn .icon-moon {
+  width: 24px;
+  height: 24px;
 }
 
 html[data-theme="light"] .icon-sun {
   display: inline-block;
+  color: var(--text-color);
+}
+
+html[data-theme="light"] .icon-moon {
+  opacity: 0;
+  transform: rotate(-180deg);
 }
 
 html[data-theme="dark"] .icon-moon {
   display: inline-block;
+  color: var(--text-color);
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--highlight-color);
-  transition: $animation-time;
-  border-radius: 34px;
-
-  &::before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    border-radius: 50%;
-    background: $white;
-    transition: $animation-time;
-  }
-}
-
-input:checked + .slider {
-  &::before {
-    transform: translateX(26px);
-  }
+html[data-theme="dark"] .icon-sun {
+  opacity: 0;
+  transform: rotate(180deg);
 }

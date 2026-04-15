@@ -1,7 +1,5 @@
 @use '../base/variables' as *;
-@use '../components/decorations' as decor;
 @use '../components/structures' as struc;
-@use '../functions/breakpoints' as breakpoint;
 
 .panel {
   @include struc.container;

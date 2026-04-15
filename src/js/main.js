@@ -2,6 +2,7 @@
 import Theme from './_theme.js';
 import Nav from './_nav.js';
 import Hover from './_hover.js';
+import Gallery from './_gallery.js';
 import Synth from './_synth.js';
 import Tooltip from './_tooltip.js';
 
@@ -18,6 +19,10 @@ const components = [
 	{
 		class: Hover,
 		selector: 'html'
+	},
+	{
+		class: Gallery,
+		selector: '.gallery'
 	},
 	{
 		class: Synth,

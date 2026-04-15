@@ -24,10 +24,11 @@ footer {
 		width: $icon-size;
     z-index: 0;
 
-		svg {
+    .social__icon {
 			height: 100%;
 			width: 100%;
-			fill: var(--text-color);
+      display: block;
+      filter: var(--filter);
 		}
 	}
 

@@ -15,113 +15,111 @@
 
 	<link rel="icon" type="image/png" sizes="32x32" href="/src/img/favicon.ico" />
 	<link rel="manifest" href="/src/site.webmanifest" />
+	<link rel="preload" href="/src/fonts/basiersquare-regular-webfont.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="/src/fonts/basiercircle-medium-webfont.woff2" as="font" type="font/woff2" crossorigin />
+	<!-- Set theme early to avoid flashes -->
+	<script>
+		(() => {
+			try {
+				const savedTheme = localStorage.getItem('theme');
+				const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+				document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+			} catch {
+				document.documentElement.setAttribute('data-theme', 'light');
+			}
+		})();
+	</script>
 	<link rel="stylesheet" href="/src/css/science.scss" />
 </head>
 
 <body>
-	<div class="themeswitch">
-		<span class="icon-sun" aria-hidden="true">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<circle cx="12" cy="12" r="5" fill="currentColor" />
-				<line x1="12" y1="1" x2="12" y2="4" stroke="currentColor" stroke-width="2"/>
-				<line x1="12" y1="20" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
-				<line x1="4.22" y1="4.22" x2="6.34" y2="6.34" stroke="currentColor" stroke-width="2"/>
-				<line x1="17.66" y1="17.66" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/>
-				<line x1="1" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="2"/>
-				<line x1="20" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
-				<line x1="4.22" y1="19.78" x2="6.34" y2="17.66" stroke="currentColor" stroke-width="2"/>
-				<line x1="17.66" y1="6.34" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
-			  </svg>
-		  </span>
-		<span class="icon-moon" aria-hidden="true">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-				<path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
-			</svg>
-		</span>
-
-		<label class="themeswitch__checkbox" for="checkbox">
-		  <input type="checkbox" id="checkbox" />
-		  <div class="slider"></div>
-		</label>
+<nav class="nav">
+	<div class="burger">
+		<div class="burger__inner"></div>
 	</div>
 
-	<nav class="nav">
-		<div class="burger">
-			<div class="burger__inner"></div>
-		</div>
+	<a class="nav__home-btn hover-fill hover-pulse hover-border" href="/" aria-label="Home">
+		<img class="icon-home" src="../img/icons/home.svg" alt="" aria-hidden="true" />
+	</a>
 
-		<ul class="nav__menu">
-			<li><a href="/">Home</a></li>
-			<li><a href="/resume/">Resume</a></li>
-			<li><a href="/stuff/">Stuff</a></li>
-		</ul>
+	<ul class="nav__menu">
+		<li><a href="/">Home</a></li>
+		<li><a href="/resume/">Resume</a></li>
+		<li><a href="/stuff/">Stuff</a></li>
+		<li><a href="/gallery/">Gallery</a></li>
+	</ul>
 
-		<ul class="nav__list">
-			<div class="nav__rect"></div>
-			<li><a href="/">Home</a></li>
-			<li><a href="/resume/">Resume</a></li>
-			<li><a class="link--default" href="/science/">Science</a></li>
-			<li><a href="/stuff/">Stuff</a></li>
-		</ul>
+	<ul class="nav__list">
+		<div class="nav__rect"></div>
+		<li><a href="/resume/">Resume</a></li>
+		<li><a class="link--default" href="/science/">Science</a></li>
+		<li><a href="/stuff/">Stuff</a></li>
+		<li><a href="/gallery/">Gallery</a></li>
+	</ul>
+
+	<button class="nav__theme-btn hover-fill hover-pulse hover-border" aria-label="Toggle theme">
+		<img class="icon-sun" src="../img/icons/sun.svg" alt="" aria-hidden="true" />
+		<img class="icon-moon" src="../img/icons/moon.svg" alt="" aria-hidden="true" />
+	</button>
 	</nav>
-	
+
 	<main>
 		<section>
 			<div class="card">
 				<h2 class="subtitle">Numerical Modelling</h2>
-				<article class="card__item hover-glow">
+				<article class="card__item hover-glow" id="fragment-opening">
 					<figure class="card__item__figure">
-						<img class="fullframe--hover" src="../img/wilson_cycle.jpg?as=webp&width=600" title="Setting up seismic surveying equipments" img-alt="" />
+						<img class="fullframe--hover" src="../img/photos/fragment_formation.gif" title="Continental fragment formation during rifting" img-alt="" />
 					</figure>
 					<div class="card__item__content">
-						<h3>A recipe to create fragments of continents everywhere</h3>
-						<p>When a new ocean opens, it can split a <span class="tooltip" data-tooltip="A piece of continental crust that separates from its original tectonic plate" tabindex="0">continental fragment</span> from its parent plate. We conducted almost 100 <span class="tooltip" data-tooltip="Computer simulations of how rocks in the Earth move over very long time scales" tabindex="0">geodynamic models</span> of <span class="tooltip" data-tooltip="Computer simulations of how crust stretches and deforms during plate separation" tabindex="0">rifting</span> on supercomputers, to test how fragments form and what factors influence that process. Using an automated data processing technique, we show that <span class="tooltip" data-tooltip="Older tectonic structures that are reused during new deformation" tabindex="0">structural inheritance</span> can directly control fragment width, while other factors like temperature can play an important role during the rift.</p>
-						<a class="card__item__link hover-fill hover-pulse" href="https://doi.org/10.1029/2024JB030041" target="_blank">See publication</a>
+						<h3>Why Continental Fragments Form During Ocean Opening</h3>
+						<p>As a new ocean opens, a sliver of continent can break away from its parent plate. To understand why this happens, we ran nearly 100 supercomputer models of continental rifting. Our results show that pre-existing structures in the lithosphere are the main control on fragment width, while temperature also influences how the rift evolves.</p>
+						<a class="card__item__link hover-fill hover-pulse hover-border" href="https://doi.org/10.1029/2024JB030041" target="_blank">See publication</a>
 					</div>
 				</article>
 
-				<article class="card__item hover-glow">
+				<article class="card__item hover-glow" id="north-atlantic-breakup">
 					<figure class="card__item__figure">
-						<img class="fullframe--hover" src="../img/labrador_sea.jpg?as=webp&width=600" title="Setting up seismic surveying equipments" img-alt="" />
+							<img class="fullframe--hover" src="../img/photos/labrador_sea_opening.jpg?as=webp&width=1200" title="Setting up seismic surveying equipments" img-alt="" />
 					</figure>
 					<div class="card__item__content">
-						<h3>Ancient continental break-up modelled on supercomputers</h3>
-						<p>About 60 million years ago, a major <span class="tooltip" data-tooltip="A long, slowly forming crack where Earth's crust pulls apart" tabindex="0">rift</span> opened in the region that became the North Atlantic Ocean, between Greenland, Canada, and Europe. We still do not fully understand how a piece of Greenland's crust ended up on the Canadian side. We ran 3-D geodynamic rift models on supercomputers. These models tested how rock layers in a <span class="tooltip" data-tooltip="An ancient collision boundary where two continental blocks were joined together" tabindex="0">suture zone</span> change shape during long-term <span class="tooltip" data-tooltip="Tectonic stretching that pulls continental crust apart over time" tabindex="0">continental extension</span>.</p>
-						<a class="card__item__link hover-fill hover-pulse" href="https://doi.org/10.1130/G50734.1" target="_blank">See publication</a>
+						<h3>Reconstructing Early North Atlantic Breakup</h3>
+						<p>About 60 million years ago, rifting between Greenland, Canada, and Europe opened the early North Atlantic Ocean. One open question is why a sliver of Greenland's crust ended up on the Canadian side. Using 3-D rift models, we tested how deformation from old mountain building processes influences the final breakup geometry.</p>
+						<a class="card__item__link hover-fill hover-pulse hover-border" href="https://doi.org/10.1130/G50734.1" target="_blank">See publication</a>
 					</div>
 				</article>
 
 				<h2 class="subtitle">Glacial Geology</h2>
 					<article class="card__item hover-glow">
 					<figure class="card__item__figure">
-						<img class="fullframe--hover" src="../img/simard.jpg?as=webp&width=600" title="seismic reflection stratigraphy" />
+							<img class="fullframe--hover" src="../img/photos/lac_simard.jpg?as=webp&width=1200" title="seismic reflection stratigraphy" />
 					</figure>
 					<div class="card__item__content">
-						<h3>Lake sediments reveal Ice Age clues or ancient quakes?</h3>
-						<p>Canada's Western Quebec is an earthquake-prone region, but it has limited <span class="tooltip" data-tooltip="Measurements from instruments, such as seismometers, used to track earthquakes" tabindex="0">instrumental records</span> for <span class="tooltip" data-tooltip="Estimating how likely damaging earthquakes are in a region" tabindex="0">earthquake risk assessment</span>. We analyzed <span class="tooltip" data-tooltip="Subsurface images made by sending sound waves into the ground and recording their echoes" tabindex="0">seismic reflection profiles</span> from an ancient glacial lake and identified sediments that record environmental change as the last ice sheet retreated. We also observed disturbed sediments that may be linked to ancient quakes or <span class="tooltip" data-tooltip="Rapid input of meltwater and sediment from thawing glacial ice" tabindex="0">glacial melt influx</span>.</p>
-						<a class="card__item__link hover-fill hover-pulse" href="https://doi.org/10.1139/cjes-2023-0027" target="_blank">See publication</a>
+						<h3>Lake Sediments: Ice-Age Change or Ancient Earthquakes?</h3>
+						<p>Western Quebec is earthquake-prone, but modern records are too short to capture long-term risk. We analyzed seismic reflection data from an ancient glacial lake and identified sediment layers that track environmental change as the ice sheet retreated. We also found disturbed layers that may record either past earthquakes or pulses of glacial meltwater and sediment.</p>
+						<a class="card__item__link hover-fill hover-pulse hover-border" href="https://doi.org/10.1139/cjes-2023-0027" target="_blank">See publication</a>
 					</div>
 					</article>
 
 					<article class="card__item hover-glow">
 						<figure class="card__item__figure">
-							<img class="fullframe--hover" src="../img/seismic.jpg?as=webp&width=600" title="seismic reflection stratigraphy" />
+								<img class="fullframe--hover" src="../img/photos/seismic.jpg?as=webp&width=1200" title="seismic reflection stratigraphy" />
 						</figure>
 						<div class="card__item__content">
 							<h3>Testing seismic surveying equipment in the Valley</h3>
-							<p><span class="tooltip" data-tooltip="A geophysical method that uses sound waves to image underground layers" tabindex="0">Seismic surveying</span> uses sound waves to study the underground. A common method is the hammer seismic method: a large hammer strikes a metal plate to create a signal, and <span class="tooltip" data-tooltip="Ground sensors that record vibrations from seismic waves" tabindex="0">geophones</span> placed along a line record how the signal travels. By comparing when <span class="tooltip" data-tooltip="Waves bent as they pass into materials with different properties" tabindex="0">refracted</span> and <span class="tooltip" data-tooltip="Waves that bounce back from boundaries between rock layers" tabindex="0">reflected</span> waves arrive, we can estimate rock properties below the surface.</p>
-							<a class="card__item__link hover-fill hover-pulse" href="https://planetearth.utsc.utoronto.ca/news/seismic.html" target="_blank" rel="noopener noreferrer" aria-label="Read the UTSC field report on seismic equipment testing">Read more</a>
+							<p>Seismic surveying images the subsurface with sound waves. In this field test, we used a hammer source: each strike on a steel plate generated a signal, and geophones along a profile recorded its travel through the ground. By comparing first arrivals and reflections, we estimated the depth and physical properties of the underlying layers.</p>
+							<a class="card__item__link hover-fill hover-pulse hover-border" href="https://planetearth.utsc.utoronto.ca/news/seismic.html" target="_blank" rel="noopener noreferrer" aria-label="Read the UTSC field report on seismic equipment testing">Read more</a>
 						</div>
 					</article>
 
 					<article class="card__item hover-glow">
 						<figure class="card__item__figure">
-							<img class="fullframe--hover" src="../img/odessa.jpg?as=webp&width=600" title="Getting groovy with the mega grooves."/>
+								<img class="fullframe--hover" src="../img/photos/odessa.jpg?as=webp&width=1200" title="Getting groovy with the mega grooves."/>
 						</figure>
 						<div class="card__item__content">
-							<h3>Mapping glacier movements through bedrock grooves</h3>
-							<p><span class="tooltip" data-tooltip="Large, parallel grooves carved into bedrock by moving glacier ice" tabindex="0">Glacial mega-grooves</span> record crucial information about past glacial flow. We measured and documented these features in Odessa, Canada. Their patterns painted a picture of the region's glacial history: a southwestward advance of the <span class="tooltip" data-tooltip="A major part of the Laurentide Ice Sheet that moved across southern Ontario" tabindex="0">Ontario Lobe</span> during the last glacial cycle, followed by a northwestward retreat during the retreat of glaciers.</p>
-							<a class="card__item__link hover-fill hover-pulse" href="https://planetearth.utsc.utoronto.ca/news/odessa.html" target="_blank">Read more</a>
+							<h3>Tracing Glacier Flow with Bedrock Grooves</h3>
+							<p>Large grooves carved into bedrock preserve a clear record of past ice motion. In Odessa, Canada, we mapped and measured these features to reconstruct regional glacier flow. Their orientation indicates a southwestward advance of the Ontario Lobe during the last glacial cycle, followed by a later northwestward retreat.</p>
+							<a class="card__item__link hover-fill hover-pulse hover-border" href="https://planetearth.utsc.utoronto.ca/news/odessa.html" target="_blank">Read more</a>
 						</div>
 					</article>
 			</div>
@@ -134,38 +132,23 @@
 
 		<ul class="social">
 			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse" href="https://www.instagram.com/alanjyu/" data-target-cover>
-					<object title="Instagram">
-						<svg viewBox="0 0 800 800">
-							<path d="M150 400c0-119 0-166 42-208s88-42 208-42 166 0 208 42 42 89 42 208 0 166-42 208-88 42-208 42-166 0-208-42-42-89-42-208zm455 0c0-114 0-148-29-176-29-29-62-29-176-29s-148 0-176 29c-29 29-29 62-29 176s0 148 29 176c29 29 62 29 176 29s148 0 176-29c29-29 29-62 29-176zM400 272a128 128 0 1 1 0 256 128 128 0 0 1 0-256zm0 211c46 0 83-37 83-83s-37-83-83-83-83 37-83 83 37 83 83 83zm163-216c0 16-13 30-30 30-16 0-30-14-30-30 0-17 14-30 30-30 17 0 30 13 30 30z"/>
-							</svg>
-					</object>
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://www.instagram.com/alanjyu/" data-target-cover>
+						<img class="social__icon" src="../img/icons/social_instagram.svg" alt="Instagram" />
 				</a>
 			</li>
 			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse" href="https://www.linkedin.com/in/ajyu/" data-target-cover>
-					<object title="Linkedin">
-						<svg viewBox="0 0 800 800">
-							<path d="M268 629h-97V319h97zm157 0h-97V319h93v42h1q31-50 93-50 114 0 114 133v185h-96V466q0-70-49-70-59 0-59 69z" />
-							<circle cx="219" cy="220" r="56"/>
-							</svg>
-					</object>
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://www.linkedin.com/in/ajyu/" data-target-cover>
+						<img class="social__icon" src="../img/icons/social_linkedin.svg" alt="LinkedIn" />
 				</a>
 			</li>
 			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse" href="https://github.com/alanjyu/" data-target-cover>
-					<object title="Github">
-						<svg viewBox="0 0 800 800">
-							<path d="M400 139c144 0 260 116 260 260 0 115-75 213-178 247-9 3-17-2-17-13v-71c0-35-18-48-18-48 57-6 119-28 119-128 0-44-27-70-27-70s14-29-2-69c0 0-22-7-72 27-42-12-88-12-130 0-50-34-72-27-72-27-16 40-2 69-2 69s-27 26-27 70c0 100 62 122 119 128 0 0-14 10-17 35-15 7-53 18-76-22 0 0-13-25-39-27 0 0-26 0-2 16 0 0 17 8 29 38 0 0 16 51 88 35v44c0 11-9 16-18 13-103-34-178-132-178-247 0-144 116-260 260-260z"/>
-							</svg>
-					</object>
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://github.com/alanjyu/" data-target-cover>
+						<img class="social__icon" src="../img/icons/social_github.svg" alt="GitHub" />
 				</a>
 			</li>
 			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
-					<object title="Goodreads">
-						<svg fill="#000000" width="64px" height="64px" viewBox="-6 -6 36.00 36.00" role="img" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.096"></g><g id="SVGRepo_iconCarrier"><path d="M5.242 13.769 0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"></path></g></svg>
-					</object>
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
+						<img class="social__icon" src="../img/icons/social_scholar.svg" alt="Google Scholar" />
 				</a>
 			</li>
 		</ul>
