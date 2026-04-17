@@ -6,6 +6,7 @@
   display: flex;
   position: relative;
   --nav-detached-offset: 343px;
+  --nav-glass-grey: linear-gradient(165deg, #8a8a8a20, #5f5f5f20);
 
   // Fallback before JS initializes the moving rectangle.
   &:not(.nav--ready) .nav__list > li > a.link--default {
@@ -20,11 +21,18 @@
     top: 120px;
     left: 50%;
     transform: translate(-50%, -50%) translateY(0);
-    background: var(--shade-color-alpha);
+    background:
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, #fff 8%, transparent) 0%,
+        transparent 42%
+      ),
+      var(--nav-glass-grey),
+      color-mix(in srgb, var(--shade-color-alpha) 74%, transparent);
     align-items: center;
     border-radius: $border-radius;
     overflow: hidden;
-    box-shadow: none;
+    box-shadow: $glass-shadow;
     border: 1px solid var(--border-color-alpha);
     @include decor.acrylic;
 
@@ -40,7 +48,7 @@
       > a {
         display: inline-block;
         font-weight: 500;
-        min-width: 150px;
+        min-width: 132px;
         padding: $gap-small 0;
       }
 
@@ -174,7 +182,7 @@
   &__rect {
     position: absolute;
     transform: translateX(-100%);
-    width: 150px;
+    width: 132px;
     height: 100%;
     background: var(--highlight-color);
     opacity: 0;
@@ -196,12 +204,20 @@
     left: 0;
     width: 100%;
     padding: 60px 0;
-    background: var(--shade-color-alpha);
+    background:
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, #fff 8%, transparent) 0%,
+        transparent 42%
+      ),
+      var(--nav-glass-grey),
+      color-mix(in srgb, var(--shade-color-alpha) 74%, transparent);
     transform: translateY(-100%);
     transition: $animation-time;
     flex-direction: row;
     flex-wrap: wrap;
     overflow-x: hidden;
+    box-shadow: $glass-shadow;
 
     @include breakpoint.respond-to('landscape') {
       display: none;
@@ -217,7 +233,7 @@
       > a {
         text-align: center;
         font-weight: 500;
-        min-width: 120px;
+        min-width: 104px;
         font-size: 26px;
         line-height: 2;
       }

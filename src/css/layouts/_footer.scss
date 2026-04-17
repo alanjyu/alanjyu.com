@@ -16,6 +16,7 @@ footer {
 .social {
   display: flex;
   flex-direction: row;
+  margin-top: $gap-small;
 
 	&__link {
 		border-radius: $border-radius;

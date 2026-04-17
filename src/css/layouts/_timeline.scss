@@ -3,6 +3,7 @@
 @use '../components/decorations' as decor;
 @use '../components/structures' as struc;
 @use '../utils/breakpoints' as breakpoint;
+@use 'sass:list';
 
 :root, html[data-theme="light"] {
   --line-color: linear-gradient(to top, #00000000 0%, #00000030 2.5%, #00000030 97.5%, #00000000 100%);
@@ -15,6 +16,23 @@ html[data-theme="dark"] {
 .timeline {
   @include struc.container;
   position: relative;
+  --timeline-gradient: #{list.nth($card-gradients, 1)};
+
+  &:nth-of-type(4n + 1) {
+    --timeline-gradient: #{list.nth($card-gradients, 1)};
+  }
+
+  &:nth-of-type(4n + 2) {
+    --timeline-gradient: #{list.nth($card-gradients, 2)};
+  }
+
+  &:nth-of-type(4n + 3) {
+    --timeline-gradient: #{list.nth($card-gradients, 3)};
+  }
+
+  &:nth-of-type(4n + 4) {
+    --timeline-gradient: #{list.nth($card-gradients, 4)};
+  }
 
   &__line {
     position: absolute;
@@ -28,19 +46,44 @@ html[data-theme="dark"] {
   }
 
   &__subtitle {
-    margin: 32px 0 20px 0;
+    margin: 60px 0 24px 0;
     font-size: $subtitle-font-size;
   }
 
   &__inner {
+    --timeline-gradient: #{list.nth($card-gradients, 1)};
     @include decor.acrylic;
     display: flex;
     flex-direction: column;
-    background: var(--shade-color-alpha);
+    background:
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, #fff 8%, transparent) 0%,
+        transparent 42%
+      ),
+      var(--timeline-gradient),
+      color-mix(in srgb, var(--shade-color-alpha) 74%, transparent);
+    border: 1px solid var(--border-color-alpha);
     border-radius: $border-radius-large;
-    box-shadow: $box-shadow;
+    box-shadow: $glass-shadow;
     overflow: hidden;
     margin-left: 30px;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      inset: 0;
+      background: $glass-shine;
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
 
     @include breakpoint.respond-to('landscape') {
       margin-left: 36px;

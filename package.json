@@ -21,7 +21,7 @@
   },
   "scripts": {
     "serve": "parcel serve src/index.html src/gallery/index.html src/resume/index.html src/science/index.html src/stuff/index.html src/stuff/synth/index.html",
-    "dev": "parcel serve",
+    "dev": "parcel serve src/index.html src/gallery/index.html src/resume/index.html src/science/index.html src/stuff/index.html src/stuff/synth/index.html",
     "build": "parcel build",
     "publish": "parcel build --public-url https://alanjyu.com"
   },
@@ -39,7 +39,7 @@
     "@parcel/packager-raw-url": "^2.16.4",
     "@parcel/transformer-sass": "^2.16.4",
     "@parcel/transformer-webmanifest": "^2.16.4",
-    "parcel": "^2.16.3",
+    "parcel": "^2.16.4",
     "sharp": "^0.33.5",
     "svgo": "^3.3.2"
   },
