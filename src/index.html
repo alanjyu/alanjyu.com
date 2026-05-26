@@ -15,8 +15,6 @@
 
 	<link rel="icon" type="image/png" sizes="32x32" href="/src/img/favicon.ico" />
 	<link rel="manifest" href="/src/site.webmanifest" />
-	<link rel="preload" href="/src/fonts/basiersquare-regular-webfont.woff2" as="font" type="font/woff2" crossorigin />
-	<link rel="preload" href="/src/fonts/basiercircle-medium-webfont.woff2" as="font" type="font/woff2" crossorigin />
 	<!-- Set theme early to avoid flashes -->
 	<script>
 		(() => {
@@ -34,124 +32,96 @@
 
 <body>
 	<nav class="nav">
-		<div class="burger">
-			<div class="burger__inner"></div>
-		</div>
-
-		<button class="nav__home-btn nav__home-btn--active hover-border" type="button" aria-label="You are already home!" data-tooltip="You are already home!">
+		<a id="home-button" class="nav__button nav__link--default" href="#" data-tooltip="You are already home!" aria-label="Home">
+			<div class="home__rect"></div>
 			<img class="icon-home" src="./img/icons/home.svg" alt="" aria-hidden="true" />
-		</button>
+		</a>
 
-		<ul class="nav__menu">
-			<li><a href="/resume/">Resume</a></li>
-			<li><a href="/science/">Science</a></li>
-			<li><a href="/stuff/">Music</a></li>
-			<li><a href="/gallery/">Gallery</a></li>
-		</ul>
-
-		<ul class="nav__list nav__list--home">
+		<ul class="nav__list">
 			<div class="nav__rect"></div>
-			<li><a href="/resume/">Resume</a></li>
-			<li><a href="/science/">Science</a></li>
-			<li><a href="/stuff/">Music</a></li>
-			<li><a href="/gallery/">Gallery</a></li>
+			<li class="nav__item"><a class="nav__link" href="/resume/">Resume</a></li>
+			<li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
+			<li class="nav__item"><a class="nav__link" href="/music/">Music</a></li>
+			<!-- <li class="nav__item"><a class="nav__link" href="/gallery/">Gallery</a></li> -->
 		</ul>
 
-		<button class="nav__theme-btn hover-fill hover-pulse hover-border" aria-label="Toggle theme">
-			<img class="icon-sun" src="./img/icons/sun.svg" alt="" aria-hidden="true" />
-			<img class="icon-moon" src="./img/icons/moon.svg" alt="" aria-hidden="true" />
+    <ul class="nav__menu">
+      <li class="nav__item"><a class="nav__link" href="#">Menu<img id="greater-than" src="./img/icons/greater-than.svg" /></a></li>
+			<li class="nav__item"><a class="nav__link" href="/resume/">Resume</a></li>
+      <li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
+      <li class="nav__item"><a class="nav__link" href="/music/">Music</a></li>
+      <!-- <li class="nav__item"><a class="nav__link" href="/gallery/">Gallery</a></li> -->
+    </ul>
+
+		<button id="theme-toggle" class="nav__button hover-fill" aria-label="Toggle light/dark theme">
+			<img class="icon-sun" src="./img/icons/sun.svg">
+			<img class="icon-moon" src="./img/icons/moon.svg">
 		</button>
 	</nav>
 
 	<main>
-		<section class="hero">
-			<figure class="hero__background">
-				<img data-theme-dim src="./img/photos/profile.jpg?as=webp&width=1920&height=1080" title="Hey! It's me!" />
-			</figure>
-
-			<div class="hero__content">
-				<h1>Hey, name's Alan.</h1>
-				<p>Thanks for stopping by! I am an Earth scientist specializing in geophysics and a PhD student at <span class="tooltip" data-tooltip="Germany's national centre for research into the solid Earth">GFZ Helmholtz Centre for Geosciences</span> in Potsdam, Germany.</p>
-
-				<p>Besides exploring the beautiful Earth, I enjoy working on my car, tinkering with <span class="tooltip" data-tooltip="Electronic instruments that build sound from simple waves">synthesizers</span>, or jamming out on the drums with friends.</p>
-			</div>
-		</section>
-
 		<section>
-			<div class="current-research">
-				<h2 class="current-research__title">Rock and physics!</h2>
+      <div class="hero">
+        <figure class="hero__background">
+          <img data-theme-dim src="./img/resources/profile.jpg?as=webp&width=1920" title="It's me :)" />
+        </figure>
 
-				<div class="current-research__stack" aria-label="Past geoscience projects">
-					<article class="current-research__feature hover-glow">
-						<figure class="current-research__feature-figure">
-							<span class="feature-badge">Current research</span>
-							<img data-theme-dim src="./img/photos/rittershoffen.jpg?as=webp&width=1200" alt="Rittershofften geothermal site" />
-						</figure>
-						<div class="current-research__feature-content">
-							<h3>Multi-scale modeling of the Rhine Graben</h3>
-							<p>Using supercomputer models, I simulate long-term <span class="tooltip" data-tooltip="A geological process where continents slowly pull apart, creating valleys and even oceans">rifting</span> (using geodynamic code <a class="hover-link hover-border" href="https://aspect.geodynamics.org" target="_blank" >ASPECT<img class="hover-link__icon" src="./img/icons/external_link.svg" alt="" aria-hidden="true" /></a>) and sedimentation (landscape evolution code <a class="hover-link hover-border" href="https://fastscape.org" target="_blank">Fastscape<img class="hover-link__icon" src="./img/icons/external_link.svg" alt="" aria-hidden="true" /></a>) that formed the Upper Rhine Graben, France&ndash;Germany. By modelling how rocks fracture and how heat and water flow through the porous crust (thermo-hydro-mechanical code <a class="hover-link hover-border" href="https://helmholtz.software/software/golem" target="_blank">GOLEM<img class="hover-link__icon" src="./img/icons/external_link.svg" alt="" aria-hidden="true" /></a>), I help identify target areas for geothermal energy development.</p>
-						</div>
-					</article>
+        <div class="hero__content">
+          <h1>Hey, name's Alan.</h1>
+          <p>Thanks for stopping by! I am an Earth scientist specializing in geophysics and a PhD student at GFZ Helmholtz Centre for Geosciencesin Potsdam, Germany.</p>
 
-					<article class="current-research__card hover-glow">
-						<a class="current-research__card-link" href="/science/#fragment-opening">
-							<figure class="current-research__media">
-								<img data-theme-dim src="./img/photos/fragment_formation.gif" alt="Continental fragment formation during rifting" />
-							</figure>
-							<h4 class="current-research__card-title">Why continental fragments form during ocean opening</h4>
-						</a>
-					</article>
-
-					<article class="current-research__card hover-glow">
-						<a class="current-research__card-link" href="/science/#north-atlantic-breakup">
-							<figure class="current-research__media">
-								<img data-theme-dim src="./img/photos/labrador_sea.jpg?as=webp&width=600" alt="Labrador Sea rift modelling" />
-							</figure>
-							<h4 class="current-research__card-title">Ancient continental break-up modelled on supercomputers</h4>
-						</a>
-					</article>
-
-					<article class="current-research__card current-research__card--cta">
-						<a class="current-research__card-link current-research__card-link--cta hover-fill hover-border is-grad-1" href="/science/" aria-label="See more projects">
-							<h4 class="current-research__card-title current-research__card-title--cta">
-								<img class="current-research__cta-icon" src="./img/icons/see_more.svg" alt="" aria-hidden="true" />
-							</h4>
-						</a>
-					</article>
-				</div>
-			</div>
+          <p>Besides exploring the beautiful Earth, I enjoy working on my car, tinkering with synthesizers, or jamming out on the drums with friends.</p>
+        </div>
+      </div>
 		</section>
+<!-- 
+    <section class="section">
+      <div class="banner">
+        <figure class="banner__figure">
+          <img data-theme-dim src="./img/resources/synth.jpg" title="It's me :)" />
+        </figure>
+
+        <div class="banner__content">
+          <h2>Rock and Physics!</h2>
+          <p>Thanks for stopping by! I am an Earth scientist specializing in geophysics and a PhD student at GFZ Helmholtz Centre for Geosciencesin Potsdam, Germany.</p>
+
+          <p>Besides exploring the beautiful Earth, I enjoy working on my car, tinkering with synthesizers, or jamming out on the drums with friends.</p>
+        </div>
+      </div>
+    </section> -->
 	</main>
 
-	<footer class="dynamic-background">
-		<p><a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE" data-target-cover>&#169;</a> <span data-current-year>2025</span> — Alan J. Yu</p>
+	<footer>
+    <div class="dynamic-background">
+      <p><a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE" data-target-cover>&#169;</a> <span data-current-year>2025</span> — Alan J. Yu</p>
 
-		<ul class="social">
-			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse hover-border" href="https://www.instagram.com/alanjyu/" data-target-cover>
-					<img class="social__icon" src="./img/icons/social_instagram.svg" alt="Instagram" />
-				</a>
-			</li>
-			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse hover-border" href="https://www.linkedin.com/in/ajyu/" data-target-cover>
-					<img class="social__icon" src="./img/icons/social_linkedin.svg" alt="LinkedIn" />
-				</a>
-			</li>
-			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse hover-border" href="https://github.com/alanjyu/" data-target-cover>
-					<img class="social__icon" src="./img/icons/social_github.svg" alt="GitHub" />
-				</a>
-			</li>
-			<li class="social__item">
-				<a class="social__link hover-fill hover-pulse hover-border" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
-					<img class="social__icon" src="./img/icons/social_scholar.svg" alt="Google Scholar" />
-				</a>
-			</li>
-		</ul>
+      <ul class="social">
+        <li class="social__item">
+          <a class="social__link hover-fill hover-pulse hover-border" href="https://www.instagram.com/alanjyu/" data-target-cover>
+            <img class="social__icon" src="./img/icons/social_instagram.svg" alt="Instagram" />
+          </a>
+        </li>
+        <li class="social__item">
+          <a class="social__link hover-fill hover-pulse hover-border" href="https://www.linkedin.com/in/ajyu/" data-target-cover>
+            <img class="social__icon" src="./img/icons/social_linkedin.svg" alt="LinkedIn" />
+          </a>
+        </li>
+        <li class="social__item">
+          <a class="social__link hover-fill hover-pulse hover-border" href="https://github.com/alanjyu/" data-target-cover>
+            <img class="social__icon" src="./img/icons/social_github.svg" alt="GitHub" />
+          </a>
+        </li>
+        <li class="social__item">
+          <a class="social__link hover-fill hover-pulse hover-border" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
+            <img class="social__icon" src="./img/icons/social_scholar.svg" alt="Google Scholar" />
+          </a>
+        </li>
+      </ul>
+    </div>
 	</footer>
 
 	<script type="module" src="/src/js/main.js" charset="utf-8"></script>
+	<script>document.querySelectorAll('[data-current-year]').forEach((el)=>{el.textContent=new Date().getFullYear();});</script>
 	<noscript>Please enable JavaScript to ensure that the website function properly.</noscript>
-<script>document.querySelectorAll('[data-current-year]').forEach((el)=>{el.textContent=new Date().getFullYear();});</script>
 </body>
 </html>

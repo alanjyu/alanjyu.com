@@ -1,322 +1,205 @@
-@use '../base/variables' as *;
-@use '../components/decorations' as decor;
-@use '../utils/breakpoints' as breakpoint;
+@use "../base/variables" as *;
+@use "../components/decorations" as decor;
+@use "../utils/breakpoints" as breakpoint;
 
 .nav {
   display: flex;
-  position: relative;
-  --nav-detached-offset: 343px;
-  --nav-glass-grey: linear-gradient(165deg, #8a8a8a20, #5f5f5f20);
+  position: absolute;
+  z-index: 9;
+  top: 24px;
+  left: 50%;
+  gap: $gap-medium;
+  transform: translate(-50%, 0);
 
-  // Fallback before JS initializes the moving rectangle.
-  &:not(.nav--ready) .nav__list > li > a.link--default {
-    background: var(--highlight-color);
+  @include breakpoint.respond-to("landscape") {
+    top: 120px;
+    transform: translate(-50%, -50%);
   }
 
   &__list {
-    // only shows in desktop
-    position: absolute;
+    // desktop list
     display: none;
-    z-index: 9;
-    top: 120px;
-    left: 50%;
-    transform: translate(-50%, -50%) translateY(0);
-    background:
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, #fff 8%, transparent) 0%,
-        transparent 42%
-      ),
-      var(--nav-glass-grey),
-      color-mix(in srgb, var(--shade-color-alpha) 74%, transparent);
+    flex-direction: row;
     align-items: center;
-    border-radius: $border-radius;
+    border-radius: $border-radius-huge;
     overflow: hidden;
-    box-shadow: $glass-shadow;
     border: 1px solid var(--border-color-alpha);
-    @include decor.acrylic;
-
-    @include breakpoint.respond-to('landscape') {
-      display: flex;
-    }
-
-    > li {
-      display: block; 
-      position: relative;
-      text-align: center;
-
-      > a {
-        display: inline-block;
-        font-weight: 500;
-        min-width: 132px;
-        padding: $gap-small 0;
-      }
-
-      &:not(:last-child) {
-        // add subtitle separation effect
-        box-shadow: $inset-shadow-x;
-      }
-    }
-
-    &--home .nav__rect {
-      opacity: 0;
-    }
-  }
-
-  &__theme-btn,
-  &__home-btn {
-    display: none;
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    z-index: 9;
-    background: var(--shade-color-alpha);
-    border: 1px solid var(--border-color-alpha);
-    border-radius: $border-radius;
-    cursor: pointer;
-    text-decoration: none;
-    padding: $gap-small;
-    align-items: center;
-    justify-content: center;
-    width: $icon-size;
     height: $icon-size;
-    transition: opacity $animation-time ease, background $animation-time ease;
     @include decor.acrylic;
+    @include decor.glass;
 
-    &:hover {
-      opacity: 0.9;
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--highlight-color);
-      outline-offset: 4px;
-    }
-
-    @include breakpoint.respond-to('landscape') {
+    @include breakpoint.respond-to("landscape") {
       display: flex;
     }
-
-    &.hover-fill::after {
-      z-index: 0;
-    }
-
-    &.hover-fill {
-      // Keep detached placement; hover utility sets position: relative globally.
-      position: absolute;
-    }
-
-    &.hover-pulse:hover,
-    &.hover-pulse:focus-visible {
-      // Override shared pulse keyframes which animate transform and cause position jumping.
-      animation: nav-detached-pulse 0.4s;
-      box-shadow: 0 0 0 36px transparent;
-    }
-
-    > .icon-home,
-    > .icon-sun,
-    > .icon-moon {
-      position: relative;
-      z-index: 1;
-      pointer-events: none;
-      width: 24px;
-      height: 24px;
-      filter: var(--filter);
-    }
-  }
-
-  &__theme-btn {
-    transform: translate(-50%, -50%) translateX(var(--nav-detached-offset));
-  }
-
-  &__home-btn {
-    transform: translate(-50%, -50%) translateX(calc(var(--nav-detached-offset) * -1));
-    overflow: hidden;
-
-    &--active {
-      background: var(--shade-color-alpha);
-      border-color: var(--border-color-alpha);
-      cursor: default;
-      opacity: 1;
-
-      &::before {
-        content: ' ';
-        position: absolute;
-        inset: 0;
-        background: var(--highlight-color);
-        transform: translateX(0);
-        transition: transform 0.2s ease;
-        z-index: 0;
-      }
-    }
-
-    &--active:hover,
-    &--active:focus-visible {
-      opacity: 1;
-    }
-
-    &--faded {
-      &::before {
-        transform: translateX(110%);
-      }
-    }
-  }
-
-  &__shadow {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 7;
-    visibility: visible;
-    opacity: 1;
-    transition: $animation-time;
-
-    &--visible {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-
-  &__rect {
-    position: absolute;
-    transform: translateX(-100%);
-    width: 132px;
-    height: 100%;
-    background: var(--highlight-color);
-    opacity: 0;
-    transition: transform 0.2s ease, opacity 0.2s ease, width 0.2s ease;
-  }
-
-  &.nav--ready &__list:not(.nav__list--home) .nav__rect {
-    opacity: 1;
   }
 
   &__menu {
-    @include decor.acrylic;
+    // mobile menu
+    --menu-height: #{$icon-size};
     display: flex;
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
-    z-index: 8;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 60px 0;
-    background:
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, #fff 8%, transparent) 0%,
-        transparent 42%
-      ),
-      var(--nav-glass-grey),
-      color-mix(in srgb, var(--shade-color-alpha) 74%, transparent);
-    transform: translateY(-100%);
-    transition: $animation-time;
-    flex-direction: row;
-    flex-wrap: wrap;
-    overflow-x: hidden;
-    box-shadow: $glass-shadow;
+    flex-direction: column;
+    align-items: center;
+    border-radius: $border-radius-huge;
+    overflow: hidden;
+    border: 1px solid var(--border-color-alpha);
+    height: $icon-size;
+    transition: height $animation-time ease;
+    @include decor.acrylic;
+    @include decor.glass;
 
-    @include breakpoint.respond-to('landscape') {
+    @include breakpoint.respond-to("landscape") {
       display: none;
     }
 
-    > li {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      padding: $gap-small 0;
-      align-items: center;
+    &--is-open {
+      height: var(--menu-height);
 
-      > a {
-        text-align: center;
-        font-weight: 500;
-        min-width: 104px;
-        font-size: 26px;
-        line-height: 2;
+      #greater-than {
+        rotate: 270deg;
       }
-
     }
-  
+  }
+
+  &__item {
+    display: block;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+
+    &:not(:last-child) {
+      // add subtitle separation effect
+      box-shadow: $inset-shadow-y;
+
+      @include breakpoint.respond-to("landscape") {
+        box-shadow: $inset-shadow-x;
+      }
+    }
+  }
+
+  &__link {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    font-weight: 500;
+    min-width: 135px;
+    padding: $gap-small 0;
+    text-align: center;
+    text-decoration: none;
+
+    &--default {
+      background: var(--highlight-color);
+    }
+  }
+
+  &__button {
+    display: block;
+    cursor: pointer;
+    border: 1px solid var(--border-color-alpha);
+    border-radius: 50%;
+    overflow: hidden;
+    width: $icon-size;
+    height: $icon-size;
+    @include decor.acrylic;
+    @include decor.glass;
+  }
+
+  &__rect {
+    --rect-width: 135px;
+    --rect-offset-x: 0px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(var(--rect-offset-x));
+    width: var(--rect-width);
+    height: 100%;
+    opacity: 0;
+    background: var(--highlight-color);
+    z-index: -1;
+
     &--visible {
-      visibility: visible;
       opacity: 1;
-      transform: translateY(0);
+      transition:
+        width $animation-time ease,
+        transform $animation-time ease,
+        opacity $animation-time ease;
     }
   }
 }
 
-@keyframes nav-detached-pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--pulse-shadow);
-  }
-  30% {
-    box-shadow: 0 0 22px 14px var(--pulse-shadow);
-  }
-}
-
-.burger{
-  @include decor.acrylic;
-  position: fixed;
-  z-index: 9;
-  top: 15px;
-  left: 20px;
-  width: 30px;
-  height: 30px;
-  padding: 20px;
+#menu-button {
   display: flex;
+  text-align: center;
+  min-width: 135px;
+  padding: $gap-small 0;
   justify-content: center;
-  align-items: center;
-  border-radius: $border-radius;
 
-  @include breakpoint.respond-to('landscape') {
+  @include breakpoint.respond-to("landscape") {
     display: none;
   }
+}
 
-  &__inner {
-    position: absolute;
-    width: 80%;
-    left: 10%;
-    height: 3px;
-    background: var(--text-color);
-    transition: $animation-time;
-  
-    &::before {
-      content: '';
-      position: absolute;
-      width: 80%;
-      left: 10%;
-      top: -10px;
-      height: 3px;
-      background: var(--text-color);
-      transition: $animation-time;
-    }
-  
-    &::after {
-      position: absolute;
-      content: ' ';
-      width: 80%;
-      left: 10%;
-      top: 10px;
-      height: 3px;
-      background: var(--text-color);
-      transition: $animation-time;
-    }
-  
-    &--active {
-      background-color: transparent;
-  
-      &::before {
-        transform: rotate(45deg);
-        top: 0;
-      }
-  
-      &::after {
-        transform: rotate(-45deg);
-        top: 0;
-      }
-    }
+#greater-than {
+  margin-left: $gap-tiny;
+  filter: var(--filter);
+  rotate: 90deg;
+  transition: rotate $animation-time ease;
+}
+
+.home__rect {
+  --rect-width: $icon-size;
+  --rect-offset-x: 0px;
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 0;
+  transform: translateX(var(--rect-offset-x));
+  width: var(--rect-width);
+  height: 100%;
+  opacity: 0;
+  background: var(--highlight-color);
+
+  @include breakpoint.respond-to("landscape") {
+    display: block;
   }
+
+  &--visible {
+    opacity: 1;
+    transition:
+      width $animation-time ease,
+      transform $animation-time ease,
+      opacity $animation-time ease;
+  }
+}
+
+.icon-home,
+.icon-sun,
+.icon-moon {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 25px;
+  height: 25px;
+  filter: var(--filter);
+  transition:
+    opacity $animation-time ease,
+    transform $animation-time ease;
+}
+
+html[data-theme="light"] .icon-moon {
+  opacity: 0;
+  transform: translate(-50%, -250%);
+}
+
+html[data-theme="dark"] .icon-sun {
+  opacity: 0;
+  transform: translate(-50%, 150%);
+}
+
+html[data-theme="dark"] .icon-moon,
+html[data-theme="light"] .icon-sun {
+  opacity: 1;
 }

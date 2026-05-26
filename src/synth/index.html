@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Alan Yu - Synth</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="author" content="Alan J. Yu" />
+	<meta name="description" content="Alan&apos;s personal website. Geoscience and more." />
+	<meta prefix="og: https://ogp.me/ns#" property="og:title" content="Alan Yu - Resume" />
+	<meta prefix="og: https://ogp.me/ns#" property="og:url" content="https://alanjyu.com" />
+	<meta prefix="og: https://ogp.me/ns#" property="og:description" content=" " />
+	<link rel="icon" type="image/png" sizes="32x32" href="/src/img/favicon.ico" />
+	<link rel="manifest" href="/src/site.webmanifest" />
+	<!-- Set theme early to avoid flashes -->
+	<script>
+		(() => {
+			try {
+				const savedTheme = localStorage.getItem('theme');
+				const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+				document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+			} catch {
+				document.documentElement.setAttribute('data-theme', 'light');
+			}
+		})();
+	</script>
+	<link rel="stylesheet" href="../css/synth.scss" />
+</head>
+
+<body>
+	<main>
+			<div class="synth">
+				<div class="audiobox">
+					<div class="display-section">
+						<div class="visualizer">
+							<canvas id="waveform" class="waveform-canvas"></canvas>
+							<p class="visualizer__text">waveform</p>
+						</div>
+
+						<div class="visualizer">
+								<canvas id="spectrum" class="spectrum-canvas"></canvas>
+								<p class="visualizer__text">spectrum</p>
+						</div>
+						
+						<div class="volumemeter">
+							<div class="volume-bar">
+								<div class="volume-segments">
+									<!-- Green segments (1-12) -->
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<div class="volume-segment green"></div>
+									<!-- Yellow segments (13-16) -->
+									<div class="volume-segment yellow"></div>
+									<div class="volume-segment yellow"></div>
+									<div class="volume-segment yellow"></div>
+									<div class="volume-segment yellow"></div>
+									<!-- Red segments (17-20) -->
+									<div class="volume-segment red"></div>
+									<div class="volume-segment red"></div>
+									<div class="volume-segment red"></div>
+									<div class="volume-segment red"></div>
+								</div>
+							</div>
+							<label class="volumemeter__text">volume</label>
+						</div>
+
+						<div class="init-button-container">
+							<button id="init-button" class="init-button" title="Reset all settings to defaults">
+								<div class="led-indicator"></div>
+							</button>
+							<label class="init-button__text">init</label>
+						</div>
+					</div>
+
+        <div class="oscillator-section">
+            <div class="oscillators">
+                <label class="oscillators__text">OSC 1</label>
+                <div class="waveforms">
+                    <button class="waveforms__button active" data-waveform="sine" data-osc="1">
+                        <svg class="waveform-icon" viewBox="0 0 32 16">
+							<path d="M8,8 C10,2 14,2 16,8 C18,14 22,14 24,8" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="waveforms__button" data-waveform="square" data-osc="1">
+                        <svg class="waveform-icon" viewBox="0 0 32 16">
+							<path d="M8,12 L8,4 L16,4 L16,12 L24,12 L24,4" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
+                        </svg>
+                    </button>
+                    <button class="waveforms__button selected" data-waveform="sawtooth" data-osc="1">
+                        <svg class="waveform-icon" viewBox="0 0 32 16">
+							<path d="M8,8 L16,2 L16,14 L24,8" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="waveforms__button" data-waveform="triangle" data-osc="1">
+                        <svg class="waveform-icon" viewBox="0 0 32 16">
+							<path d="M8,12 L16,2 L24,12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="knob-groups">
+                    <div class="knob-controller">
+                        <span class="volume-display">50%</span>
+                        <div class="knob-container">
+                            <input type="range" id="osc1-volume" min="0" max="100" value="50">
+                            <div class="knob">
+                                <div class="knob-indicator"></div>
+                            </div>
+                        </div>
+                        <label class="knob-label">Volume</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="oscillators oscillators--dual">
+                <label class="oscillators__text">OSC 2</label>
+                <div class="waveforms">
+                    <button class="waveforms__button selected" data-waveform="sine" data-osc="2">
+                        <svg class="waveform-icon" viewBox="0 0 32 16">
+							<path d="M8,8 C10,2 14,2 16,8 C18,14 22,14 24,8" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="waveforms__button" data-waveform="square" data-osc="2">
+                        <svg class="waveform-icon" viewBox="0 0 32 16">
+							<path d="M8,12 L8,4 L16,4 L16,12 L24,12 L24,4" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
+                        </svg>
+                    </button>
+                    <button class="waveforms__button" data-waveform="sawtooth" data-osc="2">
+                        <svg class="waveform-icon" viewBox="0 0 32 16">
+							<path d="M8,8 L16,2 L16,14 L24,8" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="waveforms__button" data-waveform="triangle" data-osc="2">
+                        <svg class="waveform-icon" viewBox="0 0 32 16">
+							<path d="M8,12 L16,2 L24,12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="knob-groups">
+                    <div class="knob-controller">
+                        <span class="volume-display">30%</span>
+                        <div class="knob-container">
+                            <input type="range" id="osc2-volume" min="0" max="100" value="30">
+                            <div class="knob">
+                                <div class="knob-indicator"></div>
+                            </div>
+                        </div>
+                        <label class="knob-label">Volume</label>
+                    </div>
+                    <div class="knob-controller">
+                        <span class="detune-display">0c</span>
+                        <div class="knob-container">
+                            <input type="range" id="osc2-detune" min="-50" max="50" value="0">
+                            <div class="knob">
+                                <div class="knob-indicator"></div>
+                            </div>
+                        </div>
+                        <label class="knob-label">Detune</label>
+                    </div>
+                </div>
+							</div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <label class="filter-section__text">FILTER</label>
+                
+                <div class="filter-left">
+                    <div class="filter-types">
+                        <button class="filter-types__button selected" data-filter="none">
+                            <svg class="filter-icon" viewBox="0 0 32 16">
+                                <path d="M0,8 L32,8" stroke="currentColor" fill="none" stroke-width="2"/>
+                            </svg>
+                            <span>OFF</span>
+                        </button>
+                        <button class="filter-types__button" data-filter="lowpass">
+                            <svg class="filter-icon" viewBox="0 0 32 16">
+                                <path d="M0,8 L8,8 Q16,8 24,12 L32,12" stroke="currentColor" fill="none" stroke-width="2"/>
+                            </svg>
+                            <span>LP</span>
+                        </button>
+                        <button class="filter-types__button" data-filter="highpass">
+                            <svg class="filter-icon" viewBox="0 0 32 16">
+                                <path d="M0,12 L8,12 Q16,12 24,8 L32,8" stroke="currentColor" fill="none" stroke-width="2"/>
+                            </svg>
+                            <span>HP</span>
+                        </button>
+                        <button class="filter-types__button" data-filter="bandpass">
+                            <svg class="filter-icon" viewBox="0 0 32 16">
+                                <path d="M0,12 Q8,12 16,8 Q24,8 32,12" stroke="currentColor" fill="none" stroke-width="2"/>
+                            </svg>
+                            <span>BP</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-right">
+                    <div class="filter-visualizer">
+                        <canvas id="filter-response" class="filter-canvas"></canvas>
+                    </div>
+                    
+                    <div class="filter-controls">
+                        <div class="knob-controller">
+                            <span class="frequency-display">1000Hz</span>
+                            <div class="knob-container">
+                                <input type="range" id="filter-frequency" min="20" max="20000" value="1000" step="1">
+                                <div class="knob">
+                                    <div class="knob-indicator"></div>
+                                </div>
+                            </div>
+                            <label class="knob-label">Frequency</label>
+                        </div>
+                        <div class="knob-controller">
+                            <span class="resonance-display">1.0</span>
+                            <div class="knob-container">
+                                <input type="range" id="filter-resonance" min="0.1" max="30" value="1" step="0.1">
+                                <div class="knob">
+                                    <div class="knob-indicator"></div>
+                                </div>
+                            </div>
+                            <label class="knob-label">Resonance</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   		</div>
+
+    <!-- Effects Panel -->
+    <!-- <div class="effects-rack">
+        <div class="effect-slot">
+            <label>Effect 1</label>
+            <select id="effect1-type">
+                <option value="none">None</option>
+                <option value="reverb">Reverb</option>
+                <option value="chorus">Chorus</option>
+                <option value="delay">Delay</option>
+            </select>
+            <div class="effect-controls" id="effect1-controls">
+            </div>
+        </div>
+        <div class="effect-slot">
+            <label>Effect 2</label>
+            <select id="effect2-type">
+                <option value="none">None</option>
+                <option value="reverb">Reverb</option>
+                <option value="chorus">Chorus</option>
+                <option value="delay">Delay</option>
+            </select>
+            <div class="effect-controls" id="effect2-controls">
+            </div>
+        </div>
+    </div> -->
+
+						<!-- Keyboard Section -->
+						<div class="keyboard">
+						<!-- White keys -->
+						<div class="key white" data-note="60" data-key="KeyA">
+							<span class="key__label">A</span>
+							<span class="key__note">C</span>
+						</div>
+						<div class="key black" data-note="61" data-key="KeyW">
+							<span class="key__label">W</span>
+							<span class="key__note">C#</span>
+						</div>
+						<div class="key white" data-note="62" data-key="KeyS">
+							<span class="key__label">S</span>
+							<span class="key__note">D</span>
+						</div>
+						<div class="key black" data-note="63" data-key="KeyE">
+							<span class="key__label">E</span>
+							<span class="key__note">D#</span>
+						</div>
+						<div class="key white" data-note="64" data-key="KeyD">
+							<span class="key__label">D</span>
+							<span class="key__note">E</span>
+						</div>
+						<div class="key white" data-note="65" data-key="KeyF">
+							<span class="key__label">F</span>
+							<span class="key__note">F</span>
+						</div>
+						<div class="key black" data-note="66" data-key="KeyT">
+							<span class="key__label">T</span>
+							<span class="key__note">F#</span>
+						</div>
+						<div class="key white" data-note="67" data-key="KeyG">
+							<span class="key__label">G</span>
+							<span class="key__note">G</span>
+						</div>
+						<div class="key black" data-note="68" data-key="KeyY">
+							<span class="key__label">Y</span>
+							<span class="key__note">G#</span>
+						</div>
+						<div class="key white" data-note="69" data-key="KeyH">
+							<span class="key__label">H</span>
+							<span class="key__note">A</span>
+						</div>
+						<div class="key black" data-note="70" data-key="KeyU">
+							<span class="key__label">U</span>
+							<span class="key__note">A#</span>
+						</div>
+						<div class="key white" data-note="71" data-key="KeyJ">
+							<span class="key__label">J</span>
+							<span class="key__note">B</span>
+						</div>
+						<div class="key white" data-note="72" data-key="KeyK">
+							<span class="key__label">K</span>
+							<span class="key__note">C</span>
+						</div>
+						<div class="key black" data-note="73" data-key="KeyO">
+							<span class="key__label">O</span>
+							<span class="key__note">C#</span>
+						</div>
+						<div class="key white" data-note="74" data-key="KeyL">
+							<span class="key__label">L</span>
+							<span class="key__note">D</span>
+						</div>
+						<div class="key black" data-note="75" data-key="KeyP">
+							<span class="key__label">P</span>
+							<span class="key__note">D#</span>
+						</div>
+						<div class="key white" data-note="76" data-key="Semicolon">
+							<span class="key__label">;</span>
+							<span class="key__note">E</span>
+						</div>
+					</div>
+			  </div>
+			</div>
+	</main>
+
+	<script type="module" src="../js/main.js" charset="utf-8"></script>
+	<noscript>Please enable JavaScript to ensure that the website function properly.</noscript>
+  </body>
+</html>

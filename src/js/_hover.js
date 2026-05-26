@@ -2,7 +2,7 @@ export default class Hover {
   constructor() {
     this.hoverFill = document.querySelectorAll('.hover-fill, .hover-link, .tooltip');
     this.hoverGlow = document.querySelectorAll('.hover-glow');
-    this.ctaLinks = document.querySelectorAll('.current-research__card-link--cta');
+    this.ctaLinks = document.querySelectorAll('.past-research-card-link--cta');
 
     this.hoverFill.forEach(filler => {
       filler.addEventListener('mouseenter', function(e) {

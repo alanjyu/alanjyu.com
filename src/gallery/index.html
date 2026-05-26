@@ -12,11 +12,8 @@
 	<meta prefix="og: https://ogp.me/ns#" property="og:title" content="Alan Yu - Gallery" />
 	<meta prefix="og: https://ogp.me/ns#" property="og:url" content="https://alanjyu.com" />
 	<meta prefix="og: https://ogp.me/ns#" property="og:description" content=" " />
-
 	<link rel="icon" type="image/png" sizes="32x32" href="/src/img/favicon.ico" />
 	<link rel="manifest" href="/src/site.webmanifest" />
-	<link rel="preload" href="/src/fonts/basiersquare-regular-webfont.woff2" as="font" type="font/woff2" crossorigin />
-	<link rel="preload" href="/src/fonts/basiercircle-medium-webfont.woff2" as="font" type="font/woff2" crossorigin />
 	<!-- Set theme early to avoid flashes -->
 	<script>
 		(() => {
@@ -34,58 +31,40 @@
 
 <body>
 	<nav class="nav">
-		<div class="burger">
-			<div class="burger__inner"></div>
-		</div>
-
-		<a class="nav__home-btn hover-fill hover-pulse hover-border" href="/" aria-label="Home">
+		<a id="home-button" class="nav__button" href="/" data-tooltip="You are already home!" aria-label="Home">
+			<div class="home__rect"></div>
 			<img class="icon-home" src="../img/icons/home.svg" alt="" aria-hidden="true" />
 		</a>
 
-		<ul class="nav__menu">
-			<li><a href="/">Home</a></li>
-			<li><a href="/resume/">Resume</a></li>
-			<li><a href="/science/">Science</a></li>
-			<li><a href="/stuff/">Music</a></li>
-			<li><a href="/gallery/">Gallery</a></li>
-		</ul>
-
 		<ul class="nav__list">
 			<div class="nav__rect"></div>
-			<li><a href="/resume/">Resume</a></li>
-			<li><a href="/science/">Science</a></li>
-			<li><a href="/stuff/">Music</a></li>
-			<li><a class="link--default" href="#">Gallery</a></li>
+			<li><a class="nav__link" href="/resume/">Resume</a></li>
+			<li><a class="nav__link" href="/science/">Science</a></li>
+			<li><a class="nav__link" href="/music/">Music</a></li>
+			<li><a class="nav__link nav__link--default" href="/gallery/">Gallery</a></li>
 		</ul>
 
-		<button class="nav__theme-btn hover-fill hover-pulse hover-border" aria-label="Toggle theme">
-			<img class="icon-sun" src="../img/icons/sun.svg" alt="" aria-hidden="true" />
-			<img class="icon-moon" src="../img/icons/moon.svg" alt="" aria-hidden="true" />
+		<button id="theme-toggle" class="nav__button hover-fill" aria-label="Toggle light/dark theme">
+			<img class="icon-sun" src="../img/icons/sun.svg">
+			<img class="icon-moon" src="../img/icons/moon.svg">
 		</button>
 	</nav>
 
 	<main>
 		<section>
-			<div class="gallery">
-				<h2 class="gallery__title">Gallery</h2>
-
-				<div class="gallery__grid" aria-label="Photo gallery">
-					<figure class="gallery__card">
-						<div class="gallery__media"><img data-theme-dim src="../img/gallery/niagara_falls.jpg?as=webp&width=1600" alt="Niagara Falls panorama" /></div>
-						<figcaption class="gallery__caption">Niagara Falls, Canada</figcaption>
-					</figure>
-
-                    <figure class="gallery__card">
-						<div class="gallery__media"><img data-theme-dim src="../img/gallery/rockies_banff.jpg?as=webp&width=1600" alt="Rockies, Banff" /></div>
-						<figcaption class="gallery__caption">The Rockies, Canada</figcaption>
-					</figure>
-
-                    <figure class="gallery__card">
-                        <div class="gallery__media"><img data-theme-dim src="../img/gallery/corinth_canal.jpg?as=webp&width=1600" alt="Corinth Canal" /></div>
-                        <figcaption class="gallery__caption">Corinth Canal, Greece</figcaption>
-                    </figure>
-				</div>
-			</div>
+      <div class="gallery">
+        <figure class="gallery__photo gallery__photo--is-active">
+          <img data-theme-dim data-object-position="50% 70%" src="../img/gallery/niagara_falls.jpg?as=webp" />
+        </figure>
+  
+        <figure class="gallery__photo">
+          <img data-theme-dim data-object-position="50% 50%" src="../img/gallery/rockies_banff.jpg?as=webp" alt="Rockies, Banff" />
+        </figure>
+    
+        <figure class="gallery__photo">
+          <img data-theme-dim data-object-position="50% 50%" src="../img/gallery/corinth_canal.jpg?as=webp" alt="Corinth Canal" />
+        </figure>
+      </div>
 		</section>
 	</main>
 

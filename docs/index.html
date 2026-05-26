@@ -1,122 +1,80 @@
-<!DOCTYPE html><html lang=en><title>Alan Yu</title><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=author content="Alan J. Yu"><meta name=description content="Alan's personal website. Geoscience and more."><meta prefix="og: https://ogp.me/ns#" property=og:title content="Alan Yu - Resume"><meta prefix="og: https://ogp.me/ns#" property=og:url content=https://alanjyu.com><meta prefix="og: https://ogp.me/ns#" property=og:description content=" "><link rel=icon type=image/png sizes=32x32 href=/favicon.b7d46bf2.ico><link rel=manifest href=/site.webmanifest><link rel=preload href=/basiersquare-regular-webfont.34c6658e.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/basiercircle-medium-webfont.956f9f80.woff2 as=font type=font/woff2 crossorigin><script>(()=>{try{let t=localStorage.getItem("theme"),e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(e?"dark":"light"))}catch{document.documentElement.setAttribute("data-theme","light")}})();</script><link rel=stylesheet href=/web.fde7b005.css><body>
+<!DOCTYPE html><html lang=en><title>Alan Yu</title><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=author content="Alan J. Yu"><meta name=description content="Alan's personal website. Geoscience and more."><meta prefix="og: https://ogp.me/ns#" property=og:title content="Alan Yu - Resume"><meta prefix="og: https://ogp.me/ns#" property=og:url content=https://alanjyu.com><meta prefix="og: https://ogp.me/ns#" property=og:description content=" "><link rel=icon type=image/png sizes=32x32 href=https://alanjyu.com/favicon.b7d46bf2.ico><link rel=manifest href=https://alanjyu.com/site.webmanifest><script>(()=>{try{let t=localStorage.getItem("theme"),e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",t||(e?"dark":"light"))}catch{document.documentElement.setAttribute("data-theme","light")}})();</script><link rel=stylesheet href=https://alanjyu.com/web.b8f16a36.css><body>
 	<nav class=nav>
-		<div class=burger>
-			<div class=burger__inner></div>
-		</div>
+		<a id=home-button class="nav__button nav__link--default" href=# data-tooltip="You are already home!" aria-label=Home>
+			<div class=home__rect></div>
+			<img class=icon-home src=https://alanjyu.com/home.46a25e26.svg alt aria-hidden=true>
+		</a>
 
-		<button class="hover-border nav__home-btn nav__home-btn--active" type=button aria-label="You are already home!" data-tooltip="You are already home!">
-			<img class=icon-home src=/home.46a25e26.svg alt aria-hidden=true>
-		</button>
-
-		<ul class=nav__menu>
-			<li><a href=/resume/>Resume</a></li>
-			<li><a href=/science/>Science</a></li>
-			<li><a href=/stuff/>Music</a></li>
-			<li><a href=/gallery/>Gallery</a></li>
-		</ul>
-
-		<ul class="nav__list nav__list--home">
+		<ul class=nav__list>
 			<div class=nav__rect></div>
-			<li><a href=/resume/>Resume</a></li>
-			<li><a href=/science/>Science</a></li>
-			<li><a href=/stuff/>Music</a></li>
-			<li><a href=/gallery/>Gallery</a></li>
+			<li class=nav__item><a class=nav__link href=/resume/>Resume</a></li>
+			<li class=nav__item><a class=nav__link href=/science/>Science</a></li>
+			<li class=nav__item><a class=nav__link href=/music/>Music</a></li>
+			
 		</ul>
 
-		<button class="hover-border hover-fill hover-pulse nav__theme-btn" aria-label="Toggle theme">
-			<img class=icon-sun src=/sun.e3c2a6a5.svg alt aria-hidden=true>
-			<img class=icon-moon src=/moon.5bb79dbe.svg alt aria-hidden=true>
+    <ul class=nav__menu>
+      <li class=nav__item><a class=nav__link href=#>Menu<img id=greater-than src=https://alanjyu.com/greater-than.8974a449.svg></a></li>
+			<li class=nav__item><a class=nav__link href=/resume/>Resume</a></li>
+      <li class=nav__item><a class=nav__link href=/science/>Science</a></li>
+      <li class=nav__item><a class=nav__link href=/music/>Music</a></li>
+      
+    </ul>
+
+		<button id=theme-toggle class="hover-fill nav__button" aria-label="Toggle light/dark theme">
+			<img class=icon-sun src=https://alanjyu.com/sun.e3c2a6a5.svg>
+			<img class=icon-moon src=https://alanjyu.com/moon.5bb79dbe.svg>
 		</button>
 	</nav>
 
 	<main>
-		<section class=hero>
-			<figure class=hero__background>
-				<img data-theme-dim src=/profile.9bc3bd7f.webp title="Hey! It's me!">
-			</figure>
-
-			<div class=hero__content>
-				<h1>Hey, name's Alan.</h1>
-				<p>Thanks for stopping by! I am an Earth scientist specializing in geophysics and a PhD student at <span class=tooltip data-tooltip="Germany's national centre for research into the solid Earth">GFZ Helmholtz Centre for Geosciences</span> in Potsdam, Germany.</p>
-
-				<p>Besides exploring the beautiful Earth, I enjoy working on my car, tinkering with <span class=tooltip data-tooltip="Electronic instruments that build sound from simple waves">synthesizers</span>, or jamming out on the drums with friends.</p>
-			</div>
-		</section>
-
 		<section>
-			<div class=current-research>
-				<h2 class=current-research__title>Rock and physics!</h2>
+      <div class=hero>
+        <figure class=hero__background>
+          <img data-theme-dim src=https://alanjyu.com/profile.eb198355.webp title="It's me :)">
+        </figure>
 
-				<div class=current-research__stack aria-label="Past geoscience projects">
-					<article class="current-research__feature hover-glow">
-						<figure class=current-research__feature-figure>
-							<span class=feature-badge>Current research</span>
-							<img data-theme-dim src=/rittershoffen.330c97e1.webp alt="Rittershofften geothermal site">
-						</figure>
-						<div class=current-research__feature-content>
-							<h3>Multi-scale modeling of the Rhine Graben</h3>
-							<p>Using supercomputer models, I simulate long-term <span class=tooltip data-tooltip="A geological process where continents slowly pull apart, creating valleys and even oceans">rifting</span> (using geodynamic code <a class="hover-border hover-link" href=https://aspect.geodynamics.org target=_blank>ASPECT<img class=hover-link__icon src=/external_link.12a287bc.svg alt aria-hidden=true></a>) and sedimentation (landscape evolution code <a class="hover-border hover-link" href=https://fastscape.org target=_blank>Fastscape<img class=hover-link__icon src=/external_link.12a287bc.svg alt aria-hidden=true></a>) that formed the Upper Rhine Graben, France–Germany. By modelling how rocks fracture and how heat and water flow through the porous crust (thermo-hydro-mechanical code <a class="hover-border hover-link" href=https://helmholtz.software/software/golem target=_blank>GOLEM<img class=hover-link__icon src=/external_link.12a287bc.svg alt aria-hidden=true></a>), I help identify target areas for geothermal energy development.</p>
-						</div>
-					</article>
+        <div class=hero__content>
+          <h1>Hey, name's Alan.</h1>
+          <p>Thanks for stopping by! I am an Earth scientist specializing in geophysics and a PhD student at GFZ Helmholtz Centre for Geosciencesin Potsdam, Germany.</p>
 
-					<article class="current-research__card hover-glow">
-						<a class=current-research__card-link href=/science/#fragment-opening>
-							<figure class=current-research__media>
-								<img data-theme-dim src=/fragment_formation.d3992bb8.gif alt="Continental fragment formation during rifting">
-							</figure>
-							<h4 class=current-research__card-title>Why continental fragments form during ocean opening</h4>
-						</a>
-					</article>
-
-					<article class="current-research__card hover-glow">
-						<a class=current-research__card-link href=/science/#north-atlantic-breakup>
-							<figure class=current-research__media>
-								<img data-theme-dim src=/labrador_sea.e47d2d60.webp alt="Labrador Sea rift modelling">
-							</figure>
-							<h4 class=current-research__card-title>Ancient continental break-up modelled on supercomputers</h4>
-						</a>
-					</article>
-
-					<article class="current-research__card current-research__card--cta">
-						<a class="current-research__card-link current-research__card-link--cta hover-border hover-fill is-grad-1" href=/science/ aria-label="See more projects">
-							<h4 class="current-research__card-title current-research__card-title--cta">
-								<img class=current-research__cta-icon src=/see_more.41e96cc1.svg alt aria-hidden=true>
-							</h4>
-						</a>
-					</article>
-				</div>
-			</div>
+          <p>Besides exploring the beautiful Earth, I enjoy working on my car, tinkering with synthesizers, or jamming out on the drums with friends.</p>
+        </div>
+      </div>
 		</section>
+
 	</main>
 
-	<footer class=dynamic-background>
-		<p><a href=https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE data-target-cover>©</a> <span data-current-year>2025</span> — Alan J. Yu</p>
+	<footer>
+    <div class=dynamic-background>
+      <p><a href=https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE data-target-cover>©</a> <span data-current-year>2025</span> — Alan J. Yu</p>
 
-		<ul class=social>
-			<li class=social__item>
-				<a class="hover-border hover-fill hover-pulse social__link" href=https://www.instagram.com/alanjyu/ data-target-cover>
-					<img class=social__icon src=/social_instagram.0629630c.svg alt=Instagram>
-				</a>
-			</li>
-			<li class=social__item>
-				<a class="hover-border hover-fill hover-pulse social__link" href=https://www.linkedin.com/in/ajyu/ data-target-cover>
-					<img class=social__icon src=/social_linkedin.70cdd8d2.svg alt=LinkedIn>
-				</a>
-			</li>
-			<li class=social__item>
-				<a class="hover-border hover-fill hover-pulse social__link" href=https://github.com/alanjyu/ data-target-cover>
-					<img class=social__icon src=/social_github.036e0f60.svg alt=GitHub>
-				</a>
-			</li>
-			<li class=social__item>
-				<a class="hover-border hover-fill hover-pulse social__link" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
-					<img class=social__icon src=/social_scholar.a5f4dcd6.svg alt="Google Scholar">
-				</a>
-			</li>
-		</ul>
+      <ul class=social>
+        <li class=social__item>
+          <a class="hover-border hover-fill hover-pulse social__link" href=https://www.instagram.com/alanjyu/ data-target-cover>
+            <img class=social__icon src=https://alanjyu.com/social_instagram.0629630c.svg alt=Instagram>
+          </a>
+        </li>
+        <li class=social__item>
+          <a class="hover-border hover-fill hover-pulse social__link" href=https://www.linkedin.com/in/ajyu/ data-target-cover>
+            <img class=social__icon src=https://alanjyu.com/social_linkedin.70cdd8d2.svg alt=LinkedIn>
+          </a>
+        </li>
+        <li class=social__item>
+          <a class="hover-border hover-fill hover-pulse social__link" href=https://github.com/alanjyu/ data-target-cover>
+            <img class=social__icon src=https://alanjyu.com/social_github.036e0f60.svg alt=GitHub>
+          </a>
+        </li>
+        <li class=social__item>
+          <a class="hover-border hover-fill hover-pulse social__link" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
+            <img class=social__icon src=https://alanjyu.com/social_scholar.a5f4dcd6.svg alt="Google Scholar">
+          </a>
+        </li>
+      </ul>
+    </div>
 	</footer>
 
-	<script type=module src=/web.c279e3bb.js></script>
+	<script type=module src=https://alanjyu.com/web.b3d10466.js></script>
+	<script>document.querySelectorAll("[data-current-year]").forEach(e=>{e.textContent=new Date().getFullYear()});</script>
 	<noscript>Please enable JavaScript to ensure that the website function properly.</noscript>
-<script>document.querySelectorAll("[data-current-year]").forEach(e=>{e.textContent=new Date().getFullYear()});</script>
 

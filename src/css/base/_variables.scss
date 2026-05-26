@@ -11,11 +11,13 @@ $gap-large: 48px;
 $gap-huge: 96px;
 
 // fonts
-$title-font-size: 44px;
-$subtitle-font-size: 32px;
-$subsubtitle-font-size: 22px;
+$h1-font-size: 44px;
+$h2-font-size: 32px;
+$h3-font-size: 26px;
+$h4-font-size: 20px;
 $nav-font-size: 18px;
 $body-font-size: 16px;
+$description-font-size: 14px;
 $icon-size: 50px;
 
 // colors
@@ -28,32 +30,35 @@ $black: #1c1c1c;
 
 // gradients
 $card-gradients: (
-	linear-gradient(165deg, #5ca08630, #4782b630),
-	linear-gradient(165deg, #ae7c4b30, #5e8b6e30),
-	linear-gradient(165deg, #7f6ab430, #3f8f8a30),
-	linear-gradient(165deg, #5d7bb830, #4f9a6730)
-);
-
-$timeline-gradients: (
-	linear-gradient(165deg, #5ca086cc, #4782b6cc),
-	linear-gradient(165deg, #ae7c4bcc, #5e8b6ecc),
-	linear-gradient(165deg, #7f6ab4cc, #3f8f8acc),
-	linear-gradient(165deg, #5d7bb8cc, #4f9a67cc)
+  linear-gradient(165deg, #5ca08630, #4782b630), // green-blue
+  linear-gradient(165deg, #ae7c4b30, #5e8b6e30), // brown-green
+  linear-gradient(165deg, #7f6ab430, #3f8f8a30), // purple-teal
+  linear-gradient(165deg, #5d7bb830, #4f9a6730), // blue-green
+  linear-gradient(165deg, #f6728030, #c06c8430), // pink-mauve
+  linear-gradient(165deg, #f9d42330, #ff4e5030), // yellow-red
+  linear-gradient(165deg, #36d1c430, #5b86e530), // teal-indigo
+  linear-gradient(165deg, #ffb34730, #ffcc3330), // orange-gold
+  linear-gradient(165deg, #c471f530, #fa71cd30), // violet-pink
+  linear-gradient(165deg, #43cea230, #185a9d30), // green-navy
+  linear-gradient(165deg, #f7971e30, #ffd20030), // orange-yellow
+  linear-gradient(165deg, #00c3ff30, #ffff1c30)  // blue-yellow
 );
 
 // borders
 $border-line: 1px solid var(--border-color);
 $border-radius: 10px;
 $border-radius-large: 20px;
+$border-radius-huge: 40px;
 
 // shadows
-$box-shadow: 0 0 2px 0px var(--border-color), 0 0 8px 0px var(--border-color-alpha);
+$box-shadow:
+  0 0 2px 0px var(--border-color),
+  0 0 8px 0px var(--border-color-alpha);
 $box-shadow-inset: inset 0 0 2px 0 var(--border-color-alpha);
 $box-shadow-spread: 0 0 14px 4px var(--border-color-alpha);
-$inset-shadow-x: inset -10px 0 10px -12px var(--border-color-alpha);
-$inset-shadow-y: inset 0 -5px 10px -10px var(--border-color-alpha);
-$glass-shadow: 0 3px 10px color-mix(in srgb, #000 8%, transparent), inset 0 1px 0 color-mix(in srgb, #fff 22%, transparent), inset 0 -1px 0 color-mix(in srgb, #000 10%, transparent);
-$glass-shine: linear-gradient(to bottom, color-mix(in srgb, #fff 12%, transparent) 0%, color-mix(in srgb, #fff 5%, transparent) 20%, transparent 48%);
+
+$inset-shadow-x: inset -10px 0 10px -12px var(--border-color);
+$inset-shadow-y: inset 0 -5px 10px -10px var(--border-color);
 
 // animations
 $animation-time: 0.2s;

@@ -1,143 +1,35 @@
-@use '../base/variables' as *;
-@use '../components/decorations' as decor;
-@use '../components/structures' as struc;
-@use '../utils/breakpoints' as breakpoint;
+@use "../base/variables" as *;
+@use "../components/decorations" as decor;
+@use "../components/structures" as struc;
+@use "../utils/breakpoints" as breakpoint;
 
 .gallery {
-  @include struc.container;
-  gap: $gap-medium;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
 
-  &__title {
-    margin: 60px 0 8px 0;
-    font-size: $subtitle-font-size;
-  }
+  &__photo {
+    position: absolute;
 
-  &__lead {
-    max-width: 720px;
-    margin-bottom: $gap-tiny;
-    opacity: 0.9;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: $gap-medium;
-
-    @include breakpoint.respond-to('tablet') {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    &--is-active {
+      width: 100%;
+      height: 100%;
     }
 
-    @include breakpoint.respond-to('desktop') {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      max-width: 980px;
-      margin: 0 auto;
-    }
-  }
-
-  &__card {
-    @include decor.acrylic;
-    position: relative;
-    background: var(--shade-color-alpha);
-    border: 1px solid var(--border-color-alpha);
-    border-radius: $border-radius-large;
-    overflow: hidden;
-    box-shadow: 0 8px 22px color-mix(in srgb, #000 14%, transparent), $box-shadow-inset;
-    transition: box-shadow $animation-time ease;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
+    &:not(&--is-active) {
+      bottom: 0;
       right: 0;
-      height: 38%;
-      pointer-events: none;
-      background: linear-gradient(
-        to bottom,
-        color-mix(in srgb, #fff 24%, transparent) 0%,
-        color-mix(in srgb, #fff 10%, transparent) 42%,
-        transparent 100%
-      );
-      opacity: 0.42;
-      z-index: 1;
-      transition: opacity $animation-time ease;
+      width: 200px;
+      height: 200px;
+      border-radius: $border-radius;
     }
-
-    &:hover,
-    &:focus-within {
-      box-shadow: 0 12px 30px color-mix(in srgb, #000 20%, transparent), $box-shadow-inset;
-
-      &::after {
-        opacity: 0.58;
-      }
-    }
-  }
-
-  &__media {
-    --zoom-x: 50%;
-    --zoom-y: 50%;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    height: auto;
-    overflow: hidden;
-    cursor: zoom-in;
 
     img {
+      --object-position: center;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      transform: scale(1);
-      transform-origin: var(--zoom-x) var(--zoom-y);
-      transition: transform $animation-time ease;
-      will-change: transform;
-    }
-  }
-
-  &__card:hover &__media img {
-    transform: scale(1.03);
-  }
-
-  &__card--zoom &__media img {
-    transform: scale(3);
-    transition-duration: 220ms;
-  }
-
-  &__caption {
-    position: absolute;
-    bottom: $gap-small;
-    left: $gap-small;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: $gap-tiny $gap-small;
-    border-radius: $border-radius;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.35;
-    color: var(--text-color);
-    @include decor.acrylic;
-    background: var(--shade-color-alpha);
-    border: 1px solid color-mix(in srgb, var(--border-color-alpha) 35%, transparent);
-    box-shadow: $box-shadow-inset;
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity $animation-time ease, transform $animation-time ease;
-    z-index: 2;
-  }
-
-  &__card:hover &__caption,
-  &__card:focus-within &__caption {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (hover: none), (pointer: coarse) {
-    &__caption {
-      opacity: 1;
-      transform: translateY(0);
+      object-position: var(--object-position);
     }
   }
 }

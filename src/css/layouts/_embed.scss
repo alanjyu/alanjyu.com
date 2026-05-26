@@ -1,0 +1,34 @@
+@use "../base/variables" as *;
+@use "../components/structures" as struc;
+@use "../components/decorations" as decor;
+@use "../utils/breakpoints" as breakpoint;
+
+.embed {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-radius: $border-radius;
+  overflow: hidden;
+  @include struc.container;
+
+  iframe {
+    width: 100%;
+    border: none;
+    align-self: center;
+  }
+
+  &__youtube {
+    min-height: 550px;
+  }
+
+  &__musescore {
+    max-width: 300px;
+    filter: var(--filter);
+  }
+
+  &__cueup {
+    padding: $gap-medium;
+    background: var(--background-color);
+    height: 175px;
+  }
+}

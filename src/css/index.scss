@@ -1,11 +1,11 @@
-@use 'base/reset';
-@use 'base/theme';
-@use 'base/fonts';
+@use "base/reset";
+@use "base/theme";
+@use "base/fonts";
 
-@use 'components/tooltip';
+@use "components/tooltip";
+@use "components/texts";
 
-@use 'layouts/nav';
-@use 'layouts/footer';
-@use 'layouts/hero';
-@use 'layouts/panel';
-@use 'layouts/current_research';
+@use "layouts/nav";
+@use "layouts/footer";
+@use "layouts/hero";
+@use "layouts/banner";

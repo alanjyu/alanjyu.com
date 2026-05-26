@@ -1,25 +1,27 @@
-@use '../base/variables' as *;
-@use '../components/decorations' as decor;
-@use '../components/structures' as struc;
-@use '../utils/breakpoints' as breakpoint;
-@use 'sass:list';
+@use "../base/variables" as *;
+@use "../components/decorations" as decor;
+@use "../components/structures" as struc;
+@use "../utils/breakpoints" as breakpoint;
+@use "sass:list";
 
 .hero {
   min-height: 600px;
+  width: 100%;
   padding: 0;
-  align-items: normal;
+  align-items: center;
 
-  @include breakpoint.respond-to('landscape') {
+  @include breakpoint.respond-to("landscape") {
     height: 100vh;
     flex-direction: row;
   }
 
   &__background {
     position: relative;
-    min-height: 550px;
+    width: 100%;
+    min-height: 90vh;
 
-    @include breakpoint.respond-to('landscape') {
-      position: absolute;
+    @include breakpoint.respond-to("landscape") {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -30,7 +32,7 @@
       @include struc.fullframe;
       object-position: 17.5% center;
 
-      @include breakpoint.respond-to('landscape') {
+      @include breakpoint.respond-to("landscape") {
         object-position: center;
       }
     }
@@ -39,53 +41,34 @@
   &__content {
     position: relative;
     padding: $gap-small $gap-medium;
-    background:
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, #fff 8%, transparent) 0%,
-        transparent 42%
-      ),
-      #{list.nth($card-gradients, 3)},
-      color-mix(in srgb, var(--shade-color-alpha) 74%, transparent);
     border: 1px solid var(--border-color-alpha);
-    box-shadow: $glass-shadow;
+    border-radius: $border-radius-large;
+    margin-top: -200px;
+    width: 95%;
     overflow: hidden;
     @include decor.acrylic;
+    @include decor.glass;
 
-    &::before {
-      content: '';
-      position: absolute;
-      pointer-events: none;
-      inset: 0;
-      background: $glass-shine;
-      opacity: 0.7;
-      z-index: 0;
-    }
-
-    > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    @include breakpoint.respond-to('landscape') {
+    @include breakpoint.respond-to("landscape") {
+      margin-top: 0;
       padding: $gap-medium $gap-large;
       position: absolute;
       top: 35%;
-      right: 18%;
-      border-radius: $border-radius-large;
-      box-shadow: $glass-shadow;
+      right: 15%;
+      width: 500px;
     }
 
     > h1 {
-      font-size: $title-font-size;
+      font-size: $h1-font-size;
       text-align: left;
     }
-    
-    h1, p {
+
+    h1,
+    p {
       margin: $gap-small 0;
-    
-      @include breakpoint.respond-to('landscape') {
-        max-width: 400px;
+
+      @include breakpoint.respond-to("landscape") {
+        max-width: 500px;
       }
     }
   }

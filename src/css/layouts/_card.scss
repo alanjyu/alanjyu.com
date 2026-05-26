@@ -1,131 +1,176 @@
-@use '../base/variables' as *;
-@use '../components/structures' as struc;
-@use '../components/decorations' as decor;
-@use '../utils/breakpoints' as breakpoint;
-@use 'sass:list';
+@use "sass:list";
+@use "../base/variables" as *;
+@use "../components/structures" as struc;
+@use "../components/decorations" as decor;
+@use "../utils/breakpoints" as breakpoint;
 
 .card {
-  @include struc.container;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: $border-radius;
+  overflow: hidden;
+  width: 95%;
+  margin: $gap-small 0;
+  @include decor.glass;
 
-  >.subtitle {
-    margin: 60px 0 24px 0;
-    font-size: $subtitle-font-size;
+  // dynamically cycle through all gradients in $card-gradients
+  @for $i from 1 through list.length($card-gradients) {
+    &:nth-of-type(#{list.length($card-gradients)}n + #{$i}) {
+      --card-gradient: #{list.nth($card-gradients, $i)};
+    }
   }
 
-  &__item {   
+  @include breakpoint.respond-to("landscape") {
+    flex-direction: row;
+  }
+
+  &__tag {
+    position: absolute;
+    margin: $gap-small;
+    padding: $gap-tiny;
+    border-radius: $border-radius;
+    font-size: $description-font-size;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    z-index: 1;
+    background: var(--highlight-color);
+  }
+
+  &__figure {
     position: relative;
-    --card-gradient: #{list.nth($card-gradients, 1)};
+    min-height: 300px;
+
+    img {
+      @include struc.fullframe;
+      transform: scale(1.05);
+      transition: transform $animation-time ease;
+
+      &.fullframe--contain {
+        object-fit: contain;
+        background-size: contain;
+      }
+
+      &:hover {
+        transform: scale(1.25);
+      }
+    }
+
+    @include breakpoint.respond-to("landscape") {
+      min-width: 50%;
+    }
+  }
+
+  &__content {
+    @include decor.acrylic;
+    position: relative;
+    background: var(--card-gradient);
+    padding: $gap-medium $gap-small;
+
+    @include breakpoint.respond-to("landscape") {
+      padding: $gap-medium $gap-large;
+    }
+
+    > h3 {
+      font-size: $h3-font-size;
+      margin-bottom: $gap-medium;
+      line-height: 1.25;
+    }
+  }
+
+  &__link {
+    display: block;
+    min-width: 250px;
+    align-self: center;
+    border-radius: $border-radius-huge;
+    margin-top: $gap-medium;
+    padding: $gap-small $gap-medium;
+    text-align: center;
+    font-weight: 500;
+    border: 1px solid var(--border-color-alpha);
+    background: var(--shade-background);
+    overflow: hidden;
+    @include decor.acrylic;
+  }
+}
+
+.audiocard {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  border-radius: $border-radius;
+  overflow: hidden;
+  width: 95%;
+  min-height: 150px;
+  margin: $gap-small 0;
+  @include decor.glass;
+
+  @include breakpoint.respond-to("desktop") {
+    min-height: 175px;
+  }
+   
+  &__art {
+    width: 300px;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: $border-radius;
+    transform: scale(1.05);
+    transition: transform $animation-time ease;
+
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
+
+  &__content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid var(--border-color-alpha);
-    border-radius: $border-radius-large;
-    overflow: hidden;
+    align-items: start;
+    justify-content: center;
     width: 100%;
-    margin-bottom: 48px;
-    background:
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, #fff 8%, transparent) 0%,
-        transparent 42%
-      ),
-      var(--card-gradient),
-      color-mix(in srgb, var(--shade-color-alpha) 74%, transparent);
-    box-shadow: $glass-shadow;
+    padding: $gap-medium $gap-small;
 
-    &:nth-of-type(4n + 1) {
-      --card-gradient: #{list.nth($card-gradients, 1)};
+    @include breakpoint.respond-to("desktop") {
+      padding: $gap-medium $gap-medium;
     }
 
-    &:nth-of-type(4n + 2) {
-      --card-gradient: #{list.nth($card-gradients, 2)};
+    @include decor.acrylic;
+
+    audio {
+      width: 100%;
     }
+  }
 
-    &:nth-of-type(4n + 3) {
-      --card-gradient: #{list.nth($card-gradients, 3)};
+  &__title {
+    font-size: $h4-font-size;
+    font-weight: 500;
+    margin-bottom: $gap-tiny;
+
+    @include breakpoint.respond-to("landscape") {
+      font-size: $h4-font-size;
     }
+  }
 
-    &:nth-of-type(4n + 4) {
-      --card-gradient: #{list.nth($card-gradients, 4)};
-    }
+  &__author {
+    font-size: $body-font-size;
+    margin-bottom: $gap-tiny;
+  }
 
-    &::before {
-      content: '';
-      position: absolute;
-      pointer-events: none;
-      inset: 0;
-      background: $glass-shine;
-      opacity: 0.7;
-      z-index: 0;
-    }
+  &__link {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    padding: $gap-tiny;
+    border-radius: $border-radius-huge;
+    background: var(--shade-background-alpha); 
+    border: 1px solid var(--border-color-alpha);
+    @include decor.acrylic;
 
-    > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    @include breakpoint.respond-to('desktop') {
-      flex-direction: row;
-    }
-
-    &__figure {
-      position: relative;
-      min-width: 100%;
-      min-height: 400px;
-
-      img {
-        @include struc.fullframe;
-        transform: scale(1.05);
-        transition: transform $animation-time ease;
-
-        &.fullframe--contain {
-          object-fit: contain;
-          background-size: contain;
-        }
-
-        &:hover {
-          transform: scale(1.25);
-        }
-      }
-
-      @include breakpoint.respond-to('desktop') {
-        min-width: 50%;
-      }
-    }
-
-    &__content {
-      position: relative;
-      background: var(--shade-color-alpha);
-      padding: $gap-medium;
-      @include decor.acrylic;
-  
-      @include breakpoint.respond-to('desktop') {
-        padding: $gap-large;
-      }
-
-      > h3 {
-        font-size: 26px;
-        margin-bottom: $gap-medium;
-        line-height: 1.25;
-      }
-
-      > p:first-of-type {
-        margin-top: 0;
-      }
-    }
-
-    &__link {
-      @include decor.button;
-      display: block;
-      min-width: 250px;
-      align-self: center;
-      border-radius: $border-radius;
-      margin-top: $gap-medium;
+    @include breakpoint.respond-to("landscape") {
+      max-width: 250px;
       padding: $gap-small $gap-medium;
-      text-align: center;
-      font-weight: 500;
-      z-index: 0;
-      box-shadow: $box-shadow-inset;
     }
   }
 }

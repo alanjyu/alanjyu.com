@@ -1,0 +1,20 @@
+@use "../base/variables" as *;
+@use "../utils/breakpoints" as breakpoint;
+
+@mixin subtitle {
+  margin: $gap-small 0;
+  padding: $gap-tiny $gap-medium;
+  border-radius: $border-radius-huge;
+  font-size: $h2-font-size;
+  line-height: 1.25;
+  transition: $animation-time ease;
+  z-index: 1;
+
+  @include breakpoint.respond-to("landscape") {
+    text-align: center;
+  }
+}
+
+.subtitle {
+  @include subtitle;
+}

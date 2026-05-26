@@ -1,5 +1,5 @@
 @use '../base/variables' as *;
-@use '../components/animations';
+@use './animations';
 
 .hover-pulse {
   &:hover, &:focus {
@@ -25,7 +25,7 @@
     border-radius: 50%;
     transform: scale(0) translate(-50%, -50%);
     transition: transform $animation-time linear;
-    background-color: var(--highlight-color);
+    background: var(--highlight-color);
     z-index: -1;
   }
 
@@ -34,24 +34,19 @@
   }
 
   &:active {
-    background-color: var(--highlight-color);
+    background: var(--highlight-color);
   }
 }
 
 .hover-link {
   position: relative;
-  z-index: 0;
-  isolation: isolate;
   overflow: hidden;
   text-decoration: none;
   background: transparent;
   display: inline-flex;
   align-items: center;
-  gap: 1px;
   transition: $animation-time ease;
-  padding: 0 1px;
   border-radius: 4px;
-  box-sizing: border-box;
   cursor: pointer;
   color: var(--text-color);
 
@@ -115,7 +110,7 @@ html[data-theme="dark"] .hover-link .hover-link__icon {
   transform: scale(1);
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.25);
   }
 }
 

@@ -5,12 +5,13 @@ import Hover from './_hover.js';
 import Gallery from './_gallery.js';
 import Synth from './_synth.js';
 import Tooltip from './_tooltip.js';
+import Sticky from './_sticky.js';
 
 
 const components = [
 	{
 		class: Theme,
-		selector: 'html'
+		selector: '#theme-toggle'
 	},
 	{
 		class: Nav,
@@ -31,17 +32,21 @@ const components = [
 	{
 		class: Tooltip,
 		selector: '.tooltip'
-	}
+	},
+  {
+    class: Sticky,
+    selector: '.sticky'
+  }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-	/* Checks if the selector is loaded.
-	If so, then excecute the corresponding scripts and options */
+	// Checks if the selector is loaded.
+	// If so, then excecute the corresponding scripts and options
 	components.forEach(component => {
 		if (document.querySelector(component.selector) !== null) {
 			document.querySelectorAll(component.selector).forEach(
 				element => new component.class(element, component.options)
 			);
-		};
-	});	
+		}
+	});
 });

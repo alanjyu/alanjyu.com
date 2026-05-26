@@ -1,11 +1,11 @@
+@use "../base/variables" as *;
+@use "../components/decorations" as decor;
+@use "../components/structures" as struc;
+@use "../utils/breakpoints" as breakpoint;
+@use "sass:list";
 
-@use '../base/variables' as *;
-@use '../components/decorations' as decor;
-@use '../components/structures' as struc;
-@use '../utils/breakpoints' as breakpoint;
-@use 'sass:list';
-
-:root, html[data-theme="light"] {
+:root,
+html[data-theme="light"] {
   --line-color: linear-gradient(to top, #00000000 0%, #00000030 2.5%, #00000030 97.5%, #00000000 100%);
 }
 
@@ -14,102 +14,38 @@ html[data-theme="dark"] {
 }
 
 .timeline {
-  @include struc.container;
   position: relative;
-  --timeline-gradient: #{list.nth($card-gradients, 1)};
-
-  &:nth-of-type(4n + 1) {
-    --timeline-gradient: #{list.nth($card-gradients, 1)};
-  }
-
-  &:nth-of-type(4n + 2) {
-    --timeline-gradient: #{list.nth($card-gradients, 2)};
-  }
-
-  &:nth-of-type(4n + 3) {
-    --timeline-gradient: #{list.nth($card-gradients, 3)};
-  }
-
-  &:nth-of-type(4n + 4) {
-    --timeline-gradient: #{list.nth($card-gradients, 4)};
-  }
+  @include struc.container;
 
   &__line {
     position: absolute;
     top: 0;
-    left: 12px;
     bottom: 0;
     width: 2px;
     background: var(--line-color);
     border: none;
+    display: none;
     z-index: 1;
-  }
 
-  &__subtitle {
-    margin: 60px 0 24px 0;
-    font-size: $subtitle-font-size;
+    @include breakpoint.respond-to("landscape") {
+      display: block;
+      left: 18px;
+    }
   }
 
   &__inner {
     --timeline-gradient: #{list.nth($card-gradients, 1)};
-    @include decor.acrylic;
+    position: relative;
     display: flex;
     flex-direction: column;
-    background:
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, #fff 8%, transparent) 0%,
-        transparent 42%
-      ),
-      var(--timeline-gradient),
-      color-mix(in srgb, var(--shade-color-alpha) 74%, transparent);
-    border: 1px solid var(--border-color-alpha);
     border-radius: $border-radius-large;
-    box-shadow: $glass-shadow;
     overflow: hidden;
-    margin-left: 30px;
-    position: relative;
+    @include decor.acrylic;
+    @include decor.glass;
+    border: 1px solid var(--border-color-alpha);
 
-    &::before {
-      content: '';
-      position: absolute;
-      pointer-events: none;
-      inset: 0;
-      background: $glass-shine;
-      opacity: 0.7;
-      z-index: 0;
-    }
-
-    > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    @include breakpoint.respond-to('landscape') {
+    @include breakpoint.respond-to("landscape") {
       margin-left: 36px;
-      overflow: hidden;
-    }
-  }
-  
-  &__background {
-    top: 0;
-    right: 0;
-    @include struc.fullframe;
-
-    mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      transparent 50%,
-      #000 100%
-    );
-
-    @include breakpoint.respond-to('landscape') {
-      mask-image: linear-gradient(
-        to right,
-        transparent 0%,
-        #00000080 50%,
-        #000 100%
-      );
     }
   }
 
@@ -119,106 +55,63 @@ html[data-theme="dark"] {
     flex-direction: row;
     align-items: center;
     overflow: hidden;
-    padding: $gap-large $gap-medium $gap-medium $gap-medium;
+    padding: $gap-medium;
 
     &:not(:last-child) {
       // keep row separation readable even with persistent background photos
       box-shadow: inset 0 -8px 14px -12px var(--border-color-alpha);
     }
-
-    @include breakpoint.respond-to('landscape') {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      overflow: hidden;
-      padding: 34px $gap-medium;
-    }
-
-    &::before {
-      content: attr(data-year);
-      position: absolute;
-      top: $gap-small;
-      left: $gap-small;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: $gap-tiny $gap-small;
-      border-radius: $border-radius;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.2;
-      color: var(--text-color);
-      @include decor.acrylic;
-      background: var(--shade-color-alpha);
-      border: 1px solid color-mix(in srgb, var(--border-color-alpha) 35%, transparent);
-      box-shadow: $box-shadow-inset;
-      white-space: nowrap;
-      z-index: 2;
-    }
   }
 
   &__logo {
     filter: grayscale(100%) var(--filter);
-    width: 76px;
+    width: 80px;
     object-fit: contain;
-    margin: 0 $gap-small;
-    flex: 0 0 auto;
+    margin-right: $gap-medium;
 
-    @include breakpoint.respond-to('landscape') {
-      width: 82px;
-      margin: $gap-small;
+    @include breakpoint.respond-to("landscape") {
+      margin: $gap-medium;
     }
   }
 
   &__photo {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     overflow: hidden;
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.14;
+    opacity: 0.15;
     object-fit: cover;
     object-position: center;
   }
 
   &__content {
-    flex: 1 1 auto;
-    min-width: 0;
-    width: auto;
     justify-content: center;
-    padding: $gap-tiny 0;
-    margin-top: 0;
 
     h3 {
-      font-size: $subsubtitle-font-size;
+      font-size: $h4-font-size;
       font-weight: 500;
       margin: $gap-tiny 0;
+
+      @include breakpoint.respond-to("landscape") {
+        font-size: $h3-font-size;
+        margin: $gap-small 0;
+      }
     }
 
-    p {
-      margin: 0;
-    }
-
-    p + p {
-      margin-top: 2px;
-    }
-
-    @include breakpoint.respond-to('landscape') {
+    @include breakpoint.respond-to("landscape") {
       padding: $gap-tiny $gap-medium;
     }
   }
 
   &__button {
-    @include decor.button;
     display: block;
-    min-width: 250px;
     margin-top: $gap-medium;
     border-radius: $border-radius;
     padding: $gap-tiny $gap-medium;
     text-align: center;
     box-shadow: $box-shadow-inset;
-    z-index: 0;
   }
 }

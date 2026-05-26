@@ -2,7 +2,6 @@
 @use '../base/variables' as *;
 
 @mixin set-font($font-name, $weight: normal, $style: normal) {
-  // Setting font properties
 	font-family: quote($font-name);
 	font-weight: $weight;
 	font-style: $style;

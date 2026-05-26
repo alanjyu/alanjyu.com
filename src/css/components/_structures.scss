@@ -1,8 +1,32 @@
 @use '../base/variables' as *;
+@use '../components/decorations' as decor;
 @use '../utils/breakpoints' as breakpoint;
 
+@mixin section {
+  padding: $gap-medium 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:first-of-type {
+    padding-top: 100px;
+
+    @include breakpoint.respond-to('landscape') {
+      padding-top: 200px;
+    }
+  }
+
+  &:last-of-type {
+    padding-bottom: 100px;
+  }
+}
+
+.section {
+  @include section;
+}
+
 @mixin container {
-  width: 90%;
+  width: 95%;
 
   @include breakpoint.respond-to('tablet') {
     max-width: 600px;
@@ -17,17 +41,29 @@
   }
 }
 
-section {
-  padding: 60px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.container {
+  @include container;
+}
 
-  &:first-of-type {
-    @include breakpoint.respond-to('landscape') {
-      padding: 200px 0 60px 0;
+@mixin sticky {
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+  isolation: isolate;
+
+  &--is-stuck {
+    .subtitle {
+      font-size: $h4-font-size;
+      font-weight: 400;
+      @include decor.glass;
+      @include decor.acrylic;
+      background: var(--shade-color-alpha);
     }
   }
+}
+
+.sticky {
+  @include sticky;
 }
 
 @mixin fullframe {
@@ -41,4 +77,8 @@ section {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.fullframe {
+  @include fullframe;
 }

@@ -1,7 +1,9 @@
-@use 'base/reset';
-@use 'base/theme';
-@use 'base/fonts';
+@use "base/reset";
+@use "base/theme";
+@use "base/fonts";
 
-@use 'layouts/nav';
-@use 'layouts/footer';
-@use 'layouts/timeline';
+@use "components/texts";
+
+@use "layouts/nav";
+@use "layouts/footer";
+@use "layouts/timeline";

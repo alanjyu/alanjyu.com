@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Alan Yu - Music</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="author" content="Alan J. Yu" />
+	<meta name="description" content="Alan&apos;s personal website. Geoscience and more." />
+	<meta prefix="og: https://ogp.me/ns#" property="og:title" content="Alan Yu - Resume" />
+	<meta prefix="og: https://ogp.me/ns#" property="og:url" content="https://alanjyu.com" />
+	<meta prefix="og: https://ogp.me/ns#" property="og:description" content=" " />
+	<link rel="icon" type="image/png" sizes="32x32" href="/src/img/favicon.ico" />
+	<link rel="manifest" href="/src/site.webmanifest" />
+	<!-- Set theme early to avoid flashes -->
+	<script>
+		(() => {
+			try {
+				const savedTheme = localStorage.getItem('theme');
+				const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+				document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+			} catch {
+				document.documentElement.setAttribute('data-theme', 'light');
+			}
+		})();
+	</script>
+	<link rel="stylesheet" href="/src/css/music.scss" />
+</head>
+
+<body>
+	<nav class="nav">
+		<a id="home-button" class="nav__button" href="/" data-tooltip="You are already home!" aria-label="Home">
+			<div class="home__rect"></div>
+			<img class="icon-home" src="../img/icons/home.svg" alt="" aria-hidden="true" />
+		</a>
+
+		<ul class="nav__list">
+			<div class="nav__rect"></div>
+			<li class="nav__item"><a class="nav__link" href="/resume/">Resume</a></li>
+			<li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
+			<li class="nav__item"><a class="nav__link nav__link--default" href="/music/">Music</a></li>
+			<!-- <li class="nav__item"><a class="nav__link" href="/gallery/">Gallery</a></li> -->
+		</ul>
+
+    <ul class="nav__menu">
+      <li class="nav__item"><a class="nav__link" href="#">Music<img id="greater-than" src="../img/icons/greater-than.svg" /></a></li>
+      <li class="nav__item"><a class="nav__link" href="/resume/">Resume</a></li>
+      <li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
+      <!-- <li class="nav__item"><a class="nav__link" href="/gallery/">Gallery</a></li> -->
+    </ul>
+
+		<button id="theme-toggle" class="nav__button hover-fill" aria-label="Toggle light/dark theme">
+			<img class="icon-sun" src="../img/icons/sun.svg">
+			<img class="icon-moon" src="../img/icons/moon.svg">
+		</button>
+	</nav>
+
+	<main>
+		<section class="section">
+      <div class="sticky">
+        <h2 class="subtitle">Synethsizers</h2>
+      </div>
+      <div class="panel">
+        <p class="panel__description">Mathematical waves can sound beautiful and form the foundation of electronic music. Classic synthesizers like <a class="hover-link hover-border" href="https://www.youtube.com/watch?v=t1xEJccP6Zw" target="_blank">DX's<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, <a class="hover-link hover-border" href="https://www.youtube.com/watch?v=bhOQzrpniJo" target="_blank">Prophet's<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, and <a class="hover-link hover-border" href="https://www.youtube.com/watch?v=O1E69vocb7A" target="_blank">Jupiter's<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, and <a class="hover-link hover-border" href="https://www.youtube.com/watch?v=SNf57jhzmPE" target="_blank">Juno's<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>. I enjoy building sound patches from scratch and shaping tones that feel alive.</p>
+
+        <figure class="panel__figure">
+          <img data-theme-dim src="../img/resources/synth.jpg?as=webp&width=900" loading="lazy" />
+        </figure>
+
+        <p class="panel__description">Instead of spending thousands for an antique, I recommend starting with software VST's, such as <a href="https://vital.audio" class="hover-link hover-border">Vital<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>. It is free-and-open-source, sounds clean, and its interface is intuitive for both beginners and experts alike. You can check out some of my sound patches <a class="hover-link hover-border" href="https://github.com/alanjyu/vital_sounds" target="_blank">here<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>.</p>
+
+        <div class="embed">
+          <iframe class="embed__youtube" src="https://www.youtube.com/embed/1xdmdqtg9Ys?si=BUt7AvRkgiKh5BP5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+        <div class="audiocard">
+          <figure class="audiocard__art">
+            <img data-theme-dim src="../img/resources/album_exploration.jpg?as=webp&width=900" title="Exploration of Space album cover" />
+          </figure>
+
+          <div class="audiocard__content">
+            <h3 class="audiocard__title">Exploration of Space</h3>
+            <p class="audiocard__author"><i>EP by Lenn Juno</i></p>
+            <a class="audiocard__link hover-link hover-pulse hover-border" href="https://lenn.bandcamp.com/album/exploration-of-space" target="_blank">See on Bandcamp</a>
+          </div>
+
+        </div>
+
+
+      </div>
+    </section>
+
+    <!-- <section class="section">
+      <div class="sticky">
+        <h2 class="subtitle">Drumming</h2>
+      </div>
+      <div class="panel">
+        <p class="panel__description">Rock people rock! As a drummer, I sometimes jam with friends in the studio. I dig hard rock and punk, especially music that pushes the limits of drumming. I also transcribe drum parts for various songs.</p>
+ 
+        <div class="embed">
+          <div class="embed__musescore" href="https://musescore.com/user/36368334/scores/6717648" target="_blank" rel="noopener noreferrer" aria-label="Open score preview on MuseScore">
+            <img src="https://musescore.com/static/musescore/scoredata/g/0aaac4af6260beb1245d83d3a3985ce51312977d/score_0.svg?no-cache=1757634795" alt="Preview of Bloody Valentine drum sheet" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="section">
+      <div class="sticky">
+        <h2 class="subtitle">Disc Jocky</h2>
+      </div>
+      <div class="panel">
+        <p class="panel__description">DJing serves as a blend for my love for symthesizers and drums. I own a <a class="hover-link hover-border" href="https://www.roland.com/products/dj-808/" target="_blank">Roland DJ-808<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a> and occassionally mix when with friends and for weddings.</p>
+
+        <figure class="panel__figure">
+          <img data-theme-dim src="../img/resources/dj.jpg?as=webp&width=900" loading="lazy" />
+        </figure>
+
+        <div class="audiocard">
+          <figure class="audiocard__art">
+            <img data-theme-dim src="../img/resources/mix_canikickit.jpg?as=webp&width=900" title="Can I Kick It?" />
+          </figure>
+
+          <div class="audiocard__content">
+            <h3 class="audiocard__title">Can I Kick It?</h3>
+            <p class="audiocard__author"><i>Mix by Lenn Juno</i></p>
+            <audio class="audiocard__audio" src="../audio/mix_canikickit.mp3" controls>
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+
+        <!-- <iframe class="embed__cueup" scrolling="no" style="background: var(--background-color);" src="https://cueup.io/widget/player/1250/13432"></iframe> -->
+      </div>
+		</section>
+	</main>
+
+	<footer class="dynamic-background">
+		<p><a href="https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE" data-target-cover>&#169;</a> <span data-current-year>2025</span> — Alan J. Yu</p>
+
+		<ul class="social">
+			<li class="social__item">
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://www.instagram.com/alanjyu/" data-target-cover>
+					<img class="social__icon" src="../img/icons/social_instagram.svg" alt="Instagram" />
+				</a>
+			</li>
+			<li class="social__item">
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://www.linkedin.com/in/ajyu/" data-target-cover>
+					<img class="social__icon" src="../img/icons/social_linkedin.svg" alt="LinkedIn" />
+				</a>
+			</li>
+			<li class="social__item">
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://github.com/alanjyu/" data-target-cover>
+					<img class="social__icon" src="../img/icons/social_github.svg" alt="GitHub" />
+				</a>
+			</li>
+			<li class="social__item">
+				<a class="social__link hover-fill hover-pulse hover-border" href="https://scholar.google.ca/citations?user=4PZ4MZoAAAAJ" data-target-cover>
+					<img class="social__icon" src="../img/icons/social_scholar.svg" alt="Google Scholar" />
+				</a>
+			</li>
+		</ul>
+	</footer>
+
+	<script type="module" src="/src/js/main.js" charset="utf-8"></script>
+	<noscript>Please enable JavaScript to ensure that the website function properly.</noscript>
+<script>document.querySelectorAll('[data-current-year]').forEach((el)=>{el.textContent=new Date().getFullYear();});</script>
+</body>
+</html>

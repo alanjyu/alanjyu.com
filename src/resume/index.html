@@ -15,8 +15,6 @@
 
 	<link rel="icon" type="image/png" sizes="32x32" href="/src/img/favicon.ico" />
 	<link rel="manifest" href="/src/site.webmanifest" />
-	<link rel="preload" href="/src/fonts/basiersquare-regular-webfont.woff2" as="font" type="font/woff2" crossorigin />
-	<link rel="preload" href="/src/fonts/basiercircle-medium-webfont.woff2" as="font" type="font/woff2" crossorigin />
 	<!-- Set theme early to avoid flashes -->
 	<script>
 		(() => {
@@ -34,116 +32,151 @@
 
 <body>
 	<nav class="nav">
-		<div class="burger">
-			<div class="burger__inner"></div>
-		</div>
-
-		<a class="nav__home-btn hover-fill hover-pulse hover-border" href="/" aria-label="Home">
+		<a id="home-button" class="nav__button" href="/" data-tooltip="You are already home!" aria-label="Home">
+			<div class="home__rect"></div>
 			<img class="icon-home" src="../img/icons/home.svg" alt="" aria-hidden="true" />
 		</a>
 
-		<ul class="nav__menu">
-			<li><a href="/">Home</a></li>
-			<li><a href="/science/">Science</a></li>
-			<li><a href="/stuff/">Music</a></li>
-			<li><a href="/gallery/">Gallery</a></li>
-		</ul>
-
 		<ul class="nav__list">
 			<div class="nav__rect"></div>
-			<li><a class="link--default" href="#">Resume</a></li>
-			<li><a href="/science/">Science</a></li>
-			<li><a href="/stuff/">Music</a></li>
-			<li><a href="/gallery/">Gallery</a></li>
+			<li class="nav__item"><a class="nav__link nav__link--default" href="/resume/">Resume</a></li>
+			<li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
+			<li class="nav__item"><a class="nav__link" href="/music/">Music</a></li>
+			<!-- <li class="nav__item"><a class="nav__link" href="/gallery/">Gallery</a></li> -->
 		</ul>
 
-		<button class="nav__theme-btn hover-fill hover-pulse hover-border" aria-label="Toggle theme">
-			<img class="icon-sun" src="../img/icons/sun.svg" alt="" aria-hidden="true" />
-			<img class="icon-moon" src="../img/icons/moon.svg" alt="" aria-hidden="true" />
+    <ul class="nav__menu">
+      <li class="nav__item"><a class="nav__link" href="#">Resume<img id="greater-than" src="../img/icons/greater-than.svg" /></a></li>
+      <li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
+      <li class="nav__item"><a class="nav__link" href="/music/">Music</a></li>
+      <!-- <li class="nav__item"><a class="nav__link" href="/gallery/">Gallery</a></li> -->
+    </ul>
+
+		<button id="theme-toggle" class="nav__button hover-fill" aria-label="Toggle light/dark theme">
+			<img class="icon-sun" src="../img/icons/sun.svg">
+			<img class="icon-moon" src="../img/icons/moon.svg">
 		</button>
 	</nav>
 
 	<main>
-		<section>
+		<section class="section">
+      <div class="sticky">
+        <h2 class="subtitle">Education</h2>
+      </div>
 			<div class="timeline">
-				<h2 class="timeline__subtitle">Education</h2>
-				<div>
-					<hr class="timeline__line"></hr>
-					<div class="timeline__inner">
-						<div class="timeline__item" data-year="2025&ndash;">
-							<img class="timeline__photo" src="../img/photos/neues_palais.jpg?as=webp&width=900">
-							<img class="timeline__logo" src="../img/icons/uni_potsdam.svg">
-							<div class="timeline__content">
-								<h3>Doktorand, Geophysics</h3>
-								<p>University of Potsdam</p>
-								<p>Supervisors: Sascha Brune, Judith Bott, Magdalena Scheck-Wenderoth</p>
-							</div>
+				<hr class="timeline__line"></hr>
+				<div class="timeline__inner">
+					<article class="timeline__item">
+						<img class="timeline__photo" src="../img/resources/neues_palais.jpg?as=webp&width=900">
+						<img class="timeline__logo" src="../img/icons/uni_potsdam.svg">
+						<div class="timeline__content">
+							<p class="tag">2025&ndash;</p>
+							<h3>Doktorand, Geophysics</h3>
+							<p>University of Potsdam</p>
+							<p>Supervisors: Sascha Brune, Judith Bott, Magdalena Scheck-Wenderoth</p>
 						</div>
+					</article>
 
-						<div class="timeline__item" data-year="2024">
-							<img class="timeline__photo" src="../img/photos/university_college.jpg?as=webp&width=900">
+					<article class="timeline__item">
+						<img class="timeline__photo" src="../img/resources/university_college.jpg?as=webp&width=900">
 						<img class="timeline__logo" src="../img/icons/uni_toronto.svg">
-							<div class="timeline__content">
-								<h3>MSc, Earth Sciences</h3>
-								<p>University of Toronto</p>
-								<p>Supervisor: Phil Heron</p>
-							</div>
+						<div class="timeline__content">
+							<p class="tag">2024</p>
+							<h3>M.Sc., Earth Sciences</h3>
+							<p>University of Toronto</p>
+							<p>Supervisor: Phil Heron</p>
+						</div>
+					</article>
 
-						</div>
-						<div class="timeline__item" data-year="2023">
-							<img class="timeline__photo" src="../img/photos/highland_hall.jpg?as=webp&width=900">
+					<article class="timeline__item">
+						<img class="timeline__photo" src="../img/resources/highland_hall.jpg?as=webp&width=900">
 						<img class="timeline__logo" src="../img/icons/uni_toronto.svg">
-							<div class="timeline__content">
-								<h3>BSc, Environmental Physics (Co-op)</h3>
-								<p>University of Toronto</p>
-							</div>
+						<div class="timeline__content">
+							<p class="tag">2023</p>
+							<h3>Hon. B.Sc., Environmental Physics (Co-op)</h3>
+							<p>University of Toronto</p>
+							<p>Graduated with High Distinction</p>
 						</div>
-					</div>				
+					</article>
+				</div>				
+			</div>
+    </section>
+
+    <section class="section">
+      <div class="sticky">
+			  <h2 class="subtitle">Career</h2>
+      </div>
+			<div class="timeline">
+				<hr class="timeline__line"></hr>
+				<div class="timeline__inner">
+				<article class="timeline__item">
+					<img class="timeline__photo" src="../img/resources/telegrafenberg.jpg?as=webp&width=900">
+					<img class="timeline__logo" src="../img/icons/gfz.svg">
+					<div class="timeline__content">
+					<p class="tag">09/2024&ndash;</p>
+					<h3>Doctoral Researcher, Subsurface Process Modelling</h3>
+					<p>GFZ Helmholtz Centre for Geosciences, Potsdam, Germany</p>
+					</div>
+				</article>
+
+				<article class="timeline__item">
+					<img class="timeline__logo" src="../img/icons/uni_toronto.svg">
+					<div class="timeline__content">
+					<p class="tag">05/2022&ndash;08/2024</p>
+					<h3>Research Assistant, Geodynamic Modelling</h3>
+					<p><a class="hover-link hover-border" href="https://philheron.com" target="_blank">Phil Heron<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, University of Toronto, Toronto, Canada</p>
+					</div>
+				</article>
+
+				<article class="timeline__item">
+					<img class="timeline__logo" src="../img/icons/abitibi_geophysics.svg">
+					<div class="timeline__content">
+					<p class="tag">01/2022&ndash;04/2022</p>
+					<h3>Geophysicist Intern</h3>
+					<p><a class="hover-link hover-border" href="https://ageophysics.com" target="_blank">Abitibi Geophysics<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, Toronto, Canada</p>
+					</div>
+				</article>
+
+				<article class="timeline__item">
+					<img class="timeline__logo" src="../img/icons/uni_toronto.svg">
+					<div class="timeline__content">
+					<p class="tag">05/2021&ndash;12/2021</p>
+					<h3>Research Assistant, GIS and Glacial Geology</h3>
+					<p><a class="hover-link hover-border" href="https://planetearth.utsc.utoronto.ca/#nick-eyles" target="_blank">Nick Eyles<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, University of Toronto, Toronto, Canada</p>
+					</div>
+				</article>
 				</div>
 			</div>
+    </section>
 
+    <section class="section">
+      <div class="sticky">
+        <h2 class="subtitle">Publications</h2>
+      </div>
 			<div class="timeline">
-				<h2 class="timeline__subtitle">Career</h2>
-				<div>
-					<hr class="timeline__line"></hr>
-					<div class="timeline__inner">
-						<div class="timeline__item" data-year="09/2024&ndash;">
-							<img class="timeline__photo" src="../img/photos/telegrafenberg.jpg?as=webp&width=900">
-							<img class="timeline__logo" src="../img/icons/gfz.svg">
-							<div class="timeline__content">
-								<h3>Doctoral Researcher, Subsurface Process Modelling</h3>
-								<p>GFZ Helmholtz Centre for Geosciences, Potsdam, Germany</p>
-							</div>
-						</div>
-
-						<div class="timeline__item timeline__item--range" data-year="05/2022&ndash;08/2024" data-year-start="05/2022" data-year-end="08/2024">
-						<img class="timeline__logo" src="../img/icons/uni_toronto.svg">
+				<hr class="timeline__line"></hr>
+				<div class="timeline__inner">
+					<div class="timeline__item">
 						<div class="timeline__content">
-							<h3>Research Assistant, Geodynamic Modelling</h3>
-							<p><a class="hover-link hover-border" href="https://philheron.com" target="_blank">Phil Heron<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, University of Toronto, Toronto, Canada</p>
-							</div>
+							<p><b>Yu, A. J.*</b>, Gün, E., McCaffrey, K. J. W., and <u>Heron, P. J.</u> (2025). A recipe for exotic continental fragment formation: Key constraints from numerical rift models. <i>Journal of Geophysical Research: Solid Earth</i>, 130(10): e2024JB030041. <a class="hover-link hover-border" href="https://doi.org/10.1029/2024JB030041" target="_blank">doi:10.1029/2024JB030041<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>. From MSc thesis.</p>
 						</div>
+					</div>
 
-						<div class="timeline__item timeline__item--range" data-year="01/2022&ndash;04/2022" data-year-start="01/2022" data-year-end="04/2022">
-							<img class="timeline__logo" src="../img/icons/abitibi_geophysics.svg">
-							<div class="timeline__content">
-								<h3>Geophysicist Intern</h3>
-								<p><a class="hover-link hover-border" href="https://ageophysics.com" target="_blank">Abitibi Geophysics<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, Toronto, Canada</p>
-							</div>
-						</div>
-
-						<div class="timeline__item timeline__item--range" data-year="05/2021&ndash;12/2021" data-year-start="05/2021" data-year-end="12/2021">
-						<img class="timeline__logo" src="../img/icons/uni_toronto.svg">
+					<div class="timeline__item">
 						<div class="timeline__content">
-							<h3>Research Assistant, GIS and Glacial Geology</h3>
-							<p><a class="hover-link hover-border" href="https://planetearth.utsc.utoronto.ca/#nick-eyles" target="_blank">Nick Eyles<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>, University of Toronto, Toronto, Canada</p>
+							<p><b>Yu, A. J.*</b>, <u>Eyles, N.</u>, Doughty, M., and Bukhari, S. (2023). Seismic reﬂection stratigraphy of Lac Simard, Quebec, Canada: mass ﬂow sedimentation in glacial Lake Barlow-Ojibway. <i>Canadian Journal of Earth Sciences</i>, 60(11): 1509–1529. <a class="hover-link hover-border" href="https://doi.org/10.1139/cjes-2023-0027" target="_blank">doi:10.1139/cjes-2023-0027<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a>. From BSc project. <a class="hover-link hover-border" href="mailto:alan.yu@gfz.de?subject=Request%20author%20copy%20for%20Yu%20et%20al.%20%282023%29%2C%20CJES">[Request author copy<img class="hover-link__icon" src="../img/icons/mail.svg" alt="" aria-hidden="true" />]</a></p>
 							</div>
+					</div>
+
+					<div class="timeline__item">
+						<div class="timeline__content">
+							<p><u>Heron, P. J.</u>, Peace, A. L., McCaffrey, K. J. W., Sharif, A., <b>Yu, A. J.</b>, and Pysklywec, R. N. (2023). Stranding continental crustal fragments during continent breakup: Mantle suture reactivation in the Nain Province of Eastern Canada. <i>Geology</i>, 51(4): 362–365. <a class="hover-link hover-border" href="https://doi.org/10.1130/G50734.1" target="_blank">doi:10.1130/G50734.1<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a></p>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<a class="timeline__button hover-fill hover-pulse hover-border" href="https://www.overleaf.com/read/qjrvhqjdgdjv" target="_blank">Curriculum Vitae</a>
+			<!-- <a class="timeline__button hover-fill hover-pulse hover-border" href="https://www.overleaf.com/read/qjrvhqjdgdjv" target="_blank">Curriculum Vitae</a> -->
 		</section>
 	</main>
 

@@ -1,53 +1,20 @@
 export default class WaveformDisplay {
-    constructor(audioContext, analyser) {
-        this.audioContext = audioContext;
-        this.analyser = analyser;
-        this.canvas = document.getElementById('waveform');
-        this.canvasCtx = this.canvas.getContext('2d');
-        
-        // Audio analysis data
-        this.bufferLength = this.analyser.fftSize;
-        this.dataArray = new Uint8Array(this.bufferLength);
-        this.triggerLevel = 128;
-        this.triggerHysteresis = 4;
-        
-        // Visual settings - theme-aware
-        this.updateThemeColors();
-        this.lineWidth = 2;
-        
-        // Listen for theme changes
-        this.setupThemeListener();
-        
-        this.setupCanvas();
-    }
-
-    /**
-     * Detect current theme and set appropriate colors
-     */
-    updateThemeColors() {
-        const theme = document.documentElement.getAttribute('data-theme') || 'light';
-        
-        if (theme === 'dark') {
-            this.waveformColor = '#00ff88'; // Green for dark mode
-        } else {
-            this.waveformColor = '#ff8c00'; // Orange for light mode
-        }
-    }
-
-    /**
-     * Listen for theme changes and update colors
-     */
-    setupThemeListener() {
-        // Watch for theme attribute changes
-        const observer = new MutationObserver(() => {
-            this.updateThemeColors();
-        });
-        
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['data-theme']
-        });
-    }
+  constructor(audioContext, analyser) {
+    this.audioContext = audioContext;
+    this.analyser = analyser;
+    this.canvas = document.getElementById('waveform');
+    this.canvasCtx = this.canvas.getContext('2d');
+    
+    // Audio analysis data
+    this.bufferLength = this.analyser.fftSize;
+    this.dataArray = new Uint8Array(this.bufferLength);
+    this.triggerLevel = 128;
+    this.triggerHysteresis = 4;
+    
+    // Visual settings - theme-aware
+    this.lineWidth = 2;
+    this.setupCanvas();
+  }
 
     setupCanvas() {
         const rect = this.canvas.getBoundingClientRect();
@@ -127,17 +94,6 @@ export default class WaveformDisplay {
         }
         if (settings.lineWidth) {
             this.lineWidth = settings.lineWidth;
-        }
-    }
-
-    reset() {
-        const rect = this.canvas.getBoundingClientRect();
-        this.canvasCtx.clearRect(0, 0, rect.width, rect.height);
-    }
-
-    destroy() {
-        if (this.resizeHandler) {
-            window.removeEventListener('resize', this.resizeHandler);
         }
     }
 }
