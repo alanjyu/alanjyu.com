@@ -174,3 +174,24 @@
     }
   }
 }
+
+.stackcard {
+  position: relative;
+  display: grid;
+  width: 95%;
+  justify-content: space-between;
+  border-radius: $border-radius;
+  overflow: hidden;
+  margin: $gap-small 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: $gap-small;
+  padding: $gap-medium;
+  @include decor.glass;
+
+  &__item {
+    position: relative;
+    border-radius: $border-radius;
+    overflow: hidden;
+    filter: var(--filter);
+  }
+}

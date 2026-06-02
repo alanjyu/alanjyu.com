@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  padding: $gap-small;
   --panel-gradient: #{list.nth($card-gradients, 1)};
   border-radius: $border-radius-large;
   border: 1px solid var(--border-color-alpha);

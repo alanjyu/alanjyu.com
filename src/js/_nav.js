@@ -29,7 +29,7 @@ export default class Nav {
 				this.setRectToElement(this.homeButtonRect, this.homeButton, this.navLinkDefault);
 
 				if (!this.isHomeLanding) {
-					this.homeButtonRect.classList.remove('home__rect--visible');
+					this.homeButtonRect.classList.remove('home__rect--is-visible');
 				}
 			});
 		});
@@ -38,7 +38,7 @@ export default class Nav {
 			this.setRectToElement(this.navRect, this.navList, e.currentTarget);
 			this.setRectToElement(this.homeButtonRect, this.homeButton, e.currentTarget);
 			if (!this.isHomeLanding) {
-				this.homeButtonRect.classList.add('home__rect--visible');
+				this.homeButtonRect.classList.add('home__rect--is-visible');
 			}
 		});
 
@@ -61,8 +61,8 @@ export default class Nav {
 
 		this.setRectToElement(this.navRect, this.navList, this.navLinkDefault);
 		this.setRectToElement(this.homeButtonRect, this.homeButton, this.navLinkDefault);
-		this.navRect.classList.add('nav__rect--visible');
-		this.homeButtonRect.classList.add('home__rect--visible');
+		this.navRect.classList.add('nav__rect--is-visible');
+		this.homeButtonRect.classList.add('home__rect--is-visible');
 
 		if (!this.isHomeLanding) {
 			this.navLinkDefault.style.background = 'inherit';

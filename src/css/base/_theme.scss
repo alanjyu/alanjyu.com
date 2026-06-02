@@ -8,8 +8,15 @@ html[data-theme="light"] {
   --border-color-alpha: #8383837e;
   --shade-color: #fff;
   --shade-color-alpha: #ffffff7f;
-  --highlight-color: #efd096;
-  --highlight-color-alpha: #efd0967e;
+  --highlight-color: #ffd382;
+  --highlight-color-alpha: #efd096ad;
+  --glass-highlight:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--highlight-color) 74%, transparent),
+      color-mix(in srgb, var(--highlight-color) 34%, transparent)
+    ),
+    var(--glass-background);
   --pulse-shadow: #0000001f;
   --glass-background:
     linear-gradient(to bottom, color-mix(in srgb, #fff 28%, transparent) 0%, transparent 42%),
@@ -30,8 +37,15 @@ html[data-theme="dark"] {
   --border-color-alpha: #9f9f9f7e;
   --shade-color: #474747;
   --shade-color-alpha: #2c2c2c78;
-  --highlight-color: #418dad;
-  --highlight-color-alpha: #397a957e;
+  --highlight-color: #50a1df;
+  --highlight-color-alpha: #5bceffad;
+  --glass-highlight:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--highlight-color) 94%, transparent),
+      color-mix(in srgb, var(--highlight-color) 34%, transparent)
+    ),
+    var(--glass-background);
   --pulse-shadow: #ffffff29;
   --glass-background:
     linear-gradient(to bottom, color-mix(in srgb, #c4c4c4 28%, transparent) 0%, transparent 42%),
@@ -51,7 +65,7 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="dark"] [data-theme-dim] {
-  filter: brightness(0.7);
+  filter: brightness(0.68) contrast(1.02);
 }
 
 html,
