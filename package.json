@@ -49,7 +49,7 @@
     "@parcel/transformer-sass": "^2.16.4",
     "@parcel/transformer-webmanifest": "^2.16.4",
     "sharp": "^0.33.5",
-    "svgo": "^3.3.2"
+    "svgo": "^3.3.4"
   },
   "dependencies": {
     "lmdb": "^2.8.2",
