@@ -33,8 +33,6 @@
   --fluid-color-2: rgb(72 40 120 / 0.62);
   --fluid-color-3: rgb(62 73 137 / 0.62);
   --fluid-color-4: rgb(49 104 142 / 0.62);
-  --fluid-color-5: rgb(38 130 142 / 0.62);
-  --fluid-color-6: rgb(53 183 121 / 0.62);
   isolation: isolate;
   overflow: hidden;
   padding: 80px 0;
@@ -50,16 +48,12 @@
 
   background-image:
     radial-gradient(closest-side, var(--fluid-color-1), transparent), radial-gradient(closest-side, var(--fluid-color-2), transparent),
-    radial-gradient(closest-side, var(--fluid-color-3), transparent), radial-gradient(closest-side, var(--fluid-color-4), transparent),
-    radial-gradient(closest-side, var(--fluid-color-5), transparent), radial-gradient(closest-side, var(--fluid-color-6), transparent);
+    radial-gradient(closest-side, var(--fluid-color-3), transparent), radial-gradient(closest-side, var(--fluid-color-4), transparent);
   background-size:
     130vmax 130vmax,
     80vmax 80vmax,
     90vmax 90vmax,
-    110vmax 110vmax,
-    90vmax 90vmax,
-    100vmax,
-    100vmax;
+    110vmax 110vmax;
   background-position: var(--fluid-position);
   background-repeat: no-repeat;
 

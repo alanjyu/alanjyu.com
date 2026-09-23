@@ -17,7 +17,7 @@ const VIRIDIS_STOPS = [
 	[253, 231, 37]
 ];
 
-const blobPhases = [0.2, 1.8, 3.4, 4.8, 5.9, 7.1];
+const blobPhases = [0.2, 1.8, 3.4, 4.8];
 
 const createInitialBlobs = () => blobPhases.map(phase => ({
  x: Math.random() * FIELD_SIZE - FIELD_BOUNDARY,
