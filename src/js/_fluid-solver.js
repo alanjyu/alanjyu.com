@@ -12,7 +12,7 @@ const THERMAL_EXPANSION = 0.8;
 const REFERENCE_TEMPERATURE = 0.5;
 const INITIAL_ROLL_SPEED = 2.5;
 const INITIAL_NOISE_FREQUENCY = 0.035;
-const VIEW_SCALE = 1.08;
+const VIEW_SCALE = 1.12;
 const VIRIDIS_STOPS = [
 	[68, 1, 84], [72, 40, 120], [62, 73, 137], [49, 104, 142],
 	[38, 130, 142], [53, 183, 121], [110, 205, 88], [253, 231, 37]
@@ -115,7 +115,7 @@ export default class NavierStokesFluid {
 	randomizeInitialState() {
 		const baseTemperature = 0.05 + Math.random() * 0.15;
 		const verticalGradient = 0.9 + Math.random() * 0.3;
-		const noiseAmplitude = 0.12 + Math.random() * 0.14;
+		const noiseAmplitude = 0.02 + Math.random() * 0.04;
 		const noiseSeed = Math.random() * 10000;
 		const rollDirection = Math.random() < 0.5 ? -1 : 1;
 		const plumeCenters = [
@@ -242,28 +242,39 @@ export default class NavierStokesFluid {
 		this.applyNoPenetrationVelocity();
 	}
 
-	applyBoundaries() {
-		for (let y = 0; y < GRID_HEIGHT; y += 1) {
-			const left = y * GRID_WIDTH;
-			const right = left + GRID_WIDTH - 1;
-			this.velocityX[left] = 0;
-			this.velocityY[left] = this.velocityY[left + 1];
-			this.velocityX[right] = 0;
-			this.velocityY[right] = this.velocityY[right - 1];
-			this.temperature[left] = this.temperature[left + 1];
-			this.temperature[right] = this.temperature[right - 1];
-		}
-		for (let x = 0; x < GRID_WIDTH; x += 1) {
-			const top = x;
-			const bottom = (GRID_HEIGHT - 1) * GRID_WIDTH + x;
-			this.velocityX[bottom] = this.velocityX[bottom - GRID_WIDTH];
-			this.velocityY[bottom] = 0;
-			this.velocityX[top] = this.velocityX[top + GRID_WIDTH];
-			this.velocityY[top] = 0;
-			this.temperature[bottom] = this.temperature[bottom - GRID_WIDTH];
-			this.temperature[top] = this.temperature[top + GRID_WIDTH];
-		}
-	}
+  applyBoundaries() {
+    for (let y = 0; y < GRID_HEIGHT; y += 1) {
+      const left = y * GRID_WIDTH;
+      const right = left + GRID_WIDTH - 1;
+  
+      // No-slip sidewalls
+      this.velocityX[left] = 0;
+      this.velocityY[left] = this.velocityY[left + 1];
+  
+      this.velocityX[right] = 0;
+      this.velocityY[right] = this.velocityY[right - 1];
+  
+      // Thermally insulating sidewalls
+      this.temperature[left] = this.temperature[left + 1];
+      this.temperature[right] = this.temperature[right - 1];
+    }
+  
+    for (let x = 0; x < GRID_WIDTH; x += 1) {
+      const top = x;
+      const bottom = (GRID_HEIGHT - 1) * GRID_WIDTH + x;
+  
+      // No-slip top and bottom
+      this.velocityX[top] = this.velocityX[top + GRID_WIDTH];
+      this.velocityY[top] = 0;
+  
+      this.velocityX[bottom] = this.velocityX[bottom - GRID_WIDTH];
+      this.velocityY[bottom] = 0;
+  
+      // Fixed-temperature thermal boundaries
+      this.temperature[top] = 0.0;      // cold top
+      this.temperature[bottom] = 1.0;   // hot bottom
+    }
+  }
 
 	applyPressureBoundaries() {
 		for (let y = 0; y < GRID_HEIGHT; y += 1) {
