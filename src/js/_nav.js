@@ -11,6 +11,8 @@ export default class Nav {
 		this.homeButtonRect = document.querySelector('.home__rect');
 		this.navMenu = document.querySelector('.nav__menu');
 		this.isHomeLanding = Boolean(this.homeButton && this.homeButton.classList.contains('nav__link--default'));
+		this.activeTarget = this.navLinkDefault;
+		this.resizeObserver = null;
 
 		this.bindEvents();
 		breakpoint.onChange(() => this.init());
@@ -18,33 +20,32 @@ export default class Nav {
 	}
 
 	bindEvents() {
+		if (!this.homeButton) {
+			return;
+		}
+
 		this.navLinks.forEach(link => {
-			link.addEventListener('mouseover', (e) => {
-				this.setRectToElement(this.navRect, this.navList, e.currentTarget);
-				this.setRectToElement(this.homeButtonRect, this.homeButton, e.currentTarget);
-			});
-
-			link.addEventListener('mouseout', () => {
-				this.setRectToElement(this.navRect, this.navList, this.navLinkDefault);
-				this.setRectToElement(this.homeButtonRect, this.homeButton, this.navLinkDefault);
-
+			link.addEventListener('pointerenter', () => this.setActiveTarget(link));
+			link.addEventListener('pointerleave', () => {
+				this.setActiveTarget(this.navLinkDefault);
 				if (!this.isHomeLanding) {
 					this.homeButtonRect.classList.remove('home__rect--is-visible');
 				}
 			});
 		});
 
-		this.homeButton.addEventListener('mouseover', (e) => {
-			this.setRectToElement(this.navRect, this.navList, e.currentTarget);
-			this.setRectToElement(this.homeButtonRect, this.homeButton, e.currentTarget);
+		this.homeButton.addEventListener('pointerenter', () => {
+			this.setActiveTarget(this.homeButton);
 			if (!this.isHomeLanding) {
 				this.homeButtonRect.classList.add('home__rect--is-visible');
 			}
 		});
 
-		this.homeButton.addEventListener('mouseout', () => {
-			this.setRectToElement(this.navRect, this.navList, this.navLinkDefault);
-			this.setRectToElement(this.homeButtonRect, this.homeButton, this.navLinkDefault);
+		this.homeButton.addEventListener('pointerleave', () => {
+			this.setActiveTarget(this.navLinkDefault);
+			if (!this.isHomeLanding) {
+				this.homeButtonRect.classList.remove('home__rect--is-visible');
+			}
 		});
 
 		if (this.navMenu) {
@@ -59,10 +60,11 @@ export default class Nav {
 			return;
 		}
 
-		this.setRectToElement(this.navRect, this.navList, this.navLinkDefault);
-		this.setRectToElement(this.homeButtonRect, this.homeButton, this.navLinkDefault);
+		this.activeTarget = this.navLinkDefault;
+		this.updateRects();
 		this.navRect.classList.add('nav__rect--is-visible');
 		this.homeButtonRect.classList.add('home__rect--is-visible');
+		this.observeLayout();
 
 		if (!this.isHomeLanding) {
 			this.navLinkDefault.style.background = 'inherit';
@@ -77,14 +79,35 @@ export default class Nav {
 		}
 	}
 
-	setRectToElement(src, ref, target) {
-		const refCoors = ref.getBoundingClientRect();
-		const refLeftBorder = ref.clientLeft || 0;
-		const targetCoors = target.getBoundingClientRect();
-		const offsetX = targetCoors.left - refCoors.left - refLeftBorder;
+	setActiveTarget(target) {
+		this.activeTarget = target;
+		this.updateRects();
+	}
 
-		src.style.setProperty('--rect-width', `${targetCoors.width}px`);
-		src.style.setProperty('--rect-offset-x', `${offsetX}px`);
+	updateRects() {
+		const target = this.activeTarget || this.navLinkDefault;
+		this.setRectToElement(this.navRect, this.navList, target);
+		this.setRectToElement(this.homeButtonRect, this.homeButton, target);
+	}
+
+	setRectToElement(rect, reference, target) {
+		const referenceBounds = reference.getBoundingClientRect();
+		const targetBounds = target.getBoundingClientRect();
+		const offsetX = targetBounds.left - referenceBounds.left - reference.clientLeft;
+
+		rect.style.setProperty('--rect-width', `${targetBounds.width}px`);
+		rect.style.setProperty('--rect-offset-x', `${offsetX}px`);
+	}
+
+	observeLayout() {
+		if (typeof ResizeObserver === 'undefined') {
+			return;
+		}
+
+		this.resizeObserver?.disconnect();
+		this.resizeObserver = new ResizeObserver(() => this.updateRects());
+		this.resizeObserver.observe(this.navList);
+		this.resizeObserver.observe(this.homeButton);
 	}
 
 	updateMobileMenuHeight() {

@@ -1,4 +1,5 @@
 import Viewport from './components/viewport.js';
+import NavierStokesFluid from './_fluid-solver.js';
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const ELEMENT_EXTENT = 100;
@@ -6,6 +7,7 @@ const FIELD_BOUNDARY = ELEMENT_EXTENT;
 const FIELD_SIZE = FIELD_BOUNDARY * 2;
 const CRITICAL_RAYLEIGH = 1708;
 const CONVECTION_PROBABILITY = 0.3;
+const INITIAL_TEMPERATURE_VARIATION = 0.18;
 const VIRIDIS_STOPS = [
 	[68, 1, 84],
 	[72, 40, 120],
@@ -19,14 +21,27 @@ const VIRIDIS_STOPS = [
 
 const blobPhases = [0.2, 1.8, 3.4, 4.8];
 
-const createInitialBlobs = () => blobPhases.map(phase => ({
- x: Math.random() * FIELD_SIZE - FIELD_BOUNDARY,
- y: Math.random() * FIELD_SIZE - FIELD_BOUNDARY,
+const createInitialBlobs = (getInitialTemperature) => blobPhases.map(phase => {
+ 	const x = Math.random() * FIELD_SIZE - FIELD_BOUNDARY;
+ 	const y = Math.random() * FIELD_SIZE - FIELD_BOUNDARY;
+ 	const randomizedPhase = phase + Math.random() * 0.8 - 0.4;
+
+	return {
+		x,
+		y,
 	vx: Math.random() * 0.8 - 0.4,
 	vy: Math.random() * 0.8 - 0.4,
-	temperature: Math.random(),
-	phase: phase + Math.random() * 0.8 - 0.4
-}));
+		temperature: Math.max(
+			0,
+			Math.min(
+				1,
+				getInitialTemperature(y, randomizedPhase)
+					+ (Math.random() * 2 - 1) * INITIAL_TEMPERATURE_VARIATION
+			)
+		),
+		phase: randomizedPhase
+	};
+});
 
 const getViridisColor = temperature => {
 	const palettePosition = Math.max(0, Math.min(1, temperature)) * (VIRIDIS_STOPS.length - 1);
@@ -42,12 +57,13 @@ const getViridisColor = temperature => {
 	return `rgb(${red} ${green} ${blue} / 0.62)`;
 };
 
-export default class FluidBackground {
+class LegacyFluidBackground {
 	constructor(element) {
 		this.element = element;
-		this.blobs = createInitialBlobs();
 		this.boundaryTemperature = Math.random() * 0.7 + 0.15;
 		this.bottomTemperatureBias = Math.random() * 0.2 + 0.35;
+		this.initialTime = performance.now() / 1000;
+		this.blobs = createInitialBlobs((y, phase) => this.getBoundaryTemperature(y, this.initialTime, phase));
 		this.rayleighNumber = Math.random() < CONVECTION_PROBABILITY
 			? CRITICAL_RAYLEIGH * (1.25 + Math.random() * 2.25)
 			: CRITICAL_RAYLEIGH * (0.15 + Math.random() * 0.7);
@@ -184,5 +200,22 @@ export default class FluidBackground {
 		}
 		this.viewport.destroy();
 		document.removeEventListener('visibilitychange', this.onVisibilityChange);
+	}
+}
+
+export default class FluidBackground {
+	constructor(element) {
+		this.simulation = null;
+
+		try {
+			this.simulation = new NavierStokesFluid(element);
+		} catch (error) {
+			console.warn('Falling back to the blob fluid background.', error);
+			this.simulation = new LegacyFluidBackground(element);
+		}
+	}
+
+	destroy() {
+		this.simulation?.destroy();
 	}
 }

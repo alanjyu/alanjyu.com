@@ -111,7 +111,7 @@
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translate(var(--rect-offset-x), -50%);
+     transform: translate(var(--rect-offset-x), -50%);
     width: var(--rect-width);
     height: 100%;
     opacity: 0;
@@ -120,7 +120,6 @@
 
     @include decor.acrylic;
     background: var(--glass-highlight);
-    border: 1px solid color-mix(in srgb, var(--highlight-color) 32%, transparent);
     box-shadow: var(--rect-glass-shadow);
 
     &--is-visible {
@@ -163,7 +162,9 @@
   width: var(--rect-width);
   height: 100%;
   opacity: 0;
-  background: var(--highlight-color);
+  border-radius: $border-radius-huge;
+  background: var(--glass-highlight);
+  @include decor.acrylic;
 
   @include breakpoint.respond-to("landscape") {
     display: block;
