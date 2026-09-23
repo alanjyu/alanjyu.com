@@ -6,6 +6,8 @@ import Gallery from './_gallery.js';
 import Synth from './_synth.js';
 import Tooltip from './_tooltip.js';
 import Sticky from './_sticky.js';
+import Parallax from './_parallax.js';
+import FluidBackground from './_fluid.js';
 
 
 const components = [
@@ -36,6 +38,14 @@ const components = [
   {
     class: Sticky,
     selector: '.sticky'
+	},
+	{
+		class: Parallax,
+		selector: '.parallax'
+	},
+	{
+		class: FluidBackground,
+		selector: '.dynamic-background'
   }
 ];
 

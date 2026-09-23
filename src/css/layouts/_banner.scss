@@ -4,17 +4,16 @@
 @use '../utils/breakpoints' as breakpoint;
 
 .banner {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   gap: $gap-large;
-  width: 100%;
-  height: 100vh;
-  background: var(--background-color);
-
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @include decor.acrylic;
+  
   @include breakpoint.respond-to("landscape") {
-    flex-direction: row;
-    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
   }
 
   &__figure {

@@ -117,10 +117,11 @@
     opacity: 0;
     border-radius: $border-radius-huge;
     z-index: -1;
-    
+
     @include decor.acrylic;
     background: var(--glass-highlight);
-    box-shadow: var(--glass-shadow);
+    border: 1px solid color-mix(in srgb, var(--highlight-color) 32%, transparent);
+    box-shadow: var(--rect-glass-shadow);
 
     &--is-visible {
       opacity: 1;

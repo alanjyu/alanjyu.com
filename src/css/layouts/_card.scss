@@ -183,14 +183,20 @@
   border-radius: $border-radius;
   overflow: hidden;
   margin: $gap-small 0;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: $gap-small;
   padding: $gap-medium;
   @include decor.glass;
 
+  @include breakpoint.respond-to("landscape") {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $gap-medium;
+  }
+
   &__item {
     position: relative;
     border-radius: $border-radius;
+    min-height: 300px;
     overflow: hidden;
     filter: var(--filter);
   }

@@ -19,6 +19,7 @@
     position: relative;
     width: 100%;
     min-height: 90vh;
+    pointer-events: none;
 
     @include breakpoint.respond-to("landscape") {
       position: fixed;
@@ -36,6 +37,7 @@
         object-position: center;
       }
     }
+
   }
 
   &__content {

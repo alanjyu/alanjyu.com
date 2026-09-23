@@ -27,6 +27,11 @@ html[data-theme="light"] {
     0 20px 40px -30px color-mix(in srgb, var(--highlight-color) 10%, transparent),
     inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent),
     inset 0 -1px 0 color-mix(in srgb, #000 10%, transparent);
+  --rect-glass-shadow:
+    0 12px 28px -18px color-mix(in srgb, var(--highlight-color) 72%, transparent),
+    0 4px 12px -6px color-mix(in srgb, #000 38%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #fff 34%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, #000 14%, transparent);
   --filter: invert(0);
 }
 
@@ -37,8 +42,8 @@ html[data-theme="dark"] {
   --border-color-alpha: #9f9f9f7e;
   --shade-color: #474747;
   --shade-color-alpha: #2c2c2c78;
-  --highlight-color: #50a1df;
-  --highlight-color-alpha: #5bceffad;
+  --highlight-color: #6a9fbd;
+  --highlight-color-alpha: #82b8d0ad;
   --glass-highlight:
     linear-gradient(
       165deg,
@@ -56,6 +61,11 @@ html[data-theme="dark"] {
     0 20px 40px -30px color-mix(in srgb, var(--highlight-color) 10%, transparent),
     inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent),
     inset 0 -1px 0 color-mix(in srgb, #000 10%, transparent);
+  --rect-glass-shadow:
+    0 12px 28px -18px color-mix(in srgb, var(--highlight-color) 72%, transparent),
+    0 4px 12px -6px color-mix(in srgb, #000 38%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #fff 34%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, #000 14%, transparent);
   --filter: invert(1);
 }
 

@@ -2,70 +2,41 @@
 @use "../components/decorations" as decor;
 @use "../components/hover" as hover;
 
-@keyframes movement {
+@keyframes film-grain {
   0%,
   100% {
-    background-size:
-      130vmax 130vmax,
-      80vmax 80vmax,
-      90vmax 90vmax,
-      110vmax 110vmax,
-      90vmax 90vmax;
-    background-position:
-      -80vmax -80vmax,
-      60vmax -30vmax,
-      10vmax 10vmax,
-      -30vmax -10vmax,
-      50vmax 50vmax;
+    background-position: 0 0;
   }
 
   25% {
-    background-size:
-      100vmax 100vmax,
-      90vmax 90vmax,
-      100vmax 100vmax,
-      90vmax 90vmax,
-      60vmax 60vmax;
-    background-position:
-      -60vmax -90vmax,
-      50vmax -40vmax,
-      0vmax -20vmax,
-      -40vmax -20vmax,
-      40vmax 60vmax;
+    background-position: 18% -12%;
   }
 
   50% {
-    background-size:
-      80vmax 80vmax,
-      110vmax 110vmax,
-      80vmax 80vmax,
-      60vmax 60vmax,
-      80vmax 80vmax;
-    background-position:
-      -50vmax -70vmax,
-      40vmax -30vmax,
-      10vmax 0vmax,
-      20vmax 10vmax,
-      30vmax 70vmax;
+    background-position: -14% 16%;
   }
 
   75% {
-    background-size:
-      90vmax 90vmax,
-      90vmax 90vmax,
-      100vmax 100vmax,
-      90vmax 90vmax,
-      70vmax 70vmax;
-    background-position:
-      -50vmax -40vmax,
-      50vmax -30vmax,
-      20vmax 0vmax,
-      -10vmax 10vmax,
-      40vmax 60vmax;
+    background-position: 12% 8%;
   }
 }
 
 .dynamic-background {
+  --fluid-position:
+    -80vmax -80vmax,
+    60vmax -30vmax,
+    10vmax 10vmax,
+    -30vmax -10vmax,
+    50vmax 50vmax,
+    -20vmax 0vmax;
+  --fluid-color-1: rgb(68 1 84 / 0.62);
+  --fluid-color-2: rgb(72 40 120 / 0.62);
+  --fluid-color-3: rgb(62 73 137 / 0.62);
+  --fluid-color-4: rgb(49 104 142 / 0.62);
+  --fluid-color-5: rgb(38 130 142 / 0.62);
+  --fluid-color-6: rgb(53 183 121 / 0.62);
+  isolation: isolate;
+  overflow: hidden;
   padding: 80px 0;
   display: flex;
   flex-direction: column;
@@ -78,9 +49,9 @@
   }
 
   background-image:
-    radial-gradient(closest-side, #9e5041, #a74f3b00), radial-gradient(closest-side, #894372, #a33b8000),
-    radial-gradient(closest-side, #857741, #8d834c00), radial-gradient(closest-side, #533e9a, #5536a400),
-    radial-gradient(closest-side, #94683c, #965e3b00), radial-gradient(closest-side, #9a553e, #bb5d3d00);
+    radial-gradient(closest-side, var(--fluid-color-1), transparent), radial-gradient(closest-side, var(--fluid-color-2), transparent),
+    radial-gradient(closest-side, var(--fluid-color-3), transparent), radial-gradient(closest-side, var(--fluid-color-4), transparent),
+    radial-gradient(closest-side, var(--fluid-color-5), transparent), radial-gradient(closest-side, var(--fluid-color-6), transparent);
   background-size:
     130vmax 130vmax,
     80vmax 80vmax,
@@ -89,16 +60,45 @@
     90vmax 90vmax,
     100vmax,
     100vmax;
-  background-position:
-    -80vmax -80vmax,
-    60vmax -30vmax,
-    10vmax 10vmax,
-    -30vmax -10vmax,
-    50vmax 50vmax,
-    -20vmax,
-    -40vmax;
+  background-position: var(--fluid-position);
   background-repeat: no-repeat;
-  animation: 10s movement linear infinite;
+
+  &::before {
+    position: absolute;
+    inset: -50%;
+    z-index: -1;
+    content: "";
+    opacity: 0.12;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    mix-blend-mode: soft-light;
+    animation: 1.2s film-grain steps(4) infinite;
+  }
+}
+
+.dynamic-background-page {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  min-height: 100vh;
+  padding: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.dynamic-background-page ~ main,
+.dynamic-background-page ~ footer {
+  position: relative;
+  z-index: 1;
+}
+
+footer {
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .social {
