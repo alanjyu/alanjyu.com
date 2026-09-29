@@ -53,6 +53,7 @@
     </ul>
 
 		<button id="theme-toggle" class="nav__button hover-fill" aria-label="Toggle light/dark theme">
+			<span class="theme__rect" aria-hidden="true"></span>
 			<img class="icon-sun" src="../img/icons/sun.svg">
 			<img class="icon-moon" src="../img/icons/moon.svg">
 		</button>
@@ -110,18 +111,18 @@
 				<p class="plank__description">DJing serves as a blend for my love for symthesizers and drums. I own a <a class="hover-link hover-border" href="https://www.roland.com/products/dj-808/" target="_blank">Roland DJ-808<img class="hover-link__icon" src="../img/icons/external_link.svg" alt="" aria-hidden="true" /></a> and occassionally mix when with friends and for weddings.</p>
 
 		<figure class="plank__figure">
-          <img data-theme-dim src="../img/resources/dj.jpg?as=webp&width=900" loading="lazy" />
+          <img decoding="async" data-theme-dim src="../img/resources/dj.jpg?as=webp&width=900" loading="lazy" />
         </figure>
 
         <div class="audiocard">
           <figure class="audiocard__art">
-            <img data-theme-dim src="../img/resources/mix_canikickit.jpg?as=webp&width=900" title="Can I Kick It?" />
+            <img decoding="async" loading="lazy" data-theme-dim src="../img/resources/mix_canikickit.jpg?as=webp&width=900" title="Can I Kick It?" />
           </figure>
 
           <div class="audiocard__content">
             <h3 class="audiocard__title">Can I Kick It?</h3>
             <p class="audiocard__author"><i>Mix by Lenn Juno</i></p>
-            <audio class="audiocard__audio" src="../audio/mix_canikickit.mp3" controls>
+            <audio preload="none" class="audiocard__audio" src="../audio/mix_canikickit.mp3" controls>
               Your browser does not support the audio element.
             </audio>
           </div>

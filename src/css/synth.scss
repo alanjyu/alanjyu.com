@@ -2,6 +2,6 @@
 @use 'base/theme';
 @use 'base/fonts';
 
-@use 'layouts/nav';
-@use 'layouts/footer';
-@use 'synth-modules/synth';
+@use 'features/navigation/nav';
+@use 'components/footer';
+@use 'features/synth/synth';

@@ -1,8 +1,8 @@
-import Display from './synth-modules/display.js';
-import Oscillator from './synth-modules/oscillator.js';
-import Keyboard from './synth-modules/keyboard.js';
-import Effects from './synth-modules/effects.js';
-import Filter from './synth-modules/filter.js';
+import Display from './display.js';
+import Oscillator from './oscillator.js';
+import Keyboard from './keyboard.js';
+import Effects from './effects.js';
+import Filter from './filter.js';
 
 export default class Synth {
     constructor() {

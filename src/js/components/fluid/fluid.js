@@ -1,5 +1,5 @@
-import Viewport from './components/viewport.js';
-import NavierStokesFluid from './_fluid-solver.js';
+import Viewport from '../../utils/viewport.js';
+import NavierStokesFluid from './solver.js';
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const ELEMENT_EXTENT = 100;

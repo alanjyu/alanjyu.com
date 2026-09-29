@@ -1,6 +1,6 @@
 @use "../base/variables" as *;
-@use "../components/structures" as struc;
-@use "../components/decorations" as decor;
+@use "structures" as struc;
+@use "../utils/decorations" as decor;
 @use "../utils/breakpoints" as breakpoint;
 
 .embed {

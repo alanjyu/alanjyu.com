@@ -1,10 +1,12 @@
-import Viewport from './components/viewport.js';
+import Viewport from '../../utils/viewport.js';
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const GRID_WIDTH = 96;
 const GRID_HEIGHT = 64;
 const SOLVER_ITERATIONS = 50;
 const TIME_STEP = 0.06;
+const FRAME_INTERVAL = 1 / 60;
+const MAX_CATCH_UP_STEPS = 3;
 const VISCOSITY = 0.0008;
 const THERMAL_DIFFUSIVITY = 0.0012;
 const GRAVITY = 9.81;
@@ -13,6 +15,10 @@ const REFERENCE_TEMPERATURE = 0.5;
 const INITIAL_ROLL_SPEED = 2.5;
 const INITIAL_NOISE_FREQUENCY = 0.035;
 const VIEW_SCALE = 1.12;
+const SCROLL_ANOMALY_DISTANCE = 100;
+const SCROLL_ANOMALY_RADIUS = 8;
+const SCROLL_ANOMALY_STRENGTH = 0.4;
+const SCROLL_VELOCITY_IMPULSE = 10;
 const VIRIDIS_STOPS = [
 	[68, 1, 84], [72, 40, 120], [62, 73, 137], [49, 104, 142],
 	[38, 130, 142], [53, 183, 121], [110, 205, 88], [253, 231, 37]
@@ -92,6 +98,8 @@ export default class NavierStokesFluid {
 		this.nextVelocityY = new Float32Array(this.size);
 		this.nextPressure = new Float32Array(this.size);
 		this.canvas = document.createElement('canvas');
+		this.canvas.width = GRID_WIDTH;
+		this.canvas.height = GRID_HEIGHT;
 		this.canvas.setAttribute('aria-hidden', 'true');
 		this.canvas.style.cssText = `position:absolute;inset:0;width:100%;height:100%;transform:scale(${VIEW_SCALE});transform-origin:center;pointer-events:none;`;
 		this.context = this.canvas.getContext('2d', { alpha: true });
@@ -103,12 +111,17 @@ export default class NavierStokesFluid {
 		this.randomizeInitialState();
 		this.frame = null;
 		this.lastTime = 0;
+		this.accumulatedTime = 0;
 		this.isPageVisible = !document.hidden;
+		this.lastScrollY = Math.max(0, window.scrollY);
+		this.pendingScrollDistance = 0;
+		this.onScroll = this.onScroll.bind(this);
 		this.onVisibilityChange = this.onVisibilityChange.bind(this);
 		this.onViewportChange = this.onViewportChange.bind(this);
 		this.update = this.update.bind(this);
 		this.viewport = new Viewport(this.element, this.onViewportChange);
 		document.addEventListener('visibilitychange', this.onVisibilityChange, { passive: true });
+		window.addEventListener('scroll', this.onScroll, { passive: true });
 		this.render();
 	}
 
@@ -153,10 +166,51 @@ export default class NavierStokesFluid {
 		this.toggleAnimation();
 	}
 
+	onScroll() {
+		const scrollY = clamp(window.scrollY, 0, Math.max(0, document.documentElement.scrollHeight - window.innerHeight));
+		const distance = scrollY - this.lastScrollY;
+		this.lastScrollY = scrollY;
+		if (!this.isVisible || !this.isPageVisible || reducedMotionQuery.matches) return;
+
+		// Accumulate distance, not events, so touch, wheel and keyboard scrolling agree.
+		// Discard the previous direction's remainder when scrolling reverses.
+		if (distance * this.pendingScrollDistance < 0) this.pendingScrollDistance = 0;
+		this.pendingScrollDistance = clamp(
+			this.pendingScrollDistance + distance,
+			-SCROLL_ANOMALY_DISTANCE * 2,
+			SCROLL_ANOMALY_DISTANCE * 2
+		);
+	}
+
+	addScrollAnomalies(direction) {
+		// Launch warm plumes from the bottom or cold plumes from the top.
+		// Keep the fixed-temperature boundary cells untouched.
+		const patches = Array.from({ length: 2 }, () => ({
+			x: GRID_WIDTH * (0.15 + Math.random() * 0.7),
+			y: direction > 0 ? GRID_HEIGHT - 2 : 1,
+			sign: direction
+		}));
+		for (const patch of patches) {
+			for (let y = Math.max(1, Math.floor(patch.y - SCROLL_ANOMALY_RADIUS)); y <= Math.min(GRID_HEIGHT - 2, Math.ceil(patch.y + SCROLL_ANOMALY_RADIUS)); y += 1) {
+				for (let x = Math.max(1, Math.floor(patch.x - SCROLL_ANOMALY_RADIUS)); x <= Math.min(GRID_WIDTH - 2, Math.ceil(patch.x + SCROLL_ANOMALY_RADIUS)); x += 1) {
+					const radiusSquared = ((x - patch.x) ** 2 + (y - patch.y) ** 2) / SCROLL_ANOMALY_RADIUS ** 2;
+					if (radiusSquared >= 1) continue;
+					const index = y * GRID_WIDTH + x;
+					const falloff = (1 - radiusSquared) ** 2;
+					const anomaly = patch.sign * SCROLL_ANOMALY_STRENGTH * falloff;
+					this.temperature[index] = clamp(this.temperature[index] + anomaly, 0, 1);
+					this.velocityY[index] -= direction * SCROLL_VELOCITY_IMPULSE * falloff;
+				}
+			}
+		}
+	}
+
 	toggleAnimation() {
 		const shouldAnimate = this.isVisible && this.isPageVisible && !reducedMotionQuery.matches;
+		if (!shouldAnimate) this.pendingScrollDistance = 0;
 		if (shouldAnimate && this.frame === null) {
 			this.lastTime = performance.now();
+			this.accumulatedTime = 0;
 			this.frame = requestAnimationFrame(this.update);
 		} else if (!shouldAnimate && this.frame !== null) {
 			cancelAnimationFrame(this.frame);
@@ -166,10 +220,23 @@ export default class NavierStokesFluid {
 
 	update(now) {
 		this.frame = null;
-		const elapsed = Math.min((now - this.lastTime) / 1000, 0.033);
+		const elapsed = Math.max(0, (now - this.lastTime) / 1000);
 		this.lastTime = now;
-		this.step(Math.max(elapsed, TIME_STEP * 0.5));
-		this.render();
+		this.accumulatedTime = Math.min(this.accumulatedTime + elapsed, FRAME_INTERVAL * MAX_CATCH_UP_STEPS);
+		let advanced = false;
+		// Preserve the previous 60 Hz pace on every display, with bounded catch-up work.
+		while (this.accumulatedTime + 1e-9 >= FRAME_INTERVAL) {
+			if (Math.abs(this.pendingScrollDistance) >= SCROLL_ANOMALY_DISTANCE) {
+				const direction = Math.sign(this.pendingScrollDistance);
+				this.pendingScrollDistance -= direction * SCROLL_ANOMALY_DISTANCE;
+				this.addScrollAnomalies(direction);
+			}
+			this.step(TIME_STEP * 0.5);
+			this.accumulatedTime = Math.max(0, this.accumulatedTime - FRAME_INTERVAL);
+			advanced = true;
+		}
+		if (advanced) this.render();
+		this.frame = requestAnimationFrame(this.update);
 		this.toggleAnimation();
 	}
 
@@ -182,6 +249,8 @@ export default class NavierStokesFluid {
 		this.advect(this.velocityX, this.nextVelocityX, this.velocityX, this.velocityY, timeStep);
 		this.advect(this.velocityY, this.nextVelocityY, this.velocityX, this.velocityY, timeStep);
 		this.advect(this.temperature, this.nextTemperature, this.velocityX, this.velocityY, timeStep);
+		// Diffusion reads this buffer, so it needs the same thermal walls as the live field.
+		this.applyThermalBoundaries(this.nextTemperature);
 		this.diffuse(this.nextVelocityX, this.velocityX, VISCOSITY, timeStep);
 		this.diffuse(this.nextVelocityY, this.velocityY, VISCOSITY, timeStep);
 		this.diffuse(this.nextTemperature, this.temperature, THERMAL_DIFFUSIVITY, timeStep);
@@ -202,13 +271,11 @@ export default class NavierStokesFluid {
 
 	diffuse(source, destination, coefficient, delta) {
 		const amount = coefficient * delta;
-		for (let iteration = 0; iteration < 2; iteration += 1) {
-			for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
-				for (let x = 1; x < GRID_WIDTH - 1; x += 1) {
-					const index = y * GRID_WIDTH + x;
-					const neighbors = source[index - 1] + source[index + 1] + source[index - GRID_WIDTH] + source[index + GRID_WIDTH];
-					destination[index] = (source[index] + amount * neighbors) / (1 + amount * 4);
-				}
+		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
+			for (let x = 1; x < GRID_WIDTH - 1; x += 1) {
+				const index = y * GRID_WIDTH + x;
+				const neighbors = source[index - 1] + source[index + 1] + source[index - GRID_WIDTH] + source[index + GRID_WIDTH];
+				destination[index] = (source[index] + amount * neighbors) / (1 + amount * 4);
 			}
 		}
 	}
@@ -253,10 +320,6 @@ export default class NavierStokesFluid {
   
       this.velocityX[right] = 0;
       this.velocityY[right] = this.velocityY[right - 1];
-  
-      // Thermally insulating sidewalls
-      this.temperature[left] = this.temperature[left + 1];
-      this.temperature[right] = this.temperature[right - 1];
     }
   
     for (let x = 0; x < GRID_WIDTH; x += 1) {
@@ -269,12 +332,23 @@ export default class NavierStokesFluid {
   
       this.velocityX[bottom] = this.velocityX[bottom - GRID_WIDTH];
       this.velocityY[bottom] = 0;
-  
-      // Fixed-temperature thermal boundaries
-      this.temperature[top] = 0.0;      // cold top
-      this.temperature[bottom] = 1.0;   // hot bottom
     }
+    this.applyThermalBoundaries(this.temperature);
   }
+
+	applyThermalBoundaries(temperature) {
+		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
+			const left = y * GRID_WIDTH;
+			const right = left + GRID_WIDTH - 1;
+			// Insulating sidewalls: zero horizontal temperature gradient.
+			temperature[left] = temperature[left + 1];
+			temperature[right] = temperature[right - 1];
+		}
+		for (let x = 0; x < GRID_WIDTH; x += 1) {
+			temperature[x] = 0; // Cold top.
+			temperature[(GRID_HEIGHT - 1) * GRID_WIDTH + x] = 1; // Hot bottom.
+		}
+	}
 
 	applyPressureBoundaries() {
 		for (let y = 0; y < GRID_HEIGHT; y += 1) {
@@ -309,15 +383,13 @@ export default class NavierStokesFluid {
 			const lower = Math.floor(position);
 			const upper = Math.min(lower + 1, VIRIDIS_STOPS.length - 1);
 			const amount = position - lower;
-			const color = VIRIDIS_STOPS[lower].map((value, channel) => Math.round(value + (VIRIDIS_STOPS[upper][channel] - value) * amount));
 			const pixel = index * 4;
-			this.image.data[pixel] = color[0];
-			this.image.data[pixel + 1] = color[1];
-			this.image.data[pixel + 2] = color[2];
+			for (let channel = 0; channel < 3; channel += 1) {
+				const value = VIRIDIS_STOPS[lower][channel];
+				this.image.data[pixel + channel] = Math.round(value + (VIRIDIS_STOPS[upper][channel] - value) * amount);
+			}
 			this.image.data[pixel + 3] = 145;
 		}
-		this.canvas.width = GRID_WIDTH;
-		this.canvas.height = GRID_HEIGHT;
 		this.context.putImageData(this.image, 0, 0);
 	}
 
@@ -325,6 +397,7 @@ export default class NavierStokesFluid {
 		if (this.frame !== null) cancelAnimationFrame(this.frame);
 		this.viewport.destroy();
 		document.removeEventListener('visibilitychange', this.onVisibilityChange);
+		window.removeEventListener('scroll', this.onScroll);
 		this.canvas.remove();
 	}
 }

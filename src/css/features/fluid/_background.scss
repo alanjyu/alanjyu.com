@@ -1,5 +1,5 @@
-@use "../base/variables" as *;
-@use "../components/decorations" as decor;
+@use "../../base/variables" as *;
+@use "../../utils/decorations" as decor;
 
 @keyframes film-grain {
   0%,

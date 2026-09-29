@@ -1,6 +1,6 @@
-@use "../base/variables" as *;
-@use "../components/decorations" as decor;
-@use "../utils/breakpoints" as breakpoint;
+@use "../../base/variables" as *;
+@use "../../utils/decorations" as decor;
+@use "../../utils/breakpoints" as breakpoint;
 
 .nav {
   display: flex;
@@ -151,7 +151,8 @@
   transition: rotate $animation-time ease;
 }
 
-.home__rect {
+.home__rect,
+.theme__rect {
   --rect-width: $icon-size;
   --rect-offset-x: 0px;
   position: absolute;
@@ -176,6 +177,12 @@
       width $animation-time ease,
       transform $animation-time ease,
       opacity $animation-time ease;
+  }
+}
+
+#theme-toggle::after {
+  @include breakpoint.respond-to("landscape") {
+    display: none;
   }
 }
 

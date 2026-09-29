@@ -1,7 +1,7 @@
-@use '../base/variables' as *;
-@use '../components/decorations' as decor;
-@use '../components/structures' as struc;
-@use '../utils/breakpoints' as breakpoint;
+@use '../../base/variables' as *;
+@use '../../utils/decorations' as decor;
+@use '../../components/structures' as struc;
+@use '../../utils/breakpoints' as breakpoint;
 
 .banner {
   align-items: center;

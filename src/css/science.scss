@@ -6,9 +6,9 @@
 @use "components/texts";
 @use "components/structures";
 
-@use "layouts/nav";
-@use "layouts/footer";
-@use "layouts/dynamic-background";
-@use "layouts/card";
-@use "layouts/panel";
-@use "layouts/plank";
+@use "features/navigation/nav";
+@use "components/footer";
+@use "features/fluid/background";
+@use "components/card";
+@use "components/panel";
+@use "components/plank";

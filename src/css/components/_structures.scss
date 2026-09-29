@@ -1,5 +1,5 @@
 @use '../base/variables' as *;
-@use '../components/decorations' as decor;
+@use '../utils/decorations' as decor;
 @use '../utils/breakpoints' as breakpoint;
 
 @mixin section {

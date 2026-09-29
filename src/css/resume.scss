@@ -5,7 +5,7 @@
 @use "components/texts";
 @use "components/structures";
 
-@use "layouts/nav";
-@use "layouts/footer";
-@use "layouts/dynamic-background";
-@use "layouts/timeline";
+@use "features/navigation/nav";
+@use "components/footer";
+@use "features/fluid/background";
+@use "features/resume/timeline";

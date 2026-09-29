@@ -1,7 +1,7 @@
-@use '../base/variables' as *;
-@use '../utils/breakpoints' as breakpoint;
-@use '../components/structures' as struc;
-@use '../components/decorations' as decor;
+@use '../../base/variables' as *;
+@use '../../utils/breakpoints' as breakpoint;
+@use '../../components/structures' as struc;
+@use '../../utils/decorations' as decor;
 
 @use 'style';
 @use 'display';

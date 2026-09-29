@@ -6,12 +6,12 @@
 @use 'components/texts';
 @use 'components/structures';
 
-@use 'layouts/nav';
-@use 'layouts/footer';
-@use 'layouts/dynamic-background';
-@use 'layouts/panel';
-@use 'layouts/plank';
-@use 'layouts/card';
-@use 'layouts/embed';
+@use 'features/navigation/nav';
+@use 'components/footer';
+@use 'features/fluid/background';
+@use 'components/panel';
+@use 'components/plank';
+@use 'components/card';
+@use 'components/embed';
 
-@use 'synth-modules/synth';
+@use 'features/synth/synth';

@@ -1,4 +1,4 @@
-import breakpoint from './components/breakpoint.js';
+import breakpoint from '../utils/breakpoint.js';
 
 export default class Nav {
 	constructor() {
@@ -9,6 +9,8 @@ export default class Nav {
 		this.navRect = document.querySelector('.nav__rect');
 		this.homeButton = document.querySelector('#home-button');
 		this.homeButtonRect = document.querySelector('.home__rect');
+		this.themeButton = document.querySelector('#theme-toggle');
+		this.themeButtonRect = document.querySelector('.theme__rect');
 		this.navMenu = document.querySelector('.nav__menu');
 		this.isHomeLanding = Boolean(this.homeButton && this.homeButton.classList.contains('nav__link--default'));
 		this.activeTarget = this.navLinkDefault;
@@ -48,6 +50,11 @@ export default class Nav {
 			}
 		});
 
+		if (this.themeButton && this.themeButtonRect) {
+			this.themeButton.addEventListener('pointerenter', () => this.setActiveTarget(this.themeButton));
+			this.themeButton.addEventListener('pointerleave', () => this.setActiveTarget(this.navLinkDefault));
+		}
+
 		if (this.navMenu) {
 			this.navMenu.addEventListener('click', () => {
 				this.navMenu.classList.toggle('nav__menu--is-open');
@@ -64,6 +71,7 @@ export default class Nav {
 		this.updateRects();
 		this.navRect.classList.add('nav__rect--is-visible');
 		this.homeButtonRect.classList.add('home__rect--is-visible');
+		this.themeButtonRect?.classList.add('theme__rect--is-visible');
 		this.observeLayout();
 
 		if (!this.isHomeLanding) {
@@ -88,6 +96,9 @@ export default class Nav {
 		const target = this.activeTarget || this.navLinkDefault;
 		this.setRectToElement(this.navRect, this.navList, target);
 		this.setRectToElement(this.homeButtonRect, this.homeButton, target);
+		if (this.themeButton && this.themeButtonRect) {
+			this.setRectToElement(this.themeButtonRect, this.themeButton, target);
+		}
 	}
 
 	setRectToElement(rect, reference, target) {
@@ -108,6 +119,7 @@ export default class Nav {
 		this.resizeObserver = new ResizeObserver(() => this.updateRects());
 		this.resizeObserver.observe(this.navList);
 		this.resizeObserver.observe(this.homeButton);
+		if (this.themeButton) this.resizeObserver.observe(this.themeButton);
 	}
 
 	updateMobileMenuHeight() {

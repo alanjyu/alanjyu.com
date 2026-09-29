@@ -1,13 +1,9 @@
-// import Cursor from './components/cursor';
-import Theme from './_theme.js';
-import Nav from './_nav.js';
-import Hover from './_hover.js';
-import Gallery from './_gallery.js';
-import Synth from './_synth.js';
-import Tooltip from './_tooltip.js';
-import Sticky from './_sticky.js';
-import Parallax from './_parallax.js';
-import FluidBackground from './_fluid.js';
+import Theme from './components/theme.js';
+import Nav from './components/nav.js';
+import Hover from './components/hover.js';
+import Tooltip from './components/tooltip.js';
+import Sticky from './components/sticky.js';
+import Parallax from './components/parallax.js';
 
 
 const components = [
@@ -24,39 +20,48 @@ const components = [
 		selector: 'html'
 	},
 	{
-		class: Gallery,
-		selector: '.gallery'
+		load: () => import('./components/gallery.js'),
+		selector: '.gallery',
+		once: true
 	},
 	{
-		class: Synth,
+		load: () => import('./components/synth/synth.js'),
 		selector: '.synth'
 	},
 	{
 		class: Tooltip,
-		selector: '.tooltip'
+		selector: '.tooltip',
+		once: true
 	},
   {
     class: Sticky,
-    selector: '.sticky'
+		selector: '.sticky',
+		once: true
 	},
 	{
 		class: Parallax,
 		selector: '.parallax'
 	},
 	{
-		class: FluidBackground,
+		load: () => import('./components/fluid/fluid.js'),
 		selector: '.dynamic-background'
   }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-	// Checks if the selector is loaded.
-	// If so, then excecute the corresponding scripts and options
-	components.forEach(component => {
-		if (document.querySelector(component.selector) !== null) {
-			document.querySelectorAll(component.selector).forEach(
-				element => new component.class(element, component.options)
-			);
+	components.forEach(async component => {
+		const elements = document.querySelectorAll(component.selector);
+		if (!elements.length) return;
+
+		try {
+			const Component = component.class || (await component.load()).default;
+			if (component.once) {
+				new Component(elements[0], component.options);
+			} else {
+				elements.forEach(element => new Component(element, component.options));
+			}
+		} catch (error) {
+			console.error(`Could not initialize ${component.selector}.`, error);
 		}
 	});
 });
