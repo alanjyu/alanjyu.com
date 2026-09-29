@@ -1,0 +1,2 @@
+(0,globalThis.parcelRequire4ed9.register)("8vkSn",function(e,o){Object.defineProperty(e.exports,"__esModule",{value:!0,configurable:!0}),Object.defineProperty(e.exports,"default",{get:()=>t,set:void 0,enumerable:!0,configurable:!0});class t{constructor(){this.galleryPhotos=document.querySelectorAll(".gallery__photo > img"),this.galleryPhotos.forEach(e=>{let o=e.dataset.objectPosition;console.log(o),o&&e.style.setProperty("--object-position",o)})}}});
+//# sourceMappingURL=gallery.a0e54676.js.map
