@@ -13,7 +13,6 @@ const GRAVITY = 9.81;
 const THERMAL_EXPANSION = 0.8;
 const REFERENCE_TEMPERATURE = 0.5;
 const INITIAL_ROLL_SPEED = 2.5;
-const INITIAL_NOISE_FREQUENCY = 0.035;
 const VIEW_SCALE = 1.12;
 const SCROLL_ANOMALY_DISTANCE = 100;
 const SCROLL_ANOMALY_RADIUS = 8;
@@ -67,16 +66,10 @@ const fractalNoise = (x, y, seed) => {
 	return value / amplitudeSum;
 };
 
-const sample = (field, x, y) => {
-	const left = Math.floor(x);
-	const top = Math.floor(y);
-	const right = Math.min(left + 1, GRID_WIDTH - 1);
-	const bottom = Math.min(top + 1, GRID_HEIGHT - 1);
-	const horizontal = x - left;
-	const vertical = y - top;
-	const topValue = field[top * GRID_WIDTH + left] * (1 - horizontal) + field[top * GRID_WIDTH + right] * horizontal;
-	const bottomValue = field[bottom * GRID_WIDTH + left] * (1 - horizontal) + field[bottom * GRID_WIDTH + right] * horizontal;
-
+// Reuse the same departure coordinates and interpolation weights for all fields.
+const sample = (field, topLeft, topRight, bottomLeft, bottomRight, horizontal, vertical) => {
+	const topValue = field[topLeft] * (1 - horizontal) + field[topRight] * horizontal;
+	const bottomValue = field[bottomLeft] * (1 - horizontal) + field[bottomRight] * horizontal;
 	return topValue * (1 - vertical) + bottomValue * vertical;
 };
 
@@ -108,6 +101,9 @@ export default class NavierStokesFluid {
 		}
 		this.element.append(this.canvas);
 		this.image = this.context.createImageData(GRID_WIDTH, GRID_HEIGHT);
+		for (let pixel = 3; pixel < this.image.data.length; pixel += 4) {
+			this.image.data[pixel] = 145;
+		}
 		this.randomizeInitialState();
 		this.frame = null;
 		this.lastTime = 0;
@@ -126,30 +122,55 @@ export default class NavierStokesFluid {
 	}
 
 	randomizeInitialState() {
-		const baseTemperature = 0.05 + Math.random() * 0.15;
-		const verticalGradient = 0.9 + Math.random() * 0.3;
-		const noiseAmplitude = 0.02 + Math.random() * 0.04;
+		const temperatureBias = (Math.random() - 0.5) * 0.2;
+		const noiseAmplitude = 0.15 + Math.random() * 0.2;
+		const noiseFrequency = 0.02 + Math.random() * 0.06;
 		const noiseSeed = Math.random() * 10000;
 		const rollDirection = Math.random() < 0.5 ? -1 : 1;
-		const plumeCenters = [
-			GRID_WIDTH * (0.2 + Math.random() * 0.2),
-			GRID_WIDTH * (0.6 + Math.random() * 0.2)
-		];
+		const bandAngle = Math.random() * Math.PI;
+		const bandX = Math.cos(bandAngle);
+		const bandY = Math.sin(bandAngle);
+		const bandFrequency = 0.06 + Math.random() * 0.12;
+		const bandPhase = Math.random() * Math.PI * 2;
+		const bandAmplitude = Math.random() < 0.5 ? 0 : 0.1 + Math.random() * 0.15;
+		const firstSign = Math.random() < 0.5 ? -1 : 1;
+		// Alternating signs guarantee both warm and cold anomalies in every start.
+		const anomalies = Array.from({ length: 4 + Math.floor(Math.random() * 6) }, (_, index) => {
+			const angle = Math.random() * Math.PI;
+			return {
+				x: GRID_WIDTH * (0.08 + Math.random() * 0.84),
+				y: GRID_HEIGHT * (0.12 + Math.random() * 0.76),
+				radiusX: 4 + Math.random() * 18,
+				radiusY: 3 + Math.random() * 12,
+				cosine: Math.cos(angle),
+				sine: Math.sin(angle),
+				strength: firstSign * (index % 2 === 0 ? 1 : -1) * (0.25 + Math.random() * 0.3)
+			};
+		});
 		for (let y = 0; y < GRID_HEIGHT; y += 1) {
 			const verticalPosition = y / (GRID_HEIGHT - 1);
+			// Fade disturbances smoothly into the fixed-temperature top and bottom.
+			const boundaryEnvelope = Math.sin(Math.PI * verticalPosition);
 			for (let x = 0; x < GRID_WIDTH; x += 1) {
 				const index = y * GRID_WIDTH + x;
-				const plume = plumeCenters.reduce((strength, center) => strength + Math.exp(-((x - center) ** 2) / 30), 0);
+				let anomaly = 0;
+				for (const patch of anomalies) {
+					const dx = x - patch.x;
+					const dy = y - patch.y;
+					const along = (dx * patch.cosine + dy * patch.sine) / patch.radiusX;
+					const across = (-dx * patch.sine + dy * patch.cosine) / patch.radiusY;
+					anomaly += patch.strength * Math.exp(-(along * along + across * across));
+				}
 				const streamX = Math.PI * x / (GRID_WIDTH - 1);
 				const streamY = Math.PI * y / (GRID_HEIGHT - 1);
-				const coherentNoise = fractalNoise(x * INITIAL_NOISE_FREQUENCY, y * INITIAL_NOISE_FREQUENCY, noiseSeed);
-				const randomNoise = (Math.random() - 0.5) * noiseAmplitude;
+				const coherentNoise = fractalNoise(x * noiseFrequency, y * noiseFrequency, noiseSeed);
+				const bands = Math.sin((x * bandX + y * bandY) * bandFrequency + bandPhase + coherentNoise) * bandAmplitude;
 				this.temperature[index] = clamp(
-					baseTemperature + verticalPosition * verticalGradient + plume * 0.1 + coherentNoise * noiseAmplitude + randomNoise,
+					verticalPosition + boundaryEnvelope * (temperatureBias + anomaly + bands + coherentNoise * noiseAmplitude),
 					0,
 					1
 				);
-        this.velocityX[index] = rollDirection * INITIAL_ROLL_SPEED * Math.sin(streamX) * Math.cos(streamY);
+				this.velocityX[index] = rollDirection * INITIAL_ROLL_SPEED * Math.sin(streamX) * Math.cos(streamY);
 				this.velocityY[index] = -rollDirection * INITIAL_ROLL_SPEED * Math.cos(streamX) * Math.sin(streamY);
 			}
 		}
@@ -246,9 +267,7 @@ export default class NavierStokesFluid {
 			const densityDifference = THERMAL_EXPANSION * (this.temperature[index] - REFERENCE_TEMPERATURE);
 			this.velocityY[index] -= GRAVITY * densityDifference * timeStep;
 		}
-		this.advect(this.velocityX, this.nextVelocityX, this.velocityX, this.velocityY, timeStep);
-		this.advect(this.velocityY, this.nextVelocityY, this.velocityX, this.velocityY, timeStep);
-		this.advect(this.temperature, this.nextTemperature, this.velocityX, this.velocityY, timeStep);
+		this.advect(timeStep);
 		// Diffusion reads this buffer, so it needs the same thermal walls as the live field.
 		this.applyThermalBoundaries(this.nextTemperature);
 		this.diffuse(this.nextVelocityX, this.velocityX, VISCOSITY, timeStep);
@@ -258,13 +277,25 @@ export default class NavierStokesFluid {
 		this.applyBoundaries();
 	}
 
-	advect(source, destination, velocityX, velocityY, delta) {
+	advect(delta) {
+		const { velocityX, velocityY, temperature, nextVelocityX, nextVelocityY, nextTemperature } = this;
 		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
+			const row = y * GRID_WIDTH;
 			for (let x = 1; x < GRID_WIDTH - 1; x += 1) {
-				const index = y * GRID_WIDTH + x;
+				const index = row + x;
 				const previousX = clamp(x - velocityX[index] * delta, 1, GRID_WIDTH - 2);
 				const previousY = clamp(y - velocityY[index] * delta, 1, GRID_HEIGHT - 2);
-				destination[index] = sample(source, previousX, previousY);
+				const left = Math.floor(previousX);
+				const top = Math.floor(previousY);
+				const topLeft = top * GRID_WIDTH + left;
+				const topRight = topLeft + 1;
+				const bottomLeft = topLeft + GRID_WIDTH;
+				const bottomRight = bottomLeft + 1;
+				const horizontal = previousX - left;
+				const vertical = previousY - top;
+				nextVelocityX[index] = sample(velocityX, topLeft, topRight, bottomLeft, bottomRight, horizontal, vertical);
+				nextVelocityY[index] = sample(velocityY, topLeft, topRight, bottomLeft, bottomRight, horizontal, vertical);
+				nextTemperature[index] = sample(temperature, topLeft, topRight, bottomLeft, bottomRight, horizontal, vertical);
 			}
 		}
 	}
@@ -281,31 +312,37 @@ export default class NavierStokesFluid {
 	}
 
 	projectVelocity() {
+		const { velocityX, velocityY, divergence } = this;
+		let { pressure, nextPressure } = this;
 		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
 			for (let x = 1; x < GRID_WIDTH - 1; x += 1) {
 				const index = y * GRID_WIDTH + x;
-				this.divergence[index] = -0.5 * (this.velocityX[index + 1] - this.velocityX[index - 1] + this.velocityY[index + GRID_WIDTH] - this.velocityY[index - GRID_WIDTH]);
-				this.pressure[index] = 0;
+				divergence[index] = -0.5 * (velocityX[index + 1] - velocityX[index - 1] + velocityY[index + GRID_WIDTH] - velocityY[index - GRID_WIDTH]);
+				pressure[index] = 0;
 			}
 		}
 		for (let iteration = 0; iteration < SOLVER_ITERATIONS; iteration += 1) {
-			this.applyPressureBoundaries();
+			this.applyPressureBoundaries(pressure);
 			for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
 				for (let x = 1; x < GRID_WIDTH - 1; x += 1) {
 					const index = y * GRID_WIDTH + x;
-					this.nextPressure[index] = (this.divergence[index] + this.pressure[index - 1] + this.pressure[index + 1] + this.pressure[index - GRID_WIDTH] + this.pressure[index + GRID_WIDTH]) * 0.25;
+					nextPressure[index] = (divergence[index] + pressure[index - 1] + pressure[index + 1] + pressure[index - GRID_WIDTH] + pressure[index + GRID_WIDTH]) * 0.25;
 				}
 			}
-			[this.pressure, this.nextPressure] = [this.nextPressure, this.pressure];
+			const previousPressure = pressure;
+			pressure = nextPressure;
+			nextPressure = previousPressure;
 		}
 		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
 			for (let x = 1; x < GRID_WIDTH - 1; x += 1) {
 				const index = y * GRID_WIDTH + x;
-				this.velocityX[index] -= 0.5 * (this.pressure[index + 1] - this.pressure[index - 1]);
-				this.velocityY[index] -= 0.5 * (this.pressure[index + GRID_WIDTH] - this.pressure[index - GRID_WIDTH]);
+				velocityX[index] -= 0.5 * (pressure[index + 1] - pressure[index - 1]);
+				velocityY[index] -= 0.5 * (pressure[index + GRID_WIDTH] - pressure[index - GRID_WIDTH]);
 			}
 		}
-		this.applyPressureBoundaries();
+		this.applyPressureBoundaries(pressure);
+		this.pressure = pressure;
+		this.nextPressure = nextPressure;
 		this.applyNoPenetrationVelocity();
 	}
 
@@ -350,16 +387,16 @@ export default class NavierStokesFluid {
 		}
 	}
 
-	applyPressureBoundaries() {
+	applyPressureBoundaries(pressure = this.pressure) {
 		for (let y = 0; y < GRID_HEIGHT; y += 1) {
 			const left = y * GRID_WIDTH;
 			const right = left + GRID_WIDTH - 1;
-			this.pressure[left] = this.pressure[left + 1];
-			this.pressure[right] = this.pressure[right - 1];
+			pressure[left] = pressure[left + 1];
+			pressure[right] = pressure[right - 1];
 		}
 		for (let x = 0; x < GRID_WIDTH; x += 1) {
-			this.pressure[x] = this.pressure[x + GRID_WIDTH];
-			this.pressure[(GRID_HEIGHT - 1) * GRID_WIDTH + x] = this.pressure[(GRID_HEIGHT - 2) * GRID_WIDTH + x];
+			pressure[x] = pressure[x + GRID_WIDTH];
+			pressure[(GRID_HEIGHT - 1) * GRID_WIDTH + x] = pressure[(GRID_HEIGHT - 2) * GRID_WIDTH + x];
 		}
 	}
 
@@ -378,17 +415,18 @@ export default class NavierStokesFluid {
 		}
 	}
 	render() {
+		const { temperature } = this;
+		const pixels = this.image.data;
 		for (let index = 0; index < this.size; index += 1) {
-			const position = clamp(this.temperature[index], 0, 1) * (VIRIDIS_STOPS.length - 1);
+			const position = clamp(temperature[index], 0, 1) * (VIRIDIS_STOPS.length - 1);
 			const lower = Math.floor(position);
-			const upper = Math.min(lower + 1, VIRIDIS_STOPS.length - 1);
+			const lowerColor = VIRIDIS_STOPS[lower];
+			const upperColor = VIRIDIS_STOPS[Math.min(lower + 1, VIRIDIS_STOPS.length - 1)];
 			const amount = position - lower;
 			const pixel = index * 4;
-			for (let channel = 0; channel < 3; channel += 1) {
-				const value = VIRIDIS_STOPS[lower][channel];
-				this.image.data[pixel + channel] = Math.round(value + (VIRIDIS_STOPS[upper][channel] - value) * amount);
-			}
-			this.image.data[pixel + 3] = 145;
+			pixels[pixel] = Math.round(lowerColor[0] + (upperColor[0] - lowerColor[0]) * amount);
+			pixels[pixel + 1] = Math.round(lowerColor[1] + (upperColor[1] - lowerColor[1]) * amount);
+			pixels[pixel + 2] = Math.round(lowerColor[2] + (upperColor[2] - lowerColor[2]) * amount);
 		}
 		this.context.putImageData(this.image, 0, 0);
 	}

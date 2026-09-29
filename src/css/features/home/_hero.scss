@@ -45,7 +45,7 @@
     padding: $gap-small $gap-medium;
     border: 1px solid var(--border-color-alpha);
     border-radius: $border-radius-large;
-    margin-top: -200px;
+    margin-top: $gap-medium;
     width: 95%;
     overflow: hidden;
     @include decor.acrylic;
