@@ -32,7 +32,7 @@
   "scripts": {
     "dev": "parcel serve --target build",
     "build": "parcel build --target build",
-    "publish": "parcel build --target build --public-url https://alanjyu.com"
+    "publish": "parcel build --target build --public-url https://alanjyu.com --no-cache"
   },
   "repository": {
     "type": "git",

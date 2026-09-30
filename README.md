@@ -27,7 +27,7 @@ The following three commands, stored in [package.json](https://github.com/alanjy
 
 - `npm run dev` is useful for development. It serves live page on localhost.
 - `npm run build` is used for debugging and local testing. It complies the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) with local hyperlink references.
-- `npm run publish` is for the final release. It complies the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) but with absolute hyperlink references ("https://alanjyu.com/...").
+- `npm run publish` is for the final release. It compiles the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) with absolute hyperlink references ("https://alanjyu.com/..."). It bypasses Parcel's cache so missing output pages are regenerated.
 
 ## License
 
