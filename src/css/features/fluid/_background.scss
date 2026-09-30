@@ -73,39 +73,42 @@
   }
 }
 
-.fluid-background-surface {
-  // Clip scroll compensation to the document so it cannot extend scrollHeight.
-  position: absolute;
+.dynamic-background-page {
+  position: fixed;
   inset: 0;
   z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.dynamic-background-page {
-  // Overscan covers the content Safari reveals beneath its translucent bars.
-  position: absolute;
-  inset: -15vh 0 auto;
-  height: 130vh;
-  top: -15lvh;
-  height: 130lvh;
   min-height: 100vh;
   padding: 0;
   pointer-events: none;
   display: block;
-  transform: translateY(var(--fluid-scroll-y, 0px));
+
+  // Fade only the backdrop into the page color, in both light and dark themes.
+  --fluid-edge-fade: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 0.5) 8%,
+    #000 18%,
+    #000 82%,
+    rgb(0 0 0 / 0.5) 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: var(--fluid-edge-fade);
+  mask-image: var(--fluid-edge-fade);
+
+  @include breakpoint.respond-to("landscape") {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
-.fluid-background-surface ~ main,
-.fluid-background-surface ~ footer {
+.dynamic-background-page ~ main,
+.dynamic-background-page ~ footer {
   position: relative;
   z-index: 1;
 }
 
-// The surface follows the whole document; the animation stays viewport-sized.
+// Keep content clear of the safe areas while the background fills the viewport.
 .fluid-page {
-  position: relative;
-  height: auto;
   padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
     env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
 
