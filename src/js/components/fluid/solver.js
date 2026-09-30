@@ -1,8 +1,7 @@
 import Viewport from '../../utils/viewport.js';
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-const GRID_WIDTH = 96;
-const GRID_HEIGHT = 64;
+const GRID_CELL_BUDGET = 96 * 64;
 const SOLVER_ITERATIONS = 50;
 const TIME_STEP = 0.06;
 const FRAME_INTERVAL = 1 / 60;
@@ -80,19 +79,7 @@ export default class NavierStokesFluid {
 		}
 
 		this.element = element;
-		this.size = GRID_WIDTH * GRID_HEIGHT;
-		this.temperature = new Float32Array(this.size);
-		this.velocityX = new Float32Array(this.size);
-		this.velocityY = new Float32Array(this.size);
-		this.pressure = new Float32Array(this.size);
-		this.divergence = new Float32Array(this.size);
-		this.nextTemperature = new Float32Array(this.size);
-		this.nextVelocityX = new Float32Array(this.size);
-		this.nextVelocityY = new Float32Array(this.size);
-		this.nextPressure = new Float32Array(this.size);
 		this.canvas = document.createElement('canvas');
-		this.canvas.width = GRID_WIDTH;
-		this.canvas.height = GRID_HEIGHT;
 		this.canvas.setAttribute('aria-hidden', 'true');
 		this.canvas.style.cssText = `position:absolute;inset:0;width:100%;height:100%;transform:scale(${VIEW_SCALE});transform-origin:center;pointer-events:none;`;
 		this.context = this.canvas.getContext('2d', { alpha: true });
@@ -100,11 +87,8 @@ export default class NavierStokesFluid {
 			throw new Error('A 2D canvas context is unavailable.');
 		}
 		this.element.append(this.canvas);
-		this.image = this.context.createImageData(GRID_WIDTH, GRID_HEIGHT);
-		for (let pixel = 3; pixel < this.image.data.length; pixel += 4) {
-			this.image.data[pixel] = 145;
-		}
-		this.randomizeInitialState();
+		const bounds = this.element.getBoundingClientRect();
+		this.resizeGrid(bounds.width || 96, bounds.height || 64);
 		this.frame = null;
 		this.lastTime = 0;
 		this.accumulatedTime = 0;
@@ -119,9 +103,61 @@ export default class NavierStokesFluid {
 		document.addEventListener('visibilitychange', this.onVisibilityChange, { passive: true });
 		window.addEventListener('scroll', this.onScroll, { passive: true });
 		this.render();
+		if (typeof ResizeObserver !== 'undefined') {
+			this.resizeObserver = new ResizeObserver(([entry]) => {
+				const { width, height } = entry.contentRect;
+				if (width > 0 && height > 0 && this.resizeGrid(width, height)) this.render();
+			});
+			this.resizeObserver.observe(this.element);
+		}
+	}
+
+	resizeGrid(displayWidth, displayHeight) {
+		// Match the canvas proportions without increasing per-frame solver work.
+		const aspect = clamp(displayWidth / displayHeight, 0.25, 4);
+		const width = Math.round(Math.sqrt(GRID_CELL_BUDGET * aspect));
+		const height = Math.floor(GRID_CELL_BUDGET / width);
+		if (width === this.width && height === this.height) return false;
+		const oldWidth = this.width;
+		const oldHeight = this.height;
+		const oldFields = [this.temperature, this.velocityX, this.velocityY];
+		this.width = width;
+		this.height = height;
+		this.size = width * height;
+		for (const name of ['temperature', 'velocityX', 'velocityY', 'pressure', 'divergence',
+			'nextTemperature', 'nextVelocityX', 'nextVelocityY', 'nextPressure']) {
+			this[name] = new Float32Array(this.size);
+		}
+		this.canvas.width = width;
+		this.canvas.height = height;
+		this.image = this.context.createImageData(width, height);
+		for (let pixel = 3; pixel < this.image.data.length; pixel += 4) this.image.data[pixel] = 145;
+		if (oldWidth) {
+			// Preserve the evolving flow on rotation/resize instead of randomizing it.
+			const fields = [this.temperature, this.velocityX, this.velocityY];
+			const scales = [1, (width - 1) / (oldWidth - 1), (height - 1) / (oldHeight - 1)];
+			for (let y = 0; y < height; y += 1) {
+				const previousY = y * (oldHeight - 1) / (height - 1);
+				const top = Math.min(Math.floor(previousY), oldHeight - 2);
+				for (let x = 0; x < width; x += 1) {
+					const previousX = x * (oldWidth - 1) / (width - 1);
+					const left = Math.min(Math.floor(previousX), oldWidth - 2);
+					const topLeft = top * oldWidth + left;
+					for (let field = 0; field < fields.length; field += 1) {
+						fields[field][y * width + x] = sample(oldFields[field], topLeft, topLeft + 1,
+							topLeft + oldWidth, topLeft + oldWidth + 1, previousX - left, previousY - top) * scales[field];
+					}
+				}
+			}
+			this.applyBoundaries();
+		} else {
+			this.randomizeInitialState();
+		}
+		return true;
 	}
 
 	randomizeInitialState() {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
 		const temperatureBias = (Math.random() - 0.5) * 0.2;
 		const noiseAmplitude = 0.15 + Math.random() * 0.2;
 		const noiseFrequency = 0.02 + Math.random() * 0.06;
@@ -204,6 +240,7 @@ export default class NavierStokesFluid {
 	}
 
 	addScrollAnomalies(direction) {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
 		// Launch warm plumes from the bottom or cold plumes from the top.
 		// Keep the fixed-temperature boundary cells untouched.
 		const patches = Array.from({ length: 2 }, () => ({
@@ -278,6 +315,7 @@ export default class NavierStokesFluid {
 	}
 
 	advect(delta) {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
 		const { velocityX, velocityY, temperature, nextVelocityX, nextVelocityY, nextTemperature } = this;
 		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
 			const row = y * GRID_WIDTH;
@@ -301,6 +339,7 @@ export default class NavierStokesFluid {
 	}
 
 	diffuse(source, destination, coefficient, delta) {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
 		const amount = coefficient * delta;
 		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
 			for (let x = 1; x < GRID_WIDTH - 1; x += 1) {
@@ -312,6 +351,7 @@ export default class NavierStokesFluid {
 	}
 
 	projectVelocity() {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
 		const { velocityX, velocityY, divergence } = this;
 		let { pressure, nextPressure } = this;
 		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
@@ -347,6 +387,7 @@ export default class NavierStokesFluid {
 	}
 
   applyBoundaries() {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
     for (let y = 0; y < GRID_HEIGHT; y += 1) {
       const left = y * GRID_WIDTH;
       const right = left + GRID_WIDTH - 1;
@@ -374,6 +415,7 @@ export default class NavierStokesFluid {
   }
 
 	applyThermalBoundaries(temperature) {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
 		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
 			const left = y * GRID_WIDTH;
 			const right = left + GRID_WIDTH - 1;
@@ -388,6 +430,7 @@ export default class NavierStokesFluid {
 	}
 
 	applyPressureBoundaries(pressure = this.pressure) {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
 		for (let y = 0; y < GRID_HEIGHT; y += 1) {
 			const left = y * GRID_WIDTH;
 			const right = left + GRID_WIDTH - 1;
@@ -401,6 +444,7 @@ export default class NavierStokesFluid {
 	}
 
 	applyNoPenetrationVelocity() {
+		const { width: GRID_WIDTH, height: GRID_HEIGHT } = this;
 		for (let y = 1; y < GRID_HEIGHT - 1; y += 1) {
 			const left = y * GRID_WIDTH + 1;
 			const right = y * GRID_WIDTH + GRID_WIDTH - 2;
@@ -433,6 +477,7 @@ export default class NavierStokesFluid {
 
 	destroy() {
 		if (this.frame !== null) cancelAnimationFrame(this.frame);
+		this.resizeObserver?.disconnect();
 		this.viewport.destroy();
 		document.removeEventListener('visibilitychange', this.onVisibilityChange);
 		window.removeEventListener('scroll', this.onScroll);

@@ -88,10 +88,22 @@
     transparent 0%,
     rgb(0 0 0 / 0.5) 8%,
     #000 18%,
-    #000 82%,
-    rgb(0 0 0 / 0.5) 92%,
-    transparent 100%
+    #000 60%,
+    rgb(0 0 0 / 0.5) 75%,
+    transparent 90%
   );
+  // Finish the fade within the viewport with the browser controls expanded.
+  @supports (height: 100svh) {
+    --fluid-edge-fade: linear-gradient(
+      to bottom,
+      transparent 0,
+      rgb(0 0 0 / 0.5) 8svh,
+      #000 18svh,
+      #000 60svh,
+      rgb(0 0 0 / 0.5) 75svh,
+      transparent 90svh
+    );
+  }
   -webkit-mask-image: var(--fluid-edge-fade);
   mask-image: var(--fluid-edge-fade);
 
