@@ -1,5 +1,6 @@
 @use "../../base/variables" as *;
 @use "../../utils/decorations" as decor;
+@use "../../utils/breakpoints" as breakpoint;
 
 @keyframes film-grain {
   0%,
@@ -86,4 +87,19 @@
 .dynamic-background-page ~ footer {
   position: relative;
   z-index: 1;
+}
+
+// Let the fixed background reach the screen edges while keeping content safe.
+.fluid-page {
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+    env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+
+  > .nav {
+    top: calc(24px + env(safe-area-inset-top, 0px));
+    left: calc((100% + env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)) / 2);
+
+    @include breakpoint.respond-to("landscape") {
+      top: calc(120px + env(safe-area-inset-top, 0px));
+    }
+  }
 }
