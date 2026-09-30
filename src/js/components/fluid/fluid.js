@@ -1,5 +1,6 @@
 import Viewport from '../../utils/viewport.js';
 import NavierStokesFluid from './solver.js';
+import FluidBackdrop from './backdrop.js';
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const ELEMENT_EXTENT = 100;
@@ -206,6 +207,9 @@ class LegacyFluidBackground {
 export default class FluidBackground {
 	constructor(element) {
 		this.simulation = null;
+		this.backdrop = element.classList.contains('dynamic-background-page')
+			? new FluidBackdrop(element)
+			: null;
 
 		try {
 			this.simulation = new NavierStokesFluid(element);
@@ -217,5 +221,6 @@ export default class FluidBackground {
 
 	destroy() {
 		this.simulation?.destroy();
+		this.backdrop?.destroy();
 	}
 }
