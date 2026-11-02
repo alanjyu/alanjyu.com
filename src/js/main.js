@@ -29,6 +29,10 @@ const components = [
 		selector: '.synth'
 	},
 	{
+		load: () => import('./components/clef/clef.js'),
+		selector: '[data-clef-trainer]'
+	},
+	{
 		class: Tooltip,
 		selector: '.tooltip',
 		once: true

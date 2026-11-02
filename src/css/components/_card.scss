@@ -4,6 +4,17 @@
 @use "../utils/decorations" as decor;
 @use "../utils/breakpoints" as breakpoint;
 
+.card,
+.audiocard,
+.stackcard {
+  // Cycle all card types through the same multicolor palette.
+  @for $i from 1 through list.length($card-gradients) {
+    &:nth-of-type(#{list.length($card-gradients)}n + #{$i}) {
+      --card-gradient: #{list.nth($card-gradients, $i)};
+    }
+  }
+}
+
 .card {
   position: relative;
   display: flex;
@@ -14,13 +25,6 @@
   width: 95%;
   margin: $gap-small 0;
   @include decor.glass;
-
-  // dynamically cycle through all gradients in $card-gradients
-  @for $i from 1 through list.length($card-gradients) {
-    &:nth-of-type(#{list.length($card-gradients)}n + #{$i}) {
-      --card-gradient: #{list.nth($card-gradients, $i)};
-    }
-  }
 
   @include breakpoint.respond-to("landscape") {
     flex-direction: row;
@@ -90,6 +94,7 @@
     font-weight: 500;
     border: 1px solid var(--border-color-alpha);
     background: var(--shade-background);
+    box-shadow: var(--rect-glass-shadow);
     overflow: hidden;
     @include decor.acrylic;
   }
@@ -125,6 +130,7 @@
 
   &__content {
     display: flex;
+    background: var(--card-gradient);
     flex-direction: column;
     align-items: start;
     justify-content: center;
@@ -165,6 +171,7 @@
     padding: $gap-tiny;
     border-radius: $border-radius-huge;
     background: var(--shade-background-alpha); 
+    box-shadow: var(--rect-glass-shadow);
     border: 1px solid var(--border-color-alpha);
     @include decor.acrylic;
 
@@ -187,6 +194,7 @@
   gap: $gap-small;
   padding: $gap-medium;
   @include decor.glass;
+  background: var(--card-gradient);
 
   @include breakpoint.respond-to("landscape") {
     grid-template-columns: repeat(3, 1fr);

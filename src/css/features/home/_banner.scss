@@ -1,36 +1,44 @@
-@use '../../base/variables' as *;
-@use '../../utils/decorations' as decor;
-@use '../../components/structures' as struc;
-@use '../../utils/breakpoints' as breakpoint;
+@use "../../base/variables" as *;
+@use "../../utils/breakpoints" as breakpoint;
+@use "feature";
+@use "../../utils/decorations" as decor;
 
 .banner {
-  align-items: center;
-  gap: $gap-large;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  @include decor.acrylic;
-  
-  @include breakpoint.respond-to("landscape") {
-    width: 100%;
-    height: 100vh;
-  }
+  @include feature.layout;
 
   &__figure {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    
-    img {
-      @include struc.fullframe;
-    }
+    @include feature.figure;
   }
 
   &__content {
-    width: 100%;
+    @include feature.content;
+  }
 
-    h2 {
-      font-size: $h1-font-size;
+  @include breakpoint.respond-to("landscape") {
+    &--reverse .banner__content {
+      align-self: flex-start;
+      margin: 0 0 0 var(--feature-content-inset, clamp(24px, 15vw, 15rem));
+    }
+  }
+
+  &__links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $gap-small $gap-medium;
+
+    a {
+      display: block;
+      width: min(250px, 100%);
+      padding: $gap-small $gap-medium;
+      border: 1px solid var(--border-color-alpha);
+      border-radius: $border-radius-huge;
+      background: var(--shade-color-alpha);
+      box-shadow: var(--rect-glass-shadow);
+      text-align: center;
+      text-decoration: none;
+      font-weight: 500;
+      overflow: hidden;
+      @include decor.acrylic;
     }
   }
 }

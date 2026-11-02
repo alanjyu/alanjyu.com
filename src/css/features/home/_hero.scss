@@ -1,77 +1,22 @@
-@use "../../base/variables" as *;
-@use "../../utils/decorations" as decor;
-@use "../../components/structures" as struc;
+@use "feature";
 @use "../../utils/breakpoints" as breakpoint;
-@use "sass:list";
 
 .hero {
-  min-height: 600px;
-  width: 100%;
-  padding: 0;
-  align-items: center;
-
-  @include breakpoint.respond-to("landscape") {
-    height: 100vh;
-    flex-direction: row;
-  }
+  @include feature.layout;
 
   &__background {
-    position: relative;
-    width: 100%;
-    min-height: 90vh;
-    pointer-events: none;
-
-    @include breakpoint.respond-to("landscape") {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
+    @include feature.figure;
 
     img {
-      @include struc.fullframe;
       object-position: 17.5% center;
 
       @include breakpoint.respond-to("landscape") {
         object-position: center;
       }
     }
-
   }
 
   &__content {
-    position: relative;
-    padding: $gap-small $gap-medium;
-    border: 1px solid var(--border-color-alpha);
-    border-radius: $border-radius-large;
-    margin-top: $gap-medium;
-    width: 95%;
-    overflow: hidden;
-    @include decor.acrylic;
-    @include decor.glass;
-
-    @include breakpoint.respond-to("landscape") {
-      margin-top: 0;
-      padding: $gap-medium $gap-large;
-      position: absolute;
-      top: 35%;
-      right: 15%;
-      width: 500px;
-    }
-
-    > h1 {
-      font-size: $h1-font-size;
-      text-align: left;
-    }
-
-    h1,
-    p {
-      margin: $gap-small 0;
-
-      @include breakpoint.respond-to("landscape") {
-        max-width: 500px;
-      }
-    }
+    @include feature.content;
   }
 }

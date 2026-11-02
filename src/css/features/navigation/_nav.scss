@@ -27,6 +27,7 @@
     height: $icon-size;
     @include decor.acrylic;
     @include decor.glass;
+    background-color: var(--shade-color-alpha);
 
     @include breakpoint.respond-to("landscape") {
       display: flex;
@@ -46,6 +47,7 @@
     transition: height $animation-time ease;
     @include decor.acrylic;
     @include decor.glass;
+    background-color: var(--shade-color-alpha);
 
     @include breakpoint.respond-to("landscape") {
       display: none;
@@ -103,6 +105,7 @@
     height: $icon-size;
     @include decor.acrylic;
     @include decor.glass;
+    background-color: var(--shade-color-alpha);
   }
 
   &__rect {

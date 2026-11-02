@@ -1,0 +1,104 @@
+export const LETTERS = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+export const ANSWER_PITCHES = { C: 0, 'B#': 0, 'C#': 1, Db: 1, D: 2, 'D#': 3, Eb: 3, E: 4, Fb: 4, F: 5, 'E#': 5, 'F#': 6, Gb: 6, G: 7, 'G#': 8, Ab: 8, A: 9, 'A#': 10, Bb: 10, B: 11, Cb: 11 };
+export const KEYBOARD_ANSWERS = { z: 'C', x: 'D', c: 'E', v: 'F', b: 'G', n: 'A', m: 'B', s: 'C#', d: 'D#', g: 'F#', h: 'G#', j: 'A#' };
+// Include three ledger lines above and below either staff.
+export const NOTE_STEPS = { min: -6, max: 14 };
+export const MIDDLE_C_STEPS = { treble: -2, bass: 10 };
+
+export function noteStepsForClef(clef, mode) {
+  if (mode !== 'mixed') return NOTE_STEPS;
+  return clef === 'treble'
+    ? { min: MIDDLE_C_STEPS.treble, max: NOTE_STEPS.max }
+    : { min: NOTE_STEPS.min, max: MIDDLE_C_STEPS.bass };
+}
+
+const SEMITONES = [0, 2, 4, 5, 7, 9, 11];
+// Diatonic indices, starting at C0. Bottom lines: E4 (treble), G2 (bass).
+const BOTTOM_LINES = { treble: 30, bass: 18 };
+
+export const staffY = step => 176 - step * 12;
+
+export function createNote(clef, step, accidental = 0) {
+  const index = BOTTOM_LINES[clef] + step;
+  const letterIndex = index % LETTERS.length;
+  const letter = LETTERS[letterIndex];
+  const octave = Math.floor(index / LETTERS.length);
+  const midi = (octave + 1) * 12 + SEMITONES[letterIndex] + accidental;
+  const symbol = accidental === 1 ? '♯' : accidental === -1 ? '♭' : '';
+  return { clef, step, letter, octave, accidental, pitchClass: midi % 12, name: `${letter}${symbol}${octave}`, frequency: 440 * 2 ** ((midi - 69) / 12) };
+}
+
+export const isCorrectAnswer = (note, answer) => Number.isInteger(ANSWER_PITCHES[answer]) && ANSWER_PITCHES[answer] === note.pitchClass;
+
+export function noteForAnswer(notes, answer) {
+  const pitchClass = ANSWER_PITCHES[answer];
+  const matched = notes.find(note => note.pitchClass === pitchClass);
+  if (matched) return matched;
+  const center = notes.reduce((sum, note) => sum + 69 + 12 * Math.log2(note.frequency / 440), 0) / notes.length;
+  const midi = pitchClass + 12 * Math.round((center - pitchClass) / 12);
+  return { pitchClass, frequency: 440 * 2 ** ((midi - 69) / 12) };
+}
+
+export function ledgerSteps(step) {
+  const steps = [];
+  for (let line = -2; line >= step; line -= 2) steps.push(line);
+  for (let line = 10; line <= step; line += 2) steps.push(line);
+  return steps;
+}
+
+export function createChord(root, quality) {
+  const intervals = quality === 'minor' ? [0, 3, 7] : [0, 4, 7];
+  const notes = intervals.map((interval, index) => {
+    const natural = createNote(root.clef, root.step + index * 2);
+    const accidental = (root.pitchClass + interval - natural.pitchClass + 18) % 12 - 6;
+    return Math.abs(accidental) <= 1 ? createNote(root.clef, natural.step, accidental) : null;
+  });
+  // Keep chord spellings within single sharps and flats.
+  if (notes.some(note => !note)) return null;
+  return { clef: root.clef, notes, quality, name: notes.map(note => note.name).join(', ') };
+}
+
+export function createDeck(mode, random = Math.random, includeChords = false) {
+  const clefs = mode === 'mixed' ? ['treble', 'bass'] : [mode];
+  const deck = clefs.flatMap(clef => {
+    const { min, max } = noteStepsForClef(clef, mode);
+    return Array.from({ length: max - min + 1 }, (_, i) => {
+      const note = createNote(clef, min + i);
+      return [note, createNote(clef, note.step, 1), createNote(clef, note.step, -1)];
+    }).flat();
+  });
+  if (includeChords) {
+    const chords = deck.filter(note => note.step + 4 <= noteStepsForClef(note.clef, mode).max)
+      .flatMap(root => ['major', 'minor'].map(quality => createChord(root, quality)))
+      .filter(Boolean);
+    deck.push(...chords);
+  }
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  return deck;
+}
+
+export function describePosition(step) {
+  if (step < 0) return `${Math.abs(step)} staff step${step === -1 ? '' : 's'} below the bottom line`;
+  if (step > 8) return `${step - 8} staff step${step === 9 ? '' : 's'} above the top line`;
+  return step % 2 === 0 ? `line ${step / 2 + 1} from the bottom` : `space ${(step + 1) / 2} from the bottom`;
+}
+
+export function layoutNoteHistory(notes, nextNote = null, includeChords = false) {
+  const sequence = nextNote ? [...notes, nextNote] : notes;
+  const hasChords = includeChords || sequence.some(note => note.notes?.length > 1);
+  const spacing = hasChords ? 128 : 88;
+  const positions = sequence.map((note, index) => ({ note, index, x: (hasChords ? 265 : 205) + index * spacing }));
+  // Align questions across both staves, with a measure boundary to reset accidentals.
+  const barlines = positions.slice(0, -1).map(position => position.x + 27);
+  return {
+    spacing,
+    positions: positions.slice(0, notes.length),
+    preview: nextNote ? positions.at(-1) : null,
+    barlines,
+    width: Math.max(400, (positions.at(-1)?.x || 0) + 80)
+  };
+}
+

@@ -1,0 +1,121 @@
+@use "../../base/variables" as *;
+@use "../../utils/breakpoints" as breakpoint;
+
+.clef-staff {
+  --stats-tab-width: 44px;
+  --staff-paper: #fbf7eb;
+  --staff-paper-shade: #f3eddd;
+  --staff-ink: #2f2b24;
+  --staff-rule: #8a8171;
+  --staff-height: clamp(220px, 44svh, 440px);
+  --history-height: var(--staff-height);
+  margin: 0 auto;
+  width: 100%;
+  min-height: 200px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    url("../img/resources/paper-grain.svg") repeat,
+    linear-gradient(170deg, var(--staff-paper), var(--staff-paper-shade));
+
+  html[data-theme="dark"] & {
+    --staff-paper: #2c2923;
+    --staff-paper-shade: #25221d;
+    --staff-ink: #eee7d8;
+    --staff-rule: #aaa08d;
+  }
+
+  @include breakpoint.respond-to("landscape") {
+    --staff-height: clamp(260px, 44svh, 480px);
+    min-height: 240px;
+  }
+
+  @media (max-height: 740px) {
+    --staff-height: clamp(200px, 40svh, 320px);
+    min-height: 200px;
+  }
+
+  @media (orientation: landscape) and (max-height: 500px) {
+    --staff-height: clamp(144px, 48svh, 200px);
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 144px;
+  }
+
+  &__viewport {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: calc(100% - var(--stats-tab-width));
+    min-width: 0;
+    min-height: 0;
+    height: min(var(--staff-height), 100%);
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    transform: translateY(-50%);
+  }
+
+  [data-staff] {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    color: var(--staff-ink);
+  }
+
+  &__track {
+    transform-origin: 0 0;
+    transform-box: view-box;
+
+    &.is-animating {
+      transition: transform $animation-time ease-out;
+    }
+  }
+
+  &__scroll {
+    position: absolute;
+    inset: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--staff-rule) transparent;
+
+    &:focus-visible {
+      outline: 2px solid var(--staff-ink);
+      outline-offset: -2px;
+    }
+  }
+
+  &__scroll-space {
+    height: 1px;
+    flex-shrink: 0;
+  }
+
+  &__lines {
+    stroke: var(--staff-rule);
+    stroke-width: 1.1;
+    fill: none;
+  }
+
+  &__past {
+    color: var(--clef-history-color);
+  }
+
+  &__preview {
+    opacity: 0.4;
+  }
+
+  &__matched {
+    color: var(--clef-accent);
+  }
+
+  &--history {
+    [data-staff] {
+      height: var(--history-height);
+      max-height: 100%;
+    }
+  }
+}

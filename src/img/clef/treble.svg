@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="glyph" viewBox="0 0 72 180" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M31 159C24 159 22 166 27 171C34 178 46 172 46 160L29 55C26 36 30 15 43 7C58 26 48 44 33 61L17 80C-2 102 9 130 33 132C55 134 67 111 54 95C43 80 23 89 23 105C23 115 32 122 41 119" stroke-width="3.6" />
+  <path d="M17 80C-2 102 9 130 33 132C55 134 67 111 54 95C43 80 23 89 23 105" stroke-width="6.2" />
+  <circle cx="31" cy="159" r="6" fill="currentColor" stroke="none" />
+</svg>

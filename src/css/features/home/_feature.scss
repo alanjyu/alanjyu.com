@@ -1,0 +1,96 @@
+@use "../../base/variables" as *;
+@use "../../utils/decorations" as decor;
+@use "../../components/structures" as struc;
+@use "../../utils/breakpoints" as breakpoint;
+
+@mixin layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  background: var(--background-color);
+
+  @include breakpoint.respond-to("landscape") {
+    min-height: 100vh;
+    min-height: 100svh;
+    justify-content: center;
+    padding: $gap-huge 0;
+  }
+}
+
+@mixin figure {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  flex-shrink: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  @include breakpoint.respond-to("landscape") {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+
+  img {
+    @include struc.fullframe;
+    // 15% overscan per edge leaves a 3% buffer at maximum parallax travel.
+    transform: translateY(clamp(-12%, var(--parallax-y, 0px), 12%)) scale(1.3);
+    transform-origin: center;
+    filter: blur(var(--viewport-blur, 0px));
+    opacity: var(--viewport-opacity, 1);
+
+    html[data-theme="dark"] &[data-theme-dim] {
+      filter: brightness(0.68) contrast(1.02) blur(var(--viewport-blur, 0px));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      --viewport-blur: 0px;
+      --viewport-opacity: 1;
+    }
+  }
+}
+
+@mixin content {
+  // Override --feature-content-* on a section or panel to reuse this sizing.
+  // Mobile stays below the photo; wider layouts use a bounded fluid panel.
+  position: relative;
+  z-index: 1;
+  width: var(--feature-content-mobile-width, 95%);
+  max-width: calc(100% - 2 * var(--feature-content-gutter, 2.5%));
+  min-width: 0;
+  margin: $gap-medium 0;
+  padding: $gap-medium;
+  gap: $gap-medium;
+  border: 1px solid var(--border-color-alpha);
+  border-radius: $border-radius-large;
+  @include decor.acrylic;
+  @include decor.glass;
+  background-color: var(--shade-color-alpha);
+
+  @include breakpoint.respond-to("landscape") {
+    align-self: flex-end;
+    width: clamp(
+      var(--feature-content-min-width, 24rem),
+      var(--feature-content-fluid-width, 44vw),
+      var(--feature-content-max-width, 48rem)
+    );
+    max-width: calc(100% - 2 * var(--feature-content-inset, clamp(24px, 15vw, 15rem)));
+    margin: 0 var(--feature-content-inset, clamp(24px, 15vw, 15rem)) 0 0;
+    padding: $gap-medium var(--feature-content-padding, clamp(24px, 3vw, 48px));
+  }
+
+  h1,
+  h2 {
+    font-size: clamp(32px, 4vw, $h1-font-size);
+    line-height: 1.15;
+    text-align: left;
+  }
+
+  p {
+    max-width: var(--feature-content-measure, 58ch);
+  }
+}

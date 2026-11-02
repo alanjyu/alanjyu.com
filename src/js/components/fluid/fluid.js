@@ -205,7 +205,9 @@ class LegacyFluidBackground {
 
 export default class FluidBackground {
 	constructor(element) {
+		this.element = element;
 		this.simulation = null;
+		this.onPageLoad = () => this.element.classList.add('dynamic-background--is-ready');
 
 		try {
 			this.simulation = new NavierStokesFluid(element);
@@ -213,9 +215,17 @@ export default class FluidBackground {
 			console.warn('Falling back to the blob fluid background.', error);
 			this.simulation = new LegacyFluidBackground(element);
 		}
+
+		if (document.readyState === 'complete') {
+			this.onPageLoad();
+		} else {
+			window.addEventListener('load', this.onPageLoad, { once: true });
+		}
 	}
 
 	destroy() {
+		window.removeEventListener('load', this.onPageLoad);
+		this.element.classList.remove('dynamic-background--is-ready');
 		this.simulation?.destroy();
 	}
 }

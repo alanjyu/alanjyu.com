@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+  <path d="M15.5 2.5v17" />
+  <g fill="currentColor" stroke="none">
+    <ellipse cx="12" cy="7" rx="4.5" ry="2.75" transform="rotate(-20 12 7)" />
+    <ellipse cx="12" cy="13.5" rx="4.5" ry="2.75" transform="rotate(-20 12 13.5)" />
+    <ellipse cx="12" cy="20" rx="4.5" ry="2.75" transform="rotate(-20 12 20)" />
+  </g>
+</svg>

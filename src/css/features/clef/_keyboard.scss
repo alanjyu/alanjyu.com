@@ -1,0 +1,323 @@
+@use "../../base/variables" as *;
+@use "../../utils/breakpoints" as breakpoint;
+
+$key-columns: (
+  "C": 1,
+  "C#": 2,
+  "D": 3,
+  "D#": 4,
+  "E": 5,
+  "F": 7,
+  "F#": 8,
+  "G": 9,
+  "G#": 10,
+  "A": 11,
+  "A#": 12,
+  "B": 13
+);
+
+.clef-piano {
+  --piano-side-space: max(#{$gap-small}, calc((100% - 960px) / 2));
+  width: 100%;
+  flex-shrink: 0;
+  padding: $gap-small var(--piano-side-space) $gap-medium;
+  background:
+    linear-gradient(180deg, rgba($silk, 0.12), rgba($silk, 0.06)),
+    url("../img/resources/walnut.jpg") center / cover,
+    #6a4a35;
+
+  @include breakpoint.respond-to("landscape") {
+    --piano-side-space: max(#{$gap-medium}, calc((100% - 960px) / 2));
+    padding: $gap-medium var(--piano-side-space);
+  }
+
+  @media (orientation: landscape) and (max-height: 500px) {
+    --piano-side-space: #{$gap-tiny};
+    grid-column: 2;
+    grid-row: 1;
+    padding: $gap-tiny var(--piano-side-space) $gap-small;
+  }
+}
+
+.clef-answers {
+  display: grid;
+  grid-template-columns: repeat(14, minmax(0, 1fr));
+  width: 100%;
+  isolation: isolate;
+
+  @each $note, $column in $key-columns {
+    [data-answer="#{$note}"] {
+      --key-column: #{$column};
+    }
+  }
+
+  // A narrow felt rail frames the key bed.
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: -6px;
+    left: 0;
+    right: 0;
+    height: 7px;
+    border-top: 1px solid #a374554d;
+    border-radius: 5px 5px 1px 1px;
+    background: linear-gradient(180deg, #3f2323, #5b3430);
+    box-shadow:
+      0 2px 3px #00000038,
+      inset 0 1px #ffffff14;
+    pointer-events: none;
+
+    @include breakpoint.respond-to("landscape") {
+      top: -8px;
+      height: 10px;
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      top: -6px;
+      height: 7px;
+    }
+  }
+
+  button {
+    --key-top: #eae9e2;
+    --key-face: #fffef9;
+    --key-edge: #d7d6cc;
+    --key-label: #52594f;
+    --key-border: #bdbfb4;
+    grid-column: var(--key-column) / span 2;
+    grid-row: 1;
+    position: relative;
+    display: flex;
+    -webkit-user-select: none;
+    user-select: none;
+    align-items: flex-end;
+    justify-content: center;
+    height: clamp(100px, 18svh, 132px);
+    margin: 0 0.5px;
+    padding-bottom: 16px;
+    border: 1px solid var(--key-border);
+    border-top: 0;
+    border-radius: 1px 1px 3px 3px;
+    background:
+      linear-gradient(90deg, #ffffff66, transparent 4%, transparent 97%, #0000000d),
+      linear-gradient(
+        180deg,
+        var(--key-top),
+        var(--key-face) 14%,
+        var(--key-face) calc(100% - 9px),
+        var(--key-edge) calc(100% - 8px),
+        var(--key-edge)
+      );
+    color: var(--key-label);
+    box-shadow:
+      inset 1px 0 0 #ffffff,
+      inset -1px 0 0 #00000012,
+      0 2px 0 #9a9d9166,
+      0 4px 3px -2px #14201659;
+    text-shadow: none;
+    font-size: clamp(#{$body-font-size}, 3.5vw, #{$h4-font-size});
+    font-weight: 400;
+    line-height: 1;
+    transform-origin: 50% 0;
+    transition:
+      transform $animation-time ease,
+      box-shadow $animation-time ease,
+      border-color $animation-time ease,
+      color $animation-time ease;
+
+    @include breakpoint.respond-to("landscape") {
+      height: clamp(132px, 20svh, 194px);
+      padding-bottom: 20px;
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      height: clamp(90px, 26svh, 120px);
+      padding-bottom: $gap-tiny;
+      font-size: $h4-font-size;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 20%;
+      background: linear-gradient(180deg, #19251c21, transparent);
+      pointer-events: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 8px;
+      border-top: 1px solid #ffffff99;
+      border-bottom: 1px solid #777d6e38;
+      border-radius: 0 0 2px 2px;
+      background: linear-gradient(180deg, #ffffff08, #0000000a);
+      pointer-events: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:disabled) {
+        --key-label: #2d4734;
+        --key-border: #9cae99;
+      }
+    }
+
+    &:active:not(:disabled),
+    &.is-correct,
+    &.is-wrong {
+      transform: perspective(650px) rotateX(-3deg);
+      box-shadow:
+        inset 0 2px 5px #26311f14,
+        0 1px 0 #9a9d9166,
+        0 1px 2px #14201626;
+    }
+
+    &:active:not(:disabled) {
+      transition-duration: 70ms;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &.is-correct {
+      --key-top: #d6e5ce;
+      --key-face: #edf6e7;
+      --key-edge: #b7cfa9;
+      --key-label: #315b36;
+      --key-border: #73936b;
+    }
+
+    &.is-wrong {
+      --key-top: #edd6cb;
+      --key-face: #fff0e9;
+      --key-edge: #dcb4a4;
+      --key-label: #934831;
+      --key-border: #b77c63;
+    }
+  }
+
+  button.clef-answer--black {
+    --key-top: #3c4240;
+    --key-face: #171c1a;
+    --key-edge: #343c37;
+    --key-label: #f2f1e9;
+    --key-border: #101613;
+    z-index: 1;
+    justify-self: center;
+    width: 64%;
+    min-width: 28px;
+    height: clamp(64px, 11svh, 84px);
+    margin: 0;
+    padding: 6px 0 14px;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--key-border);
+    border-top-color: #646e6466;
+    border-radius: 1px 1px 2px 2px;
+    background:
+      linear-gradient(90deg, #ffffff14, transparent 16%, transparent 82%, #00000066),
+      linear-gradient(
+        180deg,
+        var(--key-top),
+        var(--key-face) 7%,
+        var(--key-face) calc(100% - 12px),
+        var(--key-edge) calc(100% - 11px),
+        #0b100d
+      );
+    box-shadow:
+      inset 1px 0 #ffffff24,
+      inset -1px 0 #00000099,
+      0 2px 2px #00000080,
+      1px 5px 4px #00000066,
+      3px 9px 8px -3px #00000052;
+    text-shadow: 0 1px 1px #000000cc;
+    font-size: clamp(12px, 2.5vw, #{$description-font-size});
+    line-height: 1;
+
+    @include breakpoint.respond-to("landscape") {
+      width: 56%;
+      height: clamp(82px, 12svh, 120px);
+      padding-bottom: 18px;
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      height: clamp(54px, 16svh, 72px);
+      padding: 4px 0 11px;
+      gap: 3px;
+      font-size: 12px;
+    }
+
+    span {
+      position: relative;
+      z-index: 1;
+    }
+
+    span + span {
+      font-size: max(10px, 0.78em);
+      font-weight: 400;
+      color: #adb6ab;
+    }
+
+    &::before {
+      inset: 1px 2px 12px;
+      height: auto;
+      border-top: 1px solid #ffffff14;
+      border-radius: 1px;
+      background: linear-gradient(110deg, #ffffff0d, transparent 28%, #ffffff04 80%, #ffffff08);
+      box-shadow:
+        inset 1px 0 #ffffff0a,
+        inset -1px 0 #00000038;
+    }
+
+    &::after {
+      left: 1px;
+      right: 1px;
+      bottom: 1px;
+      height: 10px;
+      border-top: 1px solid #ffffff14;
+      border-bottom: 1px solid #00000066;
+      border-radius: 0 0 1px 1px;
+      background: linear-gradient(180deg, #ffffff0d, #0000004d);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:disabled) {
+        --key-top: #4a544b;
+        --key-face: #202a22;
+        --key-border: #66745f;
+        --key-label: #ffffff;
+      }
+    }
+
+    &:active:not(:disabled),
+    &.is-correct,
+    &.is-wrong {
+      transform: perspective(650px) rotateX(-4deg);
+      box-shadow:
+        inset 0 2px 5px #00000066,
+        0 2px 2px #00000073,
+        1px 4px 4px -1px #00000059;
+    }
+
+    &.is-correct {
+      --key-top: #597650;
+      --key-face: #243c26;
+      --key-edge: #537b47;
+      --key-border: #87a579;
+    }
+
+    &.is-wrong {
+      --key-top: #92614b;
+      --key-face: #4d2c22;
+      --key-edge: #a16d51;
+      --key-border: #c49077;
+    }
+  }
+}

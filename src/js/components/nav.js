@@ -57,7 +57,15 @@ export default class Nav {
 
 		if (this.navMenu) {
 			this.navMenu.addEventListener('click', () => {
-				this.navMenu.classList.toggle('nav__menu--is-open');
+				const isOpen = this.navMenu.classList.toggle('nav__menu--is-open');
+				this.navMenu.querySelector('[data-nav-menu-toggle]')?.setAttribute('aria-expanded', String(isOpen));
+			});
+			this.navMenu.addEventListener('keydown', event => {
+				const toggle = this.navMenu.querySelector('[data-nav-menu-toggle]');
+				if (event.key !== 'Escape' || !toggle) return;
+				this.navMenu.classList.remove('nav__menu--is-open');
+				toggle.setAttribute('aria-expanded', 'false');
+				toggle.focus();
 			});
 		}
 	}
@@ -83,6 +91,7 @@ export default class Nav {
 
 			if (breakpoint.is('landscape')) {
 				this.navMenu.classList.remove('nav__menu--is-open');
+				this.navMenu.querySelector('[data-nav-menu-toggle]')?.setAttribute('aria-expanded', 'false');
 			}
 		}
 	}

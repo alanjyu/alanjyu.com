@@ -14,7 +14,8 @@
         "src/resume/index.html",
         "src/science/index.html",
         "src/music/index.html",
-        "src/synth/index.html"
+        "src/synth/index.html",
+        "src/clef/index.html"
       ],
       "distDir": "docs/"
     },
@@ -25,7 +26,8 @@
         "src/resume/index.html",
         "src/science/index.html",
         "src/music/index.html",
-        "src/synth/index.html"
+        "src/synth/index.html",
+        "src/clef/index.html"
       ]
     }
   },

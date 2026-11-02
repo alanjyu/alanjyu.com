@@ -21,8 +21,22 @@
   }
 }
 
+@keyframes fluid-reveal {
+  from { opacity: 0; }
+  to { opacity: 0.35; }
+}
+
 .dynamic-background {
-  opacity: 0.32;
+  opacity: 0;
+
+  &--is-ready {
+    animation: fluid-reveal 2s ease-out forwards;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      opacity: 0.35;
+    }
+  }
   --fluid-position:
     -80vmax -80vmax,
     60vmax -30vmax,

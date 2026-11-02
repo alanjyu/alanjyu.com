@@ -1,0 +1,117 @@
+@use "../../base/variables" as *;
+@use "../../utils/breakpoints" as breakpoint;
+
+.clef-page {
+  --clef-top-space: calc(#{$icon-size + $gap-large} + env(safe-area-inset-top, 0px));
+  --clef-paper: #f7f6f2;
+  --clef-card: #fefdf9;
+  --clef-ink: #292f2b;
+  --clef-muted: #6d746d;
+  --clef-rule: #dedfd6;
+  --clef-accent: #42634b;
+  --clef-tint: #e8eee4;
+  --clef-wrong: #a34331;
+  --clef-wrong-tint: #f8e9e3;
+  --clef-history-color: #909090;
+  height: auto;
+  min-height: 100svh;
+  background: var(--clef-paper);
+  color: var(--clef-ink);
+
+  @media (orientation: landscape) and (max-height: 500px) {
+    --clef-top-space: calc(#{$icon-size + $gap-medium + $gap-tiny} + env(safe-area-inset-top, 0px));
+  }
+
+  @include breakpoint.respond-to("landscape") {
+    --clef-top-space: calc(#{$icon-size + $gap-huge} + env(safe-area-inset-top, 0px));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+    }
+  }
+
+  html[data-theme="dark"] & {
+    --clef-paper: #171d19;
+    --clef-card: #202821;
+    --clef-ink: #eceee4;
+    --clef-muted: #a7b2a6;
+    --clef-rule: #3b463b;
+    --clef-accent: #b0c7a1;
+    --clef-tint: #303f30;
+    --clef-wrong: #f0ad96;
+    --clef-wrong-tint: #49322c;
+    --clef-history-color: #858585;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: inherit;
+  }
+
+  .nav__list {
+    list-style: none;
+  }
+
+  .nav__list,
+  .nav__menu,
+  .nav__button {
+    background-color: color-mix(in srgb, var(--clef-card) 94%, transparent);
+  }
+
+  .nav__menu .nav__item {
+    flex: 0 0 $icon-size;
+    height: $icon-size;
+  }
+
+  .nav__menu .nav__link {
+    width: 100%;
+    min-height: $icon-size;
+    align-items: center;
+    padding: 0 $gap-small;
+  }
+
+  [data-nav-menu-toggle] {
+    border: 0;
+    background: none;
+    color: inherit;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  button,
+  select,
+  summary,
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  select,
+  .clef-deck-toggle {
+    touch-action: manipulation;
+  }
+
+  button,
+  summary {
+    cursor: pointer;
+  }
+
+  button {
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--clef-accent);
+    outline-offset: 4px;
+  }
+}

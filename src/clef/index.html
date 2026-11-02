@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Alan Yu - Clef</title>
+  <meta name="author" content="Alan J. Yu" />
+  <meta name="description" content="Practice music note recognition with treble and bass clefs, sharps, flats, and sound." />
+  <meta property="og:title" content="Alan Yu - Clef" />
+  <meta property="og:description" content="Practice reading notes in treble and bass clefs." />
+  <meta property="og:url" content="https://alanjyu.com/clef/" />
+  <link rel="icon" href="../img/favicon.ico" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <script>
+    (() => {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', savedTheme || (systemDark ? 'dark' : 'light'));
+      } catch {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/clef.scss" />
+</head>
+
+<body class="clef-page">
+  <a class="clef-skip" href="#practice">Skip to practice</a>
+  <nav class="nav" aria-label="Main navigation">
+    <a id="home-button" class="nav__button" href="/" aria-label="Home">
+      <span class="home__rect" aria-hidden="true"></span>
+      <img class="icon-home" src="../img/icons/home.svg" alt="" />
+    </a>
+    <ul class="nav__list">
+      <li class="nav__rect" aria-hidden="true"></li>
+      <li class="nav__item"><a class="nav__link" href="/resume/">Resume</a></li>
+      <li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
+      <li class="nav__item"><a class="nav__link nav__link--default" href="/music/">Music</a></li>
+    </ul>
+    <ul class="nav__menu" id="practice-navigation-menu">
+      <li class="nav__item"><button class="nav__link" type="button" data-nav-menu-toggle aria-expanded="false" aria-controls="practice-navigation-menu">Music<img id="greater-than" src="../img/icons/greater-than.svg" alt="" /></button></li>
+      <li class="nav__item"><a class="nav__link" href="/resume/">Resume</a></li>
+      <li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
+      <li class="nav__item"><a class="nav__link" href="/music/">Music</a></li>
+    </ul>
+    <button id="theme-toggle" class="nav__button" type="button" aria-label="Toggle light/dark theme">
+      <span class="theme__rect" aria-hidden="true"></span>
+      <img class="icon-sun" src="../img/icons/sun.svg" alt="" />
+      <img class="icon-moon" src="../img/icons/moon.svg" alt="" />
+    </button>
+  </nav>
+
+  <main class="clef" data-clef-trainer>
+    <div class="clef-workspace">
+      <section class="clef-trainer" id="practice" aria-label="Music note practice" tabindex="-1">
+        <div data-exercise>
+          <div class="clef-instrument">
+            <div class="clef-staff clef-staff--dual">
+              <details class="clef-progress" data-statistics>
+                <summary class="clef-progress__tab">
+                  <span>Statistics</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/chevron-left.svg#glyph" width="24" height="24" /></svg>
+                </summary>
+                <div class="clef-progress__panel" role="region" aria-label="Statistics">
+                  <dl class="clef-stats">
+                    <div><dt data-completed-label>Notes completed</dt><dd data-completed>0</dd></div>
+                    <div><dt data-skipped-label>Notes skipped</dt><dd data-skipped>0</dd></div>
+                    <div><dt>Accuracy</dt><dd data-accuracy>—</dd></div>
+                    <div><dt>Current streak</dt><dd><span data-streak>0</span><span class="clef-stats__unit" data-streak-unit> notes</span></dd></div>
+                    <div><dt>Personal best</dt><dd><span data-best>0</span><span class="clef-stats__unit"> in a row</span></dd></div>
+                  </dl>
+                </div>
+              </details>
+              <div class="clef-staff__viewport" data-staff-viewport>
+                <svg data-staff viewBox="0 -40 560 480" preserveAspectRatio="xMinYMid" role="img" aria-label="Treble staff above bass staff">
+                  <defs>
+                    <clipPath id="clef-score-clip" clipPathUnits="userSpaceOnUse"><rect data-score-clip x="180" y="-80" width="380" height="640" /></clipPath>
+                  </defs>
+                  <g class="clef-staff__lines" data-staff-lines aria-hidden="true">
+                    <g data-staff-row="treble">
+                      <path d="M50 80H510 M50 104H510 M50 128H510 M50 152H510 M50 176H510 M50 80V176 M510 80V176" />
+                    </g>
+                    <g data-staff-row="bass" transform="translate(0 144)">
+                      <path d="M50 80H510 M50 104H510 M50 128H510 M50 152H510 M50 176H510 M50 80V176 M510 80V176" />
+                    </g>
+                  </g>
+                  <g clip-path="url(#clef-score-clip)">
+                    <g class="clef-staff__track" data-score-track>
+                      <g data-history-notes aria-hidden="true"></g>
+                      <g class="clef-staff__preview" data-next-note aria-hidden="true"></g>
+                      <g data-note aria-hidden="true"></g>
+                    </g>
+                  </g>
+                  <g data-clef-symbol aria-hidden="true"></g>
+                </svg>
+                <div class="clef-staff__scroll" data-score-scroll tabindex="0" role="region" aria-label="Score history: scroll to review earlier notes" hidden>
+                  <div class="clef-staff__scroll-space" data-score-space aria-hidden="true"></div>
+                </div>
+              </div>
+              <div class="clef-challenge-result" data-challenge-result role="region" aria-labelledby="challenge-title challenge-time" hidden>
+                <h2 id="challenge-title" data-challenge-title>10 notes completed</h2>
+                <p class="clef-challenge-result__time" id="challenge-time" data-challenge-time>0:00.00</p>
+                <div class="clef-challenge-result__actions">
+                  <button type="button" data-challenge-again>Again</button>
+                  <button type="button" data-challenge-practice>Practice</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="clef-piano">
+              <div class="clef-deck" role="group" aria-label="Practice controls">
+                <button class="clef-hear-button" type="button" data-hear data-control-hint aria-label="Hear the current note">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/play.svg#glyph" width="24" height="24" /></svg>
+                </button>
+                <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-sound checked aria-label="Play sound after answering" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/auto-sound.svg#glyph" width="24" height="24" /></svg></label>
+                <button class="clef-mode-button" type="button" value="mixed" data-clef-mode data-control-hint aria-label="Both clefs. Switch to treble clef">
+                  <svg viewBox="0 0 144 180" aria-hidden="true">
+                    <g data-clef-option="mixed"><use href="../img/clef/treble.svg#glyph" width="72" height="180" /><use href="../img/clef/bass.svg#glyph" x="76" y="64" width="64" height="96" /></g>
+                    <g data-clef-option="treble" hidden><use href="../img/clef/treble.svg#glyph" x="36" width="72" height="180" /></g>
+                    <g data-clef-option="bass" hidden><use href="../img/clef/bass.svg#glyph" x="18" y="18" width="108" height="144" /></g>
+                  </svg>
+                </button>
+                <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-challenge aria-label="10-note timed challenge" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/challenge.svg#glyph" width="24" height="24" /></svg></label>
+                <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-include-chords aria-label="Include chords" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/chord.svg#glyph" width="24" height="24" /></svg></label>
+                <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-show-history aria-label="Scrolling score: show past notes and preview the next" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/score.svg#glyph" width="24" height="24" /></svg></label>
+                <button class="clef-deck-button" type="button" data-restart data-control-hint aria-label="Restart session">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/restart.svg#glyph" width="24" height="24" /></svg>
+                </button>
+              </div>
+              <div class="clef-answers" role="group" aria-label="Choose the piano key that matches the note">
+                <button type="button" data-answer="C" aria-label="Z: C or B sharp" aria-keyshortcuts="z">Z</button>
+                <button class="clef-answer--black" type="button" data-answer="C#" aria-label="S: C sharp or D flat" aria-keyshortcuts="s"><span>S</span></button>
+                <button type="button" data-answer="D" aria-label="X: note D" aria-keyshortcuts="x">X</button>
+                <button class="clef-answer--black" type="button" data-answer="D#" aria-label="D: D sharp or E flat" aria-keyshortcuts="d"><span>D</span></button>
+                <button type="button" data-answer="E" aria-label="C: E or F flat" aria-keyshortcuts="c">C</button>
+                <button type="button" data-answer="F" aria-label="V: F or E sharp" aria-keyshortcuts="v">V</button>
+                <button class="clef-answer--black" type="button" data-answer="F#" aria-label="G: F sharp or G flat" aria-keyshortcuts="g"><span>G</span></button>
+                <button type="button" data-answer="G" aria-label="B: note G" aria-keyshortcuts="b">B</button>
+                <button class="clef-answer--black" type="button" data-answer="G#" aria-label="H: G sharp or A flat" aria-keyshortcuts="h"><span>H</span></button>
+                <button type="button" data-answer="A" aria-label="N: note A" aria-keyshortcuts="n">N</button>
+                <button class="clef-answer--black" type="button" data-answer="A#" aria-label="J: A sharp or B flat" aria-keyshortcuts="j"><span>J</span></button>
+                <button type="button" data-answer="B" aria-label="M: B or C flat" aria-keyshortcuts="m">M</button>
+              </div>
+            </div>
+          </div>
+          <div class="clef-feedback" data-feedback-row>
+            <p data-feedback role="status" aria-live="polite"></p>
+            <output class="clef-challenge-progress" data-challenge-progress aria-label="Challenge progress" aria-live="off" hidden>0 / 10</output>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+  <noscript><p class="clef-noscript">Please enable JavaScript to practice.</p></noscript>
+  <script type="module" src="../js/main.js"></script>
+</body>
+</html>
