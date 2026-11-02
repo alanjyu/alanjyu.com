@@ -29,6 +29,14 @@ The following three commands, stored in [package.json](https://github.com/alanjy
 - `npm run build` is used for debugging and local testing. It complies the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) with local hyperlink references.
 - `npm run publish` is for the final release. It first cleans [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs), preserving `CNAME` and `.nojekyll`, then compiles all pages with absolute hyperlink references ("https://alanjyu.com/..."). It bypasses Parcel's cache so all output pages are regenerated. Keep manually maintained files outside `docs/`, except for those two deployment files.
 
+## Clef offline app
+
+Clef at `/clef/` can be installed from Safari on iOS or a supporting Android browser. Open the installation instructions below the piano and wait for **Ready for offline practice** before disconnecting. Practice, notation, and generated piano audio work offline; links to other sections of the website still need a connection.
+
+Both `npm run build` and `npm run publish` generate `docs/clef/sw.js` from the compiled asset references. Deploy the complete `docs/` output over HTTPS, including the worker and app manifest. Offline installation is available in the production build, not the Parcel development server. Updated downloads activate after all open Clef windows close; browsers may evict offline storage.
+
+The build helper, `src/js/clef-offline.mjs`, runs automatically after builds to keep offline files in sync. App icon PNGs are stored in `src/clef/icons/`.
+
 ## License
 
 This project is licensed under the terms of [MIT License](https://github.com/alanjyu/alanjyu.com/blob/master/LICENSE).

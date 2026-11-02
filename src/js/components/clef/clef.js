@@ -1,6 +1,7 @@
 import { ANSWER_PITCHES, KEYBOARD_ANSWERS, MIDDLE_C_STEPS, NOTE_STEPS, createDeck, describePosition, isCorrectAnswer, layoutNoteHistory, ledgerSteps, noteForAnswer, staffY } from './notes.js';
 import Piano from './piano.js';
 import ControlHints from './control-hints.js';
+import { KEY_SIGNATURES, signatureAccidental } from './notes.js';
 
 const BEST_KEY = 'clef-best-streak';
 const ADVANCE_DELAY = 450;
@@ -11,7 +12,7 @@ const STAFF_TOP = staffY(NOTE_STEPS.max) - 48;
 const STAFF_HEIGHT = staffY(NOTE_STEPS.min) - STAFF_TOP + 48;
 const BASS_STAFF_OFFSET = staffY(MIDDLE_C_STEPS.treble) - staffY(MIDDLE_C_STEPS.bass);
 const STAFF_INSET = 12;
-const SCORE_INSET = 180;
+const SCORE_INSET = 300;
 const CLEF_MODES = ['mixed', 'treble', 'bass'];
 const CLEF_LABELS = { mixed: 'Both clefs', treble: 'Treble clef', bass: 'Bass clef' };
 const NOTATION = {
@@ -51,6 +52,7 @@ export default class Clef {
     this.clefControl = this.find('[data-clef-mode]');
     this.hearControl = this.find('[data-hear]');
     this.includeChords = this.find('[data-include-chords]');
+    this.keyPractice = this.find('[data-key-practice]');
     this.sound = this.find('[data-sound]');
     this.showHistory = this.find('[data-show-history]');
     this.challenge = this.find('[data-challenge]');
@@ -66,11 +68,35 @@ export default class Clef {
     this.piano = new Piano(playing => this.hearControl.classList.toggle('is-playing', playing));
     this.controlHints = new ControlHints(this.find('.clef-deck'));
     this.best = this.readBest();
+    this.settingsOpen = false;
+    const installHelp = document.querySelector('[data-install-help]');
+    this.find('[data-install-slot]').append(installHelp);
+    // Keep every setting readable without relying on icon tooltips.
+    this.find('.clef-deck').querySelectorAll(':scope > button, :scope > label').forEach(control => {
+      const label = document.createElement('span');
+      label.className = 'clef-setting-label';
+      label.dataset.settingLabel = '';
+      control.append(label);
+    });
     this.bindEvents();
     this.startSession();
   }
 
   bindEvents() {
+    this.find('[data-open-settings]').addEventListener('click', () => this.setSettings(!this.settingsOpen));
+    this.find('[data-toggle-challenge]').addEventListener('click', () => {
+      this.challenge.checked = !this.challenge.checked;
+      this.startSession();
+    });
+    this.find('[data-toggle-install]').addEventListener('click', async () => {
+      if (this.settingsTransition || this.installTransition) return;
+      if (this.settingsOpen) await this.setSettings(false);
+      await this.setInstallHelp(this.find('[data-install-help]').hidden);
+    });
+    this.find('[data-close-install]').addEventListener('click', async () => {
+      await this.setInstallHelp(false);
+      this.find('[data-toggle-install]').focus({ preventScroll: true });
+    });
     this.answers.forEach(button => button.addEventListener('click', () => this.answer(button.dataset.answer)));
     this.clefControl.addEventListener('click', () => {
       this.clefControl.value = CLEF_MODES[(CLEF_MODES.indexOf(this.clefControl.value) + 1) % CLEF_MODES.length];
@@ -81,6 +107,17 @@ export default class Clef {
       if (event.animationName === 'clef-control-activate') this.clefControl.classList.remove('is-changing');
     });
     this.includeChords.addEventListener('change', () => this.startSession());
+    this.keyPractice.addEventListener('click', () => {
+      const modes = ['off', '5', '10'];
+      this.keyPractice.value = modes[(modes.indexOf(this.keyPractice.value) + 1) % modes.length];
+      const value = this.keyPractice.value;
+      this.keyPractice.querySelector('[data-key-mode]').textContent = value === 'off' ? 'Off' : value;
+      this.keyPractice.setAttribute('aria-label', value === 'off'
+        ? 'Key practice off. Switch to 5 notes per key'
+        : `${value} notes per key. ${value === '5' ? 'Switch to 10 notes per key' : 'Turn key practice off'}`);
+      this.keyPractice.setAttribute('aria-pressed', String(value !== 'off'));
+      this.startSession();
+    });
     this.showHistory.addEventListener('change', () => this.drawNote());
     this.challenge.addEventListener('change', () => this.startSession(true));
     this.find('[data-challenge-again]').addEventListener('click', () => this.startSession(true));
@@ -98,8 +135,19 @@ export default class Clef {
       this.scoreScroll.addEventListener(event, () => this.scoreTrack.classList.remove('is-animating'), { passive: true });
     }
 
-    document.addEventListener('keydown', event => {
+    document.addEventListener('keydown', async event => {
       if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.isComposing) return;
+      if (this.settingsTransition || this.installTransition) return;
+      if (event.key === 'Escape' && !this.find('[data-install-help]').hidden) {
+        event.preventDefault();
+        await this.setInstallHelp(false);
+        this.find('[data-toggle-install]').focus({ preventScroll: true });
+        return;
+      }
+      if (this.settingsOpen) {
+        if (event.key === 'Escape') { event.preventDefault(); this.setSettings(false); }
+        return;
+      }
       if (event.key === 'Escape' && this.statistics.open) {
         this.closeStatistics();
         return;
@@ -135,6 +183,122 @@ export default class Clef {
     this.statistics.querySelector('summary').focus({ preventScroll: true });
   }
 
+  refreshSettingLabels() {
+    this.find('.clef-deck').querySelectorAll('[data-setting-label]').forEach(label => {
+      const wrapper = label.parentElement;
+      const control = wrapper.matches('button') ? wrapper : wrapper.querySelector('input');
+      let text = control.getAttribute('aria-label');
+      if (control === this.clefControl) text = `Clef: ${CLEF_LABELS[this.mode]}`;
+      if (control === this.keyPractice) text = `Key practice: ${control.value === 'off' ? 'Off' : `${control.value} notes per key`}`;
+      label.textContent = text;
+    });
+  }
+
+  async setInstallHelp(open) {
+    const panel = this.find('[data-install-help]');
+    if (this.installTransition || open === !panel.hidden) return;
+    this.installTransition = true;
+    const slot = this.find('[data-install-slot]');
+    const oldHeight = slot.getBoundingClientRect().height;
+    const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof panel.animate === 'function';
+    const animations = [];
+    this.find('[data-toggle-install]').setAttribute('aria-expanded', String(open));
+    try {
+      if (motion) {
+        slot.style.height = `${oldHeight}px`;
+        slot.classList.add('is-transitioning');
+        panel.hidden = false;
+        panel.inert = !open;
+        const height = open ? panel.getBoundingClientRect().height : 0;
+        const options = { duration: 300, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'both' };
+        const frames = [
+          { clipPath: 'inset(0 0 100% 0)', transform: 'translateY(-12px)', opacity: 0 },
+          { clipPath: 'inset(0)', transform: 'translateY(0)', opacity: 1 }
+        ];
+        animations.push(slot.animate([{ height: `${oldHeight}px` }, { height: `${height}px` }], options));
+        animations.push(panel.animate(open ? frames : [...frames].reverse(), options));
+        await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
+      }
+    } finally {
+      panel.hidden = !open;
+      panel.inert = !open;
+      slot.classList.remove('is-transitioning');
+      slot.style.removeProperty('height');
+      animations.forEach(animation => animation.cancel());
+      this.installTransition = false;
+    }
+    this.drawNote();
+  }
+
+  async setSettings(open) {
+    if (this.settingsTransition || this.installTransition || open === this.settingsOpen) return;
+    this.settingsTransition = true;
+    if (open) await this.setInstallHelp(false);
+    const stage = this.find('.clef-panel-stage');
+    const menu = this.find('#clef-settings');
+    const keyboard = this.find('.clef-answers');
+    const incoming = open ? menu : keyboard;
+    const outgoing = open ? keyboard : menu;
+    const oldHeight = stage.getBoundingClientRect().height;
+    const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof menu.animate === 'function';
+    this.settingsOpen = open;
+    this.find('[data-open-settings]').setAttribute('aria-expanded', String(open));
+    // Reserve the feedback row so opening settings cannot change the staff's
+    // available height before the panel animation starts.
+    this.find('[data-feedback-row]').style.visibility = open ? 'hidden' : '';
+    this.controlHints.hide();
+    if (open) {
+      this.settingsPausedAt = performance.now();
+      window.clearTimeout(this.advanceTimer);
+      this.advanceTimer = null;
+      this.piano.cancel();
+      this.refreshSettingLabels();
+    }
+
+    const animations = [];
+    try {
+      if (motion) {
+        // Fix the current height before exposing the new content. Both panels
+        // then overlap without affecting layout while the stage changes size.
+        stage.style.height = `${oldHeight}px`;
+        stage.classList.add('is-transitioning');
+        incoming.hidden = false;
+        incoming.inert = false;
+        outgoing.inert = true;
+        const newHeight = incoming.getBoundingClientRect().height;
+        const options = { duration: 300, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'both' };
+        animations.push(stage.animate([{ height: `${oldHeight}px` }, { height: `${newHeight}px` }], options));
+        animations.push(incoming.animate(open ? [
+          { clipPath: 'inset(0 0 100% 0)', transform: 'translateY(-12px)', opacity: 0 },
+          { clipPath: 'inset(0)', transform: 'translateY(0)', opacity: 1 }
+        ] : [{ opacity: 0 }, { opacity: 1 }], options));
+        animations.push(outgoing.animate(open ? [{ opacity: 1 }, { opacity: 0 }] : [
+          { clipPath: 'inset(0)', transform: 'translateY(0)', opacity: 1 },
+          { clipPath: 'inset(0 0 100% 0)', transform: 'translateY(-12px)', opacity: 0 }
+        ], options));
+        await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
+      }
+    } finally {
+      // Commit the final layout before removing animation fills, all in one
+      // frame, so returning to natural height never reveals the other panel.
+      outgoing.hidden = true;
+      outgoing.inert = true;
+      incoming.hidden = false;
+      incoming.inert = false;
+      stage.classList.remove('is-transitioning');
+      stage.style.removeProperty('height');
+      animations.forEach(animation => animation.cancel());
+      this.settingsTransition = false;
+    }
+    if (!open && this.challenge.checked && this.phase === 'question') {
+      if (this.challengeStartedAt === null) this.challengeStartedAt = performance.now();
+      else this.challengeStartedAt += performance.now() - this.settingsPausedAt;
+    }
+    this.find('[data-open-settings]').focus({ preventScroll: true });
+    if (!open && this.phase === 'answered') this.next();
+    this.drawNote();
+  }
+
   readBest() {
     try {
       const value = Number(localStorage.getItem(BEST_KEY));
@@ -154,12 +318,16 @@ export default class Clef {
     this.find('[data-challenge-progress]').hidden = !this.challenge.checked;
     const challengeUnit = this.includeChords.checked ? 'exercise' : 'note';
     this.challenge.setAttribute('aria-label', `${CHALLENGE_LENGTH}-${challengeUnit} timed challenge`);
+    this.find('[data-toggle-challenge]').setAttribute('aria-label', `${CHALLENGE_LENGTH}-${challengeUnit} timed challenge`);
+    this.find('[data-toggle-challenge]').setAttribute('aria-pressed', String(this.challenge.checked));
     this.find('[data-restart]').setAttribute('aria-label', this.challenge.checked ? 'Restart challenge' : 'Restart session');
     this.mode = this.clefControl.value;
     const nextClef = CLEF_MODES[(CLEF_MODES.indexOf(this.mode) + 1) % CLEF_MODES.length];
     this.clefControl.setAttribute('aria-label', `${CLEF_LABELS[this.mode]}. Switch to ${CLEF_LABELS[nextClef].toLowerCase()}`);
     this.clefControl.querySelectorAll('[data-clef-option]').forEach(icon => icon.toggleAttribute('hidden', icon.dataset.clefOption !== this.mode));
     this.deck = [];
+    this.keyIndex = Math.floor(Math.random() * KEY_SIGNATURES.length);
+    this.keyRound = -1;
     this.current = null;
     this.upcoming = null;
     this.history = [];
@@ -173,12 +341,13 @@ export default class Clef {
     this.find('[data-skipped-label]').textContent = this.includeChords.checked ? 'Exercises skipped' : 'Notes skipped';
     this.find('[data-streak-unit]').textContent = this.includeChords.checked ? ' exercises' : ' notes';
     this.updateStats();
+    this.refreshSettingLabels();
     this.showQuestion(focus);
   }
 
   takeExercise(previous = null) {
     if (!this.deck.length) {
-      this.deck = createDeck(this.mode, Math.random, this.includeChords.checked);
+      this.deck = createDeck(this.mode, Math.random, this.includeChords.checked, this.keyPractice.value === 'off' ? null : KEY_SIGNATURES[this.keyIndex].count);
       const candidate = this.deck[this.deck.length - 1];
       if (previous && candidate.name === previous.name && candidate.clef === previous.clef) {
         [this.deck[0], this.deck[this.deck.length - 1]] = [candidate, this.deck[0]];
@@ -189,10 +358,23 @@ export default class Clef {
   }
 
   showQuestion(focus = false) {
+    const perKey = Number(this.keyPractice.value) || 0;
+    const answered = this.completed + this.skipped;
+    const round = perKey ? Math.floor(answered / perKey) : 0;
+    if (perKey && round !== this.keyRound) {
+      if (this.keyRound >= 0) this.keyIndex = (this.keyIndex + 1 + Math.floor(Math.random() * (KEY_SIGNATURES.length - 1))) % KEY_SIGNATURES.length;
+      this.keyRound = round;
+      this.deck = [];
+      this.current = this.upcoming = null;
+      this.history = [];
+      this.scoreState = null;
+    }
+    this.find('[data-key-status]').textContent = perKey
+      ? `${KEY_SIGNATURES[this.keyIndex].name} · ${answered % perKey + 1} / ${perKey}${this.includeChords.checked ? ' exercises' : ' notes'}` : '';
     if (this.current) this.history.push(this.current);
     this.current = this.upcoming || this.takeExercise();
     const lastQuestion = this.challenge.checked && this.completed + this.skipped + 1 === CHALLENGE_LENGTH;
-    this.upcoming = lastQuestion ? null : this.takeExercise(this.current);
+    this.upcoming = lastQuestion || (perKey && (answered + 1) % perKey === 0) ? null : this.takeExercise(this.current);
     this.matchedPitches = new Set();
     this.wrongAttempts = 0;
     this.phase = 'question';
@@ -209,8 +391,8 @@ export default class Clef {
       else button.removeAttribute('aria-pressed');
     });
     this.drawNote();
-    if (this.challenge.checked && this.challengeStartedAt === null) this.challengeStartedAt = performance.now();
-    if (focus) this.answers[0].focus({ preventScroll: true });
+    if (this.challenge.checked && this.challengeStartedAt === null && !this.settingsOpen) this.challengeStartedAt = performance.now();
+    if (focus && !this.settingsOpen) this.answers[0].focus({ preventScroll: true });
   }
 
   exerciseMarkup({ notes }, x, showMatches = false) {
@@ -227,11 +409,12 @@ export default class Clef {
     const heads = [...notes].sort((a, b) => b.step - a.step).map(note => {
       const y = staffY(note.step);
       let symbol = '';
-      if (note.accidental) {
+      const signature = this.keyPractice.value === 'off' ? 0 : signatureAccidental(note.letter, KEY_SIGNATURES[this.keyIndex].count);
+      if (note.accidental !== signature) {
         let column = accidentalColumns.findIndex(positions => positions.every(previousY => Math.abs(y - previousY) >= 48));
         if (column === -1) { column = accidentalColumns.length; accidentalColumns.push([]); }
         accidentalColumns[column].push(y);
-        symbol = `<g data-accidental="${note.accidental}" transform="translate(${x - 40 - column * 28} ${y})">${ACCIDENTAL_SYMBOLS[note.accidental]}</g>`;
+        symbol = `<g data-accidental="${note.accidental}" transform="translate(${x - 40 - column * 28} ${y})">${ACCIDENTAL_SYMBOLS[note.accidental] || '<text x="-10" y="12" font-size="40">♮</text>'}</g>`;
       }
       const matched = showMatches && this.matchedPitches.has(note.pitchClass);
       return `<g data-note-pitch="${note.pitchClass}" data-step="${note.step}" data-accidental="${note.accidental}"${matched ? ' class="clef-staff__matched"' : ''}>${symbol}<use data-notehead href="${NOTATION.notehead}" x="${x - 17}" y="${y - 14}" width="34" height="28"/></g>`;
@@ -254,8 +437,14 @@ export default class Clef {
     // the staff horizontally without widening the clefs or noteheads.
     const renderedHeight = svg.getBoundingClientRect().height || height;
     const viewportWidth = this.staffViewport.getBoundingClientRect().width || 560;
-    const width = Math.max(showHistory && this.includeChords.checked ? 420 : 400, viewportWidth * height / renderedHeight);
+    const width = Math.max(560, viewportWidth * height / renderedHeight);
     const layout = showHistory ? layoutNoteHistory([...this.history, this.current], this.upcoming, this.includeChords.checked) : null;
+    if (layout) {
+      layout.positions.forEach(position => { position.x += 140; });
+      if (layout.preview) layout.preview.x += 140;
+      layout.barlines = layout.barlines.map(x => x + 140);
+      layout.width += 140;
+    }
     const right = width - STAFF_INSET;
     svg.setAttribute('viewBox', `0 ${STAFF_TOP} ${width} ${height}`);
     const clip = this.find('[data-score-clip]');
@@ -265,13 +454,18 @@ export default class Clef {
     const staffLines = `<path d="${[80, 104, 128, 152, 176].map(y => `M${STAFF_INSET} ${y}H${right}`).join(' ')} M${STAFF_INSET} 80V176 M${right} 80V176"/>`;
     this.find('[data-staff-lines]').innerHTML = clefs.map(staffClef => `<g data-staff-row="${staffClef}" transform="translate(0 ${rowOffset(staffClef)})">${staffLines}</g>`).join('');
     this.find('[data-clef-symbol]').innerHTML = clefs.map(staffClef => `<g data-clef="${staffClef}" transform="translate(0 ${rowOffset(staffClef)})">${CLEF_SYMBOLS[staffClef]}</g>`).join('');
+    if (this.keyPractice.value !== 'off') {
+      const { count } = KEY_SIGNATURES[this.keyIndex];
+      const steps = count > 0 ? [8, 5, 9, 6, 3, 7, 4] : [4, 7, 3, 6, 2, 5, 1];
+      this.find('[data-clef-symbol]').innerHTML += clefs.map(staffClef => `<g transform="translate(0 ${rowOffset(staffClef)})">${steps.slice(0, Math.abs(count)).map((step, index) => `<g transform="translate(${165 + index * 17} ${staffY(step - (staffClef === 'bass' ? 2 : 0))})">${ACCIDENTAL_SYMBOLS[Math.sign(count)]}</g>`).join('')}</g>`).join('');
+    }
     this.find('[data-history-notes]').innerHTML = layout
       ? layout.positions.slice(0, -1).map(position => `<g class="clef-staff__past" data-history-note data-clef="${position.note.clef}" transform="translate(0 ${rowOffset(position.note.clef)})">${this.exerciseMarkup(position.note, position.x)}</g>`).join('')
         + `<g class="clef-staff__past" stroke="currentColor" stroke-width="1">${clefs.map(staffClef => layout.barlines.map(x => `<path d="M${x} ${80 + rowOffset(staffClef)}V${176 + rowOffset(staffClef)}"/>`).join('')).join('')}</g>`
       : '';
     this.find('[data-note]').setAttribute('transform', `translate(0 ${rowOffset(clef)})`);
     this.find('[data-note]').setAttribute('data-clef', clef);
-    this.find('[data-note]').innerHTML = this.exerciseMarkup(this.current, layout?.positions.at(-1).x || Math.max(265, width / 2), true);
+    this.find('[data-note]').innerHTML = this.exerciseMarkup(this.current, layout?.positions.at(-1).x || Math.max(405, width / 2), true);
     const preview = this.find('[data-next-note]');
     if (layout?.preview) {
       preview.setAttribute('transform', `translate(0 ${rowOffset(this.upcoming.clef)})`);
@@ -289,7 +483,8 @@ export default class Clef {
     const nextNote = showHistory && this.upcoming ? ` Next: ${describeExercise(this.upcoming)}` : '';
     const pastNotes = showHistory && this.history.length
       ? ` Previous notes: ${this.history.map(note => `${note.clef} ${note.name}`).join(', ')}.` : '';
-    svg.setAttribute('aria-label', description + (dual ? ' Treble staff above bass staff.' : '') + pastNotes + nextNote);
+    const keyDescription = this.keyPractice.value === 'off' ? '' : ` Key signature: ${KEY_SIGNATURES[this.keyIndex].name}.`;
+    svg.setAttribute('aria-label', description + keyDescription + (dual ? ' Treble staff above bass staff.' : '') + pastNotes + nextNote);
     this.scrollHistory(layout, width, viewportWidth);
   }
 
@@ -303,7 +498,7 @@ export default class Clef {
       return;
     }
     const scale = viewportWidth / width;
-    const leading = Math.max(265, width / 2) - layout.positions[0].x;
+    const leading = Math.max(405, width / 2) - layout.positions[0].x;
     const key = `${this.mode}:${width.toFixed(2)}:${scale.toFixed(5)}:${layout.spacing}`;
     const reset = this.scoreState?.key !== key;
     const previousScroll = this.scoreScroll.scrollLeft;
@@ -322,6 +517,7 @@ export default class Clef {
   }
 
   answer(value) {
+    if (this.settingsOpen || this.settingsTransition) return;
     if (this.phase !== 'question' || !Number.isInteger(ANSWER_PITCHES[value])) return;
     const pitch = ANSWER_PITCHES[value];
     if (this.matchedPitches.has(pitch)) return;
@@ -404,6 +600,7 @@ export default class Clef {
   }
 
   next(focus = false) {
+    if (this.settingsOpen) return;
     if (this.phase !== 'answered') return;
     window.clearTimeout(this.advanceTimer);
     this.advanceTimer = null;

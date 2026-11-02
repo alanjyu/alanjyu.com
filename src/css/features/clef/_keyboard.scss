@@ -20,10 +20,11 @@ $key-columns: (
   --piano-side-space: max(#{$gap-small}, calc((100% - 960px) / 2));
   width: 100%;
   flex-shrink: 0;
+  min-height: 0;
+  overflow: hidden;
   padding: $gap-small var(--piano-side-space) $gap-medium;
   background:
-    linear-gradient(180deg, rgba($silk, 0.12), rgba($silk, 0.06)),
-    url("../img/resources/walnut.jpg") center / cover,
+    url("../img/resources/walnut.jpg") left top / 960px auto repeat,
     #6a4a35;
 
   @include breakpoint.respond-to("landscape") {
@@ -33,9 +34,24 @@ $key-columns: (
 
   @media (orientation: landscape) and (max-height: 500px) {
     --piano-side-space: #{$gap-tiny};
-    grid-column: 2;
-    grid-row: 1;
     padding: $gap-tiny var(--piano-side-space) $gap-small;
+  }
+}
+
+.clef-panel-stage {
+  flex: 0 0 auto;
+  min-height: 0;
+
+  &.is-transitioning {
+    overflow: clip;
+
+    > .clef-settings,
+    > .clef-answers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
   }
 }
 

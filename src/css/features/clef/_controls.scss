@@ -56,6 +56,15 @@
   color: #f2e8d6;
   color-scheme: dark;
 
+  .clef-key-button {
+    gap: 3px;
+    font-size: 18px;
+
+    span { font-size: 10px; }
+
+    &[aria-pressed="true"] { border-color: var(--highlight-color); }
+  }
+
   @include breakpoint.respond-to("landscape") {
     margin-bottom: $gap-small;
   }
@@ -116,6 +125,152 @@
     opacity: 0;
     cursor: pointer;
   }
+}
+
+.clef-settings-bar {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
+.clef-settings-bar button {
+  @include control-button;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+.clef-settings-bar button {
+  flex: 0 0 44px;
+  width: 44px;
+  padding: 0;
+  line-height: 1;
+
+  &[data-open-settings] {
+    width: 44px;
+    padding: 0;
+    font-size: 20px;
+  }
+
+  &[aria-pressed="true"],
+  &[aria-expanded="true"] {
+    border-color: var(--highlight-color);
+    background: var(--highlight-color);
+    color: $black;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.clef-settings {
+  transform-origin: top center;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    margin: 0 auto 4px;
+    border-radius: 2px;
+    background: #f2e8d666;
+  }
+}
+
+.clef-install-slot {
+  flex: 0 0 auto;
+  min-height: 0;
+
+  &.is-transitioning {
+    overflow: clip;
+
+    > .clef-install {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+  }
+}
+
+.clef-settings .clef-deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  align-items: stretch;
+  overflow: visible;
+  gap: 6px;
+  padding: 4px;
+  margin-bottom: 4px;
+
+  > button,
+  > .clef-deck-toggle {
+    width: 100%;
+    height: auto;
+    min-height: 44px;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px;
+    margin: 0;
+    text-align: left;
+  }
+
+  .clef-setting-label {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .clef-deck-toggle:has(input:checked) .clef-setting-label::after {
+    content: ' · On';
+    font-weight: bold;
+  }
+
+  .clef-deck-toggle:has(input:not(:checked)) .clef-setting-label::after {
+    content: ' · Off';
+  }
+}
+
+.clef-piano .clef-install {
+  color: #f2e8d6;
+  padding: 8px 4px 16px;
+  line-height: 1.4;
+
+  p { margin-top: 4px; }
+}
+
+.clef-install-heading {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  h3 { font-size: 14px; }
+  button {
+    @include control-button;
+    flex: 0 0 44px;
+    width: 44px;
+    margin: 0;
+    font-size: 20px;
+  }
+}
+
+.clef-settings-bar button:focus-visible,
+.clef-install button:focus-visible {
+  outline: 2px solid #f3dab3;
+  outline-offset: 2px;
+}
+
+.clef-piano [hidden],
+.clef-feedback[hidden] {
+  display: none !important;
 }
 
 @keyframes clef-control-activate {

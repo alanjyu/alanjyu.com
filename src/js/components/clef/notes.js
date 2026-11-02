@@ -16,6 +16,19 @@ const SEMITONES = [0, 2, 4, 5, 7, 9, 11];
 // Diatonic indices, starting at C0. Bottom lines: E4 (treble), G2 (bass).
 const BOTTOM_LINES = { treble: 30, bass: 18 };
 
+export const KEY_SIGNATURES = [
+  ['C major / A minor', 0], ['G major / E minor', 1], ['D major / B minor', 2],
+  ['A major / F♯ minor', 3], ['E major / C♯ minor', 4], ['B major / G♯ minor', 5],
+  ['F♯ major / D♯ minor', 6], ['C♯ major / A♯ minor', 7],
+  ['F major / D minor', -1], ['B♭ major / G minor', -2], ['E♭ major / C minor', -3],
+  ['A♭ major / F minor', -4], ['D♭ major / B♭ minor', -5],
+  ['G♭ major / E♭ minor', -6], ['C♭ major / A♭ minor', -7]
+].map(([name, count]) => ({ name, count }));
+
+export function signatureAccidental(letter, count = 0) {
+  return (count > 0 ? 'FCGDAEB' : 'BEADGCF').slice(0, Math.abs(count)).includes(letter) ? Math.sign(count) : 0;
+}
+
 export const staffY = step => 176 - step * 12;
 
 export function createNote(clef, step, accidental = 0) {
@@ -58,12 +71,13 @@ export function createChord(root, quality) {
   return { clef: root.clef, notes, quality, name: notes.map(note => note.name).join(', ') };
 }
 
-export function createDeck(mode, random = Math.random, includeChords = false) {
+export function createDeck(mode, random = Math.random, includeChords = false, keySignature = null) {
   const clefs = mode === 'mixed' ? ['treble', 'bass'] : [mode];
   const deck = clefs.flatMap(clef => {
     const { min, max } = noteStepsForClef(clef, mode);
     return Array.from({ length: max - min + 1 }, (_, i) => {
       const note = createNote(clef, min + i);
+      if (keySignature !== null) return [createNote(clef, note.step, signatureAccidental(note.letter, keySignature))];
       return [note, createNote(clef, note.step, 1), createNote(clef, note.step, -1)];
     }).flat();
   });

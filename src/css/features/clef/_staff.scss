@@ -1,6 +1,20 @@
 @use "../../base/variables" as *;
 @use "../../utils/breakpoints" as breakpoint;
 
+.clef-key-status {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  right: 56px;
+  z-index: 2;
+  color: var(--staff-ink);
+  font-size: 12px;
+  line-height: 1.4;
+  pointer-events: none;
+
+  &:empty { display: none; }
+}
+
 .clef-staff {
   --stats-tab-width: 44px;
   --staff-paper: #fbf7eb;
@@ -39,8 +53,6 @@
 
   @media (orientation: landscape) and (max-height: 500px) {
     --staff-height: clamp(144px, 48svh, 200px);
-    grid-column: 1;
-    grid-row: 1;
     min-height: 144px;
   }
 

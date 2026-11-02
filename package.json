@@ -33,8 +33,8 @@
   },
   "scripts": {
     "dev": "parcel serve --target build",
-    "build": "parcel build --target build",
-    "publish": "node scripts/clean-docs.mjs && parcel build --target build --public-url https://alanjyu.com --no-cache"
+    "build": "parcel build --target build && node src/js/clef-offline.mjs",
+    "publish": "parcel build --target build --public-url https://alanjyu.com --no-cache && node src/js/clef-offline.mjs"
   },
   "repository": {
     "type": "git",

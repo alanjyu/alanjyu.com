@@ -11,7 +11,11 @@
   <meta property="og:description" content="Practice reading notes in treble and bass clefs." />
   <meta property="og:url" content="https://alanjyu.com/clef/" />
   <link rel="icon" href="../img/favicon.ico" />
-  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="manifest" href="./app.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-180.png" />
+  <meta name="theme-color" content="#2c2923" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Clef" />
   <script>
     (() => {
       try {
@@ -33,23 +37,6 @@
       <span class="home__rect" aria-hidden="true"></span>
       <img class="icon-home" src="../img/icons/home.svg" alt="" />
     </a>
-    <ul class="nav__list">
-      <li class="nav__rect" aria-hidden="true"></li>
-      <li class="nav__item"><a class="nav__link" href="/resume/">Resume</a></li>
-      <li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
-      <li class="nav__item"><a class="nav__link nav__link--default" href="/music/">Music</a></li>
-    </ul>
-    <ul class="nav__menu" id="practice-navigation-menu">
-      <li class="nav__item"><button class="nav__link" type="button" data-nav-menu-toggle aria-expanded="false" aria-controls="practice-navigation-menu">Music<img id="greater-than" src="../img/icons/greater-than.svg" alt="" /></button></li>
-      <li class="nav__item"><a class="nav__link" href="/resume/">Resume</a></li>
-      <li class="nav__item"><a class="nav__link" href="/science/">Science</a></li>
-      <li class="nav__item"><a class="nav__link" href="/music/">Music</a></li>
-    </ul>
-    <button id="theme-toggle" class="nav__button" type="button" aria-label="Toggle light/dark theme">
-      <span class="theme__rect" aria-hidden="true"></span>
-      <img class="icon-sun" src="../img/icons/sun.svg" alt="" />
-      <img class="icon-moon" src="../img/icons/moon.svg" alt="" />
-    </button>
   </nav>
 
   <main class="clef" data-clef-trainer>
@@ -58,6 +45,7 @@
         <div data-exercise>
           <div class="clef-instrument">
             <div class="clef-staff clef-staff--dual">
+              <span class="clef-key-status" data-key-status role="status" aria-live="polite"></span>
               <details class="clef-progress" data-statistics>
                 <summary class="clef-progress__tab">
                   <span>Statistics</span>
@@ -110,7 +98,17 @@
             </div>
 
             <div class="clef-piano">
-              <div class="clef-deck" role="group" aria-label="Practice controls">
+              <div class="clef-settings-bar" role="group" aria-label="Practice actions">
+                <input type="checkbox" data-challenge aria-label="10-note timed challenge" hidden />
+                <button type="button" data-toggle-challenge aria-label="10-note timed challenge" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/challenge.svg#glyph" width="24" height="24" /></svg></button>
+                <button type="button" data-toggle-install aria-label="Installation instructions" aria-expanded="false" aria-controls="clef-install-help"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5" /></svg></button>
+                <button type="button" data-open-settings aria-label="Settings" aria-expanded="false" aria-controls="clef-settings">⚙</button>
+              </div>
+              <div class="clef-install-slot" data-install-slot></div>
+              <div class="clef-panel-stage">
+              <section class="clef-settings" id="clef-settings" aria-label="Settings" hidden>
+              <div class="clef-deck" role="group" aria-label="Practice settings">
+                <button class="clef-key-button" type="button" value="off" data-key-practice data-control-hint aria-pressed="false" aria-label="Key practice off. Switch to 5 notes per key">♯<span data-key-mode>Off</span></button>
                 <button class="clef-hear-button" type="button" data-hear data-control-hint aria-label="Hear the current note">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/play.svg#glyph" width="24" height="24" /></svg>
                 </button>
@@ -122,13 +120,13 @@
                     <g data-clef-option="bass" hidden><use href="../img/clef/bass.svg#glyph" x="18" y="18" width="108" height="144" /></g>
                   </svg>
                 </button>
-                <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-challenge aria-label="10-note timed challenge" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/challenge.svg#glyph" width="24" height="24" /></svg></label>
                 <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-include-chords aria-label="Include chords" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/chord.svg#glyph" width="24" height="24" /></svg></label>
                 <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-show-history aria-label="Scrolling score: show past notes and preview the next" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/score.svg#glyph" width="24" height="24" /></svg></label>
                 <button class="clef-deck-button" type="button" data-restart data-control-hint aria-label="Restart session">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/restart.svg#glyph" width="24" height="24" /></svg>
                 </button>
               </div>
+              </section>
               <div class="clef-answers" role="group" aria-label="Choose the piano key that matches the note">
                 <button type="button" data-answer="C" aria-label="Z: C or B sharp" aria-keyshortcuts="z">Z</button>
                 <button class="clef-answer--black" type="button" data-answer="C#" aria-label="S: C sharp or D flat" aria-keyshortcuts="s"><span>S</span></button>
@@ -143,6 +141,7 @@
                 <button class="clef-answer--black" type="button" data-answer="A#" aria-label="J: A sharp or B flat" aria-keyshortcuts="j"><span>J</span></button>
                 <button type="button" data-answer="B" aria-label="M: B or C flat" aria-keyshortcuts="m">M</button>
               </div>
+              </div>
             </div>
           </div>
           <div class="clef-feedback" data-feedback-row>
@@ -152,9 +151,68 @@
         </div>
 
       </section>
+      <section class="clef-install" id="clef-install-help" data-install-help aria-labelledby="clef-install-title" hidden>
+        <div class="clef-install-heading"><h3 id="clef-install-title">Install Clef for offline practice</h3><button type="button" data-close-install aria-label="Close installation instructions">×</button></div>
+        <p data-offline-status role="status">Preparing offline practice…</p>
+        <button type="button" data-install-app hidden>Install Clef</button>
+        <p>iPhone / iPad: in Safari, tap Share → Add to Home Screen → Add. Keep Open as Web App enabled if shown.</p>
+        <p>Android: tap Install Clef, or use your browser menu → Install app / Add to Home screen.</p>
+        <p>Open Clef once online and wait for “Ready for offline practice” before going offline. Your browser may remove downloaded data if device storage runs low.</p>
+      </section>
     </div>
   </main>
   <noscript><p class="clef-noscript">Please enable JavaScript to practice.</p></noscript>
   <script type="module" src="../js/main.js"></script>
+  <script>
+    (() => {
+      const status = document.querySelector('[data-offline-status]');
+      const button = document.querySelector('[data-install-app]');
+      let installPrompt;
+      window.addEventListener('beforeinstallprompt', event => {
+        event.preventDefault();
+        installPrompt = event;
+        button.hidden = false;
+      });
+      button.addEventListener('click', async () => {
+        if (!installPrompt) return;
+        const prompt = installPrompt;
+        installPrompt = null;
+        button.hidden = true;
+        try { await prompt.prompt(); await prompt.userChoice; } catch { /* Manual instructions remain available. */ }
+      });
+      window.addEventListener('appinstalled', () => { button.hidden = true; installPrompt = null; });
+      if (!('serviceWorker' in navigator) || !window.isSecureContext) {
+        status.textContent = 'Offline installation needs HTTPS and a browser with offline app support.';
+        return;
+      }
+      const ready = () => { status.textContent = 'Ready for offline practice — notes, sheets, and piano sound are saved on this device.'; };
+      navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data?.type === 'CLEF_OFFLINE_READY') ready();
+      });
+      const check = () => navigator.serviceWorker.controller?.postMessage('CLEF_OFFLINE_STATUS');
+      navigator.serviceWorker.addEventListener('controllerchange', check);
+      window.addEventListener('load', async () => {
+        try {
+          const workerURL = new URL('sw.js', location.origin + '/clef/');
+          const registration = await navigator.serviceWorker.register(workerURL, { scope: '/clef/', updateViaCache: 'none' });
+          const monitor = () => {
+            const installing = registration.installing;
+            installing?.addEventListener('statechange', () => {
+              if (installing.state === 'redundant' && !navigator.serviceWorker.controller) {
+                status.textContent = 'Offline download did not finish. Reconnect and reload Clef to try again.';
+              }
+            });
+          };
+          registration.addEventListener('updatefound', monitor);
+          monitor();
+          if (registration.active) check();
+          await navigator.serviceWorker.ready;
+          check();
+        } catch {
+          status.textContent = 'Offline download is unavailable. Reconnect and reload Clef to try again.';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -48,6 +48,8 @@
 }
 
 .clef-instrument {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -60,10 +62,6 @@
     border-radius: $border-radius-large;
   }
 
-  @media (orientation: landscape) and (max-height: 500px) {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 .clef-feedback {
@@ -95,4 +93,23 @@
   padding: $gap-medium;
   text-align: center;
   color: var(--clef-ink);
+}
+
+.clef-install {
+  padding: 12px 4px 20px;
+  color: var(--clef-muted);
+  font-size: 13px;
+  line-height: 1.6;
+
+  summary { cursor: pointer; }
+  p { margin-top: 8px; }
+  button {
+    margin-top: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--clef-rule);
+    border-radius: 6px;
+    background: var(--clef-card);
+    color: var(--clef-ink);
+    cursor: pointer;
+  }
 }

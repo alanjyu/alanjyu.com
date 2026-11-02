@@ -111,6 +111,7 @@ export default class Nav {
 	}
 
 	setRectToElement(rect, reference, target) {
+		if (!rect || !reference || !target) return;
 		const referenceBounds = reference.getBoundingClientRect();
 		const targetBounds = target.getBoundingClientRect();
 		const offsetX = targetBounds.left - referenceBounds.left - reference.clientLeft;

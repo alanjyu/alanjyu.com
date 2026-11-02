@@ -1,0 +1,15 @@
+{
+  "id": "/clef/",
+  "name": "Clef — Music practice",
+  "short_name": "Clef",
+  "description": "Practice reading music notes and key signatures, even offline.",
+  "start_url": "/clef/",
+  "scope": "/clef/",
+  "display": "standalone",
+  "background_color": "#2c2923",
+  "theme_color": "#2c2923",
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
