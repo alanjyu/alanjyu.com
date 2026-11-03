@@ -50,7 +50,7 @@
 .clef-instrument {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 0 0 auto;
   min-width: 0;
   overflow: hidden;
   border: 1px solid var(--clef-rule);

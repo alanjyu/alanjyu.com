@@ -1,6 +1,7 @@
 import { ANSWER_PITCHES, KEYBOARD_ANSWERS, MIDDLE_C_STEPS, NOTE_STEPS, createDeck, describePosition, isCorrectAnswer, layoutNoteHistory, ledgerSteps, noteForAnswer, staffY } from './notes.js';
 import Piano from './piano.js';
 import ControlHints from './control-hints.js';
+import { applyTheme } from '../theme.js';
 import { KEY_SIGNATURES, signatureAccidental } from './notes.js';
 
 const BEST_KEY = 'clef-best-streak';
@@ -13,8 +14,7 @@ const STAFF_HEIGHT = staffY(NOTE_STEPS.min) - STAFF_TOP + 48;
 const BASS_STAFF_OFFSET = staffY(MIDDLE_C_STEPS.treble) - staffY(MIDDLE_C_STEPS.bass);
 const STAFF_INSET = 12;
 const SCORE_INSET = 300;
-const CLEF_MODES = ['mixed', 'treble', 'bass'];
-const CLEF_LABELS = { mixed: 'Both clefs', treble: 'Treble clef', bass: 'Bass clef' };
+const SETTING_VALUES = { theme: ['light', 'dark'], clef: ['mixed', 'treble', 'bass'], keys: ['off', '5', '10'], sound: ['off', 'on'], chords: ['off', 'on'], history: ['single', 'scrolling'] };
 const NOTATION = {
   treble: new URL('../../../img/clef/treble.svg#glyph', import.meta.url).href,
   bass: new URL('../../../img/clef/bass.svg#glyph', import.meta.url).href,
@@ -66,23 +66,33 @@ export default class Clef {
     this.advanceTimer = null;
     this.resizeFrame = null;
     this.piano = new Piano(playing => this.hearControl.classList.toggle('is-playing', playing));
-    this.controlHints = new ControlHints(this.find('.clef-deck'));
+    this.controlHints = new ControlHints(this.find('.clef-piano'));
     this.best = this.readBest();
     this.settingsOpen = false;
     const installHelp = document.querySelector('[data-install-help]');
     this.find('[data-install-slot]').append(installHelp);
-    // Keep every setting readable without relying on icon tooltips.
-    this.find('.clef-deck').querySelectorAll(':scope > button, :scope > label').forEach(control => {
-      const label = document.createElement('span');
-      label.className = 'clef-setting-label';
-      label.dataset.settingLabel = '';
-      control.append(label);
+    this.settingBars = [...element.querySelectorAll('.clef-setting-options')];
+    this.settingBars.forEach(bar => {
+      bar.style.setProperty('--option-count', bar.querySelectorAll('[data-setting]').length);
     });
     this.bindEvents();
     this.startSession();
   }
 
   bindEvents() {
+    this.element.querySelectorAll('[data-setting]').forEach(button => {
+      button.addEventListener('click', () => this.setSetting(button.dataset.setting, button.value));
+      button.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'touch') this.moveSettingRect(button.parentElement, button);
+      });
+      button.addEventListener('focus', () => this.moveSettingRect(button.parentElement, button));
+    });
+    this.settingBars.forEach(bar => {
+      bar.addEventListener('pointerleave', () => this.moveSettingRect(bar,
+        bar.contains(document.activeElement) ? document.activeElement : null));
+      bar.addEventListener('focusout', event => this.moveSettingRect(bar,
+        bar.contains(event.relatedTarget) ? event.relatedTarget : null));
+    });
     this.find('[data-open-settings]').addEventListener('click', () => this.setSettings(!this.settingsOpen));
     this.find('[data-toggle-challenge]').addEventListener('click', () => {
       this.challenge.checked = !this.challenge.checked;
@@ -93,42 +103,13 @@ export default class Clef {
       if (this.settingsOpen) await this.setSettings(false);
       await this.setInstallHelp(this.find('[data-install-help]').hidden);
     });
-    this.find('[data-close-install]').addEventListener('click', async () => {
-      await this.setInstallHelp(false);
-      this.find('[data-toggle-install]').focus({ preventScroll: true });
-    });
     this.answers.forEach(button => button.addEventListener('click', () => this.answer(button.dataset.answer)));
-    this.clefControl.addEventListener('click', () => {
-      this.clefControl.value = CLEF_MODES[(CLEF_MODES.indexOf(this.clefControl.value) + 1) % CLEF_MODES.length];
-      this.startSession();
-      this.clefControl.classList.add('is-changing');
-    });
-    this.clefControl.addEventListener('animationend', event => {
-      if (event.animationName === 'clef-control-activate') this.clefControl.classList.remove('is-changing');
-    });
-    this.includeChords.addEventListener('change', () => this.startSession());
-    this.keyPractice.addEventListener('click', () => {
-      const modes = ['off', '5', '10'];
-      this.keyPractice.value = modes[(modes.indexOf(this.keyPractice.value) + 1) % modes.length];
-      const value = this.keyPractice.value;
-      this.keyPractice.querySelector('[data-key-mode]').textContent = value === 'off' ? 'Off' : value;
-      this.keyPractice.setAttribute('aria-label', value === 'off'
-        ? 'Key practice off. Switch to 5 notes per key'
-        : `${value} notes per key. ${value === '5' ? 'Switch to 10 notes per key' : 'Turn key practice off'}`);
-      this.keyPractice.setAttribute('aria-pressed', String(value !== 'off'));
-      this.startSession();
-    });
-    this.showHistory.addEventListener('change', () => this.drawNote());
     this.challenge.addEventListener('change', () => this.startSession(true));
     this.find('[data-challenge-again]').addEventListener('click', () => this.startSession(true));
     this.find('[data-challenge-practice]').addEventListener('click', () => {
       this.challenge.checked = false;
       this.startSession(true);
     });
-    this.sound.addEventListener('change', () => {
-      if (!this.sound.checked) this.piano.cancel();
-    });
-    this.find('[data-restart]').addEventListener('click', () => this.startSession());
     this.hearControl.addEventListener('click', () => this.playNote());
     this.scoreScroll.addEventListener('scroll', () => this.translateScore(), { passive: true });
     for (const event of ['pointerdown', 'wheel', 'keydown']) {
@@ -166,7 +147,6 @@ export default class Clef {
       window.cancelAnimationFrame(this.resizeFrame);
       this.resizeFrame = null;
       this.controlHints.hide();
-      this.clefControl.classList.remove('is-changing');
       this.piano.close().catch(() => {});
     });
     window.addEventListener('resize', () => {
@@ -183,15 +163,36 @@ export default class Clef {
     this.statistics.querySelector('summary').focus({ preventScroll: true });
   }
 
-  refreshSettingLabels() {
-    this.find('.clef-deck').querySelectorAll('[data-setting-label]').forEach(label => {
-      const wrapper = label.parentElement;
-      const control = wrapper.matches('button') ? wrapper : wrapper.querySelector('input');
-      let text = control.getAttribute('aria-label');
-      if (control === this.clefControl) text = `Clef: ${CLEF_LABELS[this.mode]}`;
-      if (control === this.keyPractice) text = `Key practice: ${control.value === 'off' ? 'Off' : `${control.value} notes per key`}`;
-      label.textContent = text;
+  settingValues() {
+    return { theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light', clef: this.clefControl.value, keys: this.keyPractice.value, sound: this.sound.checked ? 'on' : 'off', chords: this.includeChords.checked ? 'on' : 'off', history: this.showHistory.checked ? 'scrolling' : 'single' };
+  }
+
+  syncSettings() {
+    const values = this.settingValues();
+    this.element.querySelectorAll('[data-setting]').forEach(button => {
+      button.setAttribute('aria-pressed', String(values[button.dataset.setting] === button.value));
     });
+    this.settingBars.forEach(bar => this.moveSettingRect(bar));
+  }
+
+  moveSettingRect(bar, target = null) {
+    const options = [...bar.querySelectorAll('[data-setting]')];
+    const selected = target || bar.querySelector('[aria-pressed="true"]');
+    const index = options.indexOf(selected);
+    if (index >= 0) bar.style.setProperty('--option-index', index);
+  }
+
+  setSetting(setting, value) {
+    if (!SETTING_VALUES[setting]?.includes(value) || this.settingValues()[setting] === value) return;
+    if (setting === 'theme') applyTheme(value);
+    if (setting === 'clef') this.clefControl.value = value;
+    if (setting === 'keys') this.keyPractice.value = value;
+    if (setting === 'sound') { this.sound.checked = value === 'on'; if (!this.sound.checked) this.piano.cancel(); }
+    if (setting === 'chords') this.includeChords.checked = value === 'on';
+    if (setting === 'history') this.showHistory.checked = value === 'scrolling';
+    this.syncSettings();
+    if (['clef', 'keys', 'chords'].includes(setting)) this.startSession();
+    else if (setting === 'history') this.drawNote();
   }
 
   async setInstallHelp(open) {
@@ -199,10 +200,19 @@ export default class Clef {
     if (this.installTransition || open === !panel.hidden) return;
     this.installTransition = true;
     const slot = this.find('[data-install-slot]');
+    this.find('[data-toggle-install]').setAttribute('aria-expanded', String(open));
+    try {
+      await this.slidePanel(slot, panel, open);
+    } finally {
+      this.installTransition = false;
+    }
+    this.drawNote();
+  }
+
+  async slidePanel(slot, panel, open) {
     const oldHeight = slot.getBoundingClientRect().height;
     const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof panel.animate === 'function';
     const animations = [];
-    this.find('[data-toggle-install]').setAttribute('aria-expanded', String(open));
     try {
       if (motion) {
         slot.style.height = `${oldHeight}px`;
@@ -225,22 +235,16 @@ export default class Clef {
       slot.classList.remove('is-transitioning');
       slot.style.removeProperty('height');
       animations.forEach(animation => animation.cancel());
-      this.installTransition = false;
     }
-    this.drawNote();
   }
 
   async setSettings(open) {
     if (this.settingsTransition || this.installTransition || open === this.settingsOpen) return;
     this.settingsTransition = true;
     if (open) await this.setInstallHelp(false);
-    const stage = this.find('.clef-panel-stage');
+    const slot = this.find('.clef-settings-slot');
     const menu = this.find('#clef-settings');
     const keyboard = this.find('.clef-answers');
-    const incoming = open ? menu : keyboard;
-    const outgoing = open ? keyboard : menu;
-    const oldHeight = stage.getBoundingClientRect().height;
-    const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof menu.animate === 'function';
     this.settingsOpen = open;
     this.find('[data-open-settings]').setAttribute('aria-expanded', String(open));
     // Reserve the feedback row so opening settings cannot change the staff's
@@ -252,42 +256,14 @@ export default class Clef {
       window.clearTimeout(this.advanceTimer);
       this.advanceTimer = null;
       this.piano.cancel();
-      this.refreshSettingLabels();
+      this.syncSettings();
     }
 
-    const animations = [];
     try {
-      if (motion) {
-        // Fix the current height before exposing the new content. Both panels
-        // then overlap without affecting layout while the stage changes size.
-        stage.style.height = `${oldHeight}px`;
-        stage.classList.add('is-transitioning');
-        incoming.hidden = false;
-        incoming.inert = false;
-        outgoing.inert = true;
-        const newHeight = incoming.getBoundingClientRect().height;
-        const options = { duration: 300, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'both' };
-        animations.push(stage.animate([{ height: `${oldHeight}px` }, { height: `${newHeight}px` }], options));
-        animations.push(incoming.animate(open ? [
-          { clipPath: 'inset(0 0 100% 0)', transform: 'translateY(-12px)', opacity: 0 },
-          { clipPath: 'inset(0)', transform: 'translateY(0)', opacity: 1 }
-        ] : [{ opacity: 0 }, { opacity: 1 }], options));
-        animations.push(outgoing.animate(open ? [{ opacity: 1 }, { opacity: 0 }] : [
-          { clipPath: 'inset(0)', transform: 'translateY(0)', opacity: 1 },
-          { clipPath: 'inset(0 0 100% 0)', transform: 'translateY(-12px)', opacity: 0 }
-        ], options));
-        await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
-      }
+      keyboard.inert = open;
+      // The menu expands in normal flow, carrying the keyboard down with it.
+      await this.slidePanel(slot, menu, open);
     } finally {
-      // Commit the final layout before removing animation fills, all in one
-      // frame, so returning to natural height never reveals the other panel.
-      outgoing.hidden = true;
-      outgoing.inert = true;
-      incoming.hidden = false;
-      incoming.inert = false;
-      stage.classList.remove('is-transitioning');
-      stage.style.removeProperty('height');
-      animations.forEach(animation => animation.cancel());
       this.settingsTransition = false;
     }
     if (!open && this.challenge.checked && this.phase === 'question') {
@@ -320,11 +296,7 @@ export default class Clef {
     this.challenge.setAttribute('aria-label', `${CHALLENGE_LENGTH}-${challengeUnit} timed challenge`);
     this.find('[data-toggle-challenge]').setAttribute('aria-label', `${CHALLENGE_LENGTH}-${challengeUnit} timed challenge`);
     this.find('[data-toggle-challenge]').setAttribute('aria-pressed', String(this.challenge.checked));
-    this.find('[data-restart]').setAttribute('aria-label', this.challenge.checked ? 'Restart challenge' : 'Restart session');
     this.mode = this.clefControl.value;
-    const nextClef = CLEF_MODES[(CLEF_MODES.indexOf(this.mode) + 1) % CLEF_MODES.length];
-    this.clefControl.setAttribute('aria-label', `${CLEF_LABELS[this.mode]}. Switch to ${CLEF_LABELS[nextClef].toLowerCase()}`);
-    this.clefControl.querySelectorAll('[data-clef-option]').forEach(icon => icon.toggleAttribute('hidden', icon.dataset.clefOption !== this.mode));
     this.deck = [];
     this.keyIndex = Math.floor(Math.random() * KEY_SIGNATURES.length);
     this.keyRound = -1;
@@ -341,7 +313,7 @@ export default class Clef {
     this.find('[data-skipped-label]').textContent = this.includeChords.checked ? 'Exercises skipped' : 'Notes skipped';
     this.find('[data-streak-unit]').textContent = this.includeChords.checked ? ' exercises' : ' notes';
     this.updateStats();
-    this.refreshSettingLabels();
+    this.syncSettings();
     this.showQuestion(focus);
   }
 

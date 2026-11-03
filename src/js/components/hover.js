@@ -15,7 +15,7 @@ export default class Hover {
         filler.style.setProperty('--hover-y', `${relY}px`);
       });
   
-      filler.addEventListener('mouseout', function(e) {
+      filler.addEventListener('mouseleave', function(e) {
         let parentOffset = filler.getBoundingClientRect();
         let relX = e.pageX - window.scrollX - parentOffset.left;
         let relY = e.pageY - window.scrollY - parentOffset.top;

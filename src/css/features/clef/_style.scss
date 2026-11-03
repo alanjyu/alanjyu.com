@@ -1,8 +1,12 @@
 @use "../../base/variables" as *;
 @use "../../utils/breakpoints" as breakpoint;
 
+html:has(.clef-page) {
+  scrollbar-gutter: stable;
+}
+
 .clef-page {
-  --clef-top-space: calc(#{$icon-size + $gap-large} + env(safe-area-inset-top, 0px));
+  --clef-top-space: calc(#{$gap-small} + env(safe-area-inset-top, 0px));
   --clef-paper: #f7f6f2;
   --clef-card: #fefdf9;
   --clef-ink: #292f2b;
@@ -18,12 +22,8 @@
   background: var(--clef-paper);
   color: var(--clef-ink);
 
-  @media (orientation: landscape) and (max-height: 500px) {
-    --clef-top-space: calc(#{$icon-size + $gap-medium + $gap-tiny} + env(safe-area-inset-top, 0px));
-  }
-
   @include breakpoint.respond-to("landscape") {
-    --clef-top-space: calc(#{$icon-size + $gap-huge} + env(safe-area-inset-top, 0px));
+    --clef-top-space: calc(#{$gap-medium} + env(safe-area-inset-top, 0px));
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -54,34 +54,6 @@
   h5,
   h6 {
     font-family: inherit;
-  }
-
-  .nav__list {
-    list-style: none;
-  }
-
-  .nav__list,
-  .nav__menu,
-  .nav__button {
-    background-color: color-mix(in srgb, var(--clef-card) 94%, transparent);
-  }
-
-  .nav__menu .nav__item {
-    flex: 0 0 $icon-size;
-    height: $icon-size;
-  }
-
-  .nav__menu .nav__link {
-    width: 100%;
-    min-height: $icon-size;
-    align-items: center;
-    padding: 0 $gap-small;
-  }
-
-  [data-nav-menu-toggle] {
-    border: 0;
-    background: none;
-    color: inherit;
   }
 
   [hidden] {

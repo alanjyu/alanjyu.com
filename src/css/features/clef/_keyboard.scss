@@ -41,12 +41,16 @@ $key-columns: (
 .clef-panel-stage {
   flex: 0 0 auto;
   min-height: 0;
+}
+
+.clef-settings-slot {
+  flex: 0 0 auto;
+  min-height: 0;
 
   &.is-transitioning {
     overflow: clip;
 
-    > .clef-settings,
-    > .clef-answers {
+    > .clef-settings {
       position: absolute;
       top: 0;
       left: 0;

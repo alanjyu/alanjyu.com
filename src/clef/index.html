@@ -32,12 +32,6 @@
 
 <body class="clef-page">
   <a class="clef-skip" href="#practice">Skip to practice</a>
-  <nav class="nav" aria-label="Main navigation">
-    <a id="home-button" class="nav__button" href="/" aria-label="Home">
-      <span class="home__rect" aria-hidden="true"></span>
-      <img class="icon-home" src="../img/icons/home.svg" alt="" />
-    </a>
-  </nav>
 
   <main class="clef" data-clef-trainer>
     <div class="clef-workspace">
@@ -99,34 +93,54 @@
 
             <div class="clef-piano">
               <div class="clef-settings-bar" role="group" aria-label="Practice actions">
+                <a class="clef-home-button hover-fill" href="/" aria-label="Home"><img src="../img/icons/home-a.svg" alt="" aria-hidden="true" /></a>
+                <button class="clef-hear-button hover-fill" type="button" data-hear aria-label="Hear the current note">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/play.svg#glyph" width="24" height="24" /></svg>
+                </button>
                 <input type="checkbox" data-challenge aria-label="10-note timed challenge" hidden />
-                <button type="button" data-toggle-challenge aria-label="10-note timed challenge" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/challenge.svg#glyph" width="24" height="24" /></svg></button>
-                <button type="button" data-toggle-install aria-label="Installation instructions" aria-expanded="false" aria-controls="clef-install-help"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5" /></svg></button>
-                <button type="button" data-open-settings aria-label="Settings" aria-expanded="false" aria-controls="clef-settings">⚙</button>
+                <button class="hover-fill" type="button" data-toggle-challenge aria-label="10-note timed challenge" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/challenge.svg#glyph" width="24" height="24" /></svg></button>
+                <button class="hover-fill" type="button" data-toggle-install aria-label="Installation instructions" aria-expanded="false" aria-controls="clef-install-help"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5" /></svg></button>
+                <button class="hover-fill" type="button" data-open-settings aria-label="Settings" aria-expanded="false" aria-controls="clef-settings"><span aria-hidden="true">⚙</span></button>
               </div>
               <div class="clef-install-slot" data-install-slot></div>
               <div class="clef-panel-stage">
+              <div class="clef-settings-slot">
               <section class="clef-settings" id="clef-settings" aria-label="Settings" hidden>
               <div class="clef-deck" role="group" aria-label="Practice settings">
-                <button class="clef-key-button" type="button" value="off" data-key-practice data-control-hint aria-pressed="false" aria-label="Key practice off. Switch to 5 notes per key">♯<span data-key-mode>Off</span></button>
-                <button class="clef-hear-button" type="button" data-hear data-control-hint aria-label="Hear the current note">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/play.svg#glyph" width="24" height="24" /></svg>
-                </button>
-                <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-sound checked aria-label="Play sound after answering" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/auto-sound.svg#glyph" width="24" height="24" /></svg></label>
-                <button class="clef-mode-button" type="button" value="mixed" data-clef-mode data-control-hint aria-label="Both clefs. Switch to treble clef">
-                  <svg viewBox="0 0 144 180" aria-hidden="true">
-                    <g data-clef-option="mixed"><use href="../img/clef/treble.svg#glyph" width="72" height="180" /><use href="../img/clef/bass.svg#glyph" x="76" y="64" width="64" height="96" /></g>
-                    <g data-clef-option="treble" hidden><use href="../img/clef/treble.svg#glyph" x="36" width="72" height="180" /></g>
-                    <g data-clef-option="bass" hidden><use href="../img/clef/bass.svg#glyph" x="18" y="18" width="108" height="144" /></g>
-                  </svg>
-                </button>
-                <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-include-chords aria-label="Include chords" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/chord.svg#glyph" width="24" height="24" /></svg></label>
-                <label class="clef-deck-toggle" data-control-hint><input type="checkbox" data-show-history aria-label="Scrolling score: show past notes and preview the next" /><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/score.svg#glyph" width="24" height="24" /></svg></label>
-                <button class="clef-deck-button" type="button" data-restart data-control-hint aria-label="Restart session">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/restart.svg#glyph" width="24" height="24" /></svg>
-                </button>
+                <input type="hidden" data-clef-mode value="mixed" />
+                <input type="hidden" data-key-practice value="off" />
+                <input type="checkbox" data-sound checked hidden />
+                <input type="checkbox" data-include-chords hidden />
+                <input type="checkbox" data-show-history hidden />
+                <fieldset class="clef-setting"><legend>Theme</legend><div class="clef-setting-options">
+                  <button type="button" data-setting="theme" value="light" aria-pressed="true">Day</button>
+                  <button type="button" data-setting="theme" value="dark" aria-pressed="false">Night</button>
+                </div></fieldset>
+                <fieldset class="clef-setting"><legend>Clef</legend><div class="clef-setting-options">
+                  <button type="button" data-setting="clef" value="mixed" aria-pressed="true">Both</button>
+                  <button type="button" data-setting="clef" value="treble" aria-pressed="false">Treble</button>
+                  <button type="button" data-setting="clef" value="bass" aria-pressed="false">Bass</button>
+                </div></fieldset>
+                <fieldset class="clef-setting"><legend>Key changes</legend><div class="clef-setting-options">
+                  <button type="button" data-setting="keys" value="off" aria-pressed="true">Off</button>
+                  <button type="button" data-setting="keys" value="5" aria-pressed="false">5 notes</button>
+                  <button type="button" data-setting="keys" value="10" aria-pressed="false">10 notes</button>
+                </div></fieldset>
+                <fieldset class="clef-setting"><legend>Sound after answering</legend><div class="clef-setting-options">
+                  <button type="button" data-setting="sound" value="off" aria-pressed="false">Off</button>
+                  <button type="button" data-setting="sound" value="on" aria-pressed="true">On</button>
+                </div></fieldset>
+                <fieldset class="clef-setting"><legend>Include chords</legend><div class="clef-setting-options">
+                  <button type="button" data-setting="chords" value="off" aria-pressed="true">Off</button>
+                  <button type="button" data-setting="chords" value="on" aria-pressed="false">On</button>
+                </div></fieldset>
+                <fieldset class="clef-setting"><legend>Score display</legend><div class="clef-setting-options">
+                  <button type="button" data-setting="history" value="single" aria-pressed="true">Current note</button>
+                  <button type="button" data-setting="history" value="scrolling" aria-pressed="false">Scrolling</button>
+                </div></fieldset>
               </div>
               </section>
+              </div>
               <div class="clef-answers" role="group" aria-label="Choose the piano key that matches the note">
                 <button type="button" data-answer="C" aria-label="Z: C or B sharp" aria-keyshortcuts="z">Z</button>
                 <button class="clef-answer--black" type="button" data-answer="C#" aria-label="S: C sharp or D flat" aria-keyshortcuts="s"><span>S</span></button>
@@ -152,7 +166,7 @@
 
       </section>
       <section class="clef-install" id="clef-install-help" data-install-help aria-labelledby="clef-install-title" hidden>
-        <div class="clef-install-heading"><h3 id="clef-install-title">Install Clef for offline practice</h3><button type="button" data-close-install aria-label="Close installation instructions">×</button></div>
+        <div class="clef-install-heading"><h3 id="clef-install-title">Install Clef for offline practice</h3></div>
         <p data-offline-status role="status">Preparing offline practice…</p>
         <button type="button" data-install-app hidden>Install Clef</button>
         <p>iPhone / iPad: in Safari, tap Share → Add to Home Screen → Add. Keep Open as Web App enabled if shown.</p>

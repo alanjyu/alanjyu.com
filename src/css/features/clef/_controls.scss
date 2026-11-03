@@ -1,24 +1,22 @@
-@use "sass:color";
 @use "../../base/variables" as *;
 @use "../../utils/breakpoints" as breakpoint;
 @use "../../utils/decorations" as decor;
 
 @mixin control-button {
-  --border-color: #{$charcol-shade};
-  --border-color-alpha: #{rgba($black, 0.14)};
   display: inline-flex;
   position: relative;
   align-items: center;
   justify-content: center;
   height: 44px;
   padding: 0;
-  border: 1px solid color.mix($charcol, $silk, 32%);
-  border-radius: $border-radius;
-  background:
-    linear-gradient(180deg, rgba($white, 0.04), rgba($black, 0.025)),
-    color.mix($silk, $charcol, 90%);
-  box-shadow: $box-shadow, $inset-shadow-y;
-  color: $charcol;
+  border: 1px solid var(--border-color-alpha);
+  border-radius: $border-radius-huge;
+  overflow: hidden;
+  isolation: isolate;
+  @include decor.acrylic;
+  @include decor.glass;
+  background-color: var(--shade-color-alpha);
+  color: var(--text-color);
   cursor: pointer;
   transition:
     background-color $animation-time ease,
@@ -27,17 +25,24 @@
     box-shadow $animation-time ease,
     transform $animation-time ease;
 
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: $silk;
-      border-color: color.mix($charcol, $silk, 44%);
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--glass-highlight);
+    opacity: 0;
+    transition: opacity $animation-time ease;
+    pointer-events: none;
   }
 
-  &:active {
-    transform: translateY(2px);
-    box-shadow: $box-shadow-inset;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::before { opacity: 1; }
   }
+
+  &:focus-visible::before,
+  &:active::before { opacity: 1; }
 }
 
 .clef-deck {
@@ -81,7 +86,11 @@
 
   button,
   .clef-deck-toggle {
-    @include control-button;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    cursor: pointer;
     flex: 0 0 44px;
     width: 44px;
   }
@@ -96,15 +105,6 @@
     stroke-linecap: round;
     stroke-linejoin: round;
     pointer-events: none;
-  }
-
-  .clef-deck-toggle:has(input:checked),
-  .clef-hear-button.is-playing,
-  button:not(.clef-hear-button):active {
-    border-color: var(--highlight-color);
-    background: var(--highlight-color);
-    box-shadow: $box-shadow, $box-shadow-inset;
-    color: $black;
   }
 
   .clef-mode-button.is-changing {
@@ -130,22 +130,31 @@
 .clef-settings-bar {
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  padding-bottom: 8px;
+  justify-content: flex-start;
+  gap: clamp(8px, 2.5vw, 16px);
+  padding-bottom: 16px;
 }
 
-.clef-settings-bar button {
+.clef-settings-bar :is(button, .clef-home-button) {
   @include control-button;
   padding: 0 14px;
   font-size: 13px;
 }
 
-.clef-settings-bar button {
+.clef-settings-bar :is(button, .clef-home-button) {
   flex: 0 0 44px;
   width: 44px;
+  border-radius: 50%;
   padding: 0;
   line-height: 1;
+  background: var(--shade-color);
+  mix-blend-mode: normal;
+  background-blend-mode: normal;
+  box-shadow: 0 1px 3px #00000026;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+
+  &[data-toggle-install] { margin-left: auto; }
 
   &[data-open-settings] {
     width: 44px;
@@ -153,11 +162,30 @@
     font-size: 20px;
   }
 
-  &[aria-pressed="true"],
-  &[aria-expanded="true"] {
-    border-color: var(--highlight-color);
-    background: var(--highlight-color);
-    color: $black;
+  &::before { content: none; display: none; }
+
+  &::after {
+    z-index: 0;
+    mix-blend-mode: normal;
+    background-blend-mode: normal;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+  }
+
+  > svg,
+  > img,
+  > span {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &:hover::after,
+  &:focus-visible::after,
+  &[aria-pressed="true"]::after,
+  &[aria-expanded="true"]::after,
+  &.clef-hear-button.is-playing::after {
+    transform: translate(-50%, -50%) scale(4);
   }
 
   svg {
@@ -170,20 +198,21 @@
     stroke-linecap: round;
     stroke-linejoin: round;
   }
+
+}
+
+.clef-settings-bar .clef-home-button img {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  object-fit: contain;
+  filter: var(--filter);
+  pointer-events: none;
 }
 
 .clef-settings {
   transform-origin: top center;
-
-  &::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 4px;
-    margin: 0 auto 4px;
-    border-radius: 2px;
-    background: #f2e8d666;
-  }
+  padding-bottom: 16px;
 }
 
 .clef-install-slot {
@@ -207,35 +236,83 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
   align-items: stretch;
   overflow: visible;
-  gap: 6px;
+  gap: 12px;
   padding: 4px;
   margin-bottom: 4px;
 
-  > button,
-  > .clef-deck-toggle {
-    width: 100%;
-    height: auto;
-    min-height: 44px;
-    justify-content: flex-start;
-    gap: 8px;
-    padding: 8px;
-    margin: 0;
-    text-align: left;
-  }
+}
 
-  .clef-setting-label {
-    font-size: 13px;
-    line-height: 1.4;
-  }
+.clef-setting {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 4px 0 8px;
+  border: 0;
+  color: #f2e8d6;
 
-  .clef-deck-toggle:has(input:checked) .clef-setting-label::after {
-    content: ' · On';
-    font-weight: bold;
+  legend {
+    padding: 0;
+    font-size: 12px;
+    font-weight: 500;
   }
+}
 
-  .clef-deck-toggle:has(input:not(:checked)) .clef-setting-label::after {
-    content: ' · Off';
+.clef-setting-options {
+  --option-count: 2;
+  --option-index: 0;
+  flex-direction: row;
+  gap: 0;
+  margin-top: 4px;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--border-color-alpha);
+  border-radius: $border-radius-huge;
+  @include decor.acrylic;
+  @include decor.glass;
+  background-color: var(--shade-color-alpha);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: calc(100% / var(--option-count));
+    border-radius: $border-radius-huge;
+    background: var(--glass-highlight);
+    box-shadow: var(--rect-glass-shadow);
+    transform: translateX(calc(var(--option-index) * 100%));
+    transition: transform $animation-time ease;
+    pointer-events: none;
+    @include decor.acrylic;
   }
+}
+
+.clef-settings .clef-setting-options button {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+    border: 0;
+    border-radius: $border-radius-huge;
+    background: transparent;
+    box-shadow: none;
+    color: var(--text-color);
+    transform: none;
+    text-align: center;
+
+    &:hover,
+    &:active {
+      border-color: transparent;
+      background: transparent;
+      transform: none;
+      box-shadow: none;
+      color: var(--text-color);
+    }
+
+    &:focus-visible { outline-offset: -3px; }
 }
 
 .clef-piano .clef-install {
@@ -244,6 +321,11 @@
   line-height: 1.4;
 
   p { margin-top: 4px; }
+
+  [data-install-app] {
+    @include control-button;
+    padding: 0 18px;
+  }
 }
 
 .clef-install-heading {
@@ -253,16 +335,9 @@
   gap: 8px;
 
   h3 { font-size: 14px; }
-  button {
-    @include control-button;
-    flex: 0 0 44px;
-    width: 44px;
-    margin: 0;
-    font-size: 20px;
-  }
 }
 
-.clef-settings-bar button:focus-visible,
+.clef-settings-bar :is(button, .clef-home-button):focus-visible,
 .clef-install button:focus-visible {
   outline: 2px solid #f3dab3;
   outline-offset: 2px;
