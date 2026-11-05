@@ -1,49 +1,7 @@
-@use "../../base/variables" as *;
-@use "../../utils/breakpoints" as breakpoint;
-@use "../../utils/decorations" as decor;
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/breakpoints" as breakpoint;
 
-@mixin control-button {
-  display: inline-flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  height: 44px;
-  padding: 0;
-  border: 1px solid var(--border-color-alpha);
-  border-radius: $border-radius-huge;
-  overflow: hidden;
-  isolation: isolate;
-  @include decor.acrylic;
-  @include decor.glass;
-  background-color: var(--shade-color-alpha);
-  color: var(--text-color);
-  cursor: pointer;
-  transition:
-    background-color $animation-time ease,
-    border-color $animation-time ease,
-    color $animation-time ease,
-    box-shadow $animation-time ease,
-    transform $animation-time ease;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background: var(--glass-highlight);
-    opacity: 0;
-    transition: opacity $animation-time ease;
-    pointer-events: none;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover::before { opacity: 1; }
-  }
-
-  &:focus-visible::before,
-  &:active::before { opacity: 1; }
-}
+@use "buttons";
 
 .clef-deck {
   width: 100%;
@@ -58,8 +16,7 @@
   overscroll-behavior-x: contain;
   scrollbar-width: thin;
   scrollbar-color: #c3a47f66 transparent;
-  color: #f2e8d6;
-  color-scheme: dark;
+  color: var(--piano-wood-label);
 
   .clef-key-button {
     gap: 3px;
@@ -80,7 +37,7 @@
 
   :focus-visible,
   .clef-deck-toggle:has(input:focus-visible) {
-    outline: 2px solid #f3dab3;
+    outline: 2px solid var(--piano-wood-focus);
     outline-offset: 2px;
   }
 
@@ -129,37 +86,40 @@
 
 .clef-settings-bar {
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
   gap: clamp(8px, 2.5vw, 16px);
   padding-bottom: 16px;
 }
 
+.clef-menu-actions {
+  flex: 0 0 auto;
+  flex-direction: row;
+  gap: inherit;
+  margin-left: auto;
+}
+
 .clef-settings-bar :is(button, .clef-home-button) {
-  @include control-button;
+  @include buttons.control-button;
   padding: 0 14px;
   font-size: 13px;
 }
 
 .clef-settings-bar :is(button, .clef-home-button) {
+  @include buttons.piano-button;
   flex: 0 0 44px;
   width: 44px;
   border-radius: 50%;
   padding: 0;
   line-height: 1;
-  background: var(--shade-color);
   mix-blend-mode: normal;
   background-blend-mode: normal;
-  box-shadow: 0 1px 3px #00000026;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-
-  &[data-toggle-install] { margin-left: auto; }
 
   &[data-open-settings] {
     width: 44px;
     padding: 0;
-    font-size: 20px;
+    font-size: 28.8px;
   }
 
   &::before { content: none; display: none; }
@@ -168,7 +128,7 @@
     z-index: 0;
     mix-blend-mode: normal;
     background-blend-mode: normal;
-    transform: translate(-50%, -50%) scale(0);
+    clip-path: circle(0 at var(--hover-x) var(--hover-y));
     pointer-events: none;
   }
 
@@ -180,17 +140,21 @@
     pointer-events: none;
   }
 
-  &:hover::after,
-  &:focus-visible::after,
-  &[aria-pressed="true"]::after,
-  &[aria-expanded="true"]::after,
-  &.clef-hear-button.is-playing::after {
-    transform: translate(-50%, -50%) scale(4);
+  &:hover,
+  &:focus-visible,
+  &[aria-pressed="true"],
+  &[aria-expanded="true"],
+  &.clef-hear-button.is-playing {
+    color: var(--highlight-text-color);
+
+    &::after {
+      clip-path: circle(150% at var(--hover-x) var(--hover-y));
+    }
   }
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     flex-shrink: 0;
     fill: none;
     stroke: currentColor;
@@ -202,9 +166,9 @@
 }
 
 .clef-settings-bar .clef-home-button img {
-  width: 14px;
-  height: 14px;
-  flex: 0 0 14px;
+  width: 16.8px;
+  height: 16.8px;
+  flex: 0 0 16.8px;
   object-fit: contain;
   filter: var(--filter);
   pointer-events: none;
@@ -212,7 +176,7 @@
 
 .clef-settings {
   transform-origin: top center;
-  padding-bottom: 16px;
+  padding-bottom: $gap-medium;
 }
 
 .clef-install-slot {
@@ -236,7 +200,7 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
   align-items: stretch;
   overflow: visible;
-  gap: 12px;
+  gap: $gap-medium;
   padding: 4px;
   margin-bottom: 4px;
 
@@ -247,7 +211,7 @@
   margin: 0;
   padding: 4px 0 8px;
   border: 0;
-  color: #f2e8d6;
+  color: var(--piano-wood-label);
 
   legend {
     padding: 0;
@@ -257,31 +221,29 @@
 }
 
 .clef-setting-options {
+  @include buttons.piano-button(false);
   --option-count: 2;
   --option-index: 0;
   flex-direction: row;
   gap: 0;
-  margin-top: 4px;
+  margin-top: $gap-tiny;
   isolation: isolate;
   overflow: hidden;
-  border: 1px solid var(--border-color-alpha);
+  border: 1px solid var(--piano-button-border);
   border-radius: $border-radius-huge;
-  @include decor.acrylic;
-  @include decor.glass;
-  background-color: var(--shade-color-alpha);
 
   &::before {
     content: '';
     position: absolute;
     inset: 0 auto 0 0;
     width: calc(100% / var(--option-count));
-    border-radius: $border-radius-huge;
-    background: var(--glass-highlight);
-    box-shadow: var(--rect-glass-shadow);
+    border-radius: inherit;
+    background:
+      linear-gradient(180deg, rgba($white, 0.14), rgba($white, 0.02) 42%, transparent 62%),
+      var(--glass-highlight);
     transform: translateX(calc(var(--option-index) * 100%));
     transition: transform $animation-time ease;
     pointer-events: none;
-    @include decor.acrylic;
   }
 }
 
@@ -289,41 +251,38 @@
     flex: 1 1 0;
     width: auto;
     min-width: 0;
-    padding: 0 12px;
+    padding: 0 $gap-small;
     font-size: 12px;
     font-weight: 500;
     line-height: 1.3;
     position: relative;
     z-index: 1;
     border: 0;
-    border-radius: $border-radius-huge;
+    border-radius: inherit;
     background: transparent;
     box-shadow: none;
-    color: var(--text-color);
-    transform: none;
+    color: var(--piano-button-label);
     text-align: center;
+    transition: color $animation-time ease;
 
     &:hover,
-    &:active {
-      border-color: transparent;
-      background: transparent;
-      transform: none;
-      box-shadow: none;
-      color: var(--text-color);
+    &:focus-visible,
+    &[aria-pressed="true"] {
+      color: var(--highlight-text-color);
     }
 
     &:focus-visible { outline-offset: -3px; }
 }
 
 .clef-piano .clef-install {
-  color: #f2e8d6;
-  padding: 8px 4px 16px;
+  color: var(--piano-wood-label);
+  padding: 8px 4px $gap-medium;
   line-height: 1.4;
 
   p { margin-top: 4px; }
 
   [data-install-app] {
-    @include control-button;
+    @include buttons.control-button;
     padding: 0 18px;
   }
 }
@@ -339,7 +298,7 @@
 
 .clef-settings-bar :is(button, .clef-home-button):focus-visible,
 .clef-install button:focus-visible {
-  outline: 2px solid #f3dab3;
+  outline: 2px solid var(--piano-wood-focus);
   outline-offset: 2px;
 }
 
@@ -352,9 +311,9 @@
   from,
   to {
     border-color: var(--highlight-color);
-    background: var(--highlight-color);
+    background: var(--glass-highlight);
     box-shadow: $box-shadow, $box-shadow-inset;
-    color: $black;
+    color: var(--highlight-text-color);
   }
 }
 
@@ -381,204 +340,4 @@
   line-height: 1.4;
   overflow-wrap: anywhere;
   pointer-events: none;
-}
-
-.clef-challenge-progress {
-  flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.clef-challenge-result {
-  position: absolute;
-  z-index: 2;
-  inset: 0 var(--stats-tab-width) 0 0;
-  align-items: center;
-  justify-content: center;
-  gap: $gap-small;
-  padding: $gap-small;
-  @include decor.acrylic;
-  background: color-mix(in srgb, var(--staff-paper) 90%, transparent);
-  color: var(--staff-ink);
-  text-align: center;
-
-  h2 {
-    font-size: $description-font-size;
-    font-weight: 500;
-    line-height: 1.3;
-  }
-
-  &__time {
-    font-size: clamp(#{$h3-font-size}, 6vw, #{$h1-font-size});
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-  }
-
-  &__actions {
-    flex-direction: row;
-    justify-content: center;
-    gap: $gap-tiny;
-
-    button {
-      @include control-button;
-      min-width: 44px;
-      padding: 0 $gap-small;
-      font-size: $description-font-size;
-
-      &:active {
-        border-color: var(--highlight-color);
-        background: var(--highlight-color);
-        color: $black;
-      }
-
-      &:focus-visible {
-        outline: 2px solid var(--staff-ink);
-        outline-offset: 2px;
-      }
-    }
-  }
-}
-
-.clef-progress {
-  --stats-muted: color-mix(in srgb, var(--staff-ink) 78%, var(--staff-paper));
-  position: absolute;
-  z-index: 3;
-  inset: 0 0 0 auto;
-  width: min(340px, 100%);
-  color: var(--staff-ink);
-  pointer-events: none;
-
-  &__tab {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: $gap-tiny;
-    width: var(--stats-tab-width);
-    min-height: 112px;
-    padding: $gap-small 0;
-    border: 1px solid color-mix(in srgb, var(--staff-ink) 18%, transparent);
-    border-right: 0;
-    border-radius: 6px 0 0 6px;
-    background: var(--staff-paper-shade);
-    color: inherit;
-    font-size: $description-font-size;
-    list-style: none;
-    cursor: pointer;
-    pointer-events: auto;
-    transform: translateY(-50%);
-    transition: right $animation-time ease;
-
-    &::-webkit-details-marker {
-      display: none;
-    }
-
-    span {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-    }
-
-    svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      stroke-width: 1.5;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--staff-ink);
-      outline-offset: -4px;
-    }
-  }
-
-  &__panel {
-    display: none;
-    position: absolute;
-    inset: 0 0 0 var(--stats-tab-width);
-    min-width: 0;
-    padding: $gap-small;
-    overflow: hidden;
-    border-left: 1px solid color-mix(in srgb, var(--staff-ink) 18%, transparent);
-    @include decor.acrylic;
-    @include decor.glass;
-    background-color: color-mix(in srgb, var(--staff-paper) 60%, transparent);
-    pointer-events: auto;
-  }
-
-  &[open] {
-    > .clef-progress__tab {
-      right: calc(100% - var(--stats-tab-width));
-
-      svg {
-        transform: rotate(180deg);
-      }
-    }
-
-    > .clef-progress__panel {
-      display: flex;
-      animation: clef-progress-in $animation-time ease-out both;
-
-      @media (prefers-reduced-motion: reduce) {
-        animation: none;
-      }
-    }
-  }
-}
-
-.clef-stats {
-  min-height: 0;
-  margin: 0;
-  padding-right: $gap-tiny;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  scrollbar-width: thin;
-  scrollbar-gutter: stable;
-  scrollbar-color: var(--staff-rule) transparent;
-
-  div {
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: $gap-small;
-    padding: 4px 0;
-  }
-
-  dt {
-    max-width: 65%;
-    color: var(--stats-muted);
-    font-size: $description-font-size;
-    line-height: 1.35;
-  }
-
-  dd {
-    flex-shrink: 0;
-    font-size: $h3-font-size;
-    line-height: 1.1;
-    font-variant-numeric: tabular-nums;
-    text-align: right;
-  }
-
-  &__unit {
-    color: var(--stats-muted);
-    font-size: $description-font-size;
-  }
-}
-
-@keyframes clef-progress-in {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }

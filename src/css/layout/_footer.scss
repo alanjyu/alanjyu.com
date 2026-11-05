@@ -1,5 +1,5 @@
-@use "../base/variables" as *;
-@use "hover" as hover;
+@use "../abstracts/variables" as *;
+@use "../components/hover" as hover;
 
 footer {
   padding: 80px 0;

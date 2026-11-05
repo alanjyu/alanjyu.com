@@ -1,0 +1,11 @@
+main > .section {
+	padding: 0;
+}
+
+main > .section:first-of-type {
+	padding-top: 0;
+}
+
+main > .section:last-child {
+	padding-bottom: 0;
+}

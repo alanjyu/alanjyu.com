@@ -1,6 +1,6 @@
-@use "../../base/variables" as *;
-@use "../../utils/breakpoints" as breakpoint;
-@use "../../components/structures" as struc;
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/breakpoints" as breakpoint;
+@use "../../abstracts/layout" as struc;
 
 .clef {
   @include struc.container;
@@ -29,17 +29,20 @@
 }
 
 .clef-trainer {
+  --clef-practice-padding: #{$gap-tiny};
+  --clef-feedback-height: 40px;
   color: var(--clef-ink);
   min-height: calc(100svh - var(--clef-top-space) - env(safe-area-inset-bottom, 0px));
-  padding: $gap-tiny 0;
+  padding: var(--clef-practice-padding) 0;
   min-width: 0;
 
   @include breakpoint.respond-to("landscape") {
-    padding: $gap-medium 0;
+    --clef-practice-padding: #{$gap-medium};
   }
 
   @media (orientation: landscape) and (max-height: 500px) {
-    padding: $gap-tiny 0;
+    --clef-practice-padding: #{$gap-tiny};
+    --clef-feedback-height: 32px;
   }
 
   [data-exercise] {
@@ -48,18 +51,34 @@
 }
 
 .clef-instrument {
-  display: flex;
-  flex-direction: column;
+  --piano-side-space: max(#{$gap-small}, calc((100% - 960px) / 2));
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
   flex: 0 0 auto;
   min-width: 0;
+  min-height: calc(100svh - var(--clef-top-space) - var(--clef-practice-padding) - var(--clef-practice-padding) - var(--clef-feedback-height) - env(safe-area-inset-bottom, 0px));
   overflow: hidden;
   border: 1px solid var(--clef-rule);
   border-radius: $border-radius;
-  background: #2c1e15;
-  box-shadow: 0 8px 24px -16px #24170e66;
+  background: transparent;
+  box-shadow: var(--glass-shadow);
 
   @include breakpoint.respond-to("landscape") {
+    --piano-side-space: max(#{$gap-medium}, calc((100% - 960px) / 2));
     border-radius: $border-radius-large;
+  }
+
+  @media (orientation: landscape) and (max-height: 500px) {
+    --piano-side-space: #{$gap-tiny};
+  }
+
+  &--panel-open {
+    grid-template-rows: var(--clef-sheet-height) auto;
+
+    .clef-piano {
+      justify-content: flex-start;
+      padding-top: var(--clef-toolbar-offset);
+    }
   }
 
 }
@@ -72,13 +91,9 @@
   width: 100%;
   max-width: 1000px;
   align-self: center;
-  min-height: 40px;
+  min-height: var(--clef-feedback-height);
   font-size: $description-font-size;
   color: var(--clef-muted);
-
-  @media (orientation: landscape) and (max-height: 500px) {
-    min-height: 32px;
-  }
 
   &[data-state="correct"] {
     color: var(--clef-accent);

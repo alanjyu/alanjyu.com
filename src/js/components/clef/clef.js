@@ -1,4 +1,4 @@
-import { ANSWER_PITCHES, KEYBOARD_ANSWERS, MIDDLE_C_STEPS, NOTE_STEPS, createDeck, describePosition, isCorrectAnswer, layoutNoteHistory, ledgerSteps, noteForAnswer, staffY } from './notes.js';
+import { ANSWER_PITCHES, KEYBOARD_ANSWERS, MIDDLE_C_STEPS, NOTE_STEPS, createDeck, describePosition, ghostNoteForAnswer, isCorrectAnswer, layoutNoteHistory, ledgerSteps, noteForAnswer, staffY } from './notes.js';
 import Piano from './piano.js';
 import ControlHints from './control-hints.js';
 import { applyTheme } from '../theme.js';
@@ -8,23 +8,28 @@ const BEST_KEY = 'clef-best-streak';
 const ADVANCE_DELAY = 450;
 const CHALLENGE_LENGTH = 10;
 const MAX_WRONG_ATTEMPTS = 3;
+const PREVIEW_COUNT = 12;
 // Keep the outer ledger lines and accidentals inside each staff's row.
 const STAFF_TOP = staffY(NOTE_STEPS.max) - 48;
 const STAFF_HEIGHT = staffY(NOTE_STEPS.min) - STAFF_TOP + 48;
 const BASS_STAFF_OFFSET = staffY(MIDDLE_C_STEPS.treble) - staffY(MIDDLE_C_STEPS.bass);
-const STAFF_INSET = 12;
-const SCORE_INSET = 300;
-const SETTING_VALUES = { theme: ['light', 'dark'], clef: ['mixed', 'treble', 'bass'], keys: ['off', '5', '10'], sound: ['off', 'on'], chords: ['off', 'on'], history: ['single', 'scrolling'] };
+const SCORE_END_SPACE = 12;
+const SCORE_INSET = 180;
+const CLEF_X = 24;
+const CLEF_DIVIDER_X = 116;
+const SETTING_VALUES = { theme: ['light', 'dark'], clef: ['mixed', 'treble', 'bass'], keys: ['off', '5', '10'], sound: ['off', 'on'], chords: ['off', 'on'], history: ['single', 'scrolling'], ghosts: ['off', 'on'] };
 const NOTATION = {
   treble: new URL('../../../img/clef/treble.svg#glyph', import.meta.url).href,
   bass: new URL('../../../img/clef/bass.svg#glyph', import.meta.url).href,
   notehead: new URL('../../../img/clef/notehead.svg#glyph', import.meta.url).href,
   sharp: new URL('../../../img/clef/sharp.svg#glyph', import.meta.url).href,
   flat: new URL('../../../img/clef/flat.svg#glyph', import.meta.url).href,
+  natural: new URL('../../../img/clef/natural.svg#glyph', import.meta.url).href,
   stem: new URL('../../../img/clef/stem.svg#glyph', import.meta.url).href,
   ledger: new URL('../../../img/clef/ledger-line.svg#glyph', import.meta.url).href
 };
 const ACCIDENTAL_SYMBOLS = {
+  0: `<use href="${NOTATION.natural}" x="-14" y="-28" width="28" height="56"/>`,
   1: `<use href="${NOTATION.sharp}" x="-14" y="-28" width="28" height="56"/>`,
   '-1': `<use href="${NOTATION.flat}" x="-14" y="-32" width="28" height="48"/>`
 };
@@ -32,8 +37,8 @@ const ACCIDENTAL_SYMBOLS = {
 // Original SVGs at 24 units per staff space. The treble loop sits on G
 // (y=152); the bass dots straddle F (y=104).
 const CLEF_SYMBOLS = {
-  treble: `<use href="${NOTATION.treble}" x="81" y="44" width="72" height="180"/>`,
-  bass: `<use href="${NOTATION.bass}" x="81" y="76" width="72" height="96"/>`
+  treble: `<use href="${NOTATION.treble}" x="${CLEF_X}" y="44" width="72" height="180"/>`,
+  bass: `<use href="${NOTATION.bass}" x="${CLEF_X}" y="80" width="72" height="96"/>`
 };
 
 function formatChallengeTime(milliseconds) {
@@ -55,6 +60,7 @@ export default class Clef {
     this.keyPractice = this.find('[data-key-practice]');
     this.sound = this.find('[data-sound]');
     this.showHistory = this.find('[data-show-history]');
+    this.showGhosts = this.find('[data-show-ghosts]');
     this.challenge = this.find('[data-challenge]');
     this.challengeResult = this.find('[data-challenge-result]');
     this.statistics = this.find('[data-statistics]');
@@ -68,7 +74,7 @@ export default class Clef {
     this.piano = new Piano(playing => this.hearControl.classList.toggle('is-playing', playing));
     this.controlHints = new ControlHints(this.find('.clef-piano'));
     this.best = this.readBest();
-    this.settingsOpen = false;
+    this.practicePanel = null;
     const installHelp = document.querySelector('[data-install-help]');
     this.find('[data-install-slot]').append(installHelp);
     this.settingBars = [...element.querySelectorAll('.clef-setting-options')];
@@ -94,13 +100,14 @@ export default class Clef {
         bar.contains(event.relatedTarget) ? event.relatedTarget : null));
     });
     this.find('[data-open-settings]').addEventListener('click', () => this.setSettings(!this.settingsOpen));
+    this.find('[data-open-statistics]').addEventListener('click', () => this.setStatistics(!this.statisticsOpen));
     this.find('[data-toggle-challenge]').addEventListener('click', () => {
       this.challenge.checked = !this.challenge.checked;
       this.startSession();
     });
     this.find('[data-toggle-install]').addEventListener('click', async () => {
       if (this.settingsTransition || this.installTransition) return;
-      if (this.settingsOpen) await this.setSettings(false);
+      if (this.practicePanel) await this.setPracticePanel(null);
       await this.setInstallHelp(this.find('[data-install-help]').hidden);
     });
     this.answers.forEach(button => button.addEventListener('click', () => this.answer(button.dataset.answer)));
@@ -125,12 +132,8 @@ export default class Clef {
         this.find('[data-toggle-install]').focus({ preventScroll: true });
         return;
       }
-      if (this.settingsOpen) {
-        if (event.key === 'Escape') { event.preventDefault(); this.setSettings(false); }
-        return;
-      }
-      if (event.key === 'Escape' && this.statistics.open) {
-        this.closeStatistics();
+      if (this.practicePanel) {
+        if (event.key === 'Escape') { event.preventDefault(); this.setPracticePanel(null); }
         return;
       }
       const target = event.target instanceof Element ? event.target : document.activeElement;
@@ -158,13 +161,16 @@ export default class Clef {
     });
   }
 
-  closeStatistics() {
-    this.statistics.open = false;
-    this.statistics.querySelector('summary').focus({ preventScroll: true });
+  get settingsOpen() {
+    return this.practicePanel === 'settings';
+  }
+
+  get statisticsOpen() {
+    return this.practicePanel === 'statistics';
   }
 
   settingValues() {
-    return { theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light', clef: this.clefControl.value, keys: this.keyPractice.value, sound: this.sound.checked ? 'on' : 'off', chords: this.includeChords.checked ? 'on' : 'off', history: this.showHistory.checked ? 'scrolling' : 'single' };
+    return { theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light', clef: this.clefControl.value, keys: this.keyPractice.value, sound: this.sound.checked ? 'on' : 'off', chords: this.includeChords.checked ? 'on' : 'off', history: this.showHistory.checked ? 'scrolling' : 'single', ghosts: this.showGhosts.checked ? 'on' : 'off' };
   }
 
   syncSettings() {
@@ -190,9 +196,13 @@ export default class Clef {
     if (setting === 'sound') { this.sound.checked = value === 'on'; if (!this.sound.checked) this.piano.cancel(); }
     if (setting === 'chords') this.includeChords.checked = value === 'on';
     if (setting === 'history') this.showHistory.checked = value === 'scrolling';
+    if (setting === 'ghosts') {
+      this.showGhosts.checked = value === 'on';
+      if (!this.showGhosts.checked) this.ghostNote = null;
+    }
     this.syncSettings();
     if (['clef', 'keys', 'chords'].includes(setting)) this.startSession();
-    else if (setting === 'history') this.drawNote();
+    else if (['history', 'ghosts'].includes(setting)) this.drawNote();
   }
 
   async setInstallHelp(open) {
@@ -210,6 +220,15 @@ export default class Clef {
   }
 
   async slidePanel(slot, panel, open) {
+    const instrument = this.find('.clef-instrument');
+    if (open && !instrument.classList.contains('clef-instrument--panel-open')) {
+      // Keep the sheet and toolbar anchored while the piano grows for a menu.
+      instrument.style.setProperty('--clef-sheet-height', `${this.find('.clef-staff').getBoundingClientRect().height}px`);
+      const pianoTop = this.find('.clef-piano').getBoundingClientRect().top;
+      const toolbarTop = this.find('.clef-settings-bar').getBoundingClientRect().top;
+      instrument.style.setProperty('--clef-toolbar-offset', `${toolbarTop - pianoTop}px`);
+      instrument.classList.add('clef-instrument--panel-open');
+    }
     const oldHeight = slot.getBoundingClientRect().height;
     const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof panel.animate === 'function';
     const animations = [];
@@ -235,34 +254,53 @@ export default class Clef {
       slot.classList.remove('is-transitioning');
       slot.style.removeProperty('height');
       animations.forEach(animation => animation.cancel());
+      if (!this.practicePanel && this.find('[data-install-help]').hidden) {
+        instrument.classList.remove('clef-instrument--panel-open');
+        instrument.style.removeProperty('--clef-sheet-height');
+        instrument.style.removeProperty('--clef-toolbar-offset');
+      }
     }
   }
 
-  async setSettings(open) {
-    if (this.settingsTransition || this.installTransition || open === this.settingsOpen) return;
+  setSettings(open) {
+    return this.setPracticePanel(open ? 'settings' : null);
+  }
+
+  setStatistics(open) {
+    return this.setPracticePanel(open ? 'statistics' : null);
+  }
+
+  async setPracticePanel(panel) {
+    if (this.settingsTransition || this.installTransition || panel === this.practicePanel) return;
     this.settingsTransition = true;
+    const previous = this.practicePanel;
+    const open = panel !== null;
     if (open) await this.setInstallHelp(false);
-    const slot = this.find('.clef-settings-slot');
-    const menu = this.find('#clef-settings');
+    const panels = {
+      settings: { slot: this.find('.clef-settings-slot'), menu: this.find('#clef-settings'), button: this.find('[data-open-settings]') },
+      statistics: { slot: this.find('.clef-statistics-slot'), menu: this.statistics, button: this.find('[data-open-statistics]') }
+    };
     const keyboard = this.find('.clef-answers');
-    this.settingsOpen = open;
-    this.find('[data-open-settings]').setAttribute('aria-expanded', String(open));
-    // Reserve the feedback row so opening settings cannot change the staff's
+    this.practicePanel = panel;
+    panels.settings.button.setAttribute('aria-expanded', String(this.settingsOpen));
+    panels.statistics.button.setAttribute('aria-expanded', String(this.statisticsOpen));
+    // Reserve the feedback row so opening a panel cannot change the staff's
     // available height before the panel animation starts.
     this.find('[data-feedback-row]').style.visibility = open ? 'hidden' : '';
     this.controlHints.hide();
-    if (open) {
+    if (open && !previous) {
       this.settingsPausedAt = performance.now();
       window.clearTimeout(this.advanceTimer);
       this.advanceTimer = null;
       this.piano.cancel();
-      this.syncSettings();
     }
+    if (this.settingsOpen) this.syncSettings();
 
     try {
       keyboard.inert = open;
-      // The menu expands in normal flow, carrying the keyboard down with it.
-      await this.slidePanel(slot, menu, open);
+      // Both menus expand in normal flow using the same pull-down animation.
+      if (previous) await this.slidePanel(panels[previous].slot, panels[previous].menu, false);
+      if (panel) await this.slidePanel(panels[panel].slot, panels[panel].menu, true);
     } finally {
       this.settingsTransition = false;
     }
@@ -270,7 +308,7 @@ export default class Clef {
       if (this.challengeStartedAt === null) this.challengeStartedAt = performance.now();
       else this.challengeStartedAt += performance.now() - this.settingsPausedAt;
     }
-    this.find('[data-open-settings]').focus({ preventScroll: true });
+    panels[panel || previous].button.focus({ preventScroll: true });
     if (!open && this.phase === 'answered') this.next();
     this.drawNote();
   }
@@ -302,6 +340,7 @@ export default class Clef {
     this.keyRound = -1;
     this.current = null;
     this.upcoming = null;
+    this.previewQueue = [];
     this.history = [];
     this.scoreState = null;
     this.completed = 0;
@@ -338,16 +377,25 @@ export default class Clef {
       this.keyRound = round;
       this.deck = [];
       this.current = this.upcoming = null;
+      this.previewQueue = [];
       this.history = [];
       this.scoreState = null;
     }
     this.find('[data-key-status]').textContent = perKey
       ? `${KEY_SIGNATURES[this.keyIndex].name} · ${answered % perKey + 1} / ${perKey}${this.includeChords.checked ? ' exercises' : ' notes'}` : '';
     if (this.current) this.history.push(this.current);
-    this.current = this.upcoming || this.takeExercise();
-    const lastQuestion = this.challenge.checked && this.completed + this.skipped + 1 === CHALLENGE_LENGTH;
-    this.upcoming = lastQuestion || (perKey && (answered + 1) % perKey === 0) ? null : this.takeExercise(this.current);
+    this.current = this.previewQueue.shift() || this.takeExercise();
+    const remaining = Math.min(
+      PREVIEW_COUNT,
+      this.challenge.checked ? CHALLENGE_LENGTH - answered - 1 : Infinity,
+      perKey ? perKey - answered % perKey - 1 : Infinity
+    );
+    while (this.previewQueue.length < remaining) {
+      this.previewQueue.push(this.takeExercise(this.previewQueue.at(-1) || this.current));
+    }
+    this.upcoming = this.previewQueue[0] || null;
     this.matchedPitches = new Set();
+    this.ghostNote = null;
     this.wrongAttempts = 0;
     this.phase = 'question';
     const chord = this.current.notes.length > 1;
@@ -363,8 +411,8 @@ export default class Clef {
       else button.removeAttribute('aria-pressed');
     });
     this.drawNote();
-    if (this.challenge.checked && this.challengeStartedAt === null && !this.settingsOpen) this.challengeStartedAt = performance.now();
-    if (focus && !this.settingsOpen) this.answers[0].focus({ preventScroll: true });
+    if (this.challenge.checked && this.challengeStartedAt === null && !this.practicePanel) this.challengeStartedAt = performance.now();
+    if (focus && !this.practicePanel) this.answers[0].focus({ preventScroll: true });
   }
 
   exerciseMarkup({ notes }, x, showMatches = false) {
@@ -386,7 +434,7 @@ export default class Clef {
         let column = accidentalColumns.findIndex(positions => positions.every(previousY => Math.abs(y - previousY) >= 48));
         if (column === -1) { column = accidentalColumns.length; accidentalColumns.push([]); }
         accidentalColumns[column].push(y);
-        symbol = `<g data-accidental="${note.accidental}" transform="translate(${x - 40 - column * 28} ${y})">${ACCIDENTAL_SYMBOLS[note.accidental] || '<text x="-10" y="12" font-size="40">♮</text>'}</g>`;
+        symbol = `<g data-accidental="${note.accidental}" transform="translate(${x - 40 - column * 28} ${y})">${ACCIDENTAL_SYMBOLS[note.accidental]}</g>`;
       }
       const matched = showMatches && this.matchedPitches.has(note.pitchClass);
       return `<g data-note-pitch="${note.pitchClass}" data-step="${note.step}" data-accidental="${note.accidental}"${matched ? ' class="clef-staff__matched"' : ''}>${symbol}<use data-notehead href="${NOTATION.notehead}" x="${x - 17}" y="${y - 14}" width="34" height="28"/></g>`;
@@ -405,25 +453,27 @@ export default class Clef {
     this.find('.clef-staff').classList.toggle('clef-staff--history', showHistory);
     this.find('.clef-staff').classList.toggle('clef-staff--dual', dual);
     svg.style.setProperty('--staff-height-units', height);
-    // Fit the notation canvas to the viewport at a uniform scale, extending
-    // the staff horizontally without widening the clefs or noteheads.
+    // Size the staves by the available sheet height. Reserve enough width for
+    // the current exercise and one preview without shrinking to a long canvas.
     const renderedHeight = svg.getBoundingClientRect().height || height;
     const viewportWidth = this.staffViewport.getBoundingClientRect().width || 560;
-    const width = Math.max(560, viewportWidth * height / renderedHeight);
-    const layout = showHistory ? layoutNoteHistory([...this.history, this.current], this.upcoming, this.includeChords.checked) : null;
-    if (layout) {
-      layout.positions.forEach(position => { position.x += 140; });
-      if (layout.preview) layout.preview.x += 140;
-      layout.barlines = layout.barlines.map(x => x + 140);
-      layout.width += 140;
-    }
-    const right = width - STAFF_INSET;
+    const signatureCount = this.keyPractice.value === 'off' ? 0 : Math.abs(KEY_SIGNATURES[this.keyIndex].count);
+    const scoreInset = Math.max(SCORE_INSET, signatureCount ? 165 + (signatureCount - 1) * 17 + 28 : 0);
+    const currentX = scoreInset + (this.includeChords.checked ? 90 : 58);
+    const ghostExercise = this.showGhosts.checked && this.ghostNote
+      ? { clef: this.ghostNote.clef, notes: [this.ghostNote], name: this.ghostNote.name }
+      : null;
+    const previews = ghostExercise ? [ghostExercise, ...this.previewQueue] : this.previewQueue;
+    const layout = showHistory ? layoutNoteHistory([...this.history, this.current], previews, this.includeChords.checked) : null;
+    const ghostSpacing = this.includeChords.checked ? 112 : 80;
+    const minimumWidth = currentX + Math.max(layout ? layout.spacing : 0, this.showGhosts.checked ? ghostSpacing : 0) + 22 + SCORE_END_SPACE;
+    const width = Math.max(minimumWidth, viewportWidth * height / renderedHeight);
     svg.setAttribute('viewBox', `0 ${STAFF_TOP} ${width} ${height}`);
     const clip = this.find('[data-score-clip]');
-    clip.setAttribute('x', SCORE_INSET);
-    clip.setAttribute('width', width - SCORE_INSET);
+    clip.setAttribute('x', scoreInset);
+    clip.setAttribute('width', width - scoreInset);
     clip.setAttribute('height', height + 160);
-    const staffLines = `<path d="${[80, 104, 128, 152, 176].map(y => `M${STAFF_INSET} ${y}H${right}`).join(' ')} M${STAFF_INSET} 80V176 M${right} 80V176"/>`;
+    const staffLines = `<path d="${[80, 104, 128, 152, 176].map(y => `M0 ${y}H${width}`).join(' ')} M0 80V176 M${width} 80V176"/><path data-clef-divider d="M${CLEF_DIVIDER_X} 80V176"/>`;
     this.find('[data-staff-lines]').innerHTML = clefs.map(staffClef => `<g data-staff-row="${staffClef}" transform="translate(0 ${rowOffset(staffClef)})">${staffLines}</g>`).join('');
     this.find('[data-clef-symbol]').innerHTML = clefs.map(staffClef => `<g data-clef="${staffClef}" transform="translate(0 ${rowOffset(staffClef)})">${CLEF_SYMBOLS[staffClef]}</g>`).join('');
     if (this.keyPractice.value !== 'off') {
@@ -437,30 +487,32 @@ export default class Clef {
       : '';
     this.find('[data-note]').setAttribute('transform', `translate(0 ${rowOffset(clef)})`);
     this.find('[data-note]').setAttribute('data-clef', clef);
-    this.find('[data-note]').innerHTML = this.exerciseMarkup(this.current, layout?.positions.at(-1).x || Math.max(405, width / 2), true);
+    this.find('[data-note]').innerHTML = this.exerciseMarkup(this.current, layout?.positions.at(-1).x || currentX, true);
+    const ghost = this.find('[data-ghost-note]');
+    ghost.setAttribute('transform', `translate(0 ${rowOffset(clef)})`);
+    ghost.setAttribute('data-clef', clef);
+    ghost.innerHTML = ghostExercise
+      ? this.exerciseMarkup(ghostExercise, layout?.previews[0].x || currentX + ghostSpacing)
+      : '';
     const preview = this.find('[data-next-note]');
-    if (layout?.preview) {
-      preview.setAttribute('transform', `translate(0 ${rowOffset(this.upcoming.clef)})`);
-      preview.setAttribute('data-clef', this.upcoming.clef);
-      preview.innerHTML = this.exerciseMarkup(this.upcoming, layout.preview.x);
-    } else {
-      preview.innerHTML = '';
-      preview.removeAttribute('data-clef');
-    }
+    preview.removeAttribute('transform');
+    preview.removeAttribute('data-clef');
+    preview.innerHTML = layout ? layout.previews.filter(position => position.note !== ghostExercise).map(position => `<g data-preview-note data-clef="${position.note.clef}" transform="translate(0 ${rowOffset(position.note.clef)})">${this.exerciseMarkup(position.note, position.x)}</g>`).join('') : '';
     const describeExercise = exercise => {
       const positions = exercise.notes.map(({ step, accidental }) => `${accidental === 1 ? 'sharp' : accidental === -1 ? 'flat' : 'natural'} note on ${describePosition(step)}`).join('; ');
       return `${exercise.clef === 'treble' ? 'Treble' : 'Bass'} clef: ${exercise.notes.length > 1 ? 'chord, ' : ''}${positions}.`;
     };
     const description = describeExercise(this.current);
-    const nextNote = showHistory && this.upcoming ? ` Next: ${describeExercise(this.upcoming)}` : '';
+    const ghostDescription = ghostExercise ? ` Last incorrect key: ${describeExercise(ghostExercise)}` : '';
+    const nextNote = showHistory && this.previewQueue.length ? ` Upcoming: ${this.previewQueue.map(describeExercise).join(' ')}` : '';
     const pastNotes = showHistory && this.history.length
       ? ` Previous notes: ${this.history.map(note => `${note.clef} ${note.name}`).join(', ')}.` : '';
     const keyDescription = this.keyPractice.value === 'off' ? '' : ` Key signature: ${KEY_SIGNATURES[this.keyIndex].name}.`;
-    svg.setAttribute('aria-label', description + keyDescription + (dual ? ' Treble staff above bass staff.' : '') + pastNotes + nextNote);
-    this.scrollHistory(layout, width, viewportWidth);
+    svg.setAttribute('aria-label', description + keyDescription + (dual ? ' Treble staff above bass staff.' : '') + ghostDescription + pastNotes + nextNote);
+    this.scrollHistory(layout, width, viewportWidth, currentX);
   }
 
-  scrollHistory(layout, width, viewportWidth) {
+  scrollHistory(layout, width, viewportWidth, currentX) {
     this.scoreScroll.hidden = !layout;
     if (!layout) {
       this.scoreState = null;
@@ -470,8 +522,8 @@ export default class Clef {
       return;
     }
     const scale = viewportWidth / width;
-    const leading = Math.max(405, width / 2) - layout.positions[0].x;
-    const key = `${this.mode}:${width.toFixed(2)}:${scale.toFixed(5)}:${layout.spacing}`;
+    const leading = currentX - layout.positions[0].x;
+    const key = `${this.mode}:${width.toFixed(2)}:${scale.toFixed(5)}:${layout.spacing}:${currentX}`;
     const reset = this.scoreState?.key !== key;
     const previousScroll = this.scoreScroll.scrollLeft;
     this.scoreSpace.style.width = `${viewportWidth + this.history.length * layout.spacing * scale}px`;
@@ -489,12 +541,15 @@ export default class Clef {
   }
 
   answer(value) {
-    if (this.settingsOpen || this.settingsTransition) return;
+    if (this.practicePanel || this.settingsTransition) return;
     if (this.phase !== 'question' || !Number.isInteger(ANSWER_PITCHES[value])) return;
     const pitch = ANSWER_PITCHES[value];
     if (this.matchedPitches.has(pitch)) return;
     const hadAnswerFocus = this.answers.includes(document.activeElement);
     const isCorrect = this.current.notes.some(note => isCorrectAnswer(note, value));
+    this.ghostNote = !isCorrect && this.showGhosts.checked
+      ? ghostNoteForAnswer(this.current.notes, value, this.mode, this.keyPractice.value === 'off' ? null : KEY_SIGNATURES[this.keyIndex].count)
+      : null;
     this.attempts += 1;
     if (isCorrect) { this.matchedPitches.add(pitch); this.correct += 1; }
     else this.wrongAttempts += 1;
@@ -566,13 +621,12 @@ export default class Clef {
     this.find('[data-feedback]').textContent = this.skipped
       ? `${this.completed} correct · ${this.skipped} skipped · ${(this.challengeElapsed / 1000).toFixed(2)}s`
       : `${CHALLENGE_LENGTH} ${unit} in ${(this.challengeElapsed / 1000).toFixed(2)} seconds.`;
-    this.statistics.open = false;
     this.challengeResult.hidden = false;
     this.find('[data-challenge-again]').focus({ preventScroll: true });
   }
 
   next(focus = false) {
-    if (this.settingsOpen) return;
+    if (this.practicePanel) return;
     if (this.phase !== 'answered') return;
     window.clearTimeout(this.advanceTimer);
     this.advanceTimer = null;

@@ -1,5 +1,5 @@
-@use "../../base/variables" as *;
-@use "../../utils/breakpoints" as breakpoint;
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/breakpoints" as breakpoint;
 
 $key-columns: (
   "C": 1,
@@ -16,54 +16,21 @@ $key-columns: (
   "B": 13
 );
 
-.clef-piano {
-  --piano-side-space: max(#{$gap-small}, calc((100% - 960px) / 2));
-  width: 100%;
-  flex-shrink: 0;
-  min-height: 0;
-  overflow: hidden;
-  padding: $gap-small var(--piano-side-space) $gap-medium;
-  background:
-    url("../img/resources/walnut.jpg") left top / 960px auto repeat,
-    #6a4a35;
-
-  @include breakpoint.respond-to("landscape") {
-    --piano-side-space: max(#{$gap-medium}, calc((100% - 960px) / 2));
-    padding: $gap-medium var(--piano-side-space);
-  }
-
-  @media (orientation: landscape) and (max-height: 500px) {
-    --piano-side-space: #{$gap-tiny};
-    padding: $gap-tiny var(--piano-side-space) $gap-small;
-  }
-}
-
-.clef-panel-stage {
-  flex: 0 0 auto;
-  min-height: 0;
-}
-
-.clef-settings-slot {
-  flex: 0 0 auto;
-  min-height: 0;
-
-  &.is-transitioning {
-    overflow: clip;
-
-    > .clef-settings {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-    }
-  }
-}
-
 .clef-answers {
+  --clef-key-height: 26svh;
   display: grid;
   grid-template-columns: repeat(14, minmax(0, 1fr));
   width: 100%;
+  margin-top: auto;
   isolation: isolate;
+
+  @include breakpoint.respond-to("landscape") {
+    --clef-key-height: 28svh;
+  }
+
+  @media (orientation: landscape) and (max-height: 500px) {
+    --clef-key-height: 36svh;
+  }
 
   @each $note, $column in $key-columns {
     [data-answer="#{$note}"] {
@@ -71,40 +38,7 @@ $key-columns: (
     }
   }
 
-  // A narrow felt rail frames the key bed.
-  &::before {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    top: -6px;
-    left: 0;
-    right: 0;
-    height: 7px;
-    border-top: 1px solid #a374554d;
-    border-radius: 5px 5px 1px 1px;
-    background: linear-gradient(180deg, #3f2323, #5b3430);
-    box-shadow:
-      0 2px 3px #00000038,
-      inset 0 1px #ffffff14;
-    pointer-events: none;
-
-    @include breakpoint.respond-to("landscape") {
-      top: -8px;
-      height: 10px;
-    }
-
-    @media (orientation: landscape) and (max-height: 500px) {
-      top: -6px;
-      height: 7px;
-    }
-  }
-
   button {
-    --key-top: #eae9e2;
-    --key-face: #fffef9;
-    --key-edge: #d7d6cc;
-    --key-label: #52594f;
-    --key-border: #bdbfb4;
     grid-column: var(--key-column) / span 2;
     grid-row: 1;
     position: relative;
@@ -113,11 +47,10 @@ $key-columns: (
     user-select: none;
     align-items: flex-end;
     justify-content: center;
-    height: clamp(100px, 18svh, 132px);
+    height: var(--clef-key-height);
     margin: 0 0.5px;
     padding-bottom: 16px;
     border: 1px solid var(--key-border);
-    border-top: 0;
     border-radius: 1px 1px 3px 3px;
     background:
       linear-gradient(90deg, #ffffff66, transparent 4%, transparent 97%, #0000000d),
@@ -147,12 +80,10 @@ $key-columns: (
       color $animation-time ease;
 
     @include breakpoint.respond-to("landscape") {
-      height: clamp(132px, 20svh, 194px);
       padding-bottom: 20px;
     }
 
     @media (orientation: landscape) and (max-height: 500px) {
-      height: clamp(90px, 26svh, 120px);
       padding-bottom: $gap-tiny;
       font-size: $h4-font-size;
     }
@@ -161,8 +92,8 @@ $key-columns: (
       content: "";
       position: absolute;
       inset: 0 0 auto;
-      height: 20%;
-      background: linear-gradient(180deg, #19251c21, transparent);
+      height: $gap-tiny * 0.5;
+      background: linear-gradient(180deg, rgba($white, 0.55), transparent);
       pointer-events: none;
     }
 
@@ -232,7 +163,7 @@ $key-columns: (
     justify-self: center;
     width: 64%;
     min-width: 28px;
-    height: clamp(64px, 11svh, 84px);
+    height: calc(var(--clef-key-height) * 0.62);
     margin: 0;
     padding: 6px 0 14px;
     flex-direction: column;
@@ -263,12 +194,10 @@ $key-columns: (
 
     @include breakpoint.respond-to("landscape") {
       width: 56%;
-      height: clamp(82px, 12svh, 120px);
       padding-bottom: 18px;
     }
 
     @media (orientation: landscape) and (max-height: 500px) {
-      height: clamp(54px, 16svh, 72px);
       padding: 4px 0 11px;
       gap: 3px;
       font-size: 12px;

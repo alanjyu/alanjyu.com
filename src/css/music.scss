@@ -1,17 +1,15 @@
-@use 'base/reset';
-@use 'base/theme';
-@use 'base/fonts';
+@use "base";
 
-@use 'components/hover';
-@use 'components/texts';
-@use 'components/structures';
+@use "components/hover";
+@use "components/subtitle";
+@use "layout/structure";
 
-@use 'features/navigation/nav';
-@use 'components/footer';
-@use 'features/fluid/background';
-@use 'components/panel';
-@use 'components/plank';
-@use 'components/card';
-@use 'components/embed';
+@use "layout/navigation";
+@use "layout/footer";
+@use "features/fluid/background";
+@use "components/panel";
+@use "components/plank";
+@use "components/card";
+@use "components/embed";
 
-@use 'features/synth/synth';
+@use "features/synth";

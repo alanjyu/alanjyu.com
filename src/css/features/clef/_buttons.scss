@@ -1,0 +1,88 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/decorations" as decor;
+
+@mixin control-button {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border-color-alpha);
+  border-radius: $border-radius-huge;
+  overflow: hidden;
+  isolation: isolate;
+  @include decor.acrylic;
+  @include decor.glass;
+  background-color: var(--shade-color-alpha);
+  color: var(--text-color);
+  cursor: pointer;
+  transition:
+    background-color $animation-time ease,
+    border-color $animation-time ease,
+    color $animation-time ease,
+    box-shadow $animation-time ease,
+    transform $animation-time ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--glass-highlight);
+    opacity: 0;
+    transition: opacity $animation-time ease;
+    pointer-events: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::before { opacity: 1; }
+  }
+
+  &:focus-visible::before,
+  &:active::before { opacity: 1; }
+}
+
+@mixin piano-button($pressable: true) {
+  --piano-button-top: var(--key-top);
+  --piano-button-face: var(--key-face);
+  --piano-button-edge: var(--key-edge);
+  --piano-button-label: var(--key-label);
+  --piano-button-border: var(--key-border);
+  --piano-button-shine: #{$white};
+
+  html[data-theme="dark"] & {
+    --piano-button-top: color-mix(in srgb, var(--shade-color) 94%, #{$white});
+    --piano-button-face: var(--shade-color);
+    --piano-button-edge: color-mix(in srgb, var(--shade-color) 92%, #{$black});
+    --piano-button-label: var(--text-color);
+    --piano-button-border: color-mix(in srgb, var(--border-color) 40%, #{$black});
+    --piano-button-shine: #{rgba($white, 0.16)};
+  }
+
+  border-color: var(--piano-button-border);
+  background: linear-gradient(
+    180deg,
+    var(--piano-button-top),
+    var(--piano-button-face) 20%,
+    var(--piano-button-face) 80%,
+    var(--piano-button-edge)
+  );
+  color: var(--piano-button-label);
+  box-shadow:
+    inset 0 1px 0 var(--piano-button-shine),
+    0 2px 4px -1px rgba($black, 0.24);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+
+  @if $pressable {
+    &:active {
+      transform: translateY(1px);
+      box-shadow:
+        inset 0 2px 3px rgba($black, 0.12),
+        0 1px 2px -1px rgba($black, 0.24);
+      transition-duration: 70ms;
+    }
+  }
+}

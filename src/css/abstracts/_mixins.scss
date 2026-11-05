@@ -1,5 +1,5 @@
 @use 'sass:list';
-@use '../base/variables' as *;
+@use "variables" as *;
 
 @mixin set-font($font-name, $weight: normal, $style: normal) {
 	font-family: quote($font-name);

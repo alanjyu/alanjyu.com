@@ -1,6 +1,6 @@
-@use "../../base/variables" as *;
-@use "../../utils/decorations" as decor;
-@use "../../utils/breakpoints" as breakpoint;
+@use "../abstracts/variables" as *;
+@use "../abstracts/decorations" as decor;
+@use "../abstracts/breakpoints" as breakpoint;
 
 .nav {
   display: flex;
@@ -91,7 +91,8 @@
 
     &--default {
       border-radius: $border-radius-huge;
-      background: var(--highlight-color);
+      background: var(--glass-highlight);
+      color: var(--highlight-text-color);
     }
   }
 
@@ -133,6 +134,12 @@
         opacity $animation-time ease;
     }
   }
+}
+
+.nav__menu .nav__link:is(:hover, :focus-visible),
+.nav__link:focus-visible,
+.nav__button:focus-visible {
+  background: var(--glass-highlight);
 }
 
 #menu-button {

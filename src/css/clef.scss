@@ -1,6 +1,4 @@
-@use "base/reset";
-@use "base/theme";
-@use "base/fonts";
+@use "base";
 @use "components/hover";
 
-@use "features/clef/clef";
+@use "features/clef";

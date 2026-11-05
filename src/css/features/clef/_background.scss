@@ -1,0 +1,57 @@
+@use "../../abstracts/variables" as *;
+
+.clef-page {
+  --clef-backdrop: #e5dfd3;
+  --clef-backdrop-light: #{rgba($silk, 0.62)};
+  --clef-backdrop-warmth: #b38a5a26;
+  --clef-backdrop-shadow: #51433520;
+  isolation: isolate;
+  background-color: var(--clef-backdrop);
+
+  html[data-theme="dark"] & {
+    --clef-backdrop: #18211e;
+    --clef-backdrop-light: #66756526;
+    --clef-backdrop-warmth: #aa75451a;
+    --clef-backdrop-shadow: #{rgba($black, 0.65)};
+  }
+}
+
+.clef-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &::before {
+    inset: 0;
+    background: linear-gradient(180deg, transparent 35%, var(--clef-backdrop-shadow));
+  }
+
+  // Overscan lets the ambient light drift without introducing scrollbars.
+  &::after {
+    inset: -12%;
+    background:
+      radial-gradient(ellipse at 15% 0%, var(--clef-backdrop-light), transparent 65%),
+      radial-gradient(ellipse at 100% 80%, var(--clef-backdrop-warmth), transparent 60%);
+    animation: clef-light-drift ($animation-time-long * 3) ease-in-out infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      animation: none;
+    }
+  }
+}
+
+@keyframes clef-light-drift {
+  from { transform: translate3d(-4%, -2%, 0); }
+  to { transform: translate3d(4%, 2%, 0); }
+}

@@ -1,14 +1,5 @@
-@use '../../base/variables' as *;
-@use '../../utils/breakpoints' as breakpoint;
-@use '../../components/structures' as struc;
-@use '../../utils/decorations' as decor;
-
-@use 'style';
-@use 'display';
-@use 'oscillator';
-@use 'filter';
-@use 'keyboard';
-@use 'effects';
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/layout" as struc;
 
 .synth {
 	display: flex;

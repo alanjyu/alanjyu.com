@@ -1,5 +1,5 @@
-@use '../../base/variables' as *;
-@use '../../utils/breakpoints' as breakpoint;
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/breakpoints" as breakpoint;
 
 
 .display-section {
@@ -248,10 +248,11 @@
         pointer-events: none;
     }
     
-    &:hover {
-        background: var(--init-button-hover-color);
-        border-color: var(--init-button-hover-border);
-        box-shadow: var(--init-button-hover-shadow);
+    &:hover,
+    &:focus-visible {
+        background: var(--glass-highlight);
+        border-color: var(--highlight-color);
+        box-shadow: var(--rect-glass-shadow);
         
         .led-indicator {
             background: var(--init-led-active-color);

@@ -31,6 +31,7 @@
 </head>
 
 <body class="clef-page">
+  <div class="clef-background" aria-hidden="true"></div>
   <a class="clef-skip" href="#practice">Skip to practice</a>
 
   <main class="clef" data-clef-trainer>
@@ -40,21 +41,6 @@
           <div class="clef-instrument">
             <div class="clef-staff clef-staff--dual">
               <span class="clef-key-status" data-key-status role="status" aria-live="polite"></span>
-              <details class="clef-progress" data-statistics>
-                <summary class="clef-progress__tab">
-                  <span>Statistics</span>
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/chevron-left.svg#glyph" width="24" height="24" /></svg>
-                </summary>
-                <div class="clef-progress__panel" role="region" aria-label="Statistics">
-                  <dl class="clef-stats">
-                    <div><dt data-completed-label>Notes completed</dt><dd data-completed>0</dd></div>
-                    <div><dt data-skipped-label>Notes skipped</dt><dd data-skipped>0</dd></div>
-                    <div><dt>Accuracy</dt><dd data-accuracy>—</dd></div>
-                    <div><dt>Current streak</dt><dd><span data-streak>0</span><span class="clef-stats__unit" data-streak-unit> notes</span></dd></div>
-                    <div><dt>Personal best</dt><dd><span data-best>0</span><span class="clef-stats__unit"> in a row</span></dd></div>
-                  </dl>
-                </div>
-              </details>
               <div class="clef-staff__viewport" data-staff-viewport>
                 <svg data-staff viewBox="0 -40 560 480" preserveAspectRatio="xMinYMid" role="img" aria-label="Treble staff above bass staff">
                   <defs>
@@ -71,6 +57,7 @@
                   <g clip-path="url(#clef-score-clip)">
                     <g class="clef-staff__track" data-score-track>
                       <g data-history-notes aria-hidden="true"></g>
+                      <g class="clef-staff__ghost" data-ghost-note aria-hidden="true"></g>
                       <g class="clef-staff__preview" data-next-note aria-hidden="true"></g>
                       <g data-note aria-hidden="true"></g>
                     </g>
@@ -99,8 +86,11 @@
                 </button>
                 <input type="checkbox" data-challenge aria-label="10-note timed challenge" hidden />
                 <button class="hover-fill" type="button" data-toggle-challenge aria-label="10-note timed challenge" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/challenge.svg#glyph" width="24" height="24" /></svg></button>
-                <button class="hover-fill" type="button" data-toggle-install aria-label="Installation instructions" aria-expanded="false" aria-controls="clef-install-help"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5" /></svg></button>
-                <button class="hover-fill" type="button" data-open-settings aria-label="Settings" aria-expanded="false" aria-controls="clef-settings"><span aria-hidden="true">⚙</span></button>
+                <div class="clef-menu-actions">
+                  <button class="hover-fill" type="button" data-toggle-install aria-label="Installation instructions" aria-expanded="false" aria-controls="clef-install-help"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5" /></svg></button>
+                  <button class="hover-fill" type="button" data-open-statistics aria-label="Statistics" aria-expanded="false" aria-controls="clef-statistics"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../img/clef/statistics.svg#glyph" width="24" height="24" /></svg></button>
+                  <button class="hover-fill" type="button" data-open-settings aria-label="Settings" aria-expanded="false" aria-controls="clef-settings"><span aria-hidden="true">⚙</span></button>
+                </div>
               </div>
               <div class="clef-install-slot" data-install-slot></div>
               <div class="clef-panel-stage">
@@ -112,6 +102,7 @@
                 <input type="checkbox" data-sound checked hidden />
                 <input type="checkbox" data-include-chords hidden />
                 <input type="checkbox" data-show-history hidden />
+                <input type="checkbox" data-show-ghosts hidden />
                 <fieldset class="clef-setting"><legend>Theme</legend><div class="clef-setting-options">
                   <button type="button" data-setting="theme" value="light" aria-pressed="true">Day</button>
                   <button type="button" data-setting="theme" value="dark" aria-pressed="false">Night</button>
@@ -138,8 +129,23 @@
                   <button type="button" data-setting="history" value="single" aria-pressed="true">Current note</button>
                   <button type="button" data-setting="history" value="scrolling" aria-pressed="false">Scrolling</button>
                 </div></fieldset>
+                <fieldset class="clef-setting"><legend>Ghost notes</legend><div class="clef-setting-options">
+                  <button type="button" data-setting="ghosts" value="off" aria-pressed="true">Off</button>
+                  <button type="button" data-setting="ghosts" value="on" aria-pressed="false">On</button>
+                </div></fieldset>
               </div>
               </section>
+              </div>
+              <div class="clef-statistics-slot">
+                <section class="clef-progress" id="clef-statistics" data-statistics aria-label="Statistics" hidden>
+                  <dl class="clef-stats">
+                    <div><dt data-completed-label>Notes completed</dt><dd data-completed>0</dd></div>
+                    <div><dt data-skipped-label>Notes skipped</dt><dd data-skipped>0</dd></div>
+                    <div><dt>Accuracy</dt><dd data-accuracy>—</dd></div>
+                    <div><dt>Current streak</dt><dd><span data-streak>0</span><span class="clef-stats__unit" data-streak-unit> notes</span></dd></div>
+                    <div><dt>Personal best</dt><dd><span data-best>0</span><span class="clef-stats__unit"> in a row</span></dd></div>
+                  </dl>
+                </section>
               </div>
               <div class="clef-answers" role="group" aria-label="Choose the piano key that matches the note">
                 <button type="button" data-answer="C" aria-label="Z: C or B sharp" aria-keyshortcuts="z">Z</button>

@@ -1,5 +1,5 @@
-@use "feature";
-@use "../../utils/breakpoints" as breakpoint;
+@use "mixins" as feature;
+@use "../../abstracts/breakpoints" as breakpoint;
 
 .hero {
   @include feature.layout;

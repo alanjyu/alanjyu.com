@@ -1,5 +1,5 @@
-@use "../base/variables" as *;
-@use "../utils/breakpoints" as breakpoint;
+@use "../abstracts/variables" as *;
+@use "../abstracts/breakpoints" as breakpoint;
 
 @mixin subtitle {
   margin: $gap-small 0;

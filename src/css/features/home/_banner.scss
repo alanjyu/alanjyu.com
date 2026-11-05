@@ -1,7 +1,7 @@
-@use "../../base/variables" as *;
-@use "../../utils/breakpoints" as breakpoint;
-@use "feature";
-@use "../../utils/decorations" as decor;
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/breakpoints" as breakpoint;
+@use "mixins" as feature;
+@use "../../abstracts/decorations" as decor;
 
 .banner {
   @include feature.layout;

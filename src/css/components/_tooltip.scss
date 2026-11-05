@@ -1,8 +1,9 @@
-@use '../base/variables' as *;
+@use "../abstracts/variables" as *;
 
 .tooltip {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   gap: 1px;
@@ -19,20 +20,19 @@
   &::before {
     content: ' ';
     position: absolute;
-    top: var(--hover-y);
-    left: var(--hover-x);
+    inset: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    transform: scale(0) translate(-50%, -50%);
-    transition: transform $animation-time linear;
-    background-color: var(--highlight-color);
+    border-radius: inherit;
+    clip-path: circle(0 at var(--hover-x) var(--hover-y));
+    transition: clip-path $animation-time linear;
+    background: var(--glass-highlight);
     z-index: -1;
   }
 
   &:hover::before,
   &:focus-visible::before {
-    transform: scale(4);
+    clip-path: circle(150% at var(--hover-x) var(--hover-y));
   }
 
   &::after {
@@ -54,6 +54,7 @@
   &:hover,
   &:focus-visible {
     border-color: var(--border-color);
+    color: var(--highlight-text-color);
   }
 }
 
@@ -66,8 +67,8 @@ html[data-theme="dark"] .tooltip::after {
   top: 0;
   left: 0;
   transform: translateX(-50%) translateY(calc(-100% - 10px));
-  background: var(--highlight-color);
-  color: var(--text-color);
+  background: var(--glass-highlight);
+  color: var(--highlight-text-color);
   padding: $gap-small;
   border-radius: $border-radius;
   line-height: 1.4;
@@ -85,7 +86,7 @@ html[data-theme="dark"] .tooltip::after {
     left: 50%;
     transform: translateX(-50%);
     border: 6px solid transparent;
-    border-top-color: var(--highlight-color);
+    border-top-color: var(--highlight-end);
   }
 
   &--visible {

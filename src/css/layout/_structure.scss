@@ -1,0 +1,17 @@
+@use "../abstracts/layout" as geometry;
+
+.section {
+  @include geometry.section;
+}
+
+.container {
+  @include geometry.container;
+}
+
+.sticky {
+  @include geometry.sticky;
+}
+
+.fullframe {
+  @include geometry.fullframe;
+}

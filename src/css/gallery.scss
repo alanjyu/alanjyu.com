@@ -1,10 +1,9 @@
-@use "base/reset";
-@use "base/theme";
-@use "base/fonts";
+@use "base";
 
-@use "components/texts";
+@use "components/subtitle";
 
-@use "features/navigation/nav";
-@use "components/footer";
+@use "layout/navigation";
+@use "layout/footer";
 @use "features/fluid/background";
-@use "features/gallery/gallery";
+@use "layout/structure";
+@use "features/gallery/layout";

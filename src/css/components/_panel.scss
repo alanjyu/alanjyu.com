@@ -1,8 +1,8 @@
 @use "sass:list";
-@use "../base/variables" as *;
-@use "structures" as struc;
-@use "../utils/decorations" as decor;
-@use "../utils/breakpoints" as breakpoint;
+@use "../abstracts/variables" as *;
+@use "../abstracts/layout" as struc;
+@use "../abstracts/decorations" as decor;
+@use "../abstracts/breakpoints" as breakpoint;
 
 .panel {
   display: flex;

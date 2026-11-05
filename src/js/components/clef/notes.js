@@ -52,6 +52,27 @@ export function noteForAnswer(notes, answer) {
   return { pitchClass, frequency: 440 * 2 ** ((midi - 69) / 12) };
 }
 
+export function ghostNoteForAnswer(notes, answer, mode, keySignature = null) {
+  if (!notes.length || !Number.isInteger(ANSWER_PITCHES[answer])) return null;
+  const { clef } = notes[0];
+  const { min, max } = noteStepsForClef(clef, mode);
+  const midi = note => Math.round(69 + 12 * Math.log2(note.frequency / 440));
+  const center = notes.reduce((sum, note) => sum + midi(note), 0) / notes.length;
+  const preferFlats = keySignature < 0 || (keySignature === null && notes.some(note => note.accidental < 0));
+  const signatureMismatch = note => Number(keySignature !== null && note.accidental !== signatureAccidental(note.letter, keySignature));
+  const candidates = Array.from({ length: max - min + 1 }, (_, index) => min + index)
+    .flatMap(step => [-1, 0, 1].map(accidental => createNote(clef, step, accidental)))
+    .filter(note => isCorrectAnswer(note, answer));
+
+  // Keep the ghost near the exercise, using the active key's spelling when possible.
+  return candidates.sort((a, b) =>
+    Math.abs(midi(a) - center) - Math.abs(midi(b) - center)
+    || signatureMismatch(a) - signatureMismatch(b)
+    || Math.abs(a.accidental) - Math.abs(b.accidental)
+    || (preferFlats ? a.accidental - b.accidental : b.accidental - a.accidental)
+  )[0] || null;
+}
+
 export function ledgerSteps(step) {
   const steps = [];
   for (let line = -2; line >= step; line -= 2) steps.push(line);
@@ -100,17 +121,20 @@ export function describePosition(step) {
   return step % 2 === 0 ? `line ${step / 2 + 1} from the bottom` : `space ${(step + 1) / 2} from the bottom`;
 }
 
-export function layoutNoteHistory(notes, nextNote = null, includeChords = false) {
-  const sequence = nextNote ? [...notes, nextNote] : notes;
+export function layoutNoteHistory(notes, nextNotes = [], includeChords = false) {
+  const upcoming = Array.isArray(nextNotes) ? nextNotes : nextNotes ? [nextNotes] : [];
+  const sequence = [...notes, ...upcoming];
   const hasChords = includeChords || sequence.some(note => note.notes?.length > 1);
-  const spacing = hasChords ? 128 : 88;
+  const spacing = hasChords ? 112 : 80;
   const positions = sequence.map((note, index) => ({ note, index, x: (hasChords ? 265 : 205) + index * spacing }));
   // Align questions across both staves, with a measure boundary to reset accidentals.
-  const barlines = positions.slice(0, -1).map(position => position.x + 27);
+  const accidentalWidth = hasChords ? 82 : 54;
+  const barlines = positions.slice(0, -1).map(position => position.x + (22 + spacing - accidentalWidth) / 2);
   return {
     spacing,
     positions: positions.slice(0, notes.length),
-    preview: nextNote ? positions.at(-1) : null,
+    preview: upcoming.length ? positions[notes.length] : null,
+    previews: positions.slice(notes.length),
     barlines,
     width: Math.max(400, (positions.at(-1)?.x || 0) + 80)
   };

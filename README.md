@@ -29,6 +29,13 @@ The following three commands, stored in [package.json](https://github.com/alanjy
 - `npm run build` is used for debugging and local testing. It complies the source code to [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs) with local hyperlink references.
 - `npm run publish` is for the final release. It first cleans [docs/](https://github.com/alanjyu/alanjyu.com/tree/master/docs), preserving `CNAME` and `.nojekyll`, then compiles all pages with absolute hyperlink references ("https://alanjyu.com/..."). It bypasses Parcel's cache so all output pages are regenerated. Keep manually maintained files outside `docs/`, except for those two deployment files.
 
+## Stylesheets
+
+The SCSS folder is organized by ownership: `abstracts`, `base`, `layout`,
+`components`, and `features`. See the [stylesheet guide](src/css/README.md) for
+naming conventions and where new styles belong. Run `npm run check:styles` to
+check every page stylesheet without writing production files.
+
 ## Clef offline app
 
 Clef at `/clef/` can be installed from Safari on iOS or a supporting Android browser. Open the installation instructions below the piano and wait for **Ready for offline practice** before disconnecting. Practice, notation, and generated piano audio work offline; links to other sections of the website still need a connection.

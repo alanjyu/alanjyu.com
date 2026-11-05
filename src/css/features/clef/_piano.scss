@@ -1,0 +1,94 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/decorations" as decor;
+
+.clef-piano {
+  --music-rest-height: clamp(10px, 1.5svh, 16px);
+  --piano-block-space: #{$gap-medium};
+  --piano-wood-face: #{rgba(#eee1c9, 0.9)};
+  --piano-wood-grain: 0.22;
+  --piano-wood-filter: grayscale(1) brightness(2.6) contrast(0.65);
+  --piano-wood-blend: multiply;
+  --piano-wood-label: #514431;
+  --piano-wood-focus: #66523c;
+  --key-top: #eae9e2;
+  --key-face: #fffef9;
+  --key-edge: #d7d6cc;
+  --key-label: #52594f;
+  --key-border: #bdbfb4;
+  width: 100%;
+  flex-shrink: 0;
+  min-height: 0;
+  justify-content: flex-start;
+  overflow: hidden;
+  isolation: isolate;
+  padding: var(--piano-block-space) var(--piano-side-space);
+  @include decor.acrylic;
+  background-image: linear-gradient(165deg, rgba($white, 0.12), transparent 45%, rgba($black, 0.06));
+  background-color: var(--piano-wood-face);
+  color: var(--piano-wood-label);
+  transition: background-color $animation-time ease, color $animation-time ease;
+
+  // Soften the grain for birch; retain the natural finish in dark mode.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: url("../img/resources/walnut.jpg") left top / 960px auto repeat;
+    filter: var(--piano-wood-filter);
+    mix-blend-mode: var(--piano-wood-blend);
+    opacity: var(--piano-wood-grain);
+    transition: opacity $animation-time ease, filter $animation-time ease;
+    pointer-events: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    height: var(--music-rest-height);
+    border-bottom: 1px solid rgba($black, 0.45);
+    background-image: linear-gradient(180deg, rgba($white, 0.2), rgba($white, 0.04) 28%, transparent 32%, rgba($black, 0.18) 78%, rgba($black, 0.48));
+    background-color: var(--piano-wood-face);
+    box-shadow: 0 4px 5px -3px rgba($black, 0.6);
+    transition: background-color $animation-time ease;
+    pointer-events: none;
+  }
+
+  html[data-theme="dark"] & {
+    --piano-wood-face: #6a4a35;
+    --piano-wood-grain: 1;
+    --piano-wood-filter: none;
+    --piano-wood-blend: normal;
+    --piano-wood-label: #f2e8d6;
+    --piano-wood-focus: #f3dab3;
+  }
+
+  @media (orientation: landscape) and (max-height: 500px) {
+    --piano-block-space: max(#{$gap-small}, calc(var(--music-rest-height) + #{$gap-tiny}));
+  }
+}
+
+.clef-panel-stage {
+  flex: 1 0 auto;
+  min-height: 0;
+}
+
+.clef-settings-slot,
+.clef-statistics-slot {
+  flex: 0 0 auto;
+  min-height: 0;
+
+  &.is-transitioning {
+    overflow: clip;
+
+    > .clef-settings,
+    > .clef-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+  }
+}

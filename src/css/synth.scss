@@ -1,7 +1,5 @@
-@use 'base/reset';
-@use 'base/theme';
-@use 'base/fonts';
+@use "base";
 
-@use 'features/navigation/nav';
-@use 'components/footer';
-@use 'features/synth/synth';
+@use "layout/navigation";
+@use "layout/footer";
+@use "features/synth";

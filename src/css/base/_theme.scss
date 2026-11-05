@@ -1,4 +1,4 @@
-@use "variables" as *;
+@use "../abstracts/variables" as *;
 
 :root,
 html[data-theme="light"] {
@@ -10,13 +10,16 @@ html[data-theme="light"] {
   --shade-color-alpha: #ffffff99;
   --highlight-color: #ffd382;
   --highlight-color-alpha: #efd096c7;
-  --glass-highlight:
+  --highlight-text-color: var(--text-color);
+  --highlight-start: color-mix(in srgb, var(--highlight-color) 74%, #{$silk});
+  --highlight-end: color-mix(in srgb, var(--highlight-color) 34%, #{$silk});
+  --highlight-gradient:
     linear-gradient(
       165deg,
-      color-mix(in srgb, var(--highlight-color) 74%, transparent),
-      color-mix(in srgb, var(--highlight-color) 34%, transparent)
-    ),
-    var(--glass-background);
+      var(--highlight-start),
+      var(--highlight-end)
+    );
+  --glass-highlight: var(--highlight-gradient);
   --pulse-shadow: #0000001f;
   --glass-background:
     linear-gradient(to bottom, color-mix(in srgb, #fff 28%, transparent) 0%, transparent 42%),
@@ -42,15 +45,10 @@ html[data-theme="dark"] {
   --border-color-alpha: #9f9f9f98;
   --shade-color: #474747;
   --shade-color-alpha: #2c2c2c92;
-  --highlight-color: #6a9fbd;
-  --highlight-color-alpha: #82b8d0c7;
-  --glass-highlight:
-    linear-gradient(
-      165deg,
-      color-mix(in srgb, var(--highlight-color) 94%, transparent),
-      color-mix(in srgb, var(--highlight-color) 34%, transparent)
-    ),
-    var(--glass-background);
+  --highlight-color: #2c78a7;
+  --highlight-color-alpha: #2c78a7c7;
+  --highlight-start: color-mix(in srgb, var(--highlight-color) 94%, #{$black});
+  --highlight-end: color-mix(in srgb, var(--highlight-color) 72%, #{$black});
   --pulse-shadow: #ffffff29;
   --glass-background:
     linear-gradient(to bottom, color-mix(in srgb, #c4c4c4 28%, transparent) 0%, transparent 42%),

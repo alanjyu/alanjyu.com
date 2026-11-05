@@ -1,5 +1,5 @@
-@use '../base/variables' as *;
-@use '../utils/animations';
+@use "../abstracts/variables" as *;
+@use "../base/animations";
 
 .hover-pulse {
   &:hover, &:focus {
@@ -11,6 +11,7 @@
 .hover-fill {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   
   --hover-x: 50%;
   --hover-y: 50%;
@@ -18,29 +19,31 @@
   &::after {
     content: ' ';
     position: absolute;
-    top: var(--hover-y);
-    left: var(--hover-x);
+    inset: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    transform: scale(0) translate(-50%, -50%);
-    transition: transform $animation-time linear;
-    background: var(--highlight-color);
+    border-radius: inherit;
+    clip-path: circle(0 at var(--hover-x) var(--hover-y));
+    transition: clip-path $animation-time linear;
+    background: var(--glass-highlight);
     z-index: -1;
   }
 
-  &:hover::after {
-    transform: scale(4);
-  }
-
+  &:hover,
+  &:focus-visible,
   &:active {
-    background: var(--highlight-color);
+    color: var(--highlight-text-color);
+
+    &::after {
+      clip-path: circle(150% at var(--hover-x) var(--hover-y));
+    }
   }
 }
 
 .hover-link {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   text-decoration: none;
   background: transparent;
   display: inline-flex;
@@ -56,20 +59,19 @@
   &::before {
     content: ' ';
     position: absolute;
-    top: var(--hover-y);
-    left: var(--hover-x);
+    inset: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    transform: scale(0) translate(-50%, -50%);
-    transition: transform $animation-time linear;
-    background-color: var(--highlight-color);
+    border-radius: inherit;
+    clip-path: circle(0 at var(--hover-x) var(--hover-y));
+    transition: clip-path $animation-time linear;
+    background: var(--glass-highlight);
     z-index: -1;
   }
 
   &:hover::before,
   &:focus-visible::before {
-    transform: scale(4);
+    clip-path: circle(150% at var(--hover-x) var(--hover-y));
   }
 
   .hover-link__icon {
@@ -83,6 +85,8 @@
 
   &:hover,
   &:focus-visible {
+    color: var(--highlight-text-color);
+
     .hover-link__icon {
       transform: scale(1.2);
       opacity: 1;

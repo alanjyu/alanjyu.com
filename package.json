@@ -32,6 +32,7 @@
     }
   },
   "scripts": {
+    "check:styles": "node scripts/check-styles.mjs",
     "dev": "parcel serve --target build",
     "build": "parcel build --target build && node src/js/clef-offline.mjs",
     "publish": "parcel build --target build --public-url https://alanjyu.com --no-cache && node src/js/clef-offline.mjs"
@@ -50,6 +51,7 @@
     "@parcel/packager-raw-url": "^2.16.4",
     "@parcel/transformer-sass": "^2.16.4",
     "@parcel/transformer-webmanifest": "^2.16.4",
+    "sass": "^1.99.0",
     "sharp": "^0.33.5",
     "svgo": "^3.3.2"
   },

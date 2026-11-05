@@ -1,24 +1,12 @@
-@use "base/reset";
-@use "base/theme";
-@use "base/fonts";
+@use "base";
 
 @use "components/tooltip";
-@use "components/texts";
+@use "components/subtitle";
 
-@use "features/navigation/nav";
-@use "components/footer";
+@use "layout/navigation";
+@use "layout/footer";
 @use "features/fluid/background";
+@use "layout/structure";
 @use "features/home/hero";
 @use "features/home/banner";
-
-main > .section {
-	padding: 0;
-}
-
-main > .section:first-of-type {
-	padding-top: 0;
-}
-
-main > .section:last-child {
-	padding-bottom: 0;
-}
+@use "features/home/page";
